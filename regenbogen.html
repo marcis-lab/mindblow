@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Regenbogen · mindblow</title>
+<meta name="description" content="Sonne im Rücken, Regen vor dir und 42 Grad: warum der Regenbogen nie an einem festen Ort steht, woher die Farben kommen und warum jeder Mensch seinen eigenen sieht.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Physik &amp; Chemie</span>
+    <h1>Wo steht der <em>Regenbogen</em>?</h1>
+    <p class="intro">Er wirkt wie ein riesiges Tor am Himmel, das irgendwo im Feld steht. Doch niemand ist je bei ihm angekommen. Finde heraus, wo er wirklich ist, wie ein Regentropfen Farben macht und warum du nie denselben Regenbogen siehst wie dein Nachbar.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Sonne im Rücken -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Sonne im Rücken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Immer genau gegenüber der Sonne</h2>
+      <p>Einen Regenbogen siehst du nur, wenn zwei Dinge zusammenkommen: Die <strong>Sonne scheint dir in den Rücken</strong>, und vor dir fällt <strong>Regen</strong>. Dein Schatten zeigt dann mitten in den Regen hinein.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="skyLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du läufst los, um zum Ende des Regenbogens zu kommen. Was passiert?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Du kommst an. Er steht an einem festen Ort im Feld.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Er wandert mit dir mit. Du kommst nie an.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Er wird immer grösser, bis du unter ihm durchgehst.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ein Regenbogen ist <strong>kein Ding an einem Ort</strong>, sondern eine <strong>Richtung</strong>. Stell dir eine Linie vor, die von der Sonne durch deinen Kopf geht und bei deinem Schatten weiterläuft. Ihr Ende ist der <strong>Gegenpunkt der Sonne</strong>. Der Regenbogen ist ein Kreis um diesen Punkt, mit einem Radius von rund <strong>42 Grad</strong>. Alle Tropfen, die in dieser Richtung liegen, leuchten für dich farbig.</p>
+          <p>Gehst du einen Schritt, wandert der Gegenpunkt mit, und andere Tropfen übernehmen. Der Bogen bleibt also immer gleich weit weg. Der Gegenpunkt liegt so tief unter dem Horizont, wie die Sonne darüber steht. Darum gilt: Je höher die Sonne, desto tiefer der Bogen. Stell die Sonne selbst ein.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Steht die Sonne höher als rund 42 Grad, liegt der ganze Kreis unter dem Horizont. In der Schweiz steht die Sonne im Sommer am Mittag über 60 Grad hoch. Darum siehst du Regenbögen hier vor allem am Morgen und am späten Nachmittag.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="skyCv" style="height:440px" aria-label="Oben der Blick auf den Regenbogen über dem Horizont, unten eine Seitenansicht mit Sonne, Beobachterin und Regen"></canvas>
+        <div class="locked" id="skyLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="sunIn">Sonnenhöhe</label><input type="range" id="sunIn" min="0" max="60" step="1" value="20" disabled><output id="sunOut">20°</output></div>
+        <div class="row">
+          <button class="btn ghost" id="sEve" disabled>Abend</button>
+          <button class="btn ghost" id="sMorn" disabled>Vormittag</button>
+          <button class="btn ghost" id="sNoon" disabled>Mittag im Sommer</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="walkBtn" disabled>Zum Regenbogen laufen</button>
+        </div>
+        <span class="status" id="skyStatus">Zieh die Sonne hoch und runter und schau, was der Bogen macht.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Gegenpunkt der Sonne</span><span class="val" id="sAnti">20° tief</span><span class="formula">unter dem Horizont</span></div>
+        <div><span class="lbl">Höchster Punkt des Bogens</span><span class="val" id="sTop">22°</span><span class="formula">42° − Sonnenhöhe</span></div>
+        <div><span class="lbl">Sichtbarer Teil des Kreises</span><span class="val" id="sFrac">38 %</span><span class="formula">der Rest liegt im Boden</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Im Tropfen -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Im Tropfen <span class="chip solved-chip">gelöst</span></span>
+      <h2>Gebrochen, gespiegelt, gebrochen</h2>
+      <p>Weisses Sonnenlicht ist ein Gemisch aus allen Farben. Trifft es auf einen Regentropfen, wird es beim Eintritt <strong>gebrochen</strong>, also abgeknickt. Auf der Rückseite des Tropfens wird ein Teil <strong>gespiegelt</strong>, und beim Austritt wird es noch einmal gebrochen. So kommt Licht schräg zurück, ungefähr in die Richtung, aus der es kam.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="dropLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Im Regenbogen ist Rot immer aussen und Violett innen. Warum?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Rot ist die stärkste Farbe und setzt sich oben durch</span></button>
+          <button data-v="b"><span class="k">b</span><span>Rot wird im Tropfen etwas weniger stark gebrochen und kommt unter einem etwas grösseren Winkel zurück</span></button>
+          <button data-v="c"><span class="k">c</span><span>Weiter oben hat es grössere Tropfen, und die färben das Licht rot</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Wasser bricht jede Farbe ein wenig anders: <strong>Violett stärker, Rot schwächer</strong>. Darum kommt jede Farbe unter einem eigenen Winkel aus dem Tropfen zurück. Und es gibt einen Trick: Egal wo das Licht in den Tropfen eintritt, es kommt nie unter mehr als einem bestimmten Winkel zurück. Genau bei diesem Höchstwinkel <strong>bündeln sich viele Strahlen</strong>. Für Rot liegt er bei rund <strong>42 Grad</strong>, für Violett bei rund <strong>40 Grad</strong>.</p>
+          <p>Rot kommt also aus Tropfen, die etwas weiter vom Gegenpunkt entfernt sind: aussen am Bogen. Violett kommt von weiter innen. Schick selbst Licht in den Tropfen und schalte «Viele Strahlen» ein.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Ein einzelner Tropfen schickt dir nur eine Farbe. Ein Tropfen weiter oben leuchtet für dich rot, einer etwas weiter unten grün. Während er fällt, wechselt er die Farbe. Dein Regenbogen besteht aus Millionen Tropfen, die dir jeweils kurz eine einzige Farbe zeigen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="dropCv" style="height:380px" aria-label="Ein stark vergrösserter Regentropfen. Ein Sonnenstrahl tritt von links ein, wird gebrochen, an der Rückseite gespiegelt und tritt schräg nach links unten wieder aus"></canvas>
+        <div class="locked" id="dropLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="bIn">Eintrittshöhe</label><input type="range" id="bIn" min="0" max="99" step="1" value="86" disabled><output id="bOut">86 %</output></div>
+        <div class="legend" id="colSel">
+          <span class="eyebrow">Farbe:</span>
+          <button data-c="r" class="active" disabled><span class="sw" style="background:#e8352b"></span>Rot</button>
+          <button data-c="g" disabled><span class="sw" style="background:#3fb950"></span>Grün</button>
+          <button data-c="v" disabled><span class="sw" style="background:#8a3fd1"></span>Violett</button>
+          <button data-c="w" disabled><span class="sw" style="background:linear-gradient(90deg,#e8352b,#f2cf2a,#3fb950,#2f80e0,#8a3fd1)"></span>Weiss</button>
+        </div>
+        <div class="row">
+          <button class="btn ghost" id="manyBtn" disabled>Viele Strahlen</button>
+          <button class="btn ghost" id="twoBtn" disabled>Zweimal spiegeln</button>
+        </div>
+        <span class="status" id="dropStatus">Verschiebe den Eintrittspunkt und beobachte den Winkel.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Eintrittshöhe</span><span class="val" id="dB">86 %</span><span class="formula">0 = Mitte, 100 = Rand</span></div>
+        <div><span class="lbl">Winkel zurück</span><span class="val" id="dAng">–</span><span class="formula">gegen das Sonnenlicht</span></div>
+        <div><span class="lbl">Strahlen bündeln sich bei</span><span class="val" id="dMax">–</span><span class="formula" id="dMaxF">grösster Winkel</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Jeder sieht seinen eigenen -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Jeder sieht seinen eigenen <span class="chip solved-chip">gelöst</span></span>
+      <h2>Dein Bogen, mein Bogen</h2>
+      <p>Du stehst mit einer Freundin auf einer Wiese. Ihr zeigt beide begeistert auf denselben Regenbogen. Er sieht für euch beide gleich aus: gleiche Höhe, gleiche Farben, gleiche Grösse.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="twinLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Seht ihr wirklich denselben Regenbogen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Ja. Es ist derselbe Bogen aus denselben Tropfen.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Nein. Jede sieht Licht aus anderen Tropfen, also ihren eigenen Regenbogen.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Nur wer näher am Regen steht, sieht den echten Bogen.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Jede von euch hat <strong>ihren eigenen Gegenpunkt</strong>, denn der Gegenpunkt liegt immer auf der Linie Sonne, Kopf, Schatten. Eure Blicklinien zum Bogen laufen parallel und treffen darum <strong>verschiedene Tropfen</strong>. Ihr seht zwei Regenbögen, die nur genau gleich aussehen. Sogar deine beiden Augen sehen Licht aus leicht verschiedenen Tropfen.</p>
+          <p>Mit etwas Glück siehst du weiter aussen einen zweiten, blasseren Bogen: den <strong>Nebenregenbogen</strong> bei rund <strong>51 Grad</strong>. Dort wird das Licht im Tropfen zweimal gespiegelt, und dadurch sind die <strong>Farben umgekehrt</strong>: Rot innen. Zwischen den beiden Bögen ist der Himmel dunkler. Schalte die Bögen unten ein und aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Das dunkle Band zwischen den beiden Bögen heisst <strong>Alexanders Band</strong>. Benannt ist es nach Alexander von Aphrodisias, der es vor rund 1'800 Jahren beschrieben hat. Aus diesem Winkelbereich schickt dir kein einziger Tropfen Licht über eine oder zwei Spiegelungen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="twinCv" style="height:460px" aria-label="Oben Haupt- und Nebenregenbogen mit dunklem Band dazwischen, unten zwei Personen, deren Blicklinien verschiedene Regentropfen treffen"></canvas>
+        <div class="locked" id="twinLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="bowSel">
+          <span class="eyebrow">Zeigen:</span>
+          <button data-m="main" class="active" disabled>Hauptbogen</button>
+          <button data-m="sec" disabled>Nebenbogen</button>
+          <button data-m="both" disabled>Beide</button>
+        </div>
+        <div class="ctrl"><label for="friendIn">Freundin hinter dir</label><input type="range" id="friendIn" min="0" max="60" step="1" value="25" disabled><output id="friendOut">25 m</output></div>
+        <span class="status" id="twinStatus">Hauptbogen: rund 42° um den Gegenpunkt, Rot aussen, Violett innen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Deine Tropfen</span><span class="val" id="tYou">–</span><span class="formula">Höhe im Regen</span></div>
+        <div><span class="lbl">Ihre Tropfen</span><span class="val" id="tFriend">–</span><span class="formula">Höhe im Regen</span></div>
+        <div><span class="lbl">Bogen-Winkel</span><span class="val" id="tAng">42°</span><span class="formula">Regen 200 m entfernt (Beispiel)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum sieht man aus dem Flugzeug manchmal einen ganzen Kreis?</h2>
+      <p>Vom Boden aus ist ein Regenbogen höchstens ein Halbkreis. Aus einem Flugzeug, von einem Berggipfel oder neben einem Rasensprenger kann man aber manchmal einen <strong>vollständigen Regenbogen-Kreis</strong> sehen.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1. Wo liegt der Mittelpunkt des Kreises, und was fehlt am Boden unterhalb des Horizonts?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Der Regenbogen ist eigentlich <strong>immer ein ganzer Kreis</strong> um den Gegenpunkt der Sonne. Vom Boden aus liegt dieser Punkt unter dem Horizont. Für den unteren Teil des Kreises bräuchte es Regentropfen zwischen dir und dem Boden. Dort ist aber nach wenigen Metern die Erde, und es hat zu wenig Tropfen. Der <strong>Boden schneidet den Kreis ab</strong>.</p>
+          <p>Aus dem Flugzeug hat es auch unter dir Regen oder Wolkentröpfchen, und zwar in alle Richtungen. Dann leuchtet der ganze Kreis mit rund 42 Grad Radius. Nicht verwechseln: Die kleinen farbigen Ringe direkt um den Schatten des Flugzeugs heissen Glorie und entstehen anders.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Ein Regenbogen ist eine <em>Richtung</em>, kein Ort.</h2>
+    <ul class="learned">
+      <li><b>Sonne im Rücken</b><span>Der Bogen ist ein Kreis von rund 42 Grad um den Gegenpunkt der Sonne. Je höher die Sonne, desto tiefer der Bogen.</span></li>
+      <li><b>Licht im Tropfen</b><span>Gebrochen, gespiegelt, gebrochen. Jede Farbe kommt unter einem etwas anderen Winkel zurück: Rot aussen, Violett innen.</span></li>
+      <li><b>Dein eigener Bogen</b><span>Jeder Mensch sieht Licht aus anderen Tropfen. Der Nebenbogen bei rund 51 Grad hat die Farben umgekehrt.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/regenbogen.js"></script>
+</body>
+</html>

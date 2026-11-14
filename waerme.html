@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wärme · mindblow</title>
+<meta name="description" content="Löffel und Holzbrett haben dieselbe Temperatur. Warum fühlt sich Metall trotzdem kälter an? Wie Wärme fliesst, was Teilchen damit zu tun haben und warum eine Daunenjacke warm hält.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Physik &amp; Chemie</span>
+    <h1>Warum fühlt sich Metall <em>kälter</em> an?</h1>
+    <p class="intro">Fass in der Küche einen Metalllöffel an und dann ein Holzbrett. Der Löffel fühlt sich deutlich kälter an. Dabei liegen beide seit Stunden im gleichen Raum. Finde heraus, was deine Haut da wirklich misst und wie Wärme von einem Ort zum anderen kommt.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Kontakttemperatur -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Gleich warm, anders gefühlt <span class="chip solved-chip">gelöst</span></span>
+      <h2>Löffel gegen Holzbrett</h2>
+      <p>Ein Löffel aus Stahl und ein Brett aus Holz liegen seit Stunden in der Küche. Die Luft hat <strong>20 °C</strong>. Deine Haut an den Fingern ist etwa <strong>33 °C</strong> warm. Du legst einen Finger auf den Löffel und einen auf das Brett.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="touchLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Welcher Gegenstand ist wirklich kälter?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Der Löffel. Metall ist von Natur aus kälter.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Keiner. Beide haben 20 °C.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Das Brett, weil Holz Wärme speichert und der Löffel nicht.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Beide haben genau <strong>20 °C</strong>, wie alles, was lange im gleichen Raum liegt. Deine Haut ist aber kein Thermometer. Sie spürt, <strong>wie schnell Wärme aus ihr abfliesst</strong>, und das merkt sie an ihrer eigenen Temperatur.</p>
+          <p>Metall leitet Wärme sehr gut. Es saugt die Wärme aus deinem Finger und verteilt sie sofort weiter ins Innere. Deine Haut kühlt an der Berührungsstelle fast bis auf 20 °C ab: Das fühlt sich kalt an. Holz leitet schlecht. Die Wärme staut sich an der Oberfläche, und die Berührungsstelle bleibt fast so warm wie dein Finger. Probier verschiedene Materialien aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>In der Sauna ist die Luft oft 80 bis 90 °C heiss. Trotzdem kannst du dich auf die Holzbank setzen. Einen Metallnagel darin solltest du besser nicht berühren: Bei gleicher Temperatur verbrennt er dich. Hier dreht sich das Spiel um.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="touchCv" style="height:320px" aria-label="Ein Finger berührt eine Platte aus wählbarem Material. Wärmepunkte fliessen aus dem Finger in die Platte, eine Skala zeigt Hauttemperatur, Kontakttemperatur und Temperatur des Gegenstands"></canvas>
+        <div class="locked" id="touchLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="matSel">
+          <span class="eyebrow">Material:</span>
+          <button data-m="holz" disabled><span class="sw" style="background:#b98552"></span>Holz</button>
+          <button data-m="plastik" disabled><span class="sw" style="background:#3f9c98"></span>Kunststoff</button>
+          <button data-m="stein" disabled><span class="sw" style="background:#8e9196"></span>Stein</button>
+          <button data-m="stahl" class="active" disabled><span class="sw" style="background:#b9c0c8"></span>Stahl</button>
+          <button data-m="kupfer" disabled><span class="sw" style="background:#c87533"></span>Kupfer</button>
+        </div>
+        <div class="ctrl"><label for="kTIn">Temperatur des Gegenstands</label><input type="range" id="kTIn" min="-10" max="60" step="1" value="20" disabled><output id="kTOut">20 °C</output></div>
+        <span class="status" id="touchStatus">Alle Gegenstände haben 20 °C. Nur das Material ist verschieden.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Haut an der Berührung</span><span class="val" id="kTc">21,7 °C</span><span class="formula">Kontakttemperatur</span></div>
+        <div><span class="lbl">Wärmeabfluss</span><span class="val" id="kFlow">×3,6</span><span class="formula">verglichen mit Holz</span></div>
+        <div><span class="lbl">Fühlt sich an</span><span class="val" id="kFeel" style="font-size:15px">kalt</span><span class="formula">obwohl gleich warm</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Wärme ist Bewegung -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Wärme ist Bewegung <span class="chip solved-chip">gelöst</span></span>
+      <h2>Zitternde Teilchen</h2>
+      <p>Alles besteht aus winzigen Teilchen: Atomen und Molekülen. Sie sind nie ganz still. In einem festen Körper zittern sie um ihren Platz, in Luft fliegen sie kreuz und quer. <strong>Je wärmer etwas ist, desto heftiger bewegen sich seine Teilchen.</strong> Temperatur ist ein Mass für diese Bewegung.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="partLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du hältst einen Eiswürfel in der Hand, und deine Hand wird kalt. Was fliesst da?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Kälte fliesst vom Eis in deine Hand.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Wärme fliesst von deiner Hand ins Eis.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Beides: Kälte hinein und Wärme hinaus, gleich viel.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Es gibt nur <strong>Wärme</strong>, die fliesst. Kälte ist keine eigene Sache, sondern bloss weniger Wärme. Und Wärme fliesst von allein <strong>immer vom Wärmeren zum Kälteren</strong>.</p>
+          <p>Wo sich zwei Körper berühren, stossen die schnell zitternden Teilchen der warmen Seite die langsameren der kalten Seite an. Dabei geben sie Bewegungsenergie ab. Die warme Seite wird kühler, die kalte wärmer, bis beide gleich warm sind. Dann ist Schluss: Gleichgewicht. Stell unten zwei Temperaturen ein und schieb die Blöcke zusammen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Weil Temperatur Bewegung ist, gibt es eine untere Grenze: −273,15 °C, den absoluten Nullpunkt. Kälter geht nicht. Nach oben gibt es keine solche Grenze. Die Luftmoleküle um dich herum fliegen übrigens bei Zimmertemperatur mit rund 500 Metern pro Sekunde.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="partCv" style="height:340px" aria-label="Zwei Blöcke aus zitternden Teilchen. Werden sie zusammengeschoben, wandern Energiepakete vom warmen zum kalten Block, bis beide gleich warm sind"></canvas>
+        <div class="locked" id="partLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="t1In">Block links</label><input type="range" id="t1In" min="-20" max="100" step="1" value="80" disabled><output id="t1Out">80 °C</output></div>
+        <div class="ctrl"><label for="t2In">Block rechts</label><input type="range" id="t2In" min="-20" max="100" step="1" value="10" disabled><output id="t2Out">10 °C</output></div>
+        <div class="row">
+          <button class="btn" id="touchBtn" disabled>Zusammenschieben</button>
+          <button class="btn ghost" id="partReset" disabled>Neu: heiss und kalt</button>
+        </div>
+        <span class="status" id="partStatus">Die Blöcke sind getrennt. Dazwischen fliesst keine Wärme.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Links</span><span class="val" id="hL">80,0 °C</span><span class="formula">Teilchen zittern stark</span></div>
+        <div><span class="lbl">Rechts</span><span class="val" id="hR">10,0 °C</span><span class="formula">Teilchen zittern schwach</span></div>
+        <div><span class="lbl">Wärme fliesst</span><span class="val" id="hFlow" style="font-size:15px">gar nicht</span><span class="formula" id="hFlowF">Blöcke getrennt</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Leiten, Strömen, Strahlen -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Leiten, Strömen, Strahlen <span class="chip solved-chip">gelöst</span></span>
+      <h2>Drei Wege für die Wärme</h2>
+      <p>Wärme kann auf drei Arten reisen. Beim <strong>Leiten</strong> geben sich Teilchen die Bewegung weiter, wie beim Löffel. Beim <strong>Strömen</strong> nimmt warme Luft oder warmes Wasser die Wärme mit, wie der Dampf über dem Kaffee. Beim <strong>Strahlen</strong> reist sie als unsichtbares Infrarotlicht, wie die Wärme der Sonne auf deinem Gesicht.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="cupLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Eine Thermoskanne hält Tee stundenlang heiss. Was passiert, wenn du eiskalten Saft hineinfüllst?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Er wird schneller warm, denn die Kanne ist zum Warmhalten da.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Er bleibt stundenlang kalt.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Er wird genau so schnell warm wie in einem normalen Glas.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Eine Thermoskanne heizt nicht und kühlt nicht. Sie <strong>bremst den Wärmefluss</strong>, egal in welche Richtung. Zwischen ihren zwei Wänden ist fast luftleerer Raum: Ohne Teilchen gibt es kein Leiten und kein Strömen. Die verspiegelte Innenwand wirft die Wärmestrahlung zurück. Der Deckel stoppt die warme Luft und den Dampf.</p>
+          <p>Darum bleibt Heisses heiss und Kaltes kalt. Wähle unten eine Verpackung und schau zu, wie schnell der Inhalt die Temperatur der Luft annimmt. Stell auch einmal ein kaltes Getränk ein.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Zwischen Sonne und Erde liegen rund 150 Millionen Kilometer fast leerer Weltraum. Dort gibt es nichts, was leiten oder strömen könnte. Jedes bisschen Sonnenwärme, das dich je erreicht hat, kam als Strahlung.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="cupCv" style="height:400px" aria-label="Ein Getränk in einer wählbaren Verpackung mit Pfeilen für Leiten, Strömen und Strahlen, daneben die Abkühlkurven über sechs Stunden"></canvas>
+        <div class="locked" id="cupLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="cupSel">
+          <span class="eyebrow">Verpackung:</span>
+          <button data-c="open" class="active" disabled>Offene Tasse</button>
+          <button data-c="lid" disabled>Mit Deckel</button>
+          <button data-c="wool" disabled>Deckel und Wollhülle</button>
+          <button data-c="thermos" disabled>Thermoskanne</button>
+        </div>
+        <div class="ctrl"><label for="c0In">Start&shy;temperatur</label><input type="range" id="c0In" min="5" max="95" step="1" value="85" disabled><output id="c0Out">85 °C</output></div>
+        <div class="ctrl"><label for="cTIn">Zeit</label><input type="range" id="cTIn" min="0" max="360" step="1" value="0" disabled><output id="cTOut">0 min</output></div>
+        <div class="row">
+          <button class="btn" id="cPlay" disabled>Zeit laufen lassen</button>
+        </div>
+        <span class="status" id="cupStatus">Die Luft im Raum hat 20 °C. Jedes Getränk nähert sich dieser Temperatur.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Temperatur</span><span class="val" id="cNow">85,0 °C</span><span class="formula" id="cNowF">am Anfang</span></div>
+        <div><span class="lbl">Halber Weg zu 20 °C</span><span class="val" id="cHalf">24 min</span><span class="formula">vereinfacht</span></div>
+        <div><span class="lbl">Unterschied zur Luft</span><span class="val" id="cDiff">65 °C</span><span class="formula">treibt den Wärmefluss</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum hält eine Daunenjacke warm?</h2>
+      <p>Eine Daunenjacke hat keine Batterie und keine Heizung. Hängt sie im kalten Laden, fühlt sie sich nicht warm an. Trotzdem frierst du darin im Winter kaum. Woher kommt die Wärme?</p>
+      <p><strong>Tipp:</strong> Denk an Teil 3. Was ist zwischen den Daunen, und was bremst sie?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Die Wärme kommt von <strong>dir</strong>. Dein Körper verbrennt Nahrung und gibt in Ruhe ständig Wärme ab, etwa so viel wie eine helle Glühbirne (rund 100 Watt, vereinfacht). Die Jacke macht keine Wärme. Sie <strong>bremst nur, wie schnell sie verloren geht</strong>, genau wie die Thermoskanne.</p>
+          <p>Der Trick ist die Luft. Die flauschigen Daunen halten sehr viel Luft fest. Stehende Luft leitet Wärme sehr schlecht, tausende Male schlechter als Kupfer. Und weil die Daunen die Luft festhalten, kann sie nicht strömen und die Wärme wegtragen. Darum hält eine nasse, zusammengedrückte Daunenjacke kaum noch warm: Die Luftpolster sind weg, und Wasser leitet Wärme rund 20 Mal besser als Luft.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Deine Haut spürt <em>Wärmefluss</em>, nicht Temperatur.</h2>
+    <ul class="learned">
+      <li><b>Gleich warm, anders gefühlt</b><span>Metall fühlt sich kalt an, weil es die Wärme schnell aus deinem Finger leitet. Nicht, weil es kälter ist.</span></li>
+      <li><b>Wärme ist Bewegung</b><span>Wärmere Teilchen zittern heftiger. Wärme fliesst immer vom Wärmeren zum Kälteren, bis beide gleich warm sind.</span></li>
+      <li><b>Leiten, Strömen, Strahlen</b><span>Auf diesen drei Wegen reist Wärme. Thermoskanne und Daunenjacke bremsen sie, heizen aber nicht.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/waerme.js"></script>
+</body>
+</html>
