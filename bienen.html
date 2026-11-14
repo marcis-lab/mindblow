@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bienen · mindblow</title>
+<meta name="description" content="Der Schwänzeltanz verrät Richtung und Entfernung, Sechseckwaben sparen Wachs und ohne Bestäuber gäbe es kaum Äpfel: wie Bienen miteinander sprechen und warum das ganze Volk zählt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Pflanzen, Tiere &amp; Evolution</span>
+    <h1>Wie sprechen <em>Bienen</em> miteinander?</h1>
+    <p class="intro">Eine Sammlerin findet zwei Kilometer vom Stock entfernt eine blühende Wiese. Zurück im dunklen Stock erzählt sie es ihren Schwestern, ganz ohne Worte. Finde heraus, wie sie das macht, warum ihre Waben sechseckig sind und was dein Apfel mit ihr zu tun hat.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Schwänzeltanz -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Der Schwänzeltanz <span class="chip solved-chip">gelöst</span></span>
+      <h2>Eine Wegbeschreibung zum Tanzen</h2>
+      <p>Eine Honigbiene fliegt zum Sammeln oft mehrere Kilometer weit. Hat sie eine gute Futterquelle gefunden, kehrt sie in den Stock zurück. Kurz darauf fliegen andere Bienen los und finden genau diese Blumen.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="danceLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie erfahren die anderen Bienen, wo die Blumen sind?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Sie riechen die Blumen einfach selbst, auch über Kilometer</span></button>
+          <button data-v="b"><span class="k">b</span><span>Die Sammlerin tanzt auf der Wabe. Im Tanz stecken Richtung und Entfernung.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Sie fliegen der Sammlerin hinterher, sie zeigt ihnen den Weg</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Sammlerin <strong>tanzt</strong>. Auf der senkrechten Wabe läuft sie ein Stück geradeaus und wackelt dabei mit dem Hinterleib: der <strong>Schwänzellauf</strong>. Dann kehrt sie in einem Bogen zurück, abwechselnd links und rechts herum. So entsteht eine Art Acht.</p>
+          <p>Der <strong>Winkel</strong> des Schwänzellaufs zur Senkrechten ist der Winkel zwischen Sonne und Futter. Läuft sie genau nach oben, liegt das Futter in Richtung Sonne. Die <strong>Dauer</strong> des Schwänzellaufs verrät die Entfernung: je länger, desto weiter (vereinfacht, grob eine Sekunde pro Kilometer). Den Duft der Blüten tragen die Tänzerinnen am Körper mit. Er hilft den anderen erst auf den letzten Metern. Entschlüsselt hat das der Forscher <strong>Karl von Frisch</strong>. Er bekam dafür 1973 den Nobelpreis.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Im Stock ist es stockdunkel. Die anderen Bienen sehen den Tanz also gar nicht. Sie laufen dicht hinter der Tänzerin her und spüren ihn: mit den Fühlern, über Vibrationen und Summgeräusche.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="danceCv" style="height:440px" aria-label="Links die Draufsicht mit Bienenstock, Sonne und Blumenwiese, rechts die senkrechte Wabe mit einer tanzenden Biene"></canvas>
+        <div class="locked" id="danceLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="dirIn">Richtung der Wiese</label><input type="range" id="dirIn" min="0" max="359" step="1" value="225" disabled><output id="dirOut">SW 225°</output></div>
+        <div class="ctrl"><label for="distIn">Entfernung</label><input type="range" id="distIn" min="200" max="4000" step="50" value="1500" disabled><output id="distOut">1,5 km</output></div>
+        <div class="ctrl"><label for="timeIn">Tageszeit</label><input type="range" id="timeIn" min="8" max="18" step="0.25" value="11" disabled><output id="timeOut">11:00</output></div>
+        <div class="row">
+          <button class="btn ghost" id="sunBtn" disabled>Sonne wandern lassen</button>
+          <button class="btn ghost" id="toSunBtn" disabled>Wiese genau zur Sonne</button>
+        </div>
+        <span class="status" id="danceStatus">Du kannst die Wiese in der Draufsicht auch direkt verschieben.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Winkel auf der Wabe</span><span class="val" id="dAngle" style="font-size:15px">–</span><span class="formula">gemessen von «oben»</span></div>
+        <div><span class="lbl">Schwänzellauf</span><span class="val" id="dDur">1,5 s</span><span class="formula">grob 1 s pro km</span></div>
+        <div><span class="lbl">Sonne steht im</span><span class="val" id="dSun" style="font-size:15px">–</span><span class="formula">Sommertag, vereinfacht</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Sechsecke -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Warum Sechsecke? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Sparsam bauen mit Wachs</h2>
+      <p>Wachs ist für Bienen kostbar. Sie schwitzen es aus Drüsen am Hinterleib aus, und dafür müssen sie viel Honig fressen. Trotzdem bauen sie Tausende Zellen für Honig, Pollen und Brut. Und alle sind sechseckig.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="hexLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum sind die Zellen sechseckig?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Weil Bienen sechs Beine haben und damit die Ecken abmessen</span></button>
+          <button data-v="b"><span class="k">b</span><span>Sechsecke füllen die Fläche ohne Lücken und brauchen dafür am wenigsten Wand</span></button>
+          <button data-v="c"><span class="k">c</span><span>In ein Sechseck passt mehr Honig als in einen Kreis mit gleich langer Wand</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Allein betrachtet ist der <strong>Kreis</strong> unschlagbar: Keine Form umschliesst mit gleich viel Rand mehr Fläche. Aber Kreise passen nicht lückenlos aneinander. Dazwischen bleibt Platz, der nichts nützt, und jede Zelle braucht ihre eigene Wand.</p>
+          <p>Nur drei regelmässige Formen füllen eine Fläche <strong>ohne Lücken</strong>: Dreieck, Quadrat und Sechseck. Benachbarte Zellen teilen sich dabei jede Wand. Von diesen dreien braucht das <strong>Sechseck</strong> bei gleicher Fläche am wenigsten Wand, also am wenigsten Wachs. Vergleiche selbst.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Dass Sechsecke die sparsamste Art sind, eine Fläche in gleich grosse Zellen zu teilen, vermutete man schon in der Antike. Bewiesen hat es erst 1999 der Mathematiker Thomas Hales.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="hexCv" style="height:340px" aria-label="Zellen in der gewählten Form, alle mit gleicher Fläche, Lücken sind farbig markiert"></canvas>
+        <div class="locked" id="hexLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="shapeSel">
+          <span class="eyebrow">Form:</span>
+          <button data-s="circle" disabled>Kreis</button>
+          <button data-s="tri" disabled>Dreieck</button>
+          <button data-s="square" disabled>Quadrat</button>
+          <button data-s="hex" class="active" disabled>Sechseck</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="honeyBtn" disabled>Honig einfüllen</button>
+        </div>
+        <span class="status" id="hexStatus">Alle Formen haben pro Zelle genau gleich viel Fläche.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Wachs pro Zelle</span><span class="val" id="hWax">100 %</span><span class="formula">Sechseck = 100 %</span></div>
+        <div><span class="lbl">Lücken</span><span class="val" id="hGap">keine</span><span class="formula">Platz ohne Zelle</span></div>
+        <div><span class="lbl">Umfang einer Zelle</span><span class="val" id="hPer">105 %</span><span class="formula">Kreis = 100 %</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Bestäubung -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Bestäubung und Honig <span class="chip solved-chip">gelöst</span></span>
+      <h2>Kein Apfel ohne Besuch</h2>
+      <p>Bienen sammeln <strong>Nektar</strong> und <strong>Pollen</strong>. Beim Sammeln bleibt Blütenstaub in ihrem Pelz hängen. An der nächsten Blüte streifen sie etwas davon ab. So bestäuben sie die Blüten, ganz nebenbei.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="orchLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was passiert mit einem Apfelbaum, wenn keine Insekten seine Blüten besuchen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Nichts. Der Wind bestäubt die Blüten genauso gut.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Er trägt viel weniger Äpfel</span></button>
+          <button data-v="c"><span class="k">c</span><span>Er trägt mehr Äpfel, weil ihm niemand den Nektar wegnimmt</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Apfelblüten brauchen meist Pollen von einer <strong>anderen Apfelsorte</strong>. Der Pollen ist schwer und klebrig, der Wind trägt ihn kaum. Wird eine Blüte nicht bestäubt, fällt sie ab, und es gibt keinen Apfel. Bei Kirschen ist es ähnlich. Darum stellen Obstbauern zur Blütezeit oft Bienenvölker in ihre Anlagen.</p>
+          <p>Und der Honig? Nektar ist vor allem Zuckerwasser. Die Bienen geben Enzyme dazu und lassen viel Wasser verdunsten, bis ein dicker, haltbarer Honig entsteht. Für ein einziges Glas mit 500 Gramm braucht es <strong>zehntausende Sammelflüge</strong>. Probier im Obstgarten aus, wie viele Bestäuber es braucht (ein vereinfachtes Modell).</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Nicht nur Honigbienen bestäuben. In der Schweiz leben über 600 Wildbienenarten, dazu Hummeln, Fliegen und Schmetterlinge. Viele Wildbienen fliegen auch bei kühlem Wetter, wenn die Honigbienen lieber im Stock bleiben.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="orchCv" style="height:360px" aria-label="Ein Obstgarten mit sechs blühenden Apfelbäumen und einem Bienenstock. Bienen fliegen von Blüte zu Blüte"></canvas>
+        <div class="locked" id="orchLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="beeIn">Honigbienen</label><input type="range" id="beeIn" min="0" max="40" step="1" value="12" disabled><output id="beeOut">12</output></div>
+        <div class="row">
+          <button class="btn ghost" id="coldBtn" disabled>Kühles Wetter</button>
+          <button class="btn ghost" id="wildBtn" disabled>Wildbienen dazu</button>
+        </div>
+        <span class="status" id="orchStatus">Eine Blütezeit dauert hier rund 10 Sekunden. Danach siehst du die Ernte.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Bestäubte Blüten</span><span class="val" id="oPct">–</span><span class="formula">Modell, vereinfacht</span></div>
+        <div><span class="lbl">Besuche pro Blüte</span><span class="val" id="oVis">–</span><span class="formula">im Durchschnitt</span></div>
+        <div><span class="lbl">Äpfel im Bild</span><span class="val" id="oApp">–</span><span class="formula">von 60 Blüten</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum sticht eine Biene, wenn sie dabei stirbt?</h2>
+      <p>Sticht eine Honigbiene einen Menschen, bleibt ihr Stachel oft in der Haut stecken. Beim Wegfliegen reisst er ab, und die Biene stirbt kurz darauf. Für die einzelne Biene ist das ein schlechtes Geschäft.</p>
+      <p><strong>Tipp:</strong> Wer im Bienenvolk legt eigentlich die Eier? Und für wen arbeitet eine Arbeiterin ihr ganzes Leben lang?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Der Stachel einer Arbeiterin hat feine <strong>Widerhaken</strong>. In der zähen, elastischen Haut von Säugetieren verhaken sie sich. Die Biene kommt nicht mehr los und verliert beim Wegfliegen Stachel und Giftblase. Die Giftblase pumpt danach noch weiter Gift in die Wunde, und ein Alarmduft ruft weitere Bienen herbei. Andere Insekten kann die Biene meist stechen, ohne zu sterben.</p>
+          <p>Entscheidend ist: Arbeiterinnen bekommen in einem gesunden Volk normalerweise <strong>keinen eigenen Nachwuchs</strong>. Eier legt die Königin, die Mutter aller Arbeiterinnen. Die Gene einer Arbeiterin kommen also über ihre Mutter und Schwestern weiter. Ein Volk hat im Sommer zehntausende Arbeiterinnen. Stirbt eine, um Honig und Brut zu verteidigen, ist das ein kleiner Verlust. Wird der Stock geplündert, ist alles verloren. Gezählt wird nicht die einzelne Biene, sondern <strong>das Volk</strong> (vereinfacht).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Tanz, Wachs und <em>Teamwork</em>.</h2>
+    <ul class="learned">
+      <li><b>Schwänzeltanz</b><span>Der Winkel zur Senkrechten zeigt die Richtung zur Sonne, die Dauer des Schwänzellaufs die Entfernung.</span></li>
+      <li><b>Sechseckwaben</b><span>Sechsecke füllen die Fläche ohne Lücken und brauchen dafür am wenigsten Wachs.</span></li>
+      <li><b>Bestäuber</b><span>Äpfel und Kirschen brauchen Insekten, die Pollen von Blüte zu Blüte tragen. Honigbienen und über 600 Wildbienenarten.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/bienen.js"></script>
+</body>
+</html>

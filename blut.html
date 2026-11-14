@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Blut · mindblow</title>
+<meta name="description" content="Plasma, rote Blutkörperchen und Blutplättchen: was sich im Röhrchen trennt, wie viele neue Blutzellen du jede Sekunde bildest und wie eine Wunde sich selbst verschliesst.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Körper &amp; Gesundheit</span>
+    <h1>Was steckt im <em>Blut</em>?</h1>
+    <p class="intro">Es sieht aus wie eine rote Flüssigkeit. In Wahrheit ist es ein flüssiges Organ voller winziger Zellen. Finde heraus, woraus Blut besteht, wie schnell dein Körper es erneuert und wie es eine Wunde verschliesst.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Zusammensetzung -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Was im Röhrchen passiert <span class="chip solved-chip">gelöst</span></span>
+      <h2>Rot ist nur die Mischung</h2>
+      <p>Ein erwachsener Mensch hat rund <strong>5 Liter</strong> Blut. Füllt man etwas davon in ein Röhrchen und schleudert es in einer <strong>Zentrifuge</strong>, trennt es sich in Schichten. Schwere Teile sinken nach unten, leichte bleiben oben.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="sepLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Welcher Anteil deines Blutes besteht aus Zellen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Rund 10 %. Blut ist vor allem eine rote Flüssigkeit.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Rund 45 %</span></button>
+          <button data-v="c"><span class="k">c</span><span>Rund 90 %. Blut ist fast nur Zellen.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Etwas weniger als die Hälfte sind Zellen, und fast alle davon sind <strong>rote Blutkörperchen</strong>. Ihr Anteil heisst <strong>Hämatokrit</strong> und liegt bei Erwachsenen meist bei rund 40 bis 45 % (bei Männern im Schnitt etwas höher als bei Frauen).</p>
+          <p>Gut die Hälfte ist <strong>Plasma</strong>, eine gelbliche Flüssigkeit. Sie besteht zu rund 90 % aus Wasser und transportiert Salze, Zucker, Eiweisse, Hormone und einen grossen Teil des CO₂. Dazwischen liegt eine hauchdünne weisse Schicht: <strong>weisse Blutkörperchen</strong> und <strong>Blutplättchen</strong>, zusammen weniger als 1 %. Die weissen sind deine Abwehr (mehr dazu im Thema Immunsystem). Schleuder selbst.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Zählt man alle Zellen in deinem Körper, sind über drei Viertel davon rote Blutkörperchen: rund 25 Billionen Stück. Weil sie so winzig sind, machen sie trotzdem nur einen kleinen Teil deines Gewichts aus.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="sepCv" style="height:340px" aria-label="Eine Zentrifuge dreht ein Röhrchen mit Blut. Daneben trennt sich das Blut in gelbes Plasma, eine dünne weisse Schicht und rote Blutkörperchen"></canvas>
+        <div class="locked" id="sepLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="sepIn">Zeit in der Zentrifuge</label><input type="range" id="sepIn" min="0" max="100" step="1" value="0" disabled><output id="sepOut">0,0 min</output></div>
+        <div class="ctrl"><label for="hctIn">Anteil rote Blutkörperchen</label><input type="range" id="hctIn" min="35" max="52" step="1" value="44" disabled><output id="hctOut">44 %</output></div>
+        <div class="row">
+          <button class="btn" id="spinBtn" disabled>Schleudern</button>
+          <button class="btn ghost" id="shakeBtn" disabled>Schütteln</button>
+        </div>
+        <span class="status" id="sepStatus">Frisches Blut ist gut gemischt. Starte die Zentrifuge.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Plasma</span><span class="val" id="sPlasma">55 %</span><span class="formula">gelblich, vor allem Wasser</span></div>
+        <div><span class="lbl">Rote Blutkörperchen</span><span class="val" id="sRed">44 %</span><span class="formula">Hämatokrit</span></div>
+        <div><span class="lbl">Weisse + Plättchen</span><span class="val" id="sWhite">&lt; 1 %</span><span class="formula">dünne helle Schicht</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Rote Blutkörperchen -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Rote Blutkörperchen <span class="chip solved-chip">gelöst</span></span>
+      <h2>Sauerstoff-Taxis ohne Kern</h2>
+      <p>Ein rotes Blutkörperchen ist eine winzige Scheibe mit einer Delle in der Mitte, rund 7 bis 8 Tausendstel Millimeter breit. Es ist vollgepackt mit <strong>Hämoglobin</strong>. Dieser rote Farbstoff enthält Eisen. Er bindet in der Lunge Sauerstoff und gibt ihn im Körper wieder ab.</p>
+      <p>Um mehr Platz für Hämoglobin zu haben, werfen die Zellen beim Reifen ihren <strong>Zellkern</strong> hinaus. Ohne Kern können sie sich aber nicht reparieren. Nach rund <strong>120 Tagen</strong> sind sie abgenutzt und werden vor allem in Milz und Leber abgebaut.</p>
+      <div class="quiz" data-q="q2" data-correct="c" data-unlock="rbcLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie viele neue rote Blutkörperchen bildet dein Körper pro Sekunde?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Rund 200</span></button>
+          <button data-v="b"><span class="k">b</span><span>Rund 20'000</span></button>
+          <button data-v="c"><span class="k">c</span><span>Rund 2 Millionen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Es sind rund <strong>2 Millionen pro Sekunde</strong>, Tag und Nacht. Die Rechnung dahinter: Du hast rund 25 Billionen rote Blutkörperchen (je nach Körper etwa 20 bis 30 Billionen). Wenn jedes rund 120 Tage lebt, muss der Körper sie alle in 120 Tagen einmal ersetzen. 25 Billionen geteilt durch die rund 10 Millionen Sekunden in 120 Tagen ergibt etwa 2,4 Millionen pro Sekunde (eine Grössenordnung, keine genaue Zahl).</p>
+          <p>Gebildet werden sie im <strong>roten Knochenmark</strong>, bei Erwachsenen vor allem in Becken, Brustbein, Rippen und Wirbeln. Schau, was in einer Minute, einem Tag oder 120 Tagen zusammenkommt.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Auf den roten Blutkörperchen sitzen kleine Merkmale. Je nachdem, welche du hast, hast du Blutgruppe A, B, AB oder 0. Dazu kommt der Rhesusfaktor: positiv oder negativ. Darum muss Blut bei einer Blutspende zum Empfänger passen. Sonst hält das Immunsystem die fremden Zellen für Eindringlinge.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="rbcCv" style="height:330px" aria-label="Das Knochenmark bildet laufend rote Blutkörperchen, Milz und Leber bauen alte ab. Ein Zähler zeigt, wie viele neue entstehen"></canvas>
+        <div class="locked" id="rbcLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="spanIn">Zeitraum</label><input type="range" id="spanIn" min="0" max="6" step="1" value="3" disabled><output id="spanOut">1 Tag</output></div>
+        <div class="row">
+          <button class="btn ghost" id="liveBtn" disabled>Zähler neu starten</button>
+        </div>
+        <span class="status" id="rbcStatus">Der Zähler im Bild läuft in Echtzeit mit. Wähle einen Zeitraum.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Neu gebildet</span><span class="val" id="rNew">207 Mrd.</span><span class="formula">rund 2,4 Mio. pro s</span></div>
+        <div><span class="lbl">Anteil deiner Roten</span><span class="val" id="rShare">0,8 %</span><span class="formula">von rund 25 Billionen</span></div>
+        <div><span class="lbl">Runden durch den Körper</span><span class="val" id="rLaps">1'440</span><span class="formula">eine Runde ≈ 1 Minute</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Gerinnung -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Die Wunde schliesst sich <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Pfropf und ein Netz</h2>
+      <p>Du schneidest dich beim Gemüserüsten in den Finger. Es blutet, aber nach ein paar Minuten hört es von selbst auf. Irgendetwas stopft das Loch im Blutgefäss.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="clotLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was verschliesst eine kleine Schnittwunde?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Das Blut trocknet an der Luft ein, wie Leim</span></button>
+          <button data-v="b"><span class="k">b</span><span>Blutplättchen und ein Netz aus Eiweissfäden</span></button>
+          <button data-v="c"><span class="k">c</span><span>Weisse Blutkörperchen stellen sich in die Lücke</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Zuerst zieht sich das verletzte Gefäss etwas zusammen. Dann bleiben <strong>Blutplättchen</strong> am Rand der Wunde haften. Sie werden aktiv, bilden kleine Fortsätze und locken weitere Plättchen an. So entsteht ein lockerer <strong>Pfropf</strong>.</p>
+          <p>Gleichzeitig startet eine Kette von Gerinnungs-Eiweissen. Am Ende verwandelt sie das gelöste Eiweiss Fibrinogen in feste <strong>Fibrin-Fäden</strong>. Die Fäden bilden ein Netz, das den Pfropf festzurrt und rote Blutkörperchen einfängt. Das ist das Gerinnsel, aus dem später die Kruste wird. Eintrocknen allein würde viel zu lange dauern (vereinfacht). Spiel es durch.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Blutplättchen sind gar keine ganzen Zellen. Es sind Bruchstücke von Riesenzellen im Knochenmark. Sie leben nur rund 7 bis 10 Tage, und in einem einzigen Kubikmillimeter Blut schwimmen rund 150'000 bis 400'000 davon.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="clotCv" style="height:340px" aria-label="Querschnitt durch Haut und ein Blutgefäss mit einem Schnitt. Blutplättchen lagern sich an, Fibrin-Fäden bilden ein Netz und die Blutung stoppt"></canvas>
+        <div class="locked" id="clotLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="pltSel">
+          <span class="eyebrow">Blutplättchen:</span>
+          <button data-p="normal" class="active" disabled>Normal viele</button>
+          <button data-p="low" disabled>Sehr wenige</button>
+        </div>
+        <div class="ctrl"><label for="ctIn">Zeit seit dem Schnitt</label><input type="range" id="ctIn" min="0" max="360" step="1" value="0" disabled><output id="ctOut">0:00 min</output></div>
+        <div class="row">
+          <button class="btn" id="clotPlay" disabled>Abspielen</button>
+          <button class="btn ghost" id="clotReset" disabled>Neuer Schnitt</button>
+        </div>
+        <span class="status" id="clotStatus">Spiel ab oder zieh den Regler. Beobachte, was sich in der Lücke sammelt.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Phase</span><span class="val" id="kPhase" style="font-size:15px">frischer Schnitt</span><span class="formula">vereinfachtes Modell</span></div>
+        <div><span class="lbl">Blutung</span><span class="val" id="kBleed" style="font-size:15px">stark</span><span class="formula">wie viel noch austritt</span></div>
+        <div><span class="lbl">Fibrin-Netz</span><span class="val" id="kFib">0 %</span><span class="formula">wie fertig das Netz ist</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Rotes Blut, blaue Adern?</h2>
+      <p>Bei jeder Blutentnahme siehst du es: Auch das Blut aus der Vene ist rot, höchstens etwas dunkler. Trotzdem schimmern die Adern an deinem Handgelenk bläulich durch die Haut.</p>
+      <p><strong>Tipp:</strong> Die Farbe, die du siehst, ist Licht, das aus deiner Haut zurückkommt. Kommt rotes und blaues Licht gleich gut wieder heraus?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Blut ist <strong>immer rot</strong>: hellrot mit viel Sauerstoff, dunkelrot mit wenig. Das Blaue entsteht erst in deiner Haut. <strong>Rotes Licht</strong> dringt tief in die Haut ein. Wo darunter eine Vene liegt, wird viel davon vom Blut geschluckt und kommt nicht mehr zurück. <strong>Blaues Licht</strong> wird schon in den oberen Hautschichten zurückgeworfen und merkt von der Vene kaum etwas.</p>
+          <p>Über der Vene kommt also weniger Rot zurück als von der Haut daneben. Dein Gehirn vergleicht mit der Umgebung, und so wirkt die Stelle bläulich (vereinfacht). Die Vene ist nicht blau. Sie ist nur weniger rot als ihre Nachbarschaft.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Ein flüssiges <em>Organ</em>.</h2>
+    <ul class="learned">
+      <li><b>Halb Zellen, halb Plasma</b><span>Rund 45 % sind Zellen, fast alle rot. Der Rest ist gelbliches Plasma, vor allem Wasser.</span></li>
+      <li><b>Dauernd erneuert</b><span>Rote Blutkörperchen leben rund 120 Tage. Dein Knochenmark bildet rund 2 Millionen neue pro Sekunde.</span></li>
+      <li><b>Selbstreparatur</b><span>Blutplättchen bilden einen Pfropf, ein Netz aus Fibrin-Fäden macht ihn fest. Blut ist dabei immer rot.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/blut.js"></script>
+</body>
+</html>
