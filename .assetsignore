@@ -16,3 +16,4 @@ wrangler.jsonc
 # lokaler Vorschau-Server, gehört nicht auf die Website
 server.js
 CLAUDE.md
+tools

@@ -784,3 +784,8 @@ footer { font-family: var(--f-sans); }
 }
 .topic.soon-t h3 em { background: none; color: inherit; -webkit-text-fill-color: currentColor; }
 .think .think-q { color: var(--muted); font-size: 16px; }
+/* Lexikon-Knopf in der Kopfzeile: schlicht wie die anderen Menüpunkte */
+.top [data-lexikon] { display: contents; }
+.top .lx-btn { background: none; border: 0; box-shadow: none; padding: 7px 12px 7px 8px; font-size: 15px; color: var(--ink-2); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.top .lx-btn:hover { background: var(--sunk); color: var(--fg); }
+@media (max-width: 640px) { .top .lx-btn { font-size: 0; gap: 0; padding: 8px; } }

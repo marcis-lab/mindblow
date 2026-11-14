@@ -35,3 +35,17 @@ Nichts von Hand hochladen. Konfiguration: `wrangler.jsonc`, ausgeschlossene Date
 4. Nummer im Eyebrow (`Thema NN`) und die «Weiter»-Links der Nachbarseiten anpassen.
 
 Gemeinsames Design: `css/style.css`. Gemeinsame Logik: `js/common.js`.
+
+## Lexikon-Verbund
+
+mindblow ist mit Weltgeschichte, Periodensystem und Bibel verstehen verbunden. Das gemeinsame Skript liegt hier:
+`lexikon/lexikon.js` (Knopf «Lexikon» und Suche über alle vier Seiten). Die anderen Seiten laden es von
+https://mindblow.thinklabs.workers.dev/lexikon/lexikon.js.
+
+Jede Seite hat einen Suchindex `lexikon.json`. Für mindblow nach jeder Änderung an `js/themen.js` ausführen:
+
+```bash
+node tools/lexikon-index.js
+```
+
+`_headers` erlaubt anderen Seiten, `lexikon.json` zu lesen.

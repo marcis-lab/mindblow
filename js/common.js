@@ -171,6 +171,7 @@ window.MB = (() => {
   if (nav) {
     nav.className = 'mainnav'; nav.setAttribute('aria-label', 'Themen');
     nav.innerHTML = `
+      <span data-lexikon></span>
       <button class="navcat" type="button" id="megaBtn" aria-expanded="false" aria-controls="mega">Themen <span class="caret"></span></button>
       <button class="navcat searchbtn" type="button" id="searchBtn" aria-label="Suchen"><svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4.5 4.5"/></svg><span class="sb-l">Thema oder Begriff suchen</span><kbd>/</kbd></button>
       <div class="mega" id="mega" hidden>
@@ -246,6 +247,13 @@ window.MB = (() => {
       if (e.key === 'Escape' && !dlg.hidden) close();
       else if ((e.key === 'k' && (e.ctrlKey || e.metaKey)) || (e.key === '/' && !typing)) { e.preventDefault(); openSearch(); }
     });
+  }
+
+  /* ---------- Lexikon-Verbund (mindblow, Weltgeschichte, Periodensystem, Bibel) ---------- */
+  {
+    const lx = document.createElement('script');
+    lx.src = 'lexikon/lexikon.js'; lx.defer = true; lx.dataset.site = 'mindblow';
+    document.head.append(lx);
   }
 
   /* ---------- Lektionsseiten: Pfad, Zurück und Weiter automatisch ---------- */
