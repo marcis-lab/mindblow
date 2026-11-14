@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Universum · mindblow</title>
+<meta name="description" content="Wie gross ist das Universum? Mit Massstabsmodellen, Zehnerpotenzen und Licht als Messlatte wird das Unvorstellbare greifbar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .legend button:disabled { opacity: .45; cursor: default; }
+  .legend button:hover:not(:disabled) { border-color: var(--fg); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 08 · Natur &amp; Universum</span>
+    <h1>Wie gross ist das <em>Universum</em>?</h1>
+    <p class="intro">Die Zahlen im Weltall sind so riesig, dass unser Kopf sie nicht fassen kann. Mit einem Fussball als Sonne, mit Zehnerpotenzen und mit Licht als Messlatte werden sie greifbar.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Massstabsmodell -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Ein Modell zum Anfassen <span class="chip solved-chip">gelöst</span></span>
+      <h2>Die Sonne als Fussball</h2>
+      <p>Die Sonne hat einen Durchmesser von rund <strong>1,39 Millionen Kilometern</strong>. Schrumpfen wir sie auf einen Fussball von 22 cm und legen ihn in Zürich hin.</p>
+      <div class="quiz" data-q="q1" data-correct="c" data-unlock="scaleLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wo läge im selben Massstab der nächste Stern, Proxima Centauri?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Im Nachbarquartier, rund 1 km entfernt</span></button>
+          <button data-v="b"><span class="k">b</span><span>In Basel, rund 80 km entfernt</span></button>
+          <button data-v="c"><span class="k">c</span><span>Etwa so weit weg wie New York, über 6000 km</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Der Fussball-Massstab ist ungefähr <strong>1 : 6,3 Milliarden</strong>. Die Erde wäre ein Sandkorn von 2 mm, rund 24 m vom Ball entfernt. Proxima Centauri ist 4,24 Lichtjahre weg, das sind etwa 40 Billionen km. Im Modell macht das <strong>rund 6300 km</strong>: ein zweiter Fussball irgendwo bei New York, und dazwischen fast nur Leere. Wähle eine andere Grösse für die Sonne und schau, wie das Modell mitwächst.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Die Raumsonde Voyager 1 fliegt seit 1977 mit rund 17 km pro Sekunde durchs All. Bei diesem Tempo bräuchte sie bis Proxima Centauri etwa 75’000 Jahre.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="scaleCv" style="height:310px" aria-label="Massstabsmodell: Grössen und Abstände von Sonne, Erde, Neptun, Proxima Centauri und der Mitte der Milchstrasse im gewählten Massstab"></canvas>
+        <div class="locked" id="scaleLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend">
+          <span class="eyebrow">Sonne als:</span>
+          <button data-d="0.01" disabled>Murmel · 1 cm</button>
+          <button data-d="0.22" class="active" disabled>Fussball · 22 cm</button>
+          <button data-d="10" disabled>Haus · 10 m</button>
+        </div>
+        <div class="ctrl"><label for="sunIn">Grösse der Sonne</label><input type="range" id="sunIn" min="-3" max="2" step="0.01" value="-0.66" disabled><output id="sunOut">22 cm</output></div>
+        <p class="status" id="scaleStatus">Ortsvergleiche als Luftlinie, gerundet. Abstände sind Mittelwerte.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Massstab</span><span class="val" id="sMass">–</span><span class="formula">Modell : Wirklichkeit</span></div>
+        <div><span class="lbl">1 Lichtjahr im Modell</span><span class="val" id="sLy">–</span><span class="formula">echt: 9,46 Billionen km</span></div>
+        <div><span class="lbl">Licht im Modell</span><span class="val" id="sC">–</span><span class="formula">echt: 299’792 km/s</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Licht als Messlatte -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Licht als Messlatte <span class="chip solved-chip">gelöst</span></span>
+      <h2>Von der Ameise bis zum Rand</h2>
+      <p>Licht ist das Schnellste, was es gibt: knapp <strong>300’000 km pro Sekunde</strong>. In einer Sekunde könnte es über siebenmal um die Erde sausen.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="zoomLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie alt ist das Sonnenlicht, das du gerade siehst?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Ganz frisch, unter einer Sekunde</span></button>
+          <button data-v="b"><span class="k">b</span><span>Rund 8 Minuten</span></button>
+          <button data-v="c"><span class="k">c</span><span>Rund 8 Stunden</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Sonne ist im Mittel 150 Millionen km entfernt. Selbst Licht braucht dafür <strong>rund 8 Minuten und 20 Sekunden</strong>. Du siehst die Sonne also immer so, wie sie vor gut 8 Minuten war. Darum messen Fachleute grosse Distanzen in Lichtzeit: Ein <strong>Lichtjahr</strong> ist die Strecke, die Licht in einem Jahr zurücklegt. Zoom jetzt hinaus, Zehnerpotenz um Zehnerpotenz.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Die Sonne ist so gross, dass die ganze Bahn des Mondes um die Erde in ihr Platz hätte. Der Sonnenradius ist fast doppelt so gross wie der Abstand Erde–Mond.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="zoomCv" style="height:320px" aria-label="Zoom durch das Universum: Kreise zeigen Objekte von der Ameise bis zum beobachtbaren Universum im gewählten Bildausschnitt"></canvas>
+        <div class="locked" id="zoomLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="zoomIn">Bildausschnitt</label><input type="range" id="zoomIn" min="-2.5" max="27" step="0.01" value="-1.5" disabled><output id="zoomOut">3,2 cm</output></div>
+        <div class="row">
+          <button class="btn" id="zoomPlay" disabled>Reise starten</button>
+          <button class="btn ghost" id="zoomReset" disabled>Zurück zur Ameise</button>
+        </div>
+        <p class="status" id="zoomStatus">Jeder Schritt am Regler macht das Bild 10-mal grösser oder kleiner.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Bildbreite</span><span class="val" id="zView">–</span><span class="formula">so viel passt ins Bild</span></div>
+        <div><span class="lbl">Licht braucht dafür</span><span class="val" id="zLight">–</span><span class="formula">vereinfacht, ohne Ausdehnung des Raums</span></div>
+        <div><span class="lbl">Grösstes ganz im Bild</span><span class="val" id="zObj" style="font-size:15px">–</span><span class="formula">passt komplett hinein</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Sterne zählen -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Wie viele Sterne? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Zählen mit Zehnerpotenzen</h2>
+      <p>Stell dir alle Strände der Welt vor, von der Copacabana bis zum Lido in Ascona, Korn für Korn. Und dann den Nachthimmel, weit über das hinaus, was du mit blossem Auge siehst.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="countLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Gibt es mehr Sterne im Universum oder mehr Sandkörner an allen Stränden der Erde?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Mehr Sandkörner</span></button>
+          <button data-v="b"><span class="k">b</span><span>Mehr Sterne</span></button>
+          <button data-v="c"><span class="k">c</span><span>Etwa gleich viele</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Für alle Sandkörner an allen Stränden kommen Schätzungen auf etwa <strong>10¹⁸ bis 10¹⁹</strong>, also eine Eins mit 18 bis 19 Nullen. Sterne im beobachtbaren Universum gibt es nach heutigen Schätzungen etwa <strong>10²² bis 10²⁴</strong>. Das sind mindestens tausendmal mehr. Beide Zahlen sind grobe Schätzungen, doch der Abstand ist so gross, dass die Antwort trotzdem klar ist. Schieb den Regler und zähle selbst in Zehnerschritten.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>In einer klaren, dunklen Nacht siehst du mit blossem Auge nur ein paar tausend Sterne gleichzeitig. Sie alle gehören zu unserer eigenen Galaxie, der Milchstrasse.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="countCv" style="height:360px" aria-label="Zahlenstrahl mit Zehnerpotenzen: Menschen, Sterne der Milchstrasse, Galaxien, Sandkörner und Sterne im Universum im Vergleich mit deiner Zahl"></canvas>
+        <div class="locked" id="countLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="powIn">Deine Zahl</label><input type="range" id="powIn" min="0" max="24" step="0.1" value="0" disabled><output id="powOut">10⁰</output></div>
+        <div class="row">
+          <button class="btn" id="timesBtn" disabled>× 10</button>
+          <button class="btn ghost" id="powReset" disabled>Zurück auf 1</button>
+        </div>
+        <p class="status" id="countStatus">Jeder Schritt «× 10» hängt eine Null an.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Deine Zahl</span><span class="val" id="cWord" style="font-size:16px">1</span><span class="formula">gerundet</span></div>
+        <div><span class="lbl">Ziffern</span><span class="val" id="cDigits">1</span><span class="formula">Stellen der Zahl</span></div>
+        <div><span class="lbl">So weit zählen</span><span class="val" id="cTime" style="font-size:16px">1 s</span><span class="formula">1 Zahl pro Sekunde, ohne Pause</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Siehst du am Nachthimmel die Gegenwart?</h2>
+      <p>Du stehst in einer klaren Nacht auf einem Hügel, weit weg von den Lichtern der Stadt. Über dir funkeln Tausende Sterne, und als heller Nebelfleck vielleicht sogar die Andromeda-Galaxie.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2 und daran, wie lange Licht unterwegs ist.</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Wenn ich in den Nachthimmel schaue, sehe ich …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Auflösung zeigen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Sonnenlicht ist 8 Minuten alt, wenn es bei dir ankommt. Wie alt ist dann das Licht von Proxima Centauri, 4,24 Lichtjahre entfernt? Und das Licht der Andromeda-Galaxie, 2,5 Millionen Lichtjahre entfernt?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Nein, du siehst die <strong>Vergangenheit</strong>. Den Mond siehst du, wie er vor gut einer Sekunde war, die Sonne vor gut 8 Minuten, den hellen Stern Sirius vor 8,6 Jahren und die Andromeda-Galaxie vor rund <strong>2,5 Millionen Jahren</strong>. Damals gab es noch keine Menschen.</p>
+          <p>Jeder Lichtpunkt am Himmel zeigt also einen anderen Moment. Ein Stern, den du siehst, könnte inzwischen erloschen sein, und du würdest es erst merken, wenn das letzte Licht ankommt. Bei den Sternen, die du mit blossem Auge siehst, ist das allerdings selten: Sie sind meist einige bis einige tausend Lichtjahre entfernt, und Sterne leben Millionen bis Milliarden Jahre.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Das Universum ist <em>unvorstellbar</em> leer und gross.</h2>
+    <ul class="learned">
+      <li><b>Fast nur Leere</b><span>Ist die Sonne ein Fussball in Zürich, liegt der nächste Stern bei New York. Dazwischen ist fast nichts.</span></li>
+      <li><b>Licht ist eine Zeitmaschine</b><span>Sonnenlicht ist gut 8 Minuten alt. Wer weit hinausschaut, schaut weit zurück in die Vergangenheit.</span></li>
+      <li><b>Zehnerpotenzen zähmen Riesen</b><span>Mit 10²² bis 10²⁴ Sternen hat das Universum weit mehr Sterne als die Erde Sandkörner an allen Stränden.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="gedaechtnis.html">Weiter: Wie erinnert sich das Gehirn? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/universum.js"></script>
+</body>
+</html>

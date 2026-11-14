@@ -3,7 +3,9 @@ window.MB = (() => {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const fmt = (n, d = 1) => n.toLocaleString('de-CH', { minimumFractionDigits: d, maximumFractionDigits: d });
+  // Schweizer Schreibweise wie in den Texten: 1'234,5
+  const fmt = (n, d = 1) => n.toLocaleString('de-CH', { minimumFractionDigits: d, maximumFractionDigits: d })
+    .replace(/\./g, ',').replace(/[’’]/g, "'");
 
   /* Farben aus den CSS-Tokens, damit Canvas-Zeichnungen hell und dunkel passen */
   const C = {};
@@ -100,6 +102,69 @@ window.MB = (() => {
     requestAnimationFrame(frame);
   };
 
+  /* ---------- Themen-Register: neue Themen nur hier eintragen ---------- */
+  const CATS = [
+    { id: 'technik', name: 'Technik' },
+    { id: 'natur', name: 'Natur & Universum' },
+    { id: 'leben', name: 'Körper & Leben' },
+    { id: 'geld', name: 'Geld & Gesellschaft' },
+  ];
+  const TOPICS = [
+    { slug: 'strom', cat: 'technik', short: 'Strom', title: 'Wie funktioniert <em>Strom?</em>', teaser: 'Warum geht das Licht sofort an, obwohl die Elektronen langsamer kriechen als eine Schnecke?' },
+    { slug: 'internet', cat: 'technik', short: 'Internet', title: 'Wie funktioniert das <em>Internet?</em>', teaser: 'Wie kommt ein Foto in einer Zehntelsekunde nach New York? Nicht durch die Luft.' },
+    { slug: 'ki', cat: 'technik', short: 'Künstliche Intelligenz', title: 'Was ist eigentlich <em>KI?</em>', teaser: 'Denkt ein Chatbot? Bau ein Mini-Sprachmodell und trainiere eine Maschine.' },
+    { slug: 'gps', cat: 'technik', short: 'GPS', title: 'Woher weiss dein Handy, <em>wo du bist?</em>', teaser: 'Satelliten, sehr genaue Uhren und ein Trick mit Kreisen. Einstein hilft auch mit.' },
+    { slug: 'flugzeug', cat: 'technik', short: 'Fliegen', title: 'Warum fliegt ein <em>Flugzeug?</em>', teaser: 'Hunderte Tonnen in der Luft. Die Erklärung aus vielen Schulbüchern stimmt leider nicht.' },
+    { slug: 'himmel', cat: 'natur', short: 'Blauer Himmel', title: 'Warum ist der Himmel <em>blau?</em>', teaser: 'Und warum wird er am Abend orange? Die Antwort steckt im Licht selbst.' },
+    { slug: 'jahreszeiten', cat: 'natur', short: 'Jahreszeiten', title: 'Warum gibt es <em>Jahreszeiten?</em>', teaser: 'Im Januar ist die Erde der Sonne am nächsten. Trotzdem ist bei uns Winter.' },
+    { slug: 'universum', cat: 'natur', short: 'Universum', title: 'Wie gross ist das <em>Universum?</em>', teaser: 'Von der Ameise bis zur nächsten Galaxie: eine Reise durch dreissig Zehnerpotenzen.' },
+    { slug: 'gedaechtnis', cat: 'leben', short: 'Gedächtnis', title: 'Wie erinnert sich das <em>Gehirn?</em>', teaser: 'Dein Gedächtnis ist keine Festplatte. Es erfindet mit, und du merkst es nicht.' },
+    { slug: 'farben', cat: 'leben', short: 'Farben', title: 'Gibt es Farben <em>wirklich?</em>', teaser: 'Dein Auge kennt nur drei Farben. Den ganzen Rest baut dein Gehirn.' },
+    { slug: 'evolution', cat: 'leben', short: 'Evolution', title: 'Wie funktioniert <em>Evolution?</em>', teaser: 'Niemand plant, und trotzdem entstehen perfekte Tarnungen. Wie geht das?' },
+    { slug: 'geld', cat: 'geld', short: 'Geld', title: 'Woher kommt <em>Geld?</em>', teaser: 'Das meiste Geld wurde nie gedruckt. Es entsteht, wenn jemand einen Kredit aufnimmt.' },
+    { slug: 'zinseszins', cat: 'geld', short: 'Zinseszins', title: 'Wie wächst <em>Geld?</em>', teaser: 'Ein Rappen, jeden Tag verdoppelt. Wie viel ist es nach einem Monat?' },
+  ];
+  TOPICS.forEach((t, i) => { t.nr = String(i + 1).padStart(2, '0'); });
+
+  /* Navigation mit Überbegriffen */
+  const here = (location.pathname.split('/').pop() || 'index.html').replace('.html', '') || 'index';
+  const nav = $('header.top nav');
+  if (nav) {
+    nav.className = 'mainnav'; nav.setAttribute('aria-label', 'Themen');
+    nav.innerHTML = `
+      <button class="navtoggle" type="button" aria-expanded="false">Themen <span class="caret"></span></button>
+      <div class="navgroups">
+        ${CATS.map(c => {
+          const list = TOPICS.filter(t => t.cat === c.id);
+          const cur = list.some(t => t.slug === here);
+          return `<div class="navgroup${cur ? ' current' : ''}">
+            <button class="navcat" type="button" aria-expanded="false">${c.name} <span class="caret"></span></button>
+            <div class="navmenu">
+              ${list.map(t => `<a href="${t.slug}.html"${t.slug === here ? ' aria-current="page"' : ''}><span class="nr">${t.nr}</span>${t.short}</a>`).join('')}
+            </div>
+          </div>`;
+        }).join('')}
+      </div>`;
+    const groups = $$('.navgroup', nav);
+    const closeAll = except => groups.forEach(g => { if (g !== except) { g.classList.remove('open'); $('.navcat', g).setAttribute('aria-expanded', 'false'); } });
+    groups.forEach(g => {
+      const b = $('.navcat', g);
+      b.addEventListener('click', e => {
+        e.stopPropagation();
+        const open = !g.classList.contains('open');
+        closeAll(g); g.classList.toggle('open', open); b.setAttribute('aria-expanded', String(open));
+      });
+    });
+    const tog = $('.navtoggle', nav);
+    tog.addEventListener('click', e => {
+      e.stopPropagation();
+      const open = !nav.classList.contains('open');
+      nav.classList.toggle('open', open); tog.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', e => { if (!nav.contains(e.target)) { closeAll(); nav.classList.remove('open'); tog.setAttribute('aria-expanded', 'false'); } });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAll(); nav.classList.remove('open'); } });
+  }
+
   /* ---------- Atmosphäre & Mikro-Interaktionen ---------- */
   const ambient = document.createElement('div');
   ambient.className = 'ambient'; ambient.setAttribute('aria-hidden', 'true');
@@ -109,7 +174,7 @@ window.MB = (() => {
   document.body.prepend(ambient); document.body.append(grain);
 
   const finePointer = matchMedia('(pointer: fine)').matches;
-  const GLASS = '.glass, .quiz, .controls, .think, .analogy > div, .learned li, .topic.open, .topic.soon, .top nav, .manifest-card';
+  const GLASS = '.glass, .quiz, .controls, .think, .analogy > div, .learned li, .topic, .top nav, .navmenu';
 
   if (finePointer) {
     // Lichtfleck folgt der Maus auf Glasflächen
@@ -144,15 +209,18 @@ window.MB = (() => {
       });
 
       // Leichtes Kippen der Themenkarten
-      $$('[data-tilt]').forEach(c => {
-        c.addEventListener('pointermove', e => {
-          const r = c.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
-          c.style.setProperty('--ry', (px * 5).toFixed(2) + 'deg'); c.style.setProperty('--rx', (-py * 5).toFixed(2) + 'deg');
-        });
-        c.addEventListener('pointerleave', () => { c.style.setProperty('--ry', '0deg'); c.style.setProperty('--rx', '0deg'); });
-      });
+      // (per Delegation, damit auch später erzeugte Karten mitmachen)
+      let tilted = null;
+      document.addEventListener('pointermove', e => {
+        const c = e.target.closest?.('[data-tilt]');
+        if (tilted && tilted !== c) { tilted.style.setProperty('--ry', '0deg'); tilted.style.setProperty('--rx', '0deg'); }
+        tilted = c;
+        if (!c) return;
+        const r = c.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+        c.style.setProperty('--ry', (px * 4).toFixed(2) + 'deg'); c.style.setProperty('--rx', (-py * 4).toFixed(2) + 'deg');
+      }, { passive: true });
     }
   }
 
-  return { $, $$, reduced, fmt, C, fit, roundRect, lesson, loop, progressOf };
+  return { $, $$, reduced, fmt, C, fit, roundRect, lesson, loop, progressOf, CATS, TOPICS };
 })();

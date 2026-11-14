@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Internet · mindblow</title>
-<meta name="description" content="Wie funktioniert das Internet? Erst vermuten, dann ausprobieren.">
+<meta name="description" content="Wie funktioniert das Internet? Interaktiv erklärt.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
@@ -14,12 +14,7 @@
 <div class="wrap">
   <header class="top">
     <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
-    <nav>
-      <a href="index.html">Themen</a>
-      <a href="strom.html">Strom</a>
-      <a href="internet.html" aria-current="page">Internet</a>
-      <a href="ki.html">KI</a>
-    </nav>
+    <nav></nav>
   </header>
 </div>
 
@@ -28,7 +23,7 @@
     <a class="back" href="index.html">← Alle Themen</a>
     <span class="eyebrow">Thema 02 · Technik des Alltags</span>
     <h1>Wie funktioniert das <em class="fiber">Internet</em>?</h1>
-    <p class="intro">Du tippst, und eine Sekunde später ist deine Nachricht auf einem anderen Kontinent. Aber welchen Weg nimmt sie, und woher weiss sie, wohin? Beantworte jede Frage zuerst selbst.</p>
+    <p class="intro">Du tippst, und eine Sekunde später ist deine Nachricht auf einem anderen Kontinent. Aber welchen Weg nimmt sie, und woher weiss sie, wohin?</p>
     <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
   </section>
 
@@ -55,7 +50,7 @@
     <div class="lab">
       <div class="stage">
         <canvas id="pingCv" style="height:280px" aria-label="Animation: Datenpaket reist über ein Seekabel oder über einen Satelliten von Zürich nach New York und zurück"></canvas>
-        <div class="locked" id="pingLock">Erst vermuten, dann messen</div>
+        <div class="locked" id="pingLock">Wähle oben eine Antwort, um zu starten</div>
       </div>
       <div class="row">
         <button class="btn fiber" id="pingFiber" disabled>Ping über Seekabel</button>
@@ -97,7 +92,7 @@
     <div class="lab">
       <div class="stage">
         <canvas id="netCv" style="height:300px" aria-label="Netzwerk aus Routern. Antippen einer Leitung kappt sie."></canvas>
-        <div class="locked" id="netLock">Erst vermuten, dann senden</div>
+        <div class="locked" id="netLock">Wähle oben eine Antwort, um zu starten</div>
       </div>
       <div class="row">
         <button class="btn" id="netSend" disabled>Nachricht senden</button>
@@ -141,7 +136,7 @@
           <button data-d="sbb.ch" disabled>sbb.ch</button>
         </div>
         <ol class="dns-steps" id="dnsSteps"></ol>
-        <p class="status" id="dnsStatus">Erst vermuten, dann nachschlagen.</p>
+        <p class="status" id="dnsStatus">Wähle oben eine Antwort, um zu starten.</p>
       </div>
       <div class="readout">
         <div><span class="lbl">Erste Anfrage</span><span class="val" id="dFirst">–</span><span class="formula">mehrere Server gefragt</span></div>
@@ -176,7 +171,6 @@
         <div class="answer" id="answer" hidden>
           <span class="eyebrow">Auflösung</span>
           <p>Nein. Beliebte Videos werden <strong>vorab kopiert</strong> und in Rechenzentren in deiner Nähe gespeichert, oft in Zürich oder sogar direkt bei deinem Internetanbieter. Das nennt man ein <strong>Content Delivery Network</strong>. Die Serie reist einmal über den Atlantik, danach holen sie sich alle aus der Nähe. Das spart Wartezeit und entlastet die Seekabel.</p>
-          <p><strong>Vergleich ehrlich:</strong> Hattest du den Kern? Wenn nicht, ist das gut. Genau dieser Moment bleibt im Kopf.</p>
         </div>
       </div>
     </div>

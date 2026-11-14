@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flugzeug · mindblow</title>
+<meta name="description" content="Warum ein Flugzeug fliegt: wie Flügel Luft nach unten lenken, warum das Tempo im Quadrat zählt und wie Rückenflug funktioniert.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 05 · Technik</span>
+    <h1>Warum fliegt ein <em>Flugzeug</em>?</h1>
+    <p class="intro">Ein vollgetankter Airbus wiegt Hunderte Tonnen und hebt trotzdem ab, als wäre es nichts. Kein Propeller zeigt nach oben, kein Ballon trägt ihn. Was hält ihn in der Luft?</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Auftrieb -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Der Flügel <span class="chip solved-chip">gelöst</span></span>
+      <h2>Luft hat Gewicht</h2>
+      <p>Ein Flügel ist vorne rund, hinten spitz und meist leicht gewölbt. Er steht ein wenig schräg im Fahrtwind. Diesen Winkel nennt man <strong>Anstellwinkel</strong>.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="flowLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum entsteht am Flügel Auftrieb?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Luft oben muss gleichzeitig mit der Luft unten hinten ankommen und ist darum schneller</span></button>
+          <button data-v="b"><span class="k">b</span><span>Der Flügel lenkt viel Luft nach unten, und die Gegenkraft drückt ihn nach oben</span></button>
+          <button data-v="c"><span class="k">c</span><span>Warme Luft unter dem Flügel trägt ihn wie einen Heissluftballon</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Der Flügel <strong>lenkt die anströmende Luft nach unten</strong>. Wer Luft nach unten drückt, wird selbst nach oben gedrückt, genau wie dein Arm, wenn du ihn im Auto aus dem Fenster hältst. Dasselbe lässt sich auch mit Druck erklären: Über dem Flügel ist der Luftdruck tiefer, darunter höher. Beides sind zwei Seiten derselben Sache.</p>
+          <p>Antwort a steht in vielen Büchern, ist aber ein bekannter Irrtum. Die Luft oben ist zwar wirklich schneller, sie kommt sogar <strong>früher</strong> hinten an. Niemand zwingt sie, auf die Luft unten zu warten. Stell den Anstellwinkel ein und schau, was mit der Luft passiert.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Ein Airbus A380 wiegt beim Start bis rund 575 Tonnen. Das alles tragen die Flügel, indem sie ständig riesige Mengen Luft nach unten schieben.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="flowCv" style="height:310px" aria-label="Ein Flügelprofil im Luftstrom. Je nach Anstellwinkel wird die Luft hinter dem Flügel nach unten gelenkt. Bei zu grossem Winkel reisst die Strömung ab."></canvas>
+        <div class="locked" id="flowLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="aoaIn">Anstellwinkel</label><input type="range" id="aoaIn" min="-5" max="20" step="0.5" value="5" disabled><output id="aoaOut">5,0°</output></div>
+        <div class="row">
+          <button class="btn" id="cruiseBtn" disabled>Reiseflug, 4°</button>
+          <button class="btn ghost" id="stallBtn" disabled>Zu steil, 18°</button>
+        </div>
+        <p class="status" id="flowStatus">Vereinfachtes Modell, kein echter Windkanal.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Auftrieb bei 150 km/h</span><span class="val" id="fLift">–</span><span class="formula">Kleinflugzeug, 16 m² Flügel</span></div>
+        <div><span class="lbl">Luft nach unten gelenkt</span><span class="val" id="fDown">–</span><span class="formula">Abwind hinter dem Flügel</span></div>
+        <div><span class="lbl">Strömung</span><span class="val" id="fState" style="font-size:15px">–</span><span class="formula">Abriss ab rund 15°</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Geschwindigkeit -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Tempo <span class="chip solved-chip">gelöst</span></span>
+      <h2>Schneller heisst viel mehr Auftrieb</h2>
+      <p>Ein kleines Flugzeug wiegt mit Pilotin und Gepäck rund 1'100 kg. Am Boden rollt es auf der Piste los, und irgendwann hebt es ab.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="liftLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Das Flugzeug fliegt doppelt so schnell. Was passiert mit dem Auftrieb?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Er verdoppelt sich</span></button>
+          <button data-v="b"><span class="k">b</span><span>Er wird viermal so gross</span></button>
+          <button data-v="c"><span class="k">c</span><span>Er bleibt gleich, nur der Winkel zählt</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Bei doppeltem Tempo trifft <strong>doppelt so viel Luft</strong> pro Sekunde auf den Flügel, und jede Portion wird <strong>doppelt so stark</strong> nach unten geschubst. Zwei mal zwei macht vier. Der Auftrieb wächst mit dem <strong>Quadrat der Geschwindigkeit</strong>. Darum braucht ein Flugzeug eine Mindestgeschwindigkeit: Darunter reicht der Auftrieb nicht.</p>
+          <p>Finde heraus, ab welchem Tempo das Flugzeug abhebt, und drück dann auf «Tempo verdoppeln».</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Flugzeuge starten wenn möglich gegen den Wind. Der Gegenwind zählt zur Luft, die über den Flügel strömt, und die Startstrecke wird kürzer.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="liftCv" style="height:290px" aria-label="Diagramm: Auftrieb in Kilonewton je nach Geschwindigkeit, mit einer Linie für das Gewicht des Flugzeugs."></canvas>
+        <div class="locked" id="liftLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="spdIn">Tempo</label><input type="range" id="spdIn" min="0" max="300" step="5" value="80" disabled><output id="spdOut">80 km/h</output></div>
+        <div class="ctrl"><label for="aoa2In">Anstellwinkel</label><input type="range" id="aoa2In" min="0" max="15" step="0.5" value="5" disabled><output id="aoa2Out">5,0°</output></div>
+        <div class="row">
+          <button class="btn" id="dblBtn" disabled>Tempo verdoppeln</button>
+          <button class="btn ghost" id="halfBtn" disabled>Tempo halbieren</button>
+        </div>
+        <p class="status" id="liftStatus">Vereinfacht: Luft auf Meereshöhe, ohne Klappen.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Auftrieb</span><span class="val" id="lLift">–</span><span class="formula">½ · ρ · v² · A · cA</span></div>
+        <div><span class="lbl">Gewicht</span><span class="val" id="lWeight">10,8 kN</span><span class="formula">1'100 kg × Erdanziehung</span></div>
+        <div><span class="lbl">Bei doppeltem Tempo</span><span class="val" id="lDouble">–</span><span class="formula">gleicher Winkel</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Rückenflug -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Auf dem Kopf <span class="chip solved-chip">gelöst</span></span>
+      <h2>Kopfüber durch die Luft</h2>
+      <p>An Flugshows fliegen Kunstflugzeuge manchmal minutenlang auf dem Rücken. Der gewölbte Flügel zeigt dann mit der Wölbung nach unten.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="invLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Kann ein Flugzeug auf dem Kopf fliegen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Nein, die Flügelform zieht es dann nach unten</span></button>
+          <button data-v="b"><span class="k">b</span><span>Ja, mit dem richtigen Anstellwinkel</span></button>
+          <button data-v="c"><span class="k">c</span><span>Nur ohne Passagiere, weil es dann leichter ist</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Entscheidend ist, dass der Flügel die Luft <strong>nach unten</strong> lenkt. Das schafft er auch kopfüber, wenn die Pilotin die Nase genug anhebt. Die Wölbung hilft im Normalflug, im Rückenflug arbeitet sie dagegen. Darum braucht es kopfüber einen grösseren Anstellwinkel. Viele Kunstflugzeuge haben deshalb <strong>symmetrische Flügel</strong>, die in beiden Lagen gleich gut tragen.</p>
+          <p>Das Flugzeug fliegt gerade auf dem Rücken. Finde den Winkel, bei dem es nicht sinkt.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Ein Papierflieger hat ganz flache Flügel ohne Wölbung und fliegt trotzdem. Es kommt vor allem auf den Anstellwinkel an.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="invCv" style="height:310px" aria-label="Ein Flügelprofil, das umgedreht werden kann. Der Luftstrom zeigt, ob die Luft nach oben oder nach unten gelenkt wird."></canvas>
+        <div class="locked" id="invLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="aoa3In">Anstellwinkel</label><input type="range" id="aoa3In" min="-5" max="20" step="0.5" value="0" disabled><output id="aoa3Out">0,0°</output></div>
+        <div class="row">
+          <button class="btn" id="flipBtn" disabled>Normal fliegen</button>
+        </div>
+        <p class="status" id="invStatus">Rückenflug bei 220 km/h, vereinfachtes Modell.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Auftrieb bei 220 km/h</span><span class="val" id="iLift">–</span><span class="formula">nach oben positiv</span></div>
+        <div><span class="lbl">Nötig zum Halten</span><span class="val" id="iNeed">10,8 kN</span><span class="formula">Gewicht</span></div>
+        <div><span class="lbl">Flugzeug</span><span class="val" id="iState" style="font-size:15px">–</span><span class="formula">bei gerader Fluglage</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum fahren Flugzeuge beim Landen Klappen aus?</h2>
+      <p>Schau beim nächsten Flug aus dem Fenster: Vor der Landung wachsen hinten aus dem Flügel grosse Klappen heraus, oft auch vorne. Der Flügel wird dabei länger von vorne nach hinten und stärker gebogen.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Wie schnell möchte man beim Aufsetzen sein?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Die Klappen braucht es, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Auflösung zeigen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Beim Landen will man möglichst langsam sein. Halbes Tempo heisst aber nur noch ein Viertel des Auftriebs. Was könnte man am Flügel ändern, damit er trotzdem genug Luft nach unten lenkt?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Ein Flugzeug soll so langsam wie möglich aufsetzen, damit die Piste reicht und die Landung sicher bleibt. Bei wenig Tempo bringt der normale Flügel aber zu wenig Auftrieb. Die <strong>Klappen machen den Flügel grösser und stärker gewölbt</strong>. So lenkt er auch bei tiefem Tempo genug Luft nach unten und das Flugzeug kann langsamer fliegen, ohne durchzusacken.</p>
+          <p>Als Nebeneffekt erhöhen die Klappen den Luftwiderstand. Das hilft beim Abbremsen. Im Reiseflug sind sie eingefahren, weil der Flügel dort schlank und schnell sein soll.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Fliegen heisst, <em>Luft nach unten</em> zu schieben.</h2>
+    <ul class="learned">
+      <li><b>Luft nach unten, Flügel nach oben</b><span>Der Flügel lenkt Luft nach unten. Die Gegenkraft ist der Auftrieb. Oben herrscht tieferer Druck, unten höherer.</span></li>
+      <li><b>Tempo zählt im Quadrat</b><span>Doppelte Geschwindigkeit bringt vierfachen Auftrieb. Darum braucht jedes Flugzeug eine Mindestgeschwindigkeit.</span></li>
+      <li><b>Der Winkel entscheidet</b><span>Mit dem richtigen Anstellwinkel trägt ein Flügel sogar kopfüber. Ist er zu steil, reisst die Strömung ab.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="himmel.html">Weiter: Warum ist der Himmel blau? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/flugzeug.js"></script>
+</body>
+</html>

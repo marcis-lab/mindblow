@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gedächtnis · mindblow</title>
+<meta name="description" content="Wie erinnert sich das Gehirn? Teste dein eigenes Gedächtnis und sieh, warum Erinnerungen keine Aufnahmen sind.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .flash { min-height: 230px; display: grid; place-content: center; gap: 10px; padding: 24px 20px 70px; text-align: center; font-family: var(--f-serif); font-size: clamp(38px, 7vw, 60px); line-height: 1.05; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+  .flash small { display: block; font-family: var(--f-sans); font-size: 15px; line-height: 1.45; letter-spacing: 0; color: var(--muted); max-width: 34ch; margin: 0 auto; }
+  .flash .num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; letter-spacing: .06em; }
+  .flash .tick { font-family: var(--f-mono); font-size: 15px; color: var(--muted); letter-spacing: .1em; }
+  .recog { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .recog li { background: var(--sunk); border-radius: var(--r-s); padding: 10px 14px; display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; }
+  .recog .w { font-family: var(--f-serif); font-size: 21px; line-height: 1.2; }
+  .recog .row button { background: var(--glass-strong); color: var(--fg); border: 1px solid var(--glass-edge); border-radius: 99px; padding: 6px 13px; cursor: pointer; font-size: 14px; transition: border-color .3s; }
+  .recog .row button:hover:not(:disabled) { border-color: var(--fg); }
+  .recog .row button:disabled { cursor: default; }
+  .recog .row button.pick { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .recog .res { flex-basis: 100%; font-size: 13.5px; color: var(--muted); }
+  .recog .res b { font-weight: 600; }
+  .recog .res b.ok { color: var(--good); }
+  .recog .res b.no { color: var(--bad); }
+  .recog li.lure { box-shadow: inset 3px 0 0 var(--glow); }
+  .digit-in { flex: 1 1 170px; min-width: 0; font-family: var(--f-mono); font-size: 20px; letter-spacing: .12em; padding: 9px 16px; border-radius: 99px; background: var(--glass-strong); color: var(--fg); border: 1px solid var(--glass-edge); }
+  .digit-in:focus { outline: none; border-color: var(--fg); box-shadow: 0 0 0 4px color-mix(in srgb, var(--glow) 25%, transparent); }
+  .digit-in:disabled { opacity: .45; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 09 · Körper &amp; Leben</span>
+    <h1>Wie erinnert sich das <em class="copper">Gehirn</em>?</h1>
+    <p class="intro">Dein Gehirn speichert Gesichter, Wörter, Wege und Gefühle, ein Leben lang. Trotzdem ist eine Erinnerung keine Aufnahme. Hier testest du dein eigenes Gedächtnis und siehst, wie es arbeitet.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Falsche Erinnerung -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Was ist eine Erinnerung? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Kein Video im Kopf</h2>
+      <p>Du weisst noch, was du gestern gegessen hast, wie dein erstes Velo aussah und wie das Lieblingslied deiner Kindheit klingt. Irgendwo muss das gespeichert sein.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="drmLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie speichert das Gehirn eine Erinnerung?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Wie ein Video, das man später wieder abspielt</span></button>
+          <button data-v="b"><span class="k">b</span><span>In Bruchstücken, die es beim Erinnern jedes Mal neu zusammensetzt</span></button>
+          <button data-v="c"><span class="k">c</span><span>Alles an einem einzigen Ort, dem Gedächtniszentrum</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Eine Erinnerung ist über viele Hirnregionen verteilt: Bilder, Geräusche, Gefühle und Bedeutung liegen an verschiedenen Orten. Der <strong>Hippocampus</strong> hilft, die Teile zu verknüpfen. Beim Erinnern baut das Gehirn alles <strong>neu zusammen</strong> und füllt Lücken mit dem, was plausibel ist. Darum fühlen sich auch falsche Erinnerungen echt an. Probier es aus: Merk dir eine Liste von Wörtern.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>In einer bekannten Studie liess sich rund ein Viertel der Teilnehmenden einreden, als Kind in einem Einkaufszentrum verloren gegangen zu sein. Einige schilderten danach sogar Einzelheiten, die nie passiert waren.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <div class="flash" id="drmShow" aria-live="polite"><span>12 Wörter</span><small>Lies jedes Wort und versuch, dir möglichst viele zu merken.</small></div>
+        <div class="locked" id="drmLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="drmSpeed">Zeit pro Wort</label><input type="range" id="drmSpeed" min="0.6" max="2" step="0.1" value="1.2" disabled><output id="drmSpeedOut">1,2 s</output></div>
+        <ul class="recog" id="drmList" hidden></ul>
+        <div class="row"><button class="btn" id="drmStart" disabled>Wortliste starten</button></div>
+        <p class="status" id="drmStatus">Nach der Liste folgt eine kurze Pause, dann ein Test.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Richtig eingeordnet</span><span class="val" id="drmHits">–</span><span class="formula">von 8 Wörtern</span></div>
+        <div><span class="lbl">Falscher Alarm</span><span class="val" id="drmFalse">–</span><span class="formula">neue Wörter für «dabei» gehalten</span></div>
+        <div><span class="lbl">Das Lockwort</span><span class="val" id="drmLure" style="font-size:15px">–</span><span class="formula">wird nach dem Test verraten</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Kurzzeitgedächtnis -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Wie viel passt hinein? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Der kleine Notizzettel im Kopf</h2>
+      <p>Jemand sagt dir eine Zahlenfolge, und du musst sie gleich danach wiederholen. Dafür brauchst du das <strong>Arbeitsgedächtnis</strong>, oft auch Kurzzeitgedächtnis genannt.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="spanLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie viele zufällige Ziffern kannst du dir nach einmal Hören kurz merken?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>2 bis 3</span></button>
+          <button data-v="b"><span class="k">b</span><span>Etwa 5 bis 9</span></button>
+          <button data-v="c"><span class="k">c</span><span>20 und mehr</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Der Psychologe George Miller sprach 1956 von der magischen Zahl <strong>«7 plus/minus 2»</strong>. Neuere Forschung zeigt: Eigentlich passen nur etwa <strong>4 Brocken</strong> gleichzeitig hinein. Bei Ziffern schaffen wir trotzdem mehr, weil wir sie im Kopf leise wiederholen und unbewusst zu Gruppen bündeln. Teste deine eigene Spanne und probier danach den Telefonnummer-Trick.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Schachprofis merken sich eine echte Spielstellung nach wenigen Sekunden fast fehlerfrei. Stehen die Figuren zufällig verteilt, sind sie kaum besser als Anfänger. Sie sehen Muster, nicht einzelne Figuren.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <div class="flash" id="spanShow" aria-live="polite"><span class="num">3 · 8 · 1</span><small>Ziffern erscheinen eine nach der anderen. Danach tippst du sie in der richtigen Reihenfolge ein.</small></div>
+        <div class="locked" id="spanLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="spanSpeed">Zeit pro Ziffer</label><input type="range" id="spanSpeed" min="0.5" max="1.5" step="0.1" value="1" disabled><output id="spanSpeedOut">1,0 s</output></div>
+        <div class="row">
+          <input class="digit-in" id="spanIn" type="text" inputmode="numeric" autocomplete="off" maxlength="16" placeholder="Ziffern eintippen" aria-label="Ziffern eintippen" disabled>
+          <button class="btn" id="spanCheck" disabled>Prüfen</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="spanStart" disabled>Test starten</button>
+          <button class="btn ghost" id="chunkBtn" disabled>Telefonnummer-Trick</button>
+        </div>
+        <p class="status" id="spanStatus">Du beginnst mit 3 Ziffern. Nach jedem Treffer kommt eine dazu.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Aktuelle Länge</span><span class="val" id="spanLen">–</span><span class="formula">Ziffern in dieser Runde</span></div>
+        <div><span class="lbl">Längste richtig</span><span class="val" id="spanBest">–</span><span class="formula">deine Ziffernspanne</span></div>
+        <div><span class="lbl">Fehlversuche</span><span class="val" id="spanFails">–</span><span class="formula">bei 2 in Folge ist Schluss</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Vergessenskurve -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Wie schnell vergessen wir? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Die Kurve des Vergessens</h2>
+      <p>Du lernst am Montag 30 neue Französischwörter. Ohne sie je zu wiederholen, wirst du einen Teil davon vergessen.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="curveLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wann vergisst du am meisten davon?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Nach etwa einem Jahr</span></button>
+          <button data-v="b"><span class="k">b</span><span>In den ersten Stunden und Tagen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Gleichmässig verteilt über die ganze Zeit</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Der Forscher Hermann Ebbinghaus lernte in den 1880er-Jahren Listen von sinnlosen Silben und prüfte sich selbst immer wieder. Sein Ergebnis: Das meiste geht <strong>gleich am Anfang</strong> verloren, danach wird die Kurve flacher. Die gute Nachricht: Jede Wiederholung macht die Erinnerung stabiler, besonders wenn du <strong>mit wachsendem Abstand</strong> wiederholst. Setz Wiederholungen und vergleiche.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Sich selbst abzufragen bringt mehr als nochmals durchlesen. Das Abrufen selbst stärkt die Erinnerung, auch wenn es sich mühsamer anfühlt.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="curveCv" style="height:300px" aria-label="Diagramm: Wie viel Prozent des Gelernten über 30 Tage im Gedächtnis bleibt, mit und ohne Wiederholungen"></canvas>
+        <div class="locked" id="curveLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="revDay">Wiederholen am</label><input type="range" id="revDay" min="1" max="29" step="1" value="1" disabled><output id="revDayOut">Tag 1</output></div>
+        <div class="row">
+          <button class="btn" id="revAdd" disabled>Wiederholung setzen</button>
+          <button class="btn ghost" id="revSmart" disabled>Mit Abstand: 1, 3, 7, 14</button>
+          <button class="btn ghost" id="revCram" disabled>Am Stück: 1, 2, 3, 4</button>
+          <button class="btn ghost" id="revClear" disabled>Alle löschen</button>
+        </div>
+        <p class="status" id="revStatus">Vereinfachtes Modell. Echte Kurven hängen vom Stoff und von dir ab, die Form ist aber typisch.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Behalten nach 30 Tagen</span><span class="val" id="revKeep">–</span><span class="formula">mit deinen Wiederholungen</span></div>
+        <div><span class="lbl">Wiederholungen</span><span class="val" id="revCount">0</span><span class="formula">Tippe auch ins Diagramm</span></div>
+        <div><span class="lbl">Ohne Wiederholen</span><span class="val" id="revNone">–</span><span class="formula">nach 1 Tag → nach 30 Tagen</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wo sind deine ersten Lebensjahre hin?</h2>
+      <p>In deinen ersten drei Lebensjahren hast du unglaublich viel erlebt und gelernt: Laufen, Sprechen, die Gesichter deiner Familie. Trotzdem erinnert sich fast niemand an diese Zeit.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1. Was braucht das Gehirn, um ein Erlebnis zu speichern und später wieder zusammenzusetzen?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="An die ersten Jahre erinnern wir uns nicht, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Auflösung zeigen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Ein Baby-Gehirn wächst und baut sich ständig um. Und wie erzählst du dir selbst ein Erlebnis, wenn du noch keine Wörter dafür hast?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Fachleute nennen das <strong>frühkindliche Amnesie</strong>. Die frühesten Erinnerungen der meisten Menschen stammen aus dem Alter von etwa drei bis vier Jahren. Ganz geklärt ist der Grund noch nicht, aber mehrere Dinge spielen zusammen:</p>
+          <p>Der <strong>Hippocampus</strong>, der Erlebnisse verknüpft und festigt, ist noch nicht ausgereift. Gleichzeitig entstehen dort viele neue Nervenzellen, die bestehende Verbindungen stark umbauen. Und es fehlen noch <strong>Sprache</strong> und ein klares Ich-Gefühl, um ein Erlebnis als eigene Geschichte abzulegen. Was du als Kleinkind gelernt hast, wie Gehen oder Sprechen, bleibt dir trotzdem. Und manche «erste Erinnerung» ist in Wahrheit aus Fotos und Erzählungen zusammengesetzt, genau wie in Teil 1.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Erinnern heisst <em>neu bauen</em>.</h2>
+    <ul class="learned">
+      <li><b>Rekonstruktion statt Aufnahme</b><span>Das Gehirn setzt Erinnerungen jedes Mal neu zusammen und füllt Lücken mit Passendem. Darum fühlen sich auch falsche Erinnerungen echt an.</span></li>
+      <li><b>Ein kleiner Arbeitsspeicher</b><span>Nur wenige Brocken passen gleichzeitig ins Arbeitsgedächtnis. Wer Ziffern zu Gruppen bündelt, kann mehr behalten.</span></li>
+      <li><b>Wiederholen mit Abstand</b><span>Am meisten vergessen wir gleich am Anfang. Wiederholungen mit wachsendem Abstand machen Wissen dauerhaft.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="farben.html">Weiter: Gibt es Farben wirklich? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/gedaechtnis.js"></script>
+</body>
+</html>

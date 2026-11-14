@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GPS · mindblow</title>
+<meta name="description" content="Wie dein Handy aus der Laufzeit von Satellitensignalen seinen Ort berechnet und warum es dafür Einstein braucht.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  #gpsCv { touch-action: none; }
+  #gpsCv.live { cursor: grab; }
+  #gpsCv.live:active { cursor: grabbing; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 04 · Technik</span>
+    <h1>Woher weiss dein Handy, <em class="fiber">wo du bist</em>?</h1>
+    <p class="intro">Du öffnest die Karte, und nach ein paar Sekunden sitzt der blaue Punkt genau dort, wo du stehst. Mitten in Zürich, auf dem Gipfel oder im Zug. Wie geht das, ganz ohne Kabel und ohne dass du etwas eingibst?</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Laufzeit wird Abstand -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Signale aus dem All <span class="chip solved-chip">gelöst</span></span>
+      <h2>Zuhören statt fragen</h2>
+      <p>Rund <strong>30 GPS-Satelliten</strong> kreisen in etwa <strong>20'200 Kilometern Höhe</strong> um die Erde. Jeder sendet ununterbrochen eine Botschaft: «Ich bin Satellit Nummer 12, ich bin gerade genau hier, und meine Uhr zeigt genau jetzt diese Zeit.»</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="gpsLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie findet dein Handy seine Position?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Es schickt ein Signal zum Satelliten, und der antwortet mit dem Standort</span></button>
+          <button data-v="b"><span class="k">b</span><span>Es empfängt nur die Zeitsignale mehrerer Satelliten und berechnet aus der Laufzeit die Abstände</span></button>
+          <button data-v="c"><span class="k">c</span><span>Der nächste Handymast sagt es ihm</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Dein Handy sendet nichts ins All, es <strong>hört nur zu</strong>. Es vergleicht, wann ein Signal losgeschickt wurde, mit dem Moment, in dem es ankommt. Das Signal reist mit Lichtgeschwindigkeit, rund 300'000 km pro Sekunde. <strong>Laufzeit mal Lichtgeschwindigkeit ergibt den Abstand.</strong> Jeder Abstand ergibt einen Kreis (im Raum eine Kugel), auf dem du sein musst. Wo sich die Kreise treffen, bist du. Handymasten helfen höchstens beim schnellen Start, die genaue Position kommt von den Satelliten.</p>
+          <p>Zieh das Handy im Bild herum und schalte die Kreise einzeln dazu.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>GPS gehört den USA. Europa hat ein eigenes System namens Galileo. Moderne Handys hören meist mehrere Systeme gleichzeitig, auch das russische GLONASS und das chinesische BeiDou.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="gpsCv" tabindex="0" style="height:330px" aria-label="Drei Satelliten über einer Karte. Um jeden Satelliten ein Kreis mit dem Abstand zum Handy. Das Handy lässt sich verschieben, auch mit den Pfeiltasten."></canvas>
+        <div class="locked" id="gpsLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="row">
+          <button class="btn" id="circBtn" disabled>Kreise: 3 von 3</button>
+          <button class="btn ghost" id="jumpBtn" disabled>Handy woanders hinlegen</button>
+        </div>
+        <p class="status" id="gpsStatus">Vereinfacht: alles in einer Ebene, nicht massstäblich.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Abstand zu S1</span><span class="val" id="d1">–</span><span class="formula" id="t1">Laufzeit –</span></div>
+        <div><span class="lbl">Abstand zu S2</span><span class="val" id="d2">–</span><span class="formula" id="t2">Laufzeit –</span></div>
+        <div><span class="lbl">Abstand zu S3</span><span class="val" id="d3">–</span><span class="formula" id="t3">Laufzeit –</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Uhrenfehler -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Alles hängt an der Uhr <span class="chip solved-chip">gelöst</span></span>
+      <h2>Eine Millionstelsekunde</h2>
+      <p>Weil das Handy Zeit misst und nicht Abstände, muss es die Laufzeit extrem genau kennen. Stell dir vor, die Uhr im Handy geht ein klein wenig falsch und das Handy merkt es nicht.</p>
+      <div class="quiz" data-q="q2" data-correct="c" data-unlock="errLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Die Uhr ist um eine Millionstelsekunde falsch. Wie gross wird der Fehler beim Abstand?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Etwa 3 Millimeter</span></button>
+          <button data-v="b"><span class="k">b</span><span>Etwa 3 Meter</span></button>
+          <button data-v="c"><span class="k">c</span><span>Rund 300 Meter</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Licht legt in einer Millionstelsekunde (1 µs) rund <strong>300 Meter</strong> zurück. Geht die Uhr 1 µs falsch, rechnet das Handy jeden Abstand um 300 m zu lang. Die Kreise treffen sich dann nicht mehr in einem Punkt, und der berechnete Ort liegt daneben. Schieb den Regler und schau dir den Ausschnitt rund um dein Handy an.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Jeder GPS-Satellit trägt Atomuhren an Bord. Sie weichen pro Tag nur um wenige Milliardstelsekunden ab, und Bodenstationen korrigieren sie laufend.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="errCv" style="height:300px" aria-label="Vergrösserter Ausschnitt rund um das Handy. Drei Linien zeigen die gemessenen Abstände, die sich bei einem Uhrenfehler nicht mehr in einem Punkt treffen."></canvas>
+        <div class="locked" id="errLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="clkIn">Uhrenfehler</label><input type="range" id="clkIn" min="0" max="5" step="0.1" value="0" disabled><output id="clkOut">0,0 µs</output></div>
+        <div class="row">
+          <button class="btn" id="oneUs" disabled>Genau 1 µs</button>
+          <button class="btn ghost" id="zeroUs" disabled>Uhr stimmt</button>
+        </div>
+        <p class="status" id="errStatus">Ausschnitt rund 6 km breit, Satellitenrichtungen aus Teil 1.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Uhr falsch um</span><span class="val" id="eClk">0 µs</span><span class="formula">Millionstelsekunden</span></div>
+        <div><span class="lbl">Jeder Abstand zu lang um</span><span class="val" id="eRange">0 m</span><span class="formula">300 m pro µs</span></div>
+        <div><span class="lbl">Berechneter Ort daneben um</span><span class="val" id="ePos">0 m</span><span class="formula">beste Schätzung</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Relativität -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Einstein im Hosensack <span class="chip solved-chip">gelöst</span></span>
+      <h2>Zeit ist nicht überall gleich</h2>
+      <p>Die Satelliten rasen mit rund <strong>14'000 km/h</strong> um die Erde. Und sie sind weit weg von ihr, wo die Schwerkraft schwächer ist als bei dir am Boden.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="relLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Laufen die Uhren im Satelliten gleich schnell wie auf der Erde?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Ja, eine Sekunde ist überall eine Sekunde</span></button>
+          <button data-v="b"><span class="k">b</span><span>Nein, sie laufen etwas schneller, rund 38 Mikrosekunden pro Tag</span></button>
+          <button data-v="c"><span class="k">c</span><span>Nein, sie laufen langsamer, weil sie so schnell fliegen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Albert Einstein hat es mit seiner <strong>Relativitätstheorie</strong> vorausgesagt, und GPS bestätigt es jeden Tag. Zwei Effekte wirken gegeneinander: Wegen der schwächeren Schwerkraft laufen die Uhren oben rund <strong>45 µs pro Tag schneller</strong>. Wegen des hohen Tempos laufen sie rund <strong>7 µs langsamer</strong>. Zusammen gehen sie <strong>38 µs pro Tag vor</strong>. Antwort c stimmt also halb: Das Tempo bremst die Uhr wirklich, aber die Schwerkraft gewinnt.</p>
+          <p>Mal 300 m pro µs ergibt das über 11 km pro Tag. Schau, wie weit daneben dein Handy ohne Korrektur liegen würde.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Die Uhren werden schon vor dem Start absichtlich ein klein wenig langsamer eingestellt. Im All laufen sie dann genau richtig.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="relCv" style="height:300px" aria-label="Oben die zwei Effekte der Relativitätstheorie als Balken, unten eine Strecke ab Zürich, die zeigt, wie weit die Ortung ohne Korrektur daneben liegt."></canvas>
+        <div class="locked" id="relLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="dayIn">Tage ohne Korrektur</label><input type="range" id="dayIn" min="0" max="30" step="1" value="1" disabled><output id="dayOut">1 Tag</output></div>
+        <div class="row">
+          <button class="btn" id="playBtn" disabled>Einen Monat abspielen</button>
+          <button class="btn ghost" id="fixBtn" disabled>Einstein-Korrektur einschalten</button>
+        </div>
+        <p class="status" id="relStatus">Vereinfacht: Der Fehler wächst Tag für Tag weiter.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Satellitenuhr geht vor um</span><span class="val" id="rT">–</span><span class="formula">38 µs pro Tag</span></div>
+        <div><span class="lbl">Ortung daneben um</span><span class="val" id="rD">–</span><span class="formula">µs × 300 m</span></div>
+        <div><span class="lbl">Das ist</span><span class="val" id="rL" style="font-size:15px">–</span><span class="formula">Luftlinie, gerundet</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum braucht dein Handy mindestens vier Satelliten?</h2>
+      <p>Im Raum legen drei Abstände deinen Ort eigentlich schon fest: Länge, Breite und Höhe. Trotzdem findet dein Handy seine Position erst, wenn es mindestens vier Satelliten empfängt.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Welche Uhr ist in dieser Rechnung die schlechteste?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Der vierte Satellit braucht es, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Auflösung zeigen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Die Satelliten haben Atomuhren. Dein Handy hat nur eine billige Quarzuhr, die leicht um Millionstelsekunden danebenliegt. Was weiss das Handy also nicht genau, ausser seinem Ort?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Drei Abstände würden reichen, wenn die Uhr im Handy perfekt ginge. Tut sie aber nicht, und schon 1 µs Fehler macht 300 m aus. Darum behandelt das Handy seinen eigenen <strong>Uhrenfehler als vierte Unbekannte</strong>: Länge, Breite, Höhe und Zeit. Vier Unbekannte brauchen vier Messungen, also vier Satelliten. Das Handy sucht den einen Uhrenfehler, bei dem sich alle Kugeln in einem Punkt treffen.</p>
+          <p>Als Nebeneffekt kennt dein Handy danach die Uhrzeit fast so genau wie eine Atomuhr. In der Praxis empfängt es meist viel mehr als vier Satelliten, was die Ortung genauer macht.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Dein Handy misst <em>Zeit</em>, nicht Orte.</h2>
+    <ul class="learned">
+      <li><b>Laufzeit wird Abstand</b><span>Das Handy empfängt Zeitsignale und rechnet aus, wie lange sie unterwegs waren. Wo sich die Kreise treffen, bist du.</span></li>
+      <li><b>1 µs = 300 m</b><span>Licht ist so schnell, dass schon eine Millionstelsekunde Uhrenfehler die Ortung um Hunderte Meter verschiebt.</span></li>
+      <li><b>Einstein fährt mit</b><span>Uhren im All gehen 38 µs pro Tag vor. Ohne Relativitätstheorie wäre GPS schnell kilometerweit daneben.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="flugzeug.html">Weiter: Warum fliegt ein Flugzeug? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/gps.js"></script>
+</body>
+</html>

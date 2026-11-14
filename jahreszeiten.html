@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jahreszeiten · mindblow</title>
+<meta name="description" content="Warum gibt es Sommer und Winter? Wie die geneigte Erdachse Sonnenhöhe und Tageslänge bestimmt, zum Ausprobieren.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 07 · Natur &amp; Universum</span>
+    <h1>Warum gibt es <em>Jahreszeiten</em>?</h1>
+    <p class="intro">Im Juli badest du im Zürichsee, im Januar liegt Schnee. Viele denken, die Erde sei im Sommer einfach näher an der Sonne. Das klingt logisch, stimmt aber nicht. Die wahre Ursache ist eine kleine Schräglage mit grossen Folgen.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Bahn und Achse -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Die Bahn der Erde <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Jahr, eine Runde um die Sonne</h2>
+      <p>Die Erde braucht ein Jahr für eine Runde um die Sonne. Gleichzeitig dreht sie sich jeden Tag einmal um ihre eigene Achse, die durch Nord- und Südpol geht.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="orbitLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum ist es bei uns im Sommer warm?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Erde ist der Sonne im Sommer näher</span></button>
+          <button data-v="b"><span class="k">b</span><span>Die Erdachse ist geneigt: Im Sommer steht die Sonne bei uns höher und scheint länger</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Sonne strahlt im Sommer stärker</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Erdachse ist um <strong>23,4°</strong> geneigt und zeigt das ganze Jahr in dieselbe Richtung im Weltall. Im Juni ist darum die Nordhalbkugel der Sonne zugeneigt: Die Sonne steigt bei uns höher und bleibt länger am Himmel. Im Dezember ist es umgekehrt. Der Abstand zur Sonne ändert sich im Lauf des Jahres nur um gut 3 Prozent und spielt für die Jahreszeiten kaum eine Rolle. Spiel im Experiment ein Jahr durch.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Anfang Januar ist die Erde der Sonne am nächsten, rund 147 Millionen Kilometer. Anfang Juli ist sie am weitesten weg, rund 152 Millionen. Bei uns ist also Winter, wenn die Sonne am nächsten ist.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="orbitCv" style="height:340px" aria-label="Erdbahn von oben mit der Sonne in der Mitte, dazu die Erde von der Seite mit ihrer geneigten Achse"></canvas>
+        <div class="locked" id="orbitLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="dayIn">Tag im Jahr</label><input type="range" id="dayIn" min="1" max="365" step="1" value="172" disabled><output id="dayOut">21. Juni</output></div>
+        <div class="row">
+          <button class="btn" id="playBtn" disabled>Ein Jahr abspielen</button>
+          <button class="btn ghost" id="periBtn" disabled>Zur Erdnähe springen</button>
+        </div>
+        <span class="status" id="orbitStatus">Der Punkt N zeigt, wohin der Nordpol geneigt ist.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Datum</span><span class="val" id="oDate">–</span><span class="formula">Tag im Jahr</span></div>
+        <div><span class="lbl">Abstand zur Sonne</span><span class="val" id="oDist">–</span><span class="formula">Millionen Kilometer</span></div>
+        <div><span class="lbl">Jahreszeit bei uns</span><span class="val" id="oSeason">–</span><span class="formula">Nordhalbkugel</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Sonnenhöhe in Zürich -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Die Sonne über Zürich <span class="chip solved-chip">gelöst</span></span>
+      <h2>Hoch im Sommer, flach im Winter</h2>
+      <p>Zürich liegt auf 47,4° nördlicher Breite, also etwas mehr als halbwegs zwischen Äquator und Nordpol. Wie hoch die Sonne am Mittag steigt, hängt von dieser Breite und vom Datum ab.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="noonLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie hoch steht die Sonne in Zürich am Mittag des 21. Juni?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Rund 30° über dem Horizont</span></button>
+          <button data-v="b"><span class="k">b</span><span>Rund 66° über dem Horizont</span></button>
+          <button data-v="c"><span class="k">c</span><span>Genau 90°, also senkrecht über uns</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ohne Neigung der Erdachse stünde die Sonne in Zürich am Mittag immer 90° − 47,4° = 42,6° hoch. Im Juni kommt die Neigung dazu: <strong>90° − 47,4° + 23,4° = 66°</strong>. Im Dezember wird sie abgezogen, dann sind es nur <strong>19°</strong>. Je flacher die Sonne steht, desto grösser die Fläche, auf die sich dasselbe Licht verteilt. Darum wärmt die Wintersonne so wenig, und sie scheint erst noch weniger lange.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Am Mittag des 21. Dezember trifft in Zürich auf jeden Quadratmeter nur rund ein Drittel so viel Sonnenlicht wie am 21. Juni. Und der Tag ist nur gut halb so lang.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="noonCv" style="height:320px" aria-label="Seitenansicht: Sonne am Mittag über Zürich, ein Lichtbündel trifft schräg auf den Boden und beleuchtet eine Fläche"></canvas>
+        <div class="locked" id="noonLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="day2In">Tag im Jahr</label><input type="range" id="day2In" min="1" max="365" step="1" value="172" disabled><output id="day2Out">21. Juni</output></div>
+        <div class="row">
+          <button class="btn" id="junBtn" disabled>21. Juni</button>
+          <button class="btn" id="decBtn" disabled>21. Dezember</button>
+          <button class="btn ghost" id="play2Btn" disabled>Ein Jahr abspielen</button>
+        </div>
+        <span class="status" id="noonStatus">Dasselbe Lichtbündel, verschieden grosse Flächen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Sonnenhöhe am Mittag</span><span class="val" id="nHeight">–</span><span class="formula">90° − 47,4° + Neigung</span></div>
+        <div><span class="lbl">Tageslänge</span><span class="val" id="nDay">–</span><span class="formula">vereinfacht, ohne Lichtbrechung</span></div>
+        <div><span class="lbl">Licht pro m² am Mittag</span><span class="val" id="nLight">–</span><span class="formula">im Vergleich zur Sonne im Zenit</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Nord und Süd -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Die andere Seite der Welt <span class="chip solved-chip">gelöst</span></span>
+      <h2>Sydney tickt anders</h2>
+      <p>Sydney liegt auf der Südhalbkugel, auf 33,9° südlicher Breite. Die Erdachse ist aber für alle Orte der Erde in dieselbe Richtung geneigt.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="dayLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wenn bei uns Sommer ist, was ist dann in Sydney?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Auch Sommer, es ist ja dieselbe Sonne</span></button>
+          <button data-v="b"><span class="k">b</span><span>Winter</span></button>
+          <button data-v="c"><span class="k">c</span><span>Dort gibt es keine Jahreszeiten</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ist die Nordhalbkugel der Sonne zugeneigt, ist die Südhalbkugel von ihr abgewandt. Im Juni ist in Sydney darum <strong>Winter</strong>, mit kurzen Tagen und tiefer Sonne. Im Dezember ist dort Hochsommer. Ändere im Experiment die Neigung der Erdachse und schau, was mit den Tageslängen passiert. Was geschieht bei 0°?</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Am Nordpol geht die Sonne im März auf und erst im September wieder unter. Danach folgt ein halbes Jahr Nacht.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="dayCv" style="height:300px" aria-label="Diagramm: Tageslänge in Zürich und Sydney über das ganze Jahr"></canvas>
+        <div class="locked" id="dayLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="tiltIn">Neigung der Achse</label><input type="range" id="tiltIn" min="0" max="40" step="0.1" value="23.4" disabled><output id="tiltOut">23,4°</output></div>
+        <div class="ctrl"><label for="day3In">Tag im Jahr</label><input type="range" id="day3In" min="1" max="365" step="1" value="172" disabled><output id="day3Out">21. Juni</output></div>
+        <div class="row">
+          <button class="btn ghost" id="realTilt" disabled>Echte Neigung</button>
+          <button class="btn ghost" id="zeroTilt" disabled>Keine Neigung</button>
+        </div>
+        <span class="status" id="dayStatus">–</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Tag in Zürich</span><span class="val" id="dZh">–</span><span class="formula" id="dZhS">47,4° N</span></div>
+        <div><span class="lbl">Tag in Sydney</span><span class="val" id="dSy">–</span><span class="formula" id="dSyS">33,9° S</span></div>
+        <div><span class="lbl">Zürich: längster minus kürzester Tag</span><span class="val" id="dDiff">–</span><span class="formula">vereinfacht</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Verzögerung -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum ist es am längsten Tag nicht am heissesten?</h2>
+      <p>Am 21. Juni steht die Sonne in Zürich am höchsten und scheint am längsten. Die heissesten Wochen kommen aber meist erst im Juli und August.</p>
+      <p><strong>Tipp:</strong> Denk an einen grossen Topf Wasser auf dem Herd.</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Die grösste Hitze kommt später, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Wann ist das Wasser im Topf am heissesten: im Moment, in dem du die Platte hochdrehst, oder erst eine Weile später? Und wie viel Wasser liegt im Zürichsee und in den Meeren?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Boden, Seen und Meere speichern Wärme und brauchen Wochen, um sich aufzuwärmen. Nach dem 21. Juni kommt zwar jeden Tag etwas weniger Sonnenlicht an, aber immer noch <strong>mehr, als nachts wieder verloren geht</strong>. Solange das so ist, wird es weiter wärmer. Erst im Juli oder August kippt die Bilanz. Im Winter ist es genauso: Der kälteste Monat ist meist der Januar, nicht der Dezember.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Die Erde steht <em>schief</em>. Darum gibt es Jahreszeiten.</h2>
+    <ul class="learned">
+      <li><b>Nicht der Abstand</b><span>Die Erde ist der Sonne im Januar sogar am nächsten. Der Abstand ändert sich im Jahr nur um gut 3 Prozent.</span></li>
+      <li><b>Hohe Sonne, lange Tage</b><span>Die geneigte Achse lässt die Sonne im Sommer höher steigen und länger scheinen. Das Licht trifft konzentrierter auf den Boden.</span></li>
+      <li><b>Gegenteil im Süden</b><span>Ist der Norden zur Sonne geneigt, ist der Süden abgewandt. Sommer in Zürich heisst Winter in Sydney.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="universum.html">Weiter: Wie gross ist das Universum? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/jahreszeiten.js"></script>
+</body>
+</html>

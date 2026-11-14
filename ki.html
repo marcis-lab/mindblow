@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>KI · mindblow</title>
-<meta name="description" content="Was ist KI? Erst vermuten, dann ausprobieren.">
+<meta name="description" content="Was ist KI? Interaktiv erklärt.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
@@ -14,12 +14,7 @@
 <div class="wrap">
   <header class="top">
     <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
-    <nav>
-      <a href="index.html">Themen</a>
-      <a href="strom.html">Strom</a>
-      <a href="internet.html">Internet</a>
-      <a href="ki.html" aria-current="page">KI</a>
-    </nav>
+    <nav></nav>
   </header>
 </div>
 
@@ -28,7 +23,7 @@
     <a class="back" href="index.html">← Alle Themen</a>
     <span class="eyebrow">Thema 03 · Denken über Maschinen</span>
     <h1>Was ist eigentlich <em class="copper">KI</em>?</h1>
-    <p class="intro">Sie schreibt Texte, malt Bilder und beantwortet fast jede Frage. Aber was passiert da drin? Denkt sie? Weiss sie etwas? Beantworte jede Frage zuerst selbst.</p>
+    <p class="intro">Sie schreibt Texte, malt Bilder und beantwortet fast jede Frage. Aber was passiert da drin? Denkt sie? Weiss sie etwas?</p>
     <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
   </section>
 
@@ -61,7 +56,7 @@
       <div class="stage" style="padding:16px; display:grid; gap:12px">
         <span class="eyebrow">Wahrscheinlichkeit für das nächste Wort</span>
         <div class="probs" id="probs"></div>
-        <div class="locked" id="wordLock">Erst vermuten, dann schreiben</div>
+        <div class="locked" id="wordLock">Wähle oben eine Antwort, um zu starten</div>
       </div>
       <div class="controls">
         <div class="ctrl"><label for="tempIn">Temperatur</label><input type="range" id="tempIn" min="0.1" max="2" step="0.05" value="0.7" disabled><output id="tempOut">0,70</output></div>
@@ -100,7 +95,7 @@
     <div class="lab">
       <div class="stage">
         <canvas id="learnCv" style="height:300px" aria-label="Diagramm mit Äpfeln und Bananen und einer Trennlinie, die beim Lernen wandert"></canvas>
-        <div class="locked" id="learnLock">Erst vermuten, dann trainieren</div>
+        <div class="locked" id="learnLock">Wähle oben eine Antwort, um zu starten</div>
       </div>
       <div class="controls">
         <div class="legend">
@@ -146,37 +141,36 @@
       <div class="controls">
         <span class="eyebrow">Echt oder erfunden?</span>
         <ul class="claims" id="claims"></ul>
-        <p class="status" id="claimStatus">Erst vermuten, dann prüfen.</p>
+        <p class="status" id="claimStatus">Wähle oben eine Antwort, um zu starten.</p>
       </div>
       <div class="locked" id="claimLock" hidden></div>
     </div>
   </section>
 
-  <!-- 4: Selber denken -->
+  <!-- 4: Jetzt du -->
   <section class="step" data-q="q4">
     <div class="text">
       <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
-      <h2>Warum selber denken, wenn KI alles beantworten kann?</h2>
-      <p>Das ist die Frage, für die es mindblow gibt. Du hast jetzt alles, was du brauchst, um sie selbst zu beantworten.</p>
-      <p><strong>Tipp:</strong> Denk an Teil 3. Und daran, wie die KI in Teil 2 gelernt hat.</p>
+      <h2>Woran erkennst du, ob eine KI-Antwort stimmt?</h2>
+      <p>Ein Chatbot klingt bei richtigen und falschen Antworten genau gleich sicher. Was kannst du tun, um den Unterschied herauszufinden?</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1 und Teil 3. Woher «weiss» das Modell überhaupt etwas?</p>
     </div>
     <div class="lab">
       <div class="think">
         <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
-        <textarea id="thinkTxt" data-q="q4" placeholder="Ich finde, man sollte trotzdem selber denken, weil …"></textarea>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich würde zuerst …"></textarea>
         <div class="row">
           <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
-          <button class="btn" id="ansBtn" disabled>Mit unserer Sicht vergleichen</button>
+          <button class="btn" id="ansBtn" disabled>Auflösung vergleichen</button>
         </div>
         <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
         <div class="hint" id="hint" hidden>
           <span class="eyebrow">Hinweis</span>
-          <p>Wer merkt, wenn eine KI-Antwort falsch ist? Und: Die KI wurde besser, weil sie Fehler gemacht und korrigiert hat. Wie ist das bei dir?</p>
+          <p>Wie prüfst du eine Behauptung, die dir ein Mensch erzählt? Und wo steht die Information ursprünglich?</p>
         </div>
         <div class="answer" id="answer" hidden>
-          <span class="eyebrow">Unsere Sicht</span>
-          <p>Eine KI klingt immer sicher, auch wenn sie falsch liegt. Nur wer selbst versteht, wie etwas funktioniert, <strong>merkt den Fehler</strong>. Und Verstehen lässt sich nicht abkürzen: Genau wie das Modell in Teil 2 lernst du, indem du vermutest, dich irrst und korrigierst. KI ist ein starkes Werkzeug. Das Denken bleibt deine Aufgabe.</p>
-          <p><strong>Hier gibt es kein Richtig oder Falsch.</strong> Wenn deine Antwort andere Gründe hat, umso besser.</p>
+          <span class="eyebrow">Auflösung</span>
+          <p>Ein paar Werkzeuge helfen: <strong>Nach der Quelle fragen</strong> und diese Quelle selbst öffnen. Wichtige Fakten an einer zweiten, unabhängigen Stelle <strong>gegenprüfen</strong>, zum Beispiel bei Behörden, Lexika oder Fachleuten. <strong>Misstrauisch werden</strong> bei sehr genauen Zahlen, Namen, Zitaten und Daten, denn genau dort erfindet ein Modell am ehesten etwas. Und prüfen, ob die Antwort zu dem passt, was du schon sicher weisst.</p>
         </div>
       </div>
     </div>
@@ -184,14 +178,14 @@
 
   <section class="wrapup">
     <span class="eyebrow">Was du jetzt weisst</span>
-    <h2>KI rät brillant. <em>Denken</em> musst du selbst.</h2>
+    <h2>KI rät brillant. Ob es <em>stimmt</em>, ist eine andere Frage.</h2>
     <ul class="learned">
       <li><b>Wort für Wort</b><span>Sprachmodelle sagen das wahrscheinlichste nächste Wort voraus, immer wieder, bis die Antwort fertig ist.</span></li>
       <li><b>Lernen heisst nachjustieren</b><span>Eine KI startet zufällig und verbessert ihre inneren Zahlen mit jedem Fehler ein kleines Stück.</span></li>
-      <li><b>Plausibel ist nicht wahr</b><span>KI kann überzeugend falsch liegen. Prüfen und selber denken bleibt deine Aufgabe.</span></li>
+      <li><b>Plausibel ist nicht wahr</b><span>KI kann überzeugend falsch liegen. Quellen prüfen hilft.</span></li>
     </ul>
     <div class="row">
-      <a class="btn" href="index.html">Zu allen Themen</a>
+      <a class="btn" href="gps.html">Weiter: Woher weiss dein Handy, wo du bist? →</a>
       <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
     </div>
   </section>
@@ -199,7 +193,7 @@
 
 <div class="wrap">
   <footer>
-    <span>mindblow — selber denken, dann verstehen</span>
+    <span>mindblow — wie die Welt funktioniert</span>
     <a href="index.html">Alle Themen</a>
   </footer>
 </div>

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Himmel · mindblow</title>
+<meta name="description" content="Warum ist der Himmel blau und der Sonnenuntergang orange? Wie Luft das Sonnenlicht streut, zum Ausprobieren.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 06 · Natur &amp; Universum</span>
+    <h1>Warum ist der Himmel <em class="fiber">blau</em>?</h1>
+    <p class="intro">Am Mittag ist er blau, am Abend orange, Wolken sind weiss, und auf dem Mond ist er schwarz. Hinter all dem steckt dieselbe Physik: Sonnenlicht, das an der Luft zur Seite abgelenkt wird.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Rayleigh-Streuung -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Licht trifft Luft <span class="chip solved-chip">gelöst</span></span>
+      <h2>Sonnenlicht ist ein Farbgemisch</h2>
+      <p>Das weisse Licht der Sonne enthält alle Regenbogenfarben. Auf dem Weg durch die Lufthülle trifft es auf unzählige winzige Stickstoff- und Sauerstoffmoleküle. Dabei wird ein Teil des Lichts in alle Richtungen abgelenkt. Das nennt man <strong>Streuung</strong>.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="scatLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum ist der Himmel blau?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Er spiegelt das blaue Meer</span></button>
+          <button data-v="b"><span class="k">b</span><span>Die Luftteilchen streuen blaues Licht viel stärker als rotes</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Luft selbst ist blau gefärbt</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Luftmoleküle sind viel kleiner als eine Lichtwelle. Solche winzigen Teilchen streuen kurze Wellen viel stärker als lange: Die Streuung wächst mit <strong>1 ÷ Wellenlänge hoch 4</strong>. Blaues Licht (rund 450 Nanometer) wird darum über viermal stärker gestreut als rotes (rund 650 Nanometer). Dieses gestreute Blau kommt von überall am Himmel zu dir. Man nennt das <strong>Rayleigh-Streuung</strong>. Schick im Experiment Licht durch die Luft und wähle einzelne Farben aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Auf dem Mond ist der Himmel auch mitten am Tag schwarz. Dort gibt es keine Luft, die das Sonnenlicht streuen könnte.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="scatCv" style="height:360px" aria-label="Animation: Lichtteilchen in allen Farben fliegen von der Sonne durch die Luft, blaue werden häufiger zur Seite abgelenkt. Darunter ein Balkendiagramm der Streustärke pro Farbe."></canvas>
+        <div class="locked" id="scatLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="lamIn">Farbe (Wellenlänge)</label><input type="range" id="lamIn" min="400" max="700" step="5" value="450" disabled><output id="lamOut">450 nm</output></div>
+        <div class="row">
+          <button class="btn" id="modeBtn" disabled>Nur diese Farbe senden</button>
+        </div>
+        <span class="status" id="scatStatus">Weisses Licht: alle Farben gemischt.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Gewählte Farbe</span><span class="val" id="sColor">blau</span><span class="formula" id="sNm">450 nm</span></div>
+        <div><span class="lbl">Streut stärker als Rot</span><span class="val" id="sRel">4,4×</span><span class="formula">(650 nm ÷ λ)⁴</span></div>
+        <div><span class="lbl">Blau gegen Rot</span><span class="val">4,4×</span><span class="formula">(650 ÷ 450)⁴</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Abendrot -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Abendrot <span class="chip solved-chip">gelöst</span></span>
+      <h2>Derselbe Himmel, ein viel längerer Weg</h2>
+      <p>Am Mittag steht die Sonne hoch, und ihr Licht durchquert die Lufthülle auf kurzem Weg. Am Abend sinkt sie zum Horizont, und der Himmel über dem Zürichsee färbt sich orange und rot.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="sunLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum wird der Himmel am Abend orange?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Sonne kühlt am Abend ab und leuchtet darum röter</span></button>
+          <button data-v="b"><span class="k">b</span><span>Das Licht läuft flach durch viel mehr Luft, und das Blau wird unterwegs weggestreut</span></button>
+          <button data-v="c"><span class="k">c</span><span>Der Staub in der Luft leuchtet am Abend orange</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Steht die Sonne tief, läuft ihr Licht schräg durch die Lufthülle. Kurz vor dem Untergang ist der Weg durch die Luft fast <strong>40-mal so lang</strong> wie bei einer Sonne direkt über dir. Unterwegs wird das Blau immer wieder zur Seite gestreut, bis kaum noch etwas davon übrig ist. Bei dir kommen vor allem <strong>Gelb, Orange und Rot</strong> an. Zieh die Sonne im Experiment nach unten.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Auf dem Mars ist es umgekehrt: Der Himmel ist tagsüber gelblich-braun, und beim Sonnenuntergang leuchtet es rund um die Sonne bläulich. Schuld ist feiner Staub, der das Licht anders streut als Luft.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="sunCv" style="height:340px" aria-label="Links der Himmel mit der Sonne über einer Bergkette, rechts eine Skizze der Erde mit Lufthülle und dem Weg des Sonnenlichts"></canvas>
+        <div class="locked" id="sunLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="hIn">Sonnenhöhe</label><input type="range" id="hIn" min="-2" max="90" step="0.5" value="40" disabled><output id="hOut">40,0°</output></div>
+        <div class="row">
+          <button class="btn" id="setBtn" disabled>Sonnenuntergang abspielen</button>
+          <button class="btn ghost" id="noonBtn" disabled>Mittag im Juni</button>
+        </div>
+        <span class="status" id="sunStatus">Zieh die Sonne nach unten und beobachte ihre Farbe.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Weg durch die Luft</span><span class="val" id="rAir">–</span><span class="formula">im Vergleich zur Sonne im Zenit</span></div>
+        <div><span class="lbl">Farbe der Sonne</span><span class="val" id="rSun">–</span><span class="formula">vereinfacht berechnet</span></div>
+        <div><span class="lbl">Blau, das durchkommt</span><span class="val" id="rBlue">–</span><span class="formula">Anteil bei 460 nm</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Warum nicht violett -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Das Violett-Rätsel <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum nicht violett?</h2>
+      <p>Kurze Wellen werden stärker gestreut. Violett ist die kürzeste Farbe, die wir sehen, und wird tatsächlich am allerstärksten gestreut. Trotzdem ist der Himmel blau.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="eyeLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Violett streut noch stärker als Blau. Warum ist der Himmel nicht violett?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Im Sonnenlicht gibt es gar kein Violett</span></button>
+          <button data-v="b"><span class="k">b</span><span>Im Sonnenlicht steckt weniger Violett, und unsere Augen sind dafür viel weniger empfindlich</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Ozonschicht schluckt das Violett vollständig</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Zwei Dinge kommen zusammen. Erstens enthält das Sonnenlicht, das bei uns ankommt, <strong>weniger Violett als Blau</strong>. Zweitens sind unsere Augen für Violett <strong>viel weniger empfindlich</strong> als für Blau und Grün. Dazu kommt: Das gestreute Licht ist nie nur eine Farbe. Es ist ein Gemisch mit viel Violett und Blau, aber auch Grün und etwas Rot. Dieses Gemisch sieht für uns <strong>himmelblau</strong> aus. Schalte im Experiment die einzelnen Faktoren ein und aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Ein Messgerät findet im Himmelslicht besonders viel Violett. Himmelblau ist eine Farbe, die erst in unseren Augen und im Gehirn entsteht.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="eyeCv" style="height:320px" aria-label="Diagramm: Sonnenlicht, Streuung und Empfindlichkeit des Auges über die Wellenlänge, dazu ein Farbfeld mit der Himmelsfarbe"></canvas>
+        <div class="locked" id="eyeLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend">
+          <span class="eyebrow">Faktoren:</span>
+          <button id="tSun" class="active" aria-pressed="true" disabled><span class="sw" style="background:var(--glow)"></span>Sonnenlicht</button>
+          <button id="tScat" class="active" aria-pressed="true" disabled><span class="sw" style="background:var(--fiber)"></span>Streuung</button>
+          <button id="tEye" class="active" aria-pressed="true" disabled><span class="sw" style="background:var(--muted)"></span>Auge</button>
+        </div>
+        <span class="status" id="eyeStatus">Alle Faktoren an: So sehen wir den Himmel.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Am meisten Licht bei</span><span class="val" id="ePeak">–</span><span class="formula" id="ePeakF">Sonnenlicht × Streuung</span></div>
+        <div><span class="lbl">Anteil Violett</span><span class="val" id="eViolet">–</span><span class="formula">Licht unter 450 nm</span></div>
+        <div><span class="lbl">Farbe des Felds</span><span class="val" id="eColor">–</span><span class="formula">vereinfacht berechnet</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Wolken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum sind Wolken weiss und nicht blau?</h2>
+      <p>Wolken bestehen aus winzigen Wassertröpfchen, die in der Luft schweben. Auch sie streuen das Sonnenlicht, und zwar so stark, dass man nicht durch sie hindurchsieht.</p>
+      <p><strong>Tipp:</strong> Die Regel aus Teil 1 gilt für Teilchen, die viel kleiner sind als eine Lichtwelle.</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Wolken sind weiss, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Eine Lichtwelle ist etwa 0,0005 Millimeter lang. Ein Luftmolekül ist über tausendmal kleiner. Ein Wolkentröpfchen misst dagegen rund 0,01 Millimeter, ist also etwa zwanzigmal grösser als die Lichtwelle.</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Wassertröpfchen sind viel grösser als eine Lichtwelle. Für so grosse Teilchen gilt die Regel «Blau streut stärker» nicht mehr: Sie streuen <strong>alle Farben etwa gleich stark</strong>. Rot, Grün, Blau und alles dazwischen kommen gemischt bei dir an, und dieses Gemisch ist Weiss. Ist eine Wolke sehr dick, kommt unten nur noch wenig Licht an. Darum sehen Regenwolken grau aus.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Der Himmel ist <em>gestreutes</em> Sonnenlicht.</h2>
+    <ul class="learned">
+      <li><b>Kleine Teilchen, blaues Licht</b><span>Luftmoleküle streuen kurze Wellen viel stärker als lange. Das gestreute Blau kommt von überall am Himmel zu dir.</span></li>
+      <li><b>Langer Weg, rote Sonne</b><span>Am Abend durchquert das Licht viel mehr Luft. Das Blau ist unterwegs weggestreut, Orange und Rot bleiben übrig.</span></li>
+      <li><b>Das Auge mischt mit</b><span>Violett streut noch stärker, aber die Sonne liefert weniger davon, und unsere Augen sehen es schlecht.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="jahreszeiten.html">Weiter: Warum gibt es Jahreszeiten? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/himmel.js"></script>
+</body>
+</html>

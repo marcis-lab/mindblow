@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Evolution · mindblow</title>
+<meta name="description" content="Wie aus zufälligen Unterschieden und hungrigen Vögeln neue Eigenschaften entstehen: Evolution im Experiment mit Birkenspannern.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 11 · Körper &amp; Leben</span>
+    <h1>Wie funktioniert <em class="copper">Evolution</em>?</h1>
+    <p class="intro">Aus einfachen Zellen wurden Giraffen, Pilze und du. Ohne Plan und ohne Ziel. Dafür braucht es nur drei Zutaten: Unterschiede, Vererbung und eine Umwelt, die auswählt.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Natürliche Selektion -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Wer überlebt? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Der lange Hals der Giraffe</h2>
+      <p>Giraffen fressen Blätter hoch oben in den Bäumen. Ihr Hals ist bis zu zwei Meter lang. Wie ist er so lang geworden?</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="simLock1">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum haben Giraffen lange Hälse?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Sie haben sich ein Leben lang gestreckt und das an ihre Kinder vererbt</span></button>
+          <button data-v="b"><span class="k">b</span><span>Tiere mit etwas längeren Hälsen kamen besser an Futter, überlebten öfter und hatten mehr Nachwuchs</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Natur hat es von Anfang an so geplant</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Giraffen sind nie alle gleich. Wer etwas besser an Futter kam, überlebte öfter und hatte mehr Junge. Diese erbten den etwas längeren Hals. Über sehr viele Generationen wurden die Hälse so immer länger. Das nennt man <strong>natürliche Selektion</strong>. Antwort a ist eine alte Idee von Jean-Baptiste Lamarck: Gestrecktes wird nicht vererbt. (Ob bei Giraffen auch Kämpfe zwischen Männchen mitspielten, wird noch erforscht. Der Mechanismus ist derselbe.)</p>
+          <p>Im Experiment siehst du Birkenspanner, Nachtfalter, die tagsüber auf Baumrinde sitzen. Vögel fressen die, die sie gut sehen. Mach die Rinde russig und drück auf «1 Generation».</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>In England wurden Birkenspanner während der Industrialisierung dunkel: Um 1895 waren rund um Manchester fast alle schwarz. Seit die Luft sauberer ist, sind die hellen wieder in der Überzahl.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="simCv1" style="height:340px" aria-label="Birkenspanner in verschiedenen Farben auf Baumrinde, darunter ein Balkendiagramm der Farben"></canvas>
+        <div class="locked" id="simLock1">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="barkIn1">Russ auf der Rinde</label><input type="range" id="barkIn1" min="0" max="100" step="1" value="15" disabled><output id="barkOut1">15 %</output></div>
+        <div class="row">
+          <button class="btn" id="genBtn1" disabled>1 Generation</button>
+          <button class="btn ghost" id="resetSim1" disabled>Neu starten</button>
+        </div>
+        <span class="status" id="s1Status">Vereinfacht: Die Farbe ist hier ein stufenloser Wert. Bei echten Birkenspannern gibt es vor allem eine helle und eine dunkle Form.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Generation</span><span class="val" id="s1Gen">0</span><span class="formula">Falter-Generationen</span></div>
+        <div><span class="lbl">Durchschnittsfarbe</span><span class="val" id="s1Avg">–</span><span class="formula">0 % hell · 100 % dunkel</span></div>
+        <div><span class="lbl">Gefressen</span><span class="val" id="s1Eaten">–</span><span class="formula">in der letzten Generation</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Population statt Individuum -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Wer verändert sich? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Kein Falter wechselt die Farbe</h2>
+      <p>Ein heller Falter sitzt auf einer Rinde, die über die Jahre immer russiger wird. Er ist jetzt gut zu sehen.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="simLock2">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wird ein einzelner Falter im Laufe seines Lebens dunkler, wenn die Rinde dunkel wird?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Ja, er passt sich an</span></button>
+          <button data-v="b"><span class="k">b</span><span>Nein, nur die Population verändert sich, über viele Generationen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Ja, aber nur im Winter</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ein Falter behält die Farbe, mit der er geschlüpft ist. Was sich ändert, sind die <strong>Anteile</strong>: Helle werden öfter gefressen, dunkle haben öfter Nachwuchs. In jeder neuen Generation gibt es darum etwas mehr dunkle Falter. Evolution passiert nicht in einem Tier, sondern in einer <strong>Population</strong>. Lass zehn Generationen laufen und schau die Kurve an.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Du kannst nicht evolvieren. Du kannst lernen, trainieren und dich verändern. Aber Evolution sieht man erst, wenn man viele Generationen vergleicht.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="simCv2" style="height:360px" aria-label="Birkenspanner auf Rinde und ein Liniendiagramm der durchschnittlichen Farbe über die Generationen"></canvas>
+        <div class="locked" id="simLock2">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="barkIn2">Russ auf der Rinde</label><input type="range" id="barkIn2" min="0" max="100" step="1" value="80" disabled><output id="barkOut2">80 %</output></div>
+        <div class="row">
+          <button class="btn" id="runBtn2" disabled>10 Generationen</button>
+          <button class="btn ghost" id="resetSim2" disabled>Neu starten</button>
+        </div>
+        <span class="status" id="s2Status">Die Falter starten hell, die Rinde ist schon russig.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Generation</span><span class="val" id="s2Gen">0</span><span class="formula">Falter-Generationen</span></div>
+        <div><span class="lbl">Durchschnittsfarbe</span><span class="val" id="s2Avg">–</span><span class="formula">0 % hell · 100 % dunkel</span></div>
+        <div><span class="lbl">Falter, die ihre Farbe wechseln</span><span class="val">0</span><span class="formula">nur die Anteile verschieben sich</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Mutation -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Woher kommt Neues? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Der Zufall liefert, die Umwelt wählt</h2>
+      <p>Auswahl kann nur zwischen dem wählen, was schon da ist. Neue Varianten entstehen durch <strong>Mutationen</strong>: kleine Veränderungen im Erbgut, zum Beispiel Kopierfehler.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="simLock3">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Entstehen Mutationen, weil ein Tier sie braucht?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Ja, der Körper verändert gezielt das Erbgut</span></button>
+          <button data-v="b"><span class="k">b</span><span>Nein, sie entstehen zufällig. Welche sich durchsetzen, entscheidet die Umwelt</span></button>
+          <button data-v="c"><span class="k">c</span><span>Nur bei grossen Tieren</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Mutationen passieren <strong>zufällig</strong>, ohne Rücksicht darauf, ob sie nützen. Die meisten sind egal oder schaden, ganz wenige helfen zufällig. Die Umwelt siebt dann aus. Hier sind alle Falter am Anfang genau gleich hell, und die Rinde ist russig. Stell die Mutation auf 0 und lass zehn Generationen laufen. Dann probier es mit Mutation.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Du trägst etwa 50 bis 100 neue Mutationen in deinem Erbgut, die weder deine Mutter noch dein Vater hatten. Fast alle davon merkst du nie.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="simCv3" style="height:320px" aria-label="Lauter gleich helle Birkenspanner auf dunkler Rinde und ein Balkendiagramm der Farben"></canvas>
+        <div class="locked" id="simLock3">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="mutIn">Mutation</label><input type="range" id="mutIn" min="0" max="10" step="1" value="0" disabled><output id="mutOut">aus</output></div>
+        <div class="row">
+          <button class="btn" id="runBtn3" disabled>10 Generationen</button>
+          <button class="btn ghost" id="resetSim3" disabled>Neu starten</button>
+        </div>
+        <span class="status" id="s3Status">Alle Falter sind gleich hell. Die Rinde ist russig.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Generation</span><span class="val" id="s3Gen">0</span><span class="formula">Falter-Generationen</span></div>
+        <div><span class="lbl">Durchschnittsfarbe</span><span class="val" id="s3Avg">–</span><span class="formula">0 % hell · 100 % dunkel</span></div>
+        <div><span class="lbl">Vielfalt</span><span class="val" id="s3Var">–</span><span class="formula">Streuung der Farben</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum eine Antibiotika-Kur nicht zu früh abbrechen?</h2>
+      <p>Antibiotika töten Bakterien. Oft geht es dir nach zwei, drei Tagen schon besser. Trotzdem heisst es: Nimm die Tabletten so lange, wie es die Ärztin oder der Arzt sagt.</p>
+      <p><strong>Tipp:</strong> Bakterien sind auch nicht alle gleich. Denk an die Falter.</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Wenn man zu früh aufhört, dann …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Bei den Faltern haben die Vögel zuerst die auffälligsten gefressen. Welche Bakterien sterben beim Antibiotikum zuerst, und welche bleiben am längsten übrig?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>In deinem Körper sind Millionen Bakterien, und sie sind nicht alle gleich empfindlich. Das Antibiotikum tötet zuerst die empfindlichsten. Die <strong>widerstandsfähigsten überleben am längsten</strong>. Hört man zu früh auf, können sich genau diese vermehren. So entstehen Bakterien, gegen die das Mittel schlechter wirkt: <strong>Resistenzen</strong>. Das ist Selektion, wie bei den Faltern, nur viel schneller, weil sich Bakterien in Minuten bis Stunden teilen.</p>
+          <p>Vereinfacht: Wie lange eine Kur dauern soll, hängt von der Krankheit ab, und manche Kuren werden heute kürzer verschrieben als früher. Das ist allgemeine Information, kein medizinischer Rat. Halte dich immer an die Anweisungen deiner Ärztin oder deines Arztes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Niemand plant. Die Umwelt <em>siebt</em>.</h2>
+    <ul class="learned">
+      <li><b>Auslese</b><span>Wer besser zur Umwelt passt, überlebt öfter und hat mehr Nachwuchs. So verschieben sich Eigenschaften.</span></li>
+      <li><b>Population, nicht Einzeltier</b><span>Kein Lebewesen evolviert. Es ändern sich die Anteile in einer Population, über Generationen.</span></li>
+      <li><b>Zufall als Rohstoff</b><span>Mutationen sind zufällig. Ohne sie gäbe es nichts Neues, unter dem die Umwelt auswählen könnte.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="geld.html">Weiter: Woher kommt Geld? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/evolution.js"></script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Geld · mindblow</title>
+<meta name="description" content="Woher kommt Geld? Wie Banken mit Krediten neues Geld erschaffen, warum es beim Zurückzahlen verschwindet und warum eine Banknote etwas wert ist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 12 · Geld &amp; Gesellschaft</span>
+    <h1>Woher kommt <em>Geld</em>?</h1>
+    <p class="intro">Du bezahlst mit Karte, mit dem Handy oder mit Noten. Aber wer macht dieses Geld eigentlich? Und warum ist ein bedrucktes Stück Papier 100 Franken wert?</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Geldschöpfung -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Wer macht das Geld? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Geld aus einem Tastendruck</h2>
+      <p>In der Schweiz gibt es Münzen, Banknoten und Geld auf Bankkonten. Zusammen bilden sie die <strong>Geldmenge</strong>, also alles Geld, mit dem Leute und Firmen bezahlen können.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="bankLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Woher kommt das meiste Geld in der Schweiz?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Nationalbank druckt es</span></button>
+          <button data-v="b"><span class="k">b</span><span>Geschäftsbanken erschaffen es, wenn sie Kredite vergeben</span></button>
+          <button data-v="c"><span class="k">c</span><span>Der Bund prägt es</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Gibt eine Bank einer Familie eine Hypothek über CHF 100'000, nimmt sie das Geld nicht aus einem Tresor. Sie schreibt der Familie den Betrag einfach <strong>auf dem Konto gut</strong>. In diesem Moment entsteht neues Geld, sogenanntes <strong>Buchgeld</strong>. Die Noten der Nationalbank und die Münzen des Bundes sind nur ein kleiner Teil der Geldmenge. Probier es aus: Vergib Kredite und schau, was mit der Geldmenge passiert.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Weniger als ein Zehntel des Geldes in der Schweiz existiert als Noten und Münzen. Der Rest sind Zahlen in den Computern der Banken.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="bankCv" style="height:330px" aria-label="Säulen mit der Bilanz einer Bank und der Geldmenge im Umlauf"></canvas>
+        <div class="locked" id="bankLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="row">
+          <button class="btn" id="loanBtn" disabled>Kredit vergeben (CHF 100'000 Hypothek)</button>
+          <button class="btn ghost" id="repayBtn" disabled>Kredit zurückzahlen</button>
+          <button class="btn ghost" id="cashBtn" disabled>Bargeld abheben (CHF 10'000)</button>
+          <button class="btn ghost" id="bankReset" disabled>Neu starten</button>
+        </div>
+        <p class="status" id="bankStatus">Vereinfachtes Modell einer einzigen Bank.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Geldmenge im Umlauf</span><span class="val" id="bM">–</span><span class="formula">Buchgeld + Bargeld</span></div>
+        <div><span class="lbl">Buchgeld</span><span class="val" id="bD">–</span><span class="formula">Guthaben auf Konten</span></div>
+        <div><span class="lbl">Bargeld bei den Leuten</span><span class="val" id="bB">–</span><span class="formula">Noten und Münzen</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Rückzahlung -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Wohin verschwindet Geld? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Geld kann auch verschwinden</h2>
+      <p>Die Familie zahlt ihre Hypothek über die Jahre zurück. Dafür überweist sie Geld von ihrem Konto an die Bank.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="flowLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was passiert mit dem Geld, wenn ein Kredit zurückgezahlt wird?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Es geht zurück an die Nationalbank</span></button>
+          <button data-v="b"><span class="k">b</span><span>Es verschwindet einfach</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Bank behält es als Gewinn</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Bei der Rückzahlung streicht die Bank zwei Zahlen gleichzeitig: das <strong>Guthaben auf dem Konto</strong> der Familie und den <strong>Kredit</strong> in ihren Büchern. Das Geld ist danach schlicht weg. Als Gewinn bleiben der Bank nur die <strong>Zinsen</strong>, die die Familie zusätzlich bezahlt. Darum wächst die Geldmenge, wenn viele Kredite aufgenommen werden, und sie schrumpft, wenn mehr zurückgezahlt als neu geliehen wird.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Banken können trotzdem nicht beliebig viel Geld erschaffen. Sie brauchen genug Eigenkapital, müssen strenge Regeln einhalten, und es braucht jemanden, der den Kredit will und ihn zurückzahlen kann.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="flowCv" style="height:300px" aria-label="Liniendiagramm der Geldmenge über die Monate"></canvas>
+        <div class="locked" id="flowLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="row">
+          <button class="btn" id="fLoan" disabled>Kredit vergeben</button>
+          <button class="btn ghost" id="fRepay" disabled>Kredit zurückzahlen</button>
+          <button class="btn ghost" id="fAuto" disabled>Boom und Abschwung abspielen</button>
+        </div>
+        <p class="status" id="flowStatus">Jeder Klick ist ein Monat. Vereinfacht: alle Kredite sind gleich gross.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Geldmenge</span><span class="val" id="fM">–</span><span class="formula">in diesem Modell</span></div>
+        <div><span class="lbl">Offene Kredite</span><span class="val" id="fN">–</span><span class="formula">je CHF 100'000</span></div>
+        <div><span class="lbl">Monat</span><span class="val" id="fT">0</span><span class="formula">seit Start</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Vertrauen und Tausch -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Warum hat Geld Wert? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Versprechen, an das alle glauben</h2>
+      <p>Eine 100er-Note herzustellen kostet nur einen Bruchteil von 100 Franken. Trotzdem bekommst du dafür im Laden Waren im Wert von 100 Franken.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="tradeLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum ist eine 100er-Note etwas wert?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Sie ist mit Gold hinterlegt</span></button>
+          <button data-v="b"><span class="k">b</span><span>Weil alle darauf vertrauen, dass andere sie annehmen, und weil sie gesetzliches Zahlungsmittel ist</span></button>
+          <button data-v="c"><span class="k">c</span><span>Wegen des teuren Spezialpapiers</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Früher war der Franken an Gold gebunden. Diese Bindung wurde im Jahr <strong>2000 aufgehoben</strong>. Heute hat die Note Wert, weil alle sicher sind, dass auch andere sie annehmen, und weil das Gesetz sie als Zahlungsmittel festlegt. Und warum braucht es überhaupt Geld? Ohne Geld müsstest du tauschen und für jedes Paar von Gütern wissen, wie viel davon wie viel wert ist. Zieh am Regler.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Die 1000er-Note ist eine der wertvollsten Banknoten der Welt. Mehr als die Hälfte des Werts aller Franken-Noten steckt in 1000ern.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="tradeCv" style="height:300px" aria-label="Netz aller Tauschkurse ohne Geld neben einem Stern mit Geld in der Mitte"></canvas>
+        <div class="locked" id="tradeLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="goodsIn">Anzahl Güter</label><input type="range" id="goodsIn" min="2" max="50" step="1" value="6" disabled><output id="goodsOut">6</output></div>
+        <p class="status" id="tradeStatus">Links: jede Linie ist ein Tauschkurs. Rechts: jede Linie ist ein Preis in Franken.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Tauschkurse ohne Geld</span><span class="val" id="tBarter">–</span><span class="formula">n · (n − 1) ÷ 2</span></div>
+        <div><span class="lbl">Preise mit Geld</span><span class="val" id="tMoney">–</span><span class="formula">n</span></div>
+        <div><span class="lbl">Ohne Geld</span><span class="val" id="tFactor">–</span><span class="formula">mal mehr zu merken</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum druckt die Nationalbank nicht einfach so viel Geld, dass alle reich sind?</h2>
+      <p>Du weisst jetzt, wie Geld entsteht und warum es etwas wert ist. Damit kannst du diese Frage beantworten.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 3. Was kann man sich mit Geld eigentlich kaufen?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Wenn plötzlich alle viel mehr Geld hätten, dann …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Stell dir einen Flohmarkt vor. Über Nacht haben alle doppelt so viel Geld im Portemonnaie, aber auf den Tischen liegen gleich viele Sachen wie vorher. Was machen die Verkäuferinnen und Verkäufer mit ihren Preisen?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Mit mehr Geld gibt es nicht mehr Brot, Velos oder Wohnungen. Wenn viel mehr Geld auf gleich viele Güter trifft, <strong>steigen die Preise</strong>. Das nennt man <strong>Inflation</strong> oder Teuerung. Am Ende kostet alles mehr, und niemand ist reicher. Reich macht nur, was man mit dem Geld tatsächlich kaufen kann.</p>
+          <p>Wie schlimm das werden kann, zeigen Deutschland 1923 oder Simbabwe 2008: Dort stiegen die Preise so schnell, dass Geld fast wertlos wurde. Die Schweizerische Nationalbank hat deshalb den Auftrag, die Preise stabil zu halten. Sie strebt eine Teuerung von weniger als 2 % pro Jahr an.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Geld ist <em>Vertrauen</em> mit einer Zahl drauf.</h2>
+    <ul class="learned">
+      <li><b>Kredite erschaffen Geld</b><span>Vergibt eine Bank einen Kredit, schreibt sie den Betrag auf ein Konto. So entsteht der grösste Teil unseres Geldes.</span></li>
+      <li><b>Rückzahlen löscht Geld</b><span>Wird ein Kredit zurückgezahlt, verschwinden Guthaben und Kredit zusammen. Der Bank bleibt nur der Zins.</span></li>
+      <li><b>Wert durch Vertrauen</b><span>Der Franken ist nicht mehr an Gold gebunden. Er ist etwas wert, weil alle ihn annehmen und man damit Dinge kaufen kann.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="zinseszins.html">Weiter: Wie wächst Geld? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap"><footer><span>mindblow — wie die Welt funktioniert</span><a href="index.html">Alle Themen</a></footer></div>
+
+<script src="js/common.js"></script>
+<script src="js/geld.js"></script>
+</body>
+</html>

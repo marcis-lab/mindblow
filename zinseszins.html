@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zinseszins · mindblow</title>
+<meta name="description" content="Wie wächst Geld? Zinseszins und exponentielles Wachstum: warum lange wenig passiert und dann plötzlich sehr viel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 13 · Geld &amp; Gesellschaft</span>
+    <h1>Wie wächst <em class="fiber">Geld</em>?</h1>
+    <p class="intro">Ein Rappen ist fast nichts. Doch wenn etwas immer um denselben Anteil wächst, wird aus fast nichts erstaunlich schnell sehr viel. Das gilt für Geld auf dem Konto, für Schulden und für vieles mehr.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Verdoppeln -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Immer doppelt <span class="chip solved-chip">gelöst</span></span>
+      <h2>Der Rappen, der jeden Tag verdoppelt</h2>
+      <p>Jemand macht dir ein Angebot: Am ersten Tag bekommst du 1 Rappen. Am zweiten Tag 2 Rappen, am dritten 4 Rappen. Jeden Tag gibt es doppelt so viel wie am Vortag.</p>
+      <div class="quiz" data-q="q1" data-correct="c" data-unlock="dayLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie viel bekommst du am 30. Tag?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Rund CHF 300</span></button>
+          <button data-v="b"><span class="k">b</span><span>Rund CHF 50'000</span></button>
+          <button data-v="c"><span class="k">c</span><span>Über CHF 5 Millionen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Am 30. Tag sind es <strong>CHF 5'368'709,12</strong>. Das ist 1 Rappen mal 2, insgesamt 29 Mal verdoppelt. Das Verrückte: Nach 20 Tagen bekommst du erst rund CHF 5'000 pro Tag. Fast alles kommt in den letzten Tagen. Zieh am Regler und schalte auf die logarithmische Skala um. Dort wird aus der steilen Kurve eine gleichmässige Treppe, weil jeder Schritt nach oben «mal 10» bedeutet.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Eine alte Legende: Ein Reiskorn auf das erste Feld eines Schachbretts, auf jedes weitere doppelt so viele. Auf allen 64 Feldern zusammen wären es rund 18 Trillionen Körner, mehr Reis als die ganze Welt in Hunderten von Jahren erntet.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="dayCv" style="height:300px" aria-label="Säulendiagramm der Tagesbeträge über 30 Tage"></canvas>
+        <div class="locked" id="dayLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="dayIn">Tag</label><input type="range" id="dayIn" min="1" max="30" step="1" value="10" disabled><output id="dayOut">10</output></div>
+        <div class="legend">
+          <span class="eyebrow">Skala:</span>
+          <button id="linBtn" class="active" disabled>Linear</button>
+          <button id="logBtn" disabled>Logarithmisch</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="playBtn" disabled>30 Tage abspielen</button>
+        </div>
+        <p class="status" id="dayStatus">Lineare Skala: Jeder Abschnitt auf der Achse ist gleich viele Franken.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Betrag an diesem Tag</span><span class="val" id="zA">–</span><span class="formula">0,01 · 2^(Tag − 1)</span></div>
+        <div><span class="lbl">Summe aller Tage</span><span class="val" id="zS">–</span><span class="formula">0,01 · (2^Tag − 1)</span></div>
+        <div><span class="lbl">Verdopplungen</span><span class="val" id="zN">–</span><span class="formula">seit Tag 1</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Zinseszins -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Zins auf Zins <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wenn der Zins selbst Zins bringt</h2>
+      <p>Wer Geld auf ein Konto legt, bekommt dafür einen Zins. Man kann den Zins jedes Jahr abheben. Oder man lässt ihn auf dem Konto, dann bringt im nächsten Jahr auch der Zins selbst wieder Zins. Das ist der <strong>Zinseszins</strong>.</p>
+      <div class="quiz" data-q="q2" data-correct="c" data-unlock="growLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">CHF 1'000 zu 5 % (Beispiel) während 40 Jahren. Zins jedes Jahr ausbezahlt oder im Konto gelassen: Wie gross ist der Unterschied?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Kein Unterschied</span></button>
+          <button data-v="b"><span class="k">b</span><span>Etwas mehr, rund CHF 3'500 statt 3'000</span></button>
+          <button data-v="c"><span class="k">c</span><span>Mehr als doppelt so viel, rund CHF 7'000 statt 3'000</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Wird der Zins ausbezahlt, gibt es jedes Jahr gleich viel: 40 Mal CHF 50, zusammen mit dem Startbetrag also <strong>CHF 3'000</strong>. Bleibt der Zins im Konto, wächst der Betrag jedes Jahr um 5 % vom <strong>neuen</strong> Stand: 1'000 · 1,05⁴⁰ ergibt <strong>CHF 7'039,99</strong>. Der Unterschied wächst mit jedem Jahr schneller. Verändere Startbetrag, Zinssatz und Dauer.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Im 1. Jahr bringt der Zins CHF 50. Im 40. Jahr sind es rund CHF 335, nur weil der Zins all die Jahre auf dem Konto geblieben ist.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="growCv" style="height:300px" aria-label="Liniendiagramm: einfacher Zins im Vergleich zum Zinseszins über die Jahre"></canvas>
+        <div class="locked" id="growLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="startIn">Startbetrag</label><input type="range" id="startIn" min="100" max="10000" step="100" value="1000" disabled><output id="startOut">1'000</output></div>
+        <div class="ctrl"><label for="rateIn">Zinssatz</label><input type="range" id="rateIn" min="0" max="10" step="0.5" value="5" disabled><output id="rateOut">5,0 %</output></div>
+        <div class="ctrl"><label for="yearsIn">Jahre</label><input type="range" id="yearsIn" min="1" max="60" step="1" value="40" disabled><output id="yearsOut">40</output></div>
+        <div class="row">
+          <button class="btn ghost" id="exBtn" disabled>Zurück zum Beispiel aus der Frage</button>
+        </div>
+        <p class="status" id="growStatus">Zinssätze sind Beispiele. Vereinfacht: ohne Steuern, Gebühren und Teuerung.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Zins ausbezahlt</span><span class="val" id="gSimple">–</span><span class="formula">Start + Jahre · Zins</span></div>
+        <div><span class="lbl">Zins im Konto</span><span class="val" id="gComp">–</span><span class="formula">Start · (1 + Zins)^Jahre</span></div>
+        <div><span class="lbl">Unterschied</span><span class="val" id="gDiff">–</span><span class="formula">Zins auf Zins</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Verdopplungszeit -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Die Verdopplungszeit <span class="chip solved-chip">gelöst</span></span>
+      <h2>Die Faustregel 72</h2>
+      <p>Wächst etwas jedes Jahr um denselben Prozentsatz, dann verdoppelt es sich immer in derselben Zeit. Egal, ob es CHF 100 sind oder CHF 100'000.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="dblLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Bei 7 % Zins (Beispiel): Nach wie vielen Jahren hat sich der Betrag verdoppelt?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Nach rund 14 Jahren</span></button>
+          <button data-v="b"><span class="k">b</span><span>Nach rund 10 Jahren</span></button>
+          <button data-v="c"><span class="k">c</span><span>Nach rund 30 Jahren</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Exakt sind es <strong>10,24 Jahre</strong>. Wer 14 Jahre tippt, rechnet ohne Zinseszins: 14 Mal 7 % ergibt knapp 100 %. Mit Zinseszins geht es schneller. Dafür gibt es eine einfache <strong>Faustregel: 72 geteilt durch den Zinssatz</strong>. Bei 7 % ergibt das rund 10,3 Jahre. Das funktioniert auch in die andere Richtung, bei Schulden und bei der Teuerung. Probier die Beispiele aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Die Faustregel gilt für alles, was um einen festen Prozentsatz wächst. Wächst eine Stadt um 3 % pro Jahr, hat sie nach rund 24 Jahren doppelt so viele Einwohner.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="dblCv" style="height:290px" aria-label="Diagramm: Verdopplungszeit in Jahren je nach Zinssatz, exakt und mit der Faustregel 72"></canvas>
+        <div class="locked" id="dblLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="dRateIn">Wachstum pro Jahr</label><input type="range" id="dRateIn" min="1" max="15" step="0.5" value="7" disabled><output id="dRateOut">7,0 %</output></div>
+        <div class="row">
+          <button class="btn ghost" id="d7" disabled>Beispiel 7 %</button>
+          <button class="btn ghost" id="d12" disabled>Kreditkarte 12 %</button>
+          <button class="btn ghost" id="d2" disabled>Teuerung 2 %</button>
+        </div>
+        <p class="status" id="dblStatus">Alle Zinssätze sind Beispiele.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Verdopplung exakt</span><span class="val" id="dExact">–</span><span class="formula">ln 2 ÷ ln(1 + p)</span></div>
+        <div><span class="lbl">Faustregel 72</span><span class="val" id="dRule">–</span><span class="formula">72 ÷ Zinssatz</span></div>
+        <div><span class="lbl">Nach 30 Jahren</span><span class="val" id="dFactor">–</span><span class="formula">(1 + p)^30</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum ist exponentielles Wachstum für unser Gefühl so schwer einzuschätzen?</h2>
+      <p>Bei Fragen wie in Teil 1 bis 3 schätzen die meisten Menschen viel zu tief. Woran liegt das?</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1. Wie viel hattest du nach 20 von 30 Tagen?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Es ist schwer einzuschätzen, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Wenn du jeden Tag einen Schritt gehst, kommst du jeden Tag gleich weit. Was ist anders, wenn jeder Schritt doppelt so lang ist wie der vorherige?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Unser Gefühl rechnet <strong>linear</strong>: jeden Tag gleich viel dazu. Beim exponentiellen Wachstum kommt aber jedes Mal ein <strong>fester Anteil</strong> dazu, und der wird mit dem Betrag immer grösser. Darum passiert lange fast nichts, und dann plötzlich sehr viel.</p>
+          <p>Ein bekanntes Beispiel: Seerosen bedecken einen Teich, und ihre Fläche verdoppelt sich jeden Tag. Nach 30 Tagen ist der Teich voll. Am 29. Tag ist er erst halb bedeckt, am 25. Tag erst zu rund 3 %. Wer am 25. Tag auf den Teich schaut, sieht fast nur Wasser.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Erst passiert wenig, dann <em>alles</em>.</h2>
+    <ul class="learned">
+      <li><b>Verdoppeln ist gewaltig</b><span>Wer 29 Mal verdoppelt, macht aus 1 Rappen über 5 Millionen Franken. Fast alles kommt am Schluss.</span></li>
+      <li><b>Zins auf Zins</b><span>Bleibt der Zins im Konto, bringt er selbst wieder Zins. Über lange Zeit macht das einen riesigen Unterschied.</span></li>
+      <li><b>Die Faustregel 72</b><span>72 geteilt durch den Prozentsatz ergibt ungefähr die Jahre bis zur Verdopplung. Das gilt auch für Schulden und Teuerung.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap"><footer><span>mindblow — wie die Welt funktioniert</span><a href="index.html">Alle Themen</a></footer></div>
+
+<script src="js/common.js"></script>
+<script src="js/zinseszins.js"></script>
+</body>
+</html>

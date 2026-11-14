@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Strom · mindblow</title>
-<meta name="description" content="Wie funktioniert Strom? Erst vermuten, dann ausprobieren.">
+<meta name="description" content="Wie funktioniert Strom? Interaktiv erklärt.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
@@ -14,12 +14,7 @@
 <div class="wrap">
   <header class="top">
     <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
-    <nav>
-      <a href="index.html">Themen</a>
-      <a href="strom.html" aria-current="page">Strom</a>
-      <a href="internet.html">Internet</a>
-      <a href="ki.html">KI</a>
-    </nav>
+    <nav></nav>
   </header>
 </div>
 
@@ -28,7 +23,7 @@
     <a class="back" href="index.html">← Alle Themen</a>
     <span class="eyebrow">Thema 01 · Physik des Alltags</span>
     <h1>Wie funktioniert <em>Strom</em>?</h1>
-    <p class="intro">Du benutzt ihn jeden Tag hunderte Male, aber kannst du erklären, was in einem Kabel eigentlich passiert? Beantworte jede Frage zuerst selbst. Erst danach öffnet sich das Experiment.</p>
+    <p class="intro">Du benutzt ihn jeden Tag hunderte Male, aber kannst du erklären, was in einem Kabel eigentlich passiert?</p>
     <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
   </section>
 
@@ -55,7 +50,7 @@
     <div class="lab">
       <div class="stage">
         <canvas id="wireCv" style="height:230px" aria-label="Animation: Elektronen in einem Kupferdraht, eine Lampe am Ende"></canvas>
-        <div class="locked" id="wireLock">Erst vermuten, dann einschalten</div>
+        <div class="locked" id="wireLock">Wähle oben eine Antwort, um zu starten</div>
       </div>
       <div class="row">
         <button class="btn" id="wireBtn" disabled>Licht einschalten</button>
@@ -132,7 +127,7 @@
           </g>
           <text id="swLabel" x="200" y="248" font-family="Geist Mono, monospace" font-size="11" fill="var(--muted)" text-anchor="middle">Schalter: zu (antippen)</text>
         </svg>
-        <div class="locked" id="circLock">Erst vermuten, dann ausprobieren</div>
+        <div class="locked" id="circLock">Wähle oben eine Antwort, um zu starten</div>
       </div>
       <div class="controls">
         <div class="ctrl"><label for="uIn">Spannung U</label><input type="range" id="uIn" min="0" max="12" step="0.5" value="6" disabled><output id="uOut">6,0 V</output></div>
@@ -174,7 +169,7 @@
     <div class="lab">
       <div class="stage">
         <canvas id="genCv" style="height:260px" aria-label="Animation: drehender Magnet in einer Spule und ein Spannungsdiagramm"></canvas>
-        <div class="locked" id="genLock">Erst vermuten, dann drehen</div>
+        <div class="locked" id="genLock">Wähle oben eine Antwort, um zu starten</div>
       </div>
       <div class="controls">
         <div class="ctrl"><label for="spIn">Drehzahl</label><input type="range" id="spIn" min="0" max="3" step="0.05" value="0.6" disabled><output id="spOut">0,60 U/s</output></div>
@@ -211,7 +206,6 @@
         <div class="answer" id="answer" hidden>
           <span class="eyebrow">Auflösung</span>
           <p>Beide Füsse stehen auf demselben Draht, also auf fast derselben Spannung. Zwischen den Füssen gibt es kaum einen Unterschied, also fliesst praktisch kein Strom durch den Vogel. Gefährlich wird es erst, wenn er gleichzeitig zwei Leitungen oder Leitung und Mast berührt. Dann entsteht ein Kreis, und der Strom fliesst durch ihn hindurch.</p>
-          <p><strong>Vergleich ehrlich:</strong> Hattest du den Kern? Wenn nicht, ist das gut. Genau dieser Moment bleibt im Kopf.</p>
         </div>
       </div>
     </div>
