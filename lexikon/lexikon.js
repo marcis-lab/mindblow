@@ -10,7 +10,7 @@
   const me = document.currentScript;
   const SITES = [
     { id: 'mindblow', name: 'mindblow', desc: 'Wie die Welt funktioniert', url: 'https://mindblow.thinklabs.workers.dev', c: '#FF3D85' },
-    { id: 'weltgeschichte', name: 'Weltgeschichte', desc: 'Menschen und Momente der Geschichte', url: 'https://weltgeschichte.thinklabs.workers.dev', c: '#F07A2A' },
+    { id: 'weltgeschichte', name: 'timewarp', desc: 'Menschen und Momente der Weltgeschichte', url: 'https://weltgeschichte.thinklabs.workers.dev', c: '#F07A2A' },
     { id: 'periodensystem', name: 'Periodensystem', desc: 'Alle Elemente zum Drehen und Ausprobieren', url: 'https://periodensystem.thinklabs.workers.dev', c: '#0E9EC4' },
     { id: 'bibel', name: 'Bibel verstehen', desc: 'Die Bibel Schritt für Schritt', url: 'https://bibelerklaert.ch', c: '#A23FE6' },
   ];
