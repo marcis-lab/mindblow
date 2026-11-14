@@ -80,7 +80,7 @@ window.MB_THEMEN = {
     { slug: 'zelle', b: 'leben', g: 'zellen', soon: true, short: 'Zellen', title: 'Woraus besteht <em>Leben?</em>', teaser: 'Du bist ein Volk aus rund 30 Billionen Zellen.', tags: 'zelle zellen mikroskop bakterien' },
     { slug: 'evolution', b: 'leben', g: 'evolution', short: 'Evolution', title: 'Wie funktioniert <em>Evolution?</em>', teaser: 'Niemand plant, und trotzdem entstehen perfekte Tarnungen. Wie geht das?', tags: 'evolution darwin selektion mutation tarnung arten', added: '2026-11-13' },
     { slug: 'zugvoegel', b: 'leben', g: 'tiere', soon: true, short: 'Zugvögel', title: 'Woher wissen Zugvögel den <em>Weg?</em>', teaser: 'Ohne Karte und GPS über tausende Kilometer.', tags: 'vögel zugvögel magnetfeld navigation tiere' },
-    { slug: 'bienen', b: 'leben', g: 'tiere', soon: true, short: 'Bienen', title: 'Wie sprechen <em>Bienen</em> miteinander?', teaser: 'Eine Biene tanzt, und ihre Schwestern wissen, wo die Blumen blühen.', tags: 'bienen biene honig bestäubung schwänzeltanz insekten wabe imker tiere', added: '2026-11-14' },
+    { slug: 'bienen', b: 'leben', g: 'tiere', short: 'Bienen', title: 'Wie sprechen <em>Bienen</em> miteinander?', teaser: 'Eine Biene tanzt, und ihre Schwestern wissen, wo die Blumen blühen.', tags: 'bienen biene honig bestäubung schwänzeltanz insekten wabe imker tiere', added: '2026-11-14' },
     { slug: 'nahrungsnetz', b: 'leben', g: 'oekologie', soon: true, short: 'Nahrungsnetz', title: 'Was passiert, wenn die <em>Wölfe</em> zurückkommen?', teaser: 'Ein Tier verändert eine ganze Landschaft.', tags: 'ökosystem nahrungskette wolf natur' },
 
     /* ---------- Physik & Chemie ---------- */
