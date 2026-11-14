@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vulkane · mindblow</title>
+<meta name="description" content="Kontinente wandern so schnell, wie Fingernägel wachsen. Warum Vulkane an Plattengrenzen und über Hotspots entstehen, warum manche explodieren und warum Island Vulkane hat und die Schweiz nicht.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Erde &amp; Weltall</span>
+    <h1>Warum spuckt die Erde <em>Feuer</em>?</h1>
+    <p class="intro">Der Boden unter deinen Füssen fühlt sich fest und ruhig an. Dabei ist er ständig unterwegs. Finde heraus, warum Kontinente wandern, wo Vulkane entstehen und warum manche sanft Lava fliessen lassen, während andere explodieren.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Wandernde Platten -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Platten in Bewegung <span class="chip solved-chip">gelöst</span></span>
+      <h2>Kontinente auf Wanderschaft</h2>
+      <p>Die äussere Schale der Erde ist in Stücke zerbrochen: die <strong>Erdplatten</strong>. Es gibt rund ein Dutzend grosse und viele kleine. Sie bewegen sich, meist nur <strong>2 bis 10 Zentimeter pro Jahr</strong>. Das ist etwa so schnell, wie deine Fingernägel wachsen. Doch was liegt eigentlich unter diesen Platten?</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="plateLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was liegt unter der Erdkruste, auf der wir stehen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Ein riesiger See aus flüssiger Lava. Darauf schwimmen die Platten.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Heisses, festes Gestein, das über sehr lange Zeit ganz langsam fliesst</span></button>
+          <button data-v="c"><span class="k">c</span><span>Grosse Hohlräume voller heisser Gase</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Unter der Kruste liegt der <strong>Erdmantel</strong>. Er ist fast 3'000 Kilometer dick, sehr heiss und trotzdem <strong>fest</strong>. Weil er so heiss ist und unter so hohem Druck steht, kann er sich über Millionen Jahre verformen, ähnlich wie ein sehr zäher Teig oder ein Gletscher. So wandern die Platten mit (vereinfacht).</p>
+          <p>Flüssiges <strong>Magma</strong> entsteht nur an bestimmten Stellen, etwa wo Platten auseinanderdriften. Dort schmilzt ein kleiner Teil des Gesteins. Wirklich flüssig ist erst der äussere Erdkern in rund 2'900 Kilometern Tiefe, und der besteht aus Eisen, nicht aus Lava. Zieh unten die Zeit zurück und schau, wie sich der Atlantik öffnet.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Der Atlantik wird jedes Jahr rund 2 bis 3 Zentimeter breiter. Seit Kolumbus 1492 hinübersegelte, ist er also schon über 10 Meter gewachsen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="plateCv" style="height:330px" aria-label="Stark vereinfachte Weltkarte mit Amerika links und Europa und Afrika rechts. Mit dem Zeitregler rücken die Kontinente zum Urkontinent Pangäa zusammen"></canvas>
+        <div class="locked" id="plateLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="ageIn">Zeit</label><input type="range" id="ageIn" min="-200" max="0" step="1" value="0" disabled><output id="ageOut">heute</output></div>
+        <div class="row">
+          <button class="btn" id="plPlay" disabled>Abspielen</button>
+          <button class="btn ghost" id="plPang" disabled>Pangäa</button>
+          <button class="btn ghost" id="plNow" disabled>Heute</button>
+        </div>
+        <span class="status" id="plateStatus">Zieh den Regler nach links. So reist du in die Vergangenheit.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Zeitpunkt</span><span class="val" id="plAge">heute</span><span class="formula">Millionen Jahre zurück</span></div>
+        <div><span class="lbl">Europa ↔ Amerika</span><span class="val" id="plDist">5'400 km</span><span class="formula">rund 2,7 cm pro Jahr</span></div>
+        <div><span class="lbl">Damals lebten</span><span class="val" id="plLife" style="font-size:15px">Menschen</span><span class="formula">auf der Erde</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Wo Vulkane entstehen -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Wo Vulkane entstehen <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ränder und heisse Flecken</h2>
+      <p>Auf der Erde gibt es weit über tausend Vulkane, die in den letzten 10'000 Jahren ausgebrochen sind. Auf einer Weltkarte sehen sie nicht zufällig verteilt aus. Sie bilden Linien und Ketten.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="hotLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wo liegen die meisten Vulkane der Erde?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Rund um den Äquator, weil es dort am heissesten ist</span></button>
+          <button data-v="b"><span class="k">b</span><span>An den Rändern der Erdplatten</span></button>
+          <button data-v="c"><span class="k">c</span><span>In den höchsten Gebirgen, weil die Erde dort am dicksten ist</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die meisten Vulkane liegen an <strong>Plattengrenzen</strong>. Wo Platten <strong>auseinanderdriften</strong>, steigt heisses Gestein nach. Der Druck sinkt, ein Teil davon schmilzt. Wo eine Ozeanplatte unter eine andere <strong>abtaucht</strong>, nimmt sie Wasser mit in die Tiefe. Das Wasser senkt den Schmelzpunkt des Gesteins darüber. So entsteht der <strong>Pazifische Feuerring</strong> rund um den Pazifik mit einem grossen Teil aller Vulkane.</p>
+          <p>Es gibt Ausnahmen: <strong>Hotspots</strong>. Dort steigt aus der Tiefe ein besonders heisser Strom im Mantel auf, mitten unter einer Platte. Hawaii ist so ein Ort. Die Platte gleitet darüber hinweg, und es entsteht eine Insel nach der anderen. Probier es aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Der Vulkan Mauna Kea auf Hawaii ragt rund 4'200 Meter aus dem Meer. Vom Meeresboden aus gemessen ist er über 10'000 Meter hoch. Damit ist er höher als der Mount Everest.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="hotCv" style="height:360px" aria-label="Querschnitt: Eine Ozeanplatte gleitet über einen heissen Fleck im Erdmantel. Darüber wächst ein Vulkan nach dem anderen und wandert mit der Platte weg"></canvas>
+        <div class="locked" id="hotLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="spdIn">Plattentempo</label><input type="range" id="spdIn" min="2" max="14" step="1" value="8" disabled><output id="spdOut">8 cm / Jahr</output></div>
+        <div class="row">
+          <button class="btn" id="hsPlay" disabled>Pause</button>
+          <button class="btn ghost" id="hsReset" disabled>Neu starten</button>
+        </div>
+        <span class="status" id="hotStatus">Der heisse Fleck bleibt am Ort. Die Platte wandert darüber hinweg.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Vergangene Zeit</span><span class="val" id="hsTime">0,0 Mio. J.</span><span class="formula">eine Sekunde ≈ 2 Mio. Jahre</span></div>
+        <div><span class="lbl">Länge der Kette</span><span class="val" id="hsLen">0 km</span><span class="formula">Tempo × Zeit</span></div>
+        <div><span class="lbl">Vulkane</span><span class="val" id="hsCount">0</span><span class="formula" id="hsCount2">davon über Wasser: 0</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Explosiv oder ruhig -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Explosiv oder ruhig <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wie eine geschüttelte Cola</h2>
+      <p>Auf Hawaii kannst du oft gefahrlos zuschauen, wie Lava langsam den Hang hinunterfliesst. Der Vesuv dagegen hat im Jahr 79 die Stadt Pompeji unter Asche begraben. Beides sind Vulkane. Was macht den Unterschied?</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="eruptLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was macht einen Vulkanausbruch besonders explosiv?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Besonders heisses Magma</span></button>
+          <button data-v="b"><span class="k">b</span><span>Viel Gas, das in zähem Magma gefangen ist</span></button>
+          <button data-v="c"><span class="k">c</span><span>Ein besonders grosser, hoher Vulkan</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Magma enthält gelöste Gase, vor allem Wasserdampf und Kohlendioxid. Steigt es nach oben, sinkt der Druck, und die Gase bilden Blasen. Genau wie bei einer Cola, wenn du den Deckel öffnest.</p>
+          <p>Ist das Magma <strong>dünnflüssig</strong>, entweichen die Blasen leicht. Die Lava sprudelt und fliesst ruhig. Ist es <strong>zäh</strong> wie kalter Honig, bleiben die Blasen gefangen, und der Druck steigt. Bis das Magma in winzige Fetzen zerreisst: Es entsteht Asche, und der Vulkan explodiert. Übrigens: Die dünnflüssige Lava ist meist die <strong>heissere</strong>. Dreh an beiden Reglern.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>In der Schweiz gibt es keine aktiven Vulkane. Aber auch hier schieben Platten: Afrika drückt seit Millionen Jahren gegen Europa. Dabei wurden Gesteinsschichten gestapelt und gefaltet. So sind die Alpen entstanden, und sie heben sich noch heute um rund 1 bis 2 Millimeter pro Jahr.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="eruptCv" style="height:360px" aria-label="Querschnitt eines Vulkans mit Magmakammer. Je nach Gasgehalt und Zähigkeit fliesst Lava ruhig den Hang hinunter oder eine Aschesäule schiesst in den Himmel"></canvas>
+        <div class="locked" id="eruptLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="gasIn">Gasgehalt</label><input type="range" id="gasIn" min="0" max="100" step="1" value="20" disabled><output id="gasOut">wenig</output></div>
+        <div class="ctrl"><label for="visIn">Zähigkeit</label><input type="range" id="visIn" min="0" max="100" step="1" value="10" disabled><output id="visOut">dünnflüssig</output></div>
+        <div class="row">
+          <button class="btn ghost" id="exHaw" disabled>Hawaii</button>
+          <button class="btn ghost" id="exStr" disabled>Stromboli</button>
+          <button class="btn ghost" id="exVes" disabled>Vesuv 79</button>
+        </div>
+        <span class="status" id="eruptStatus">Wenig Gas, dünnflüssig: Die Lava fliesst ruhig aus.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Ausbruchsart</span><span class="val" id="exType" style="font-size:15px">ruhig</span><span class="formula" id="exType2">Lavaströme</span></div>
+        <div><span class="lbl">Aschesäule</span><span class="val" id="exCol">0 km</span><span class="formula">grobe Schätzung</span></div>
+        <div><span class="lbl">So ähnlich wie</span><span class="val" id="exLike" style="font-size:15px">Kīlauea</span><span class="formula">Beispiel</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum ist Island ein Vulkanland und die Schweiz nicht?</h2>
+      <p>Island ist kleiner als ein Drittel von Deutschland und hat rund 30 aktive Vulkansysteme. Im Schnitt bricht dort alle paar Jahre einer aus. In der Schweiz gibt es hohe Berge, aber keinen einzigen aktiven Vulkan.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1 und Teil 2. Wo liegt Island auf der Karte, und was passiert dort mit den Platten?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Island liegt genau auf dem <strong>Mittelatlantischen Rücken</strong>. Dort driften die Nordamerikanische und die Eurasische Platte auseinander, um rund 2 Zentimeter pro Jahr. Heisses Gestein steigt nach, der Druck sinkt, und ein Teil schmilzt zu Magma. Dazu kommt ein <strong>Hotspot</strong> genau unter Island. Er liefert so viel zusätzliches Magma, dass der Rücken hier als ganze Insel aus dem Meer ragt.</p>
+          <p>Die Schweiz liegt mitten auf der Eurasischen Platte, nahe an einer Grenze, wo zwei Kontinente <strong>zusammenstossen</strong>. Kontinentale Kruste ist zu leicht, um tief in den Mantel abzutauchen. Sie wird gestaucht und gestapelt: So entstanden die Alpen. Ohne abtauchende Ozeanplatte und ohne auseinanderdriftende Platten entsteht dort kaum Magma (vereinfacht).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Die Erde ist <em>nie</em> fertig.</h2>
+    <ul class="learned">
+      <li><b>Wandernde Platten</b><span>Die Erdplatten bewegen sich wenige Zentimeter pro Jahr. Der Mantel darunter ist fest, fliesst aber über Millionen Jahre wie zäher Teig.</span></li>
+      <li><b>Ränder und Hotspots</b><span>Vulkane entstehen vor allem dort, wo Platten auseinanderdriften oder abtauchen. Und über Hotspots wie Hawaii.</span></li>
+      <li><b>Gas und Zähigkeit</b><span>Dünnflüssiges Magma lässt Gas entweichen und fliesst ruhig. Zähes Magma hält es fest, bis es explodiert.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/vulkane.js"></script>
+</body>
+</html>
