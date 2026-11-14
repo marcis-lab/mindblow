@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Verdauung · mindblow</title>
+<meta name="description" content="Vom Mund bis zum Ausgang: wie lang dein Darm ist, warum seine Innenfläche so riesig ist, wie Enzyme dein Essen zerschneiden und warum sich der Magen nicht selbst verdaut.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Körper &amp; Gesundheit</span>
+    <h1>Was passiert mit deinem <em>Essen</em>?</h1>
+    <p class="intro">Du beisst in ein Brot, schluckst, und dann merkst du nichts mehr. Dabei beginnt erst jetzt eine lange Reise durch deinen Körper. Finde heraus, wie weit sie führt, wo dein Essen zerlegt wird und warum dein Magen dabei heil bleibt.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Der Weg durch den Körper -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Der Weg durch den Körper <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Bissen auf Reisen</h2>
+      <p>Jeder Bissen nimmt denselben Weg: <strong>Mund, Speiseröhre, Magen, Dünndarm, Dickdarm</strong>. Unterwegs wird er zerkleinert, durchgeknetet, in winzige Bausteine zerlegt, und was dein Körper brauchen kann, geht ins Blut. Der Darm liegt dabei eng zusammengefaltet in deinem Bauch.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="pathLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie lang ist dein Darm insgesamt, also Dünndarm und Dickdarm zusammen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Etwa 1,5 Meter, ungefähr so lang wie du gross bist</span></button>
+          <button data-v="b"><span class="k">b</span><span>Rund 7 bis 8 Meter</span></button>
+          <button data-v="c"><span class="k">c</span><span>Rund 50 Meter</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Der <strong>Dünndarm</strong> ist rund 6 Meter lang, der <strong>Dickdarm</strong> etwa 1,5 Meter. Zusammen sind das <strong>rund 7 bis 8 Meter</strong>. Mit Speiseröhre und Magen ist der ganze Weg vom Mund bis zum Ausgang etwa 8 bis 9 Meter lang.</p>
+          <p>Ehrlich gesagt: Diese Zahlen stammen meist aus Messungen nach dem Tod. Dann sind die Darmmuskeln erschlafft. Im lebenden Körper ist der Darm angespannt und deutlich kürzer. Die Messungen schwanken stark, je nach Mensch und Methode. Lang ist er aber auf jeden Fall. Schick unten einen Bissen auf die Reise.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Du könntest sogar im Kopfstand schlucken. Die Speiseröhre lässt den Bissen nicht einfach fallen: Eine Muskelwelle schiebt ihn aktiv nach unten, wie eine Hand, die eine Zahnpastatube ausdrückt.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="pathCv" style="height:460px" aria-label="Schema des Verdauungstrakts von Mund bis Ausgang. Ein Bissen wandert je nach Zeit durch Speiseröhre, Magen, Dünndarm und Dickdarm"></canvas>
+        <div class="locked" id="pathLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="timeIn">Zeit seit dem Essen</label><input type="range" id="timeIn" min="0" max="1000" step="1" value="0" disabled><output id="timeOut">0 s</output></div>
+        <div class="row">
+          <button class="btn" id="travelBtn" disabled>Reise abspielen</button>
+          <button class="btn ghost" id="fatBtn" disabled>Fettige Mahlzeit</button>
+        </div>
+        <span class="status" id="pathStatus">Der Regler ist nicht gleichmässig: Am Anfang zählen Sekunden, am Ende Stunden.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Der Bissen ist im</span><span class="val" id="dStation" style="font-size:15px">Mund</span><span class="formula">aktuelle Station</span></div>
+        <div><span class="lbl">Seit dem Essen</span><span class="val" id="dTime" style="font-size:15px">0 s</span><span class="formula">vereinfachtes Beispiel</span></div>
+        <div><span class="lbl">Typische Verweildauer</span><span class="val" id="dRange" style="font-size:15px">10 bis 30 s</span><span class="formula">schwankt stark</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Die Oberfläche des Dünndarms -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Die Oberfläche <span class="chip solved-chip">gelöst</span></span>
+      <h2>Falten in Falten in Falten</h2>
+      <p>Im Dünndarm gelangen die Bausteine aus deinem Essen durch die Darmwand ins Blut. Je grösser die Fläche dieser Wand, desto mehr kann gleichzeitig hindurch. Von aussen ist der Dünndarm ein Schlauch, etwa 2,5 Zentimeter dick. Innen sieht er ganz anders aus.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="zoomLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie gross ist die innere Oberfläche deines Dünndarms, wenn man alle Falten mitzählt?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Etwa 1 Quadratmeter, so gross wie ein Badetuch</span></button>
+          <button data-v="b"><span class="k">b</span><span>Rund 30 Quadratmeter, etwa ein halbes Klassenzimmer</span></button>
+          <button data-v="c"><span class="k">c</span><span>So gross wie ein Fussballfeld</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ein glattes Rohr dieser Länge hätte innen nur etwa einen halben Quadratmeter. Doch die Wand ist dreifach gefaltet: grosse <strong>Ringfalten</strong>, darauf winzige Finger, die <strong>Zotten</strong>, und auf jeder Zelle noch feinste Härchen, die <strong>Mikrovilli</strong>. So kommt der Dünndarm auf <strong>rund 30 Quadratmeter</strong>.</p>
+          <p>Ein Fussballfeld ist viel zu gross. Aber auch das berühmte «so gross wie ein Tennisplatz» stimmt nicht mehr: Eine genauere Messung von 2014 kam auf rund 30 bis 40 Quadratmeter für den ganzen Verdauungstrakt, den Grossteil davon im Dünndarm. Zoom unten selbst hinein.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Jahrzehntelang stand in Schulbüchern, die Darmfläche sei so gross wie ein Tennisplatz, also rund 260 Quadratmeter. Die neue Messung ergab weniger als ein Siebtel davon. Immer noch riesig für einen Schlauch in deinem Bauch.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="zoomCv" style="height:380px" aria-label="Zoom in die Dünndarmwand: glattes Rohr, Ringfalten, Zotten und Mikrovilli. Unten Quadrate, die die Fläche vergleichen"></canvas>
+        <div class="locked" id="zoomLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="zoomSel">
+          <span class="eyebrow">Zeigen:</span>
+          <button data-z="0" class="active" disabled>Glattes Rohr</button>
+          <button data-z="1" disabled>Ringfalten</button>
+          <button data-z="2" disabled>Zotten</button>
+          <button data-z="3" disabled>Mikrovilli</button>
+        </div>
+        <div class="ctrl"><label for="zoomIn">Hineinzoomen</label><input type="range" id="zoomIn" min="0" max="300" step="1" value="0" disabled><output id="zoomOut">Stufe 1</output></div>
+        <span class="status" id="zoomStatus">Stell dir vor, die Wand wäre innen ganz glatt.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Innenfläche</span><span class="val" id="zArea">0,4 m²</span><span class="formula">Dünndarm, vereinfacht</span></div>
+        <div><span class="lbl">Vergrösserung</span><span class="val" id="zFactor">×1</span><span class="formula">gegenüber glattem Rohr</span></div>
+        <div><span class="lbl">So gross wie</span><span class="val" id="zCmp" style="font-size:15px">ein Schulpult</span><span class="formula">zum Vergleich</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Enzyme zerlegen -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Chemische Scheren <span class="chip solved-chip">gelöst</span></span>
+      <h2>Lange Ketten, kleine Stücke</h2>
+      <p>Stärke, Eiweiss und Fett sind riesige Moleküle. Durch die Darmwand passen sie so nicht. Dein Körper zerschneidet sie deshalb in kleine Bausteine. Die Scheren dafür heissen <strong>Enzyme</strong>. Für jede Sorte Molekül gibt es eigene.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="enzLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wo wird der grösste Teil deines Essens zerlegt und ins Blut aufgenommen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Im Magen. Dort ist ja die starke Säure.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Im Dünndarm</span></button>
+          <button data-v="c"><span class="k">c</span><span>Im Dickdarm</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Der Magen ist vor allem <strong>Speicher und Mixer</strong>. Er knetet das Essen zu Brei, tötet mit Säure viele Keime ab und beginnt, Eiweiss zu zerlegen. Ins Blut nimmt er fast nichts auf (ausser zum Beispiel etwas Alkohol).</p>
+          <p>Die Hauptarbeit passiert im <strong>Dünndarm</strong>. Die Bauchspeicheldrüse liefert dort Scheren für Stärke, Eiweiss und Fett. Die Galle aus der Leber zerteilt Fett in feine Tröpfchen. Und die Zotten nehmen die Bausteine auf. Der Dickdarm holt danach vor allem noch Wasser und Salze zurück. Stärke wird übrigens schon im Mund angeschnitten. Probier es mit Brot, Käse und Butter.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Für Ballaststoffe hast du gar keine passenden Scheren. Das übernehmen die Bakterien in deinem Dickdarm. Dort leben nach heutiger Schätzung ungefähr so viele Bakterien, wie dein Körper eigene Zellen hat.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="enzCv" style="height:340px" aria-label="Molekülketten aus Brot, Käse oder Butter werden in Mund, Magen und Dünndarm von Scheren in Bausteine zerschnitten"></canvas>
+        <div class="locked" id="enzLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="foodSel">
+          <span class="eyebrow">Essen:</span>
+          <button data-f="brot" class="active" disabled><span class="sw" style="background:#d9a441"></span>Brot</button>
+          <button data-f="kaese" disabled><span class="sw" style="background:#e07a5a"></span>Käse</button>
+          <button data-f="butter" disabled><span class="sw" style="background:#f0c850"></span>Butter</button>
+        </div>
+        <div class="ctrl"><label for="stIn">Station</label><input type="range" id="stIn" min="0" max="2" step="1" value="0" disabled><output id="stOut">Mund</output></div>
+        <div class="row">
+          <button class="btn" id="nextSt" disabled>Nächste Station</button>
+          <button class="btn ghost" id="againSt" disabled>Nochmals schneiden</button>
+        </div>
+        <span class="status" id="enzStatus">Kau ein Stück Brot lange. Es wird langsam süsslich.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Molekül</span><span class="val" id="eStoff" style="font-size:15px">Stärke</span><span class="formula" id="eStoff2">Kette aus Traubenzucker</span></div>
+        <div><span class="lbl">Schere</span><span class="val" id="eEnz" style="font-size:15px">Amylase</span><span class="formula" id="eEnz2">aus dem Speichel</span></div>
+        <div><span class="lbl">Ergebnis</span><span class="val" id="eRes" style="font-size:15px">kürzere Stücke</span><span class="formula" id="eRes2">und etwas Malzzucker</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum verdaut sich der Magen nicht selbst?</h2>
+      <p>Im Magen ist es sehr sauer, viel saurer als Zitronensaft. Dazu kommt Pepsin, die Schere für Eiweiss. Sie zerlegt das Eiweiss im Käse oder im Fleisch. Aber auch die Magenwand besteht zu einem grossen Teil aus Eiweiss. Trotzdem bleibt sie heil.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 3. Was bräuchte die Wand, damit Säure und Schere gar nicht erst bis zu ihren Zellen kommen?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Die Magenwand ist mit einer dicken <strong>Schleimschicht</strong> bedeckt. Darin steckt Hydrogencarbonat, ein Stoff wie Natron. Es neutralisiert die Säure direkt an der Wand. Säure und Pepsin kommen so kaum bis zu den Zellen. Ausserdem wird Pepsin als harmlose Vorstufe abgegeben und erst in der Säure im Mageninneren «scharf».</p>
+          <p>Und falls doch etwas passiert: Die Zellen an der Oberfläche werden laufend ersetzt, etwa <strong>alle paar Tage</strong>. Kleine Schäden heilen so schnell. Versagt der Schutz, kann ein Magengeschwür entstehen. Häufige Auslöser sind das Bakterium Helicobacter pylori oder bestimmte Schmerzmittel. Für die Entdeckung dieses Bakteriums gab es 2005 den Nobelpreis.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Zerkleinern, <em>zerschneiden</em>, aufnehmen.</h2>
+    <ul class="learned">
+      <li><b>Lange Reise</b><span>Rund 7 bis 8 Meter Darm, gemessen nach dem Tod. Ein Bissen braucht meist 1 bis 3 Tage bis zum Ausgang.</span></li>
+      <li><b>Riesige Innenfläche</b><span>Ringfalten, Zotten und Mikrovilli machen aus einem Schlauch rund 30 Quadratmeter Fläche.</span></li>
+      <li><b>Chemische Scheren</b><span>Enzyme zerlegen Stärke, Eiweiss und Fett. Die meiste Arbeit passiert im Dünndarm, nicht im Magen.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/verdauung.js"></script>
+</body>
+</html>

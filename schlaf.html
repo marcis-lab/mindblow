@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Schlaf · mindblow</title>
+<meta name="description" content="Schlafzyklen von rund 90 Minuten, ein Gehirn, das nachts Gelerntes festigt, und eine innere Uhr, die abends Melatonin schickt: warum wir schlafen müssen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Körper &amp; Gesundheit</span>
+    <h1>Warum müssen wir <em>schlafen</em>?</h1>
+    <p class="intro">Du verschläfst rund ein Drittel deines Lebens. Von aussen sieht das nach Stillstand aus. Finde heraus, was dein Gehirn in der Nacht wirklich tut, warum es dabei Gelerntes festigt und wer bestimmt, wann du müde wirst.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Schlafzyklen -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Eine Nacht in Zyklen <span class="chip solved-chip">gelöst</span></span>
+      <h2>Augen zu, Gehirn aus?</h2>
+      <p>Von aussen ist Schlafen langweilig: Augen zu, still liegen, acht Stunden lang. Im Schlaflabor kleben Forschende aber kleine Elektroden auf den Kopf und messen die <strong>Hirnströme</strong> (EEG). Was sie dabei sehen, ist alles andere als langweilig.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="hypLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was macht dein Gehirn, während du schläfst?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Es schaltet weitgehend ab, ähnlich wie ein Computer im Standby</span></button>
+          <button data-v="b"><span class="k">b</span><span>Es wechselt immer wieder zwischen verschiedenen Phasen und ist zeitweise fast so aktiv wie im Wachsein</span></button>
+          <button data-v="c"><span class="k">c</span><span>Es schläft die ganze Nacht gleich tief und wird erst am Morgen langsam wach</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Dein Gehirn ist im Schlaf <strong>nie ausgeschaltet</strong>. Es durchläuft mehrere <strong>Zyklen von rund 90 Minuten</strong>. In jedem Zyklus geht es vom <strong>Leichtschlaf</strong> in den <strong>Tiefschlaf</strong>. Dort feuern grosse Gruppen von Nervenzellen im Gleichtakt, das ergibt langsame, hohe Wellen. Danach kommt der <strong>REM-Schlaf</strong>: Die Augen zucken unter den Lidern hin und her (REM heisst Rapid Eye Movement), und die Hirnströme sehen fast aus wie im Wachsein. In dieser Phase träumst du besonders lebhaft.</p>
+          <p>Die Zyklen sind nicht alle gleich: <strong>Tiefschlaf</strong> gibt es vor allem in der <strong>ersten Nachthälfte</strong>, der <strong>REM-Schlaf</strong> wird <strong>gegen Morgen</strong> immer länger. Stell unten ein, wann dein Wecker klingelt.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Im REM-Schlaf sind deine Muskeln fast vollständig gelähmt. Nur Augen und Atmung arbeiten normal weiter. So rennst du im Traum davon, bleibst aber ruhig im Bett liegen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="hypCv" style="height:300px" aria-label="Hypnogramm einer Nacht: Schlafphasen Wach, REM, Leichtschlaf und Tiefschlaf über die Stunden, mit einem Wecker, der zu einem bestimmten Zeitpunkt klingelt"></canvas>
+        <div class="locked" id="hypLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="durIn">Schlafdauer</label><input type="range" id="durIn" min="180" max="600" step="5" value="450" disabled><output id="durOut">7 h 30 min</output></div>
+        <div class="ctrl"><label for="wakeIn">Weckzeit</label><input type="range" id="wakeIn" min="300" max="540" step="5" value="390" disabled><output id="wakeOut">6:30</output></div>
+        <div class="row">
+          <button class="btn ghost" id="hShort" disabled>Kurze Nacht: 5 h 40 min</button>
+          <button class="btn ghost" id="hLong" disabled>Ausschlafen: 9 h</button>
+        </div>
+        <span class="status" id="hypStatus">Der Punkt zeigt, in welcher Phase du gerade bist. Ganz rechts klingelt der Wecker.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Geweckt aus</span><span class="val" id="hStage" style="font-size:15px">kurz wach</span><span class="formula" id="hStage2">Phase beim Wecker</span></div>
+        <div><span class="lbl">Tiefschlaf</span><span class="val" id="hDeep">90 min</span><span class="formula" id="hDeep2">davon in der 1. Hälfte</span></div>
+        <div><span class="lbl">REM-Schlaf</span><span class="val" id="hRem">105 min</span><span class="formula">Traumschlaf in dieser Nacht</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Aufräumen und Lernen -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Aufräumen und Lernen <span class="chip solved-chip">gelöst</span></span>
+      <h2>Die Nachtschicht im Kopf</h2>
+      <p>In der Lektion zum <a href="gedaechtnis.html">Gedächtnis</a> hast du gesehen: Was du neu lernst, vergisst du zu einem grossen Teil schon in den ersten Stunden. Nun lernst du am Abend 30 neue Wörter und gehst danach schlafen.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="learnLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was passiert in der Nacht mit dem, was du am Abend gelernt hast?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Nichts Besonderes. Im Schlaf vergisst man genau gleich viel wie wach.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Das Gehirn spielt Gelerntes nochmals ab und festigt es. Mit Schlaf behältst du meist mehr.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Man kann im Schlaf sogar neue Wörter lernen, wenn eine Aufnahme läuft.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Im Schlaf, besonders im <strong>Tiefschlaf</strong>, spielt der <strong>Hippocampus</strong> Muster vom Tag nochmals ab. Dabei werden wichtige Verbindungen gestärkt und Erinnerungen nach und nach in die Grosshirnrinde übertragen (vereinfacht). Darum vergisst du über eine Nacht mit Schlaf meist <strong>weniger</strong> als in gleich vielen Stunden wach.</p>
+          <p>Ganz neue Wörter aus dem Kopfhörer lernst du im Tiefschlaf dagegen kaum. Und noch etwas passiert nachts: Forschende vermuten, dass das Gehirn im Schlaf <strong>Abfallstoffe</strong> stärker ausspült. Bei Mäusen gibt es Hinweise darauf, dass dann mehr Hirnflüssigkeit durch das Gewebe strömt (das «glymphatische System»). Wie stark das beim Menschen wirkt, wird noch erforscht.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Schon 1924 liessen zwei Forscher zwei Studenten sinnlose Silben lernen. Danach schliefen die beiden oder blieben wach. Nach dem Schlaf wussten sie deutlich mehr. Seither wurde das in vielen Studien mit viel mehr Menschen bestätigt.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="learnCv" style="height:300px" aria-label="Diagramm: Wie viel Prozent von gelernten Wörtern in den 24 Stunden nach dem Lernen behalten werden, mit Schlaf und ohne Schlaf"></canvas>
+        <div class="locked" id="learnLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="lrnIn">Lernen um</label><input type="range" id="lrnIn" min="8" max="22.5" step="0.5" value="20" disabled><output id="lrnOut">20:00</output></div>
+        <div class="ctrl"><label for="slpIn">Schlaf ab 23 Uhr</label><input type="range" id="slpIn" min="0" max="9" step="0.5" value="8" disabled><output id="slpOut">8 h</output></div>
+        <div class="row">
+          <button class="btn ghost" id="lEve" disabled>Abends lernen, gut schlafen</button>
+          <button class="btn ghost" id="lMorn" disabled>Morgens lernen</button>
+          <button class="btn ghost" id="lNone" disabled>Nacht durchmachen</button>
+        </div>
+        <span class="status" id="learnStatus">Modell, stark vereinfacht: Die Zahlen sind ausgedacht. Die Richtung stammt aus Studien.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Behalten nach 24 h</span><span class="val" id="lKeep">56 %</span><span class="formula">mit deinem Schlaf</span></div>
+        <div><span class="lbl">Ohne Schlaf</span><span class="val" id="lNoSleep">38 %</span><span class="formula">24 h durchgehend wach</span></div>
+        <div><span class="lbl">Unterschied</span><span class="val" id="lDiff">+18</span><span class="formula">Prozentpunkte im Modell</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Innere Uhr -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Die innere Uhr <span class="chip solved-chip">gelöst</span></span>
+      <h2>Zwei Kräfte machen dich müde</h2>
+      <p>Je länger du wach bist, desto mehr baut sich ein <strong>Schlafdruck</strong> auf. Gleichzeitig tickt in deinem Gehirn eine <strong>innere Uhr</strong>, die ungefähr einen 24-Stunden-Takt hat. Am Abend schickt sie das Hormon <strong>Melatonin</strong> los. Es sagt dem Körper: Jetzt ist Nacht.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="clockLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum fällt es vielen Jugendlichen schwer, um 22 Uhr einzuschlafen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Weil Jugendliche weniger Schlaf brauchen als Erwachsene</span></button>
+          <button data-v="b"><span class="k">b</span><span>Weil ihre innere Uhr in der Pubertät später läuft</span></button>
+          <button data-v="c"><span class="k">c</span><span>Das ist reine Gewohnheit. Mit etwas Disziplin geht es sofort.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>In der Pubertät verschiebt sich die innere Uhr nach hinten, oft um <strong>rund 1 bis 2 Stunden</strong>. Das Melatonin kommt später, und man wird später müde. Gleichzeitig brauchen Jugendliche eher <strong>mehr</strong> Schlaf als Erwachsene, nicht weniger. Wenn dann der Wecker früh klingelt, wird die Nacht kurz.</p>
+          <p><strong>Licht</strong> stellt die innere Uhr. Helles Licht am Morgen zieht sie nach vorn. Helles Licht am Abend, auch von Bildschirmen, kann sie etwas nach hinten schieben. Wie stark, hängt von Helligkeit und Dauer ab. Unten siehst du ein stark vereinfachtes Modell: Müdigkeit ist hier Schlafdruck minus Wachsignal der inneren Uhr.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>In Versuchen ganz ohne Tageslicht und ohne Uhren lebten Menschen weiter in einem Tag-Nacht-Rhythmus. Ihre innere Uhr lief aber meist etwas länger als 24 Stunden. Erst das Licht stellt sie jeden Tag wieder genau.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="clockCv" style="height:340px" aria-label="Diagramm über 30 Stunden: Schlafdruck, Wachsignal der inneren Uhr und daraus die Müdigkeit, mit Schlafzeit und Melatonin"></canvas>
+        <div class="locked" id="clockLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="upIn">Aufstehzeit</label><input type="range" id="upIn" min="5" max="11" step="0.25" value="7" disabled><output id="upOut">7:00</output></div>
+        <div class="ctrl"><label for="litIn">Helles Licht am Abend</label><input type="range" id="litIn" min="0" max="4" step="0.5" value="0" disabled><output id="litOut">0 h</output></div>
+        <div class="row">
+          <button class="btn ghost" id="teenBtn" disabled>Innere Uhr: Jugendlich</button>
+          <button class="btn ghost" id="allBtn" disabled>Nacht durchmachen</button>
+        </div>
+        <span class="status" id="clockStatus">Stark vereinfachtes Modell. Echte Werte sind bei jedem Menschen anders.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Melatonin steigt ab</span><span class="val" id="cMel">21:00</span><span class="formula">Signal der inneren Uhr</span></div>
+        <div><span class="lbl" id="cOnL">Einschlafen leicht ab</span><span class="val" id="cOn">22:50</span><span class="formula" id="cOnF">Müdigkeit über der Linie</span></div>
+        <div><span class="lbl">Schlaf bis zum Wecker</span><span class="val" id="cSleep">8,2 h</span><span class="formula" id="cSleepF">wenn du dann einschläfst</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum ist man nach einer durchwachten Nacht am Morgen wacher als um 4 Uhr?</h2>
+      <p>Wer eine Nacht durchmacht, kennt das: Um 4 Uhr fallen fast die Augen zu. Um 8 Uhr fühlt man sich plötzlich wieder munterer. Dabei ist man jetzt noch länger wach, der Schlafdruck ist also noch höher.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 3. Probier dort den Knopf «Nacht durchmachen» und schau, was die innere Uhr am Morgen tut.</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Müdigkeit hängt von <strong>zwei Dingen</strong> ab. Der Schlafdruck steigt die ganze Nacht weiter. Aber die <strong>innere Uhr</strong> ist um etwa 4 bis 5 Uhr an ihrem <strong>Tiefpunkt</strong>: Die Körpertemperatur ist am tiefsten, das Melatonin hoch. Beides zusammen ergibt die müdeste Zeit.</p>
+          <p>Gegen Morgen schaltet die Uhr auf Tag um, auch ohne Schlaf. Das Melatonin sinkt, Körpertemperatur und das Hormon Cortisol steigen, und Tageslicht verstärkt das noch. Dieses Wachsignal überdeckt einen Teil des Schlafdrucks. Darum fühlst du dich wacher. Ausgeschlafen bist du aber nicht: Konzentration und Reaktion bleiben schlechter, und spätestens am Nachmittag kommt die Müdigkeit zurück.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Nachts hat das Gehirn <em>Schicht</em>.</h2>
+    <ul class="learned">
+      <li><b>Schlaf in Zyklen</b><span>Rund 90 Minuten pro Zyklus. Tiefschlaf vor allem am Anfang der Nacht, REM-Schlaf gegen Morgen. Wer aus dem Tiefschlaf geweckt wird, ist benommen.</span></li>
+      <li><b>Festigen und aufräumen</b><span>Im Schlaf spielt das Gehirn Gelerntes nochmals ab und festigt es. Vermutlich räumt es dabei auch Abfallstoffe weg.</span></li>
+      <li><b>Zwei Kräfte</b><span>Schlafdruck steigt, je länger du wach bist. Die innere Uhr, gestellt vom Licht, bestimmt mit, wann du müde wirst.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/schlaf.js"></script>
+</body>
+</html>
