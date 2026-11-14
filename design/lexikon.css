@@ -158,7 +158,7 @@ h1 em, h2 em, h3 em, .grad {
 
 /* ---------- Seitenkopf von Inhaltsseiten (wie der Kopf einer mindblow-Lektion) ---------- */
 .lesson-head { padding-block: 40px 56px; display: grid; gap: 22px; }
-.lesson-head h1 { font-size: clamp(48px, 8.4vw, 116px); font-weight: 250; line-height: .9; letter-spacing: -0.045em; max-width: 12ch; }
+.lesson-head h1 { font-size: clamp(48px, 8.4vw, 116px); font-weight: 250; line-height: .9; letter-spacing: -0.045em; max-width: 12ch; overflow-wrap: anywhere; hyphens: auto; }
 .lesson-head .intro { font-size: clamp(18px, 1.8vw, 21px); max-width: 54ch; color: var(--muted); }
 
 /* ---------- Abschnitte ---------- */
@@ -191,8 +191,8 @@ a.bcard:hover { transform: translateY(-3px); }
   text-decoration: none; color: var(--fg); position: relative; overflow: hidden; transition: transform .6s var(--ease), box-shadow .6s var(--ease);
   transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));   /* common.js kippt die Karte leicht zur Maus */
 }
-.topic h3 { font-size: clamp(24px, 2.2vw, 30px); letter-spacing: -0.03em; line-height: 1.05; max-width: 14ch; }
-.topic p { color: var(--muted); font-size: 15px; max-width: 40ch; }
+.topic h3 { font-size: clamp(24px, 2.2vw, 30px); letter-spacing: -0.03em; line-height: 1.05; max-width: 14ch; overflow-wrap: anywhere; hyphens: auto; }
+.topic p { color: var(--muted); font-size: 15px; max-width: 40ch; overflow-wrap: anywhere; hyphens: auto; }
 .topic .num { position: absolute; top: 20px; right: 24px; font-size: 13px; font-weight: 500; letter-spacing: .08em; color: var(--site); }
 .topic .meta { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 11.5px; letter-spacing: .04em; color: var(--muted); flex-wrap: wrap; }
 .cards .topic { min-height: 250px; }
@@ -315,7 +315,7 @@ html.s-open { overflow: hidden; }
 
 /* Übersichtsseiten: Bereich, Gebiet, Suche, A bis Z (themen.html) */
 .list-head { padding-block: 36px 34px; display: grid; gap: 18px; }
-.list-head h1 { font-size: clamp(48px, 7.5vw, 112px); font-weight: 250; line-height: 1; letter-spacing: -0.045em; }
+.list-head h1 { font-size: clamp(48px, 7.5vw, 112px); font-weight: 250; line-height: 1; letter-spacing: -0.045em; overflow-wrap: anywhere; hyphens: auto; }   /* «Programmiersprachen» am Handy */
 .list-head .intro { font-size: clamp(17px, 1.7vw, 20px); color: var(--muted); max-width: 54ch; }
 .back { font-size: 14px; color: var(--muted); text-decoration: none; width: fit-content; display: inline-flex; gap: 8px; align-items: center; transition: color .3s, gap .3s var(--ease); }
 .back:hover { color: var(--fg); gap: 12px; }
