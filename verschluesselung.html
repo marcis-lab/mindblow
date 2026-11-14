@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Verschlüsselung · mindblow</title>
+<meta name="description" content="Warum ein geheimes Verfahren nicht reicht, warum jedes Bit zählt und wie zwei Fremde einen Schlüssel vereinbaren, obwohl alle mithören.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 06 · Technik</span>
+    <h1>Wie bleiben Geheimnisse <em>geheim</em>?</h1>
+    <p class="intro">Du tippst deine Kartennummer ein, und sie reist durch fremde Leitungen, Router und WLANs. Jeder unterwegs könnte mitlesen. Trotzdem versteht niemand etwas. Der Trick heisst Verschlüsselung, und er ist erstaunlich offen.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Caesar -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Caesars Geheimschrift <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein geheimes Verfahren reicht nicht</h2>
+      <p>Schon vor 2000 Jahren hat man Briefe verschlüsselt. Ein einfacher Trick: Jeder Buchstabe wird um ein paar Stellen im Alphabet <strong>verschoben</strong>. Bei 3 Stellen wird aus A ein D und aus B ein E. Die Zahl der Stellen ist der <strong>Schlüssel</strong>.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="caesarLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was macht eine Verschlüsselung wirklich sicher?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Dass niemand weiss, wie das Verfahren funktioniert</span></button>
+          <button data-v="b"><span class="k">b</span><span>Dass es so viele mögliche Schlüssel gibt, dass niemand alle ausprobieren kann</span></button>
+          <button data-v="c"><span class="k">c</span><span>Dass der Geheimtext möglichst wirr und unlesbar aussieht</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ein Verfahren bleibt nie lange geheim. Irgendwann verrät es jemand, oder ein Gerät wird gestohlen. Darum gilt seit 1883 die Regel von Auguste Kerckhoffs: Die Sicherheit darf <strong>nur vom Schlüssel</strong> abhängen. Das Verfahren darf jeder kennen. Bei der Verschiebung gibt es aber nur <strong>25 Schlüssel</strong>. Die probiert man in wenigen Minuten von Hand durch. Probier es: Verschlüssle eine Nachricht und lass sie dann knacken.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Laut dem Geschichtsschreiber Sueton hat Julius Caesar um drei Stellen verschoben. Aus VENI wird so YHQL. Wirr sieht es aus, sicher ist es nicht.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="caesarCv" style="height:340px" aria-label="Zwei Alphabete übereinander, das untere ist verschoben. Darunter Klartext, Geheimtext und eine Liste von Knackversuchen"></canvas>
+        <div class="locked" id="caesarLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="shiftIn">Verschiebung</label><input type="range" id="shiftIn" min="1" max="25" step="1" value="3" disabled><output id="shiftOut">3</output></div>
+        <div class="legend" id="msgPick">
+          <span class="eyebrow">Nachricht:</span>
+          <button data-m="0" class="active" disabled>Treffpunkt</button>
+          <button data-m="1" disabled>Passwort</button>
+          <button data-m="2" disabled>Bahnhof</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="crackBtn" disabled>Knack es</button>
+        </div>
+        <span class="status" id="caesarStatus">Schieb den Regler: Der Geheimtext ändert sich sofort.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Dein Schlüssel</span><span class="val" id="cKey">3</span><span class="formula">Stellen verschoben</span></div>
+        <div><span class="lbl">Mögliche Schlüssel</span><span class="val">25</span><span class="formula">Verschiebung 26 = gar keine</span></div>
+        <div><span class="lbl">Versuche bis geknackt</span><span class="val" id="cTries">–</span><span class="formula">Angreifer probiert alle durch</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Schlüssellänge -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Jedes Bit zählt <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wie lang muss ein Schlüssel sein?</h2>
+      <p>Heutige Verfahren verschieben keine Buchstaben mehr. Sie rechnen mit Bits, also Nullen und Einsen. Der Schlüssel ist eine lange Reihe solcher Bits. Ein Angreifer kann nur raten: alle Kombinationen durchprobieren, bis eine passt.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="bitsLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Ein Schlüssel wird von 64 auf 128 Bit verlängert. Wie viel länger dauert es, alle Schlüssel durchzuprobieren?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Doppelt so lang, der Schlüssel ist ja doppelt so lang</span></button>
+          <button data-v="b"><span class="k">b</span><span>Rund 18 Trillionen Mal so lang</span></button>
+          <button data-v="c"><span class="k">c</span><span>64-mal so lang, für jedes neue Bit einmal mehr</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Jedes zusätzliche Bit <strong>verdoppelt</strong> die Zahl der möglichen Schlüssel. 64 Bit mehr heisst also 64-mal verdoppeln: 2<sup>64</sup>, das sind rund <strong>18 Trillionen</strong> Mal so viele Schlüssel. Das ist exponentielles Wachstum. Schieb den Regler und schau, wie lange ein Computer mit einer Milliarde Versuchen pro Sekunde braucht.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Selbst eine Milliarde Computer mit je einer Milliarde Versuchen pro Sekunde bräuchten für alle 128-Bit-Schlüssel fast 800-mal so lange, wie das Universum alt ist.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="bitsCv" style="height:320px" aria-label="Diagramm: Zeit zum Durchprobieren aller Schlüssel in Abhängigkeit der Schlüssellänge, mit Zonen von sofort bis länger als das Universum alt ist"></canvas>
+        <div class="locked" id="bitsLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="bitsIn">Schlüssellänge</label><input type="range" id="bitsIn" min="8" max="256" step="1" value="40" disabled><output id="bitsOut">40 Bit</output></div>
+        <div class="row">
+          <button class="btn ghost" id="b56" disabled>56 Bit (DES, alt)</button>
+          <button class="btn ghost" id="b128" disabled>128 Bit (AES, heute)</button>
+          <button class="btn ghost" id="b256" disabled>256 Bit</button>
+        </div>
+        <span class="status" id="bitsStatus">Vereinfacht: Der Angreifer probiert stur alle Schlüssel durch.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Mögliche Schlüssel</span><span class="val" id="bKeys">–</span><span class="formula" id="bPow">2 hoch 40</span></div>
+        <div><span class="lbl">Zeit für alle Schlüssel</span><span class="val" id="bTime">–</span><span class="formula">bei 1 Mrd. Versuchen pro Sekunde</span></div>
+        <div><span class="lbl">Zum Vergleich</span><span class="val" id="bComp" style="font-size:15px">–</span><span class="formula">Universum: 13,8 Mrd. Jahre alt</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Schlüsseltausch -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Schlüsseltausch ohne Treffen <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wie kommt der Schlüssel zum Empfänger?</h2>
+      <p>Ein starker Schlüssel nützt nichts, wenn du ihn offen mitschickst. Dein Handy und ein Webshop haben sich aber nie getroffen. Und alles, was sie sich schicken, kann unterwegs jemand mitlesen. Nennen wir die Lauscherin Eva.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="dhLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Anna und Ben wollen einen gemeinsamen geheimen Schlüssel. Eva hört alles mit. Geht das?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Nein, sie müssen sich zuerst treffen und den Schlüssel persönlich austauschen</span></button>
+          <button data-v="b"><span class="k">b</span><span>Ja: Jeder mischt ein eigenes Geheimnis in etwas Öffentliches, verschickt werden nur die Mischungen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Ja, wenn sie den Schlüssel in Stücke teilen und die Stücke einzeln schicken</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Das geht, und es ist einer der schönsten Tricks der Mathematik. Stell dir Farben vor: <strong>Mischen ist leicht, Entmischen fast unmöglich.</strong> Beide starten mit derselben öffentlichen Farbe. Jeder mischt seine geheime Farbe hinein und schickt nur die Mischung. Dann gibt jeder seine geheime Farbe in die Mischung des anderen. Am Ende haben beide <strong>dieselbe Farbe</strong>, und die ist nie durch die Leitung gegangen. Stücke einzeln schicken hilft dagegen nicht: Eva sieht alle Stücke.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Whitfield Diffie und Martin Hellman haben das Verfahren 1976 veröffentlicht. Der britische Geheimdienst kannte es schon früher, durfte aber bis 1997 nichts sagen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="dhCv" style="height:420px" aria-label="Farbmisch-Spiel: Anna links, Ben rechts, Eva in der Mitte. Öffentliche Farbe, geheime Farben, ausgetauschte Mischungen und das gemeinsame Ergebnis"></canvas>
+        <div class="locked" id="dhLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="aIn">Annas Geheimfarbe</label><input type="range" id="aIn" min="0" max="359" step="1" value="350" disabled><output id="aOut">350°</output></div>
+        <div class="ctrl"><label for="bIn">Bens Geheimfarbe</label><input type="range" id="bIn" min="0" max="359" step="1" value="210" disabled><output id="bOut">210°</output></div>
+        <div class="row">
+          <button class="btn" id="dhNext" disabled>Nächster Schritt</button>
+          <button class="btn ghost" id="dhReset" disabled>Von vorne</button>
+        </div>
+        <span class="status" id="dhStatus">Schritt 1 von 4: Alle kennen die öffentliche Farbe Gelb.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Annas Ergebnis</span><span class="val" id="dA">–</span><span class="formula">Bens Mischung + Annas Geheimnis</span></div>
+        <div><span class="lbl">Bens Ergebnis</span><span class="val" id="dB">–</span><span class="formula">Annas Mischung + Bens Geheimnis</span></div>
+        <div><span class="lbl">Evas bester Versuch</span><span class="val" id="dE">–</span><span class="formula">beide Mischungen zusammen</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Schloss heisst nicht ehrlich</h2>
+      <p>Viele Leute denken: Wenn im Browser ein Schloss neben der Adresse steht, ist die Seite sicher. Warum ist das Schloss kein Beweis, dass du einer Seite vertrauen kannst?</p>
+      <p><strong>Tipp:</strong> Denk an Teil 3. Mit wem genau vereinbart dein Browser den geheimen Schlüssel?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Das Schloss zeigt nur, dass …, aber nicht, dass …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Stell dir vor, Eva baut eine eigene Seite, die genau wie deine Bank aussieht. Kann sie mit dir auch einen geheimen Schlüssel vereinbaren? Wovor schützt dich dann die Verschlüsselung noch?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Das Schloss sagt nur zwei Dinge: Die Verbindung ist <strong>verschlüsselt</strong>, und die Seite hat ein gültiges <strong>Zertifikat für genau diese Adresse</strong>. Niemand unterwegs kann also mitlesen oder sich dazwischenschalten. Ob am anderen Ende jemand Ehrliches sitzt, sagt das Schloss nicht.</p>
+          <p>Betrüger können für ihre eigene Adresse, etwa <span class="mono">deine-bank-login.com</span>, in wenigen Minuten gratis ein Zertifikat bekommen. Dann hast du eine perfekt verschlüsselte Verbindung, direkt zum Betrüger. Darum: Schau auf die <strong>Adresse</strong>, nicht nur auf das Schloss. Chrome hat das Schloss-Symbol 2023 sogar durch ein neutrales Symbol ersetzt, weil es so oft falsch verstanden wurde.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Sicher ist, was man <em>nicht durchprobieren</em> kann.</h2>
+    <ul class="learned">
+      <li><b>Offenes Verfahren</b><span>Das Verfahren darf jeder kennen. Geheim bleibt nur der Schlüssel, und davon muss es unvorstellbar viele geben.</span></li>
+      <li><b>Jedes Bit verdoppelt</b><span>128 Bit ergeben so viele Schlüssel, dass alle Computer der Welt sie nicht durchprobieren könnten.</span></li>
+      <li><b>Mischen statt treffen</b><span>Zwei Fremde vereinbaren einen Schlüssel, obwohl alle mithören. Das passiert bei jeder Seite mit Schloss.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="kuehlschrank.html">Weiter: Wie macht ein Kühlschrank Kälte? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/verschluesselung.js"></script>
+</body>
+</html>

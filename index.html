@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>mindblow</title>
-<meta name="description" content="mindblow: Wie funktioniert die Welt? Strom, Internet, KI, das Universum und dein Gehirn, zum Ausprobieren.">
+<meta name="description" content="mindblow: Wie funktioniert die Welt? Körper, Natur, Technik, Weltall und Geld, zum Ausprobieren.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
@@ -33,7 +33,9 @@
       </svg>
     </div>
 
-    <p class="lead">Wie funktioniert die Welt eigentlich? Strom, Internet, KI, das Universum und dein eigenes Gehirn.</p>
+    <p class="lead">Wie funktioniert die Welt eigentlich? Dein Körper, die Natur, die Technik, das Weltall und das Geld.</p>
+
+    <button type="button" class="hero-search glass" id="heroSearch"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4.5 4.5"/></svg><span>Was willst du verstehen?</span><kbd>/</kbd></button>
 
     <div class="stamp" aria-hidden="true">
       <svg viewBox="0 0 120 120">
@@ -53,30 +55,44 @@
   </footer>
 </div>
 
+<script src="js/themen.js"></script>
 <script src="js/common.js"></script>
 <script>
 (() => {
-  const { $, CATS, TOPICS, progressOf } = MB;
+  const { $, BEREICHE, TOPICS, liveIn, topicsIn, progressOf, card, esc, urlB, urlG, openSearch } = MB;
   $('#topicCount').innerHTML = `${TOPICS.length} Themen,<br>es werden mehr`;
-  $('#catalog').innerHTML = CATS.map(c => {
-    const list = TOPICS.filter(t => t.cat === c.id);
-    return `<section class="cat" id="${c.id}">
-      <div class="cat-head"><h2>${c.name}</h2><span class="eyebrow">${list.length} ${list.length === 1 ? 'Thema' : 'Themen'}</span></div>
-      <div class="cards">
-        ${list.map(t => {
-          const n = progressOf(t.slug);
-          const state = n >= 4 ? 'Abgeschlossen' : n > 0 ? `${n} von 4 gelöst` : '4 Aufgaben · 15 Min.';
-          return `<a class="topic${n >= 4 ? ' done' : ''}" href="${t.slug}.html" data-tilt>
-            <span class="num"><small>Nº</small>${t.nr}</span>
-            <span class="chip">${n >= 4 ? 'Erledigt' : n > 0 ? 'Angefangen' : 'Offen'}</span>
-            <h3>${t.title}</h3>
-            <p>${t.teaser}</p>
-            <div class="meta"><span>${state}</span><span class="go">Starten</span></div>
-          </a>`;
+  $('#heroSearch').addEventListener('click', () => openSearch());
+
+  const shelf = (title, link, items) => `<section class="shelf">
+      <div class="shelf-head"><h2>${title}</h2>${link || ''}</div>
+      <div class="scroller">${items.map(t => card(t)).join('')}</div>
+    </section>`;
+
+  // Weitermachen: angefangene Themen zuerst
+  const started = TOPICS.filter(t => { const n = progressOf(t.slug); return n > 0 && n < 4; });
+  // Neu: zuletzt hinzugefügt
+  const neu = [...TOPICS].sort((a, b) => (b.added || '').localeCompare(a.added || '') || a.i - b.i).slice(0, 8);
+
+  $('#catalog').innerHTML =
+    (started.length ? shelf('Weitermachen', '', started) : '') +
+    `<section class="shelf" id="bereiche">
+      <div class="shelf-head"><h2>Bereiche</h2><a href="themen.html">Alle Themen von A bis Z →</a></div>
+      <div class="bgrid">
+        ${BEREICHE.map(b => {
+          const live = liveIn(b.id), done = live.filter(t => progressOf(t.slug) >= 4).length, soon = topicsIn(b.id).length - live.length;
+          return `<div class="bcard glass">
+            <h3><a href="${urlB(b.id)}">${esc(b.name)}</a></h3>
+            <p>${esc(b.intro)}</p>
+            <div class="glist">${b.gebiete.map(g => {
+              const n = liveIn(b.id, g.id).length;
+              return `<a class="${n ? '' : 'empty'}" href="${urlG(b.id, g.id)}">${esc(g.name)}</a>`;
+            }).join('')}</div>
+            <div class="bmeta"><span>${live.length} Themen${soon ? ` · ${soon} in Arbeit` : ''}</span><span>${done ? `${done} erledigt` : ''}</span></div>
+          </div>`;
         }).join('')}
       </div>
-    </section>`;
-  }).join('');
+    </section>` +
+    shelf('Neu dazugekommen', '<a href="themen.html">Alle ansehen →</a>', neu);
 })();
 </script>
 </body>

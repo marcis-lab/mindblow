@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fotosynthese · mindblow</title>
+<meta name="description" content="Ein Baum wiegt Tonnen, und fast alles davon kommt aus der Luft: wie Pflanzen mit Licht aus CO₂ und Wasser Zucker und Holz bauen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Pflanzen, Tiere &amp; Evolution</span>
+    <h1>Wie macht ein Baum aus Luft <em>Holz</em>?</h1>
+    <p class="intro">Eine grosse Buche wiegt mehrere Tonnen. Die meisten Leute denken, das Material dafür holt sie aus dem Boden. Doch der Boden unter einem Baum wird kaum weniger. Das meiste Holz ist eingefangene Luft.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Van Helmonts Weide -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Das Weiden-Experiment <span class="chip solved-chip">gelöst</span></span>
+      <h2>Woher kommt die Masse?</h2>
+      <p>Um 1640 pflanzte der Arzt Jan Baptist van Helmont eine kleine Weide von gut <strong>2 kg</strong> in einen Topf mit <strong>91 kg</strong> getrockneter Erde. Fünf Jahre lang gab er ihr nur Regenwasser. Dann wog er alles nochmals: Die Weide wog jetzt über <strong>76 kg</strong>.</p>
+      <div class="quiz" data-q="q1" data-correct="c" data-unlock="treeLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Die Weide ist um rund 74 kg schwerer geworden. Woher stammt der grösste Teil ihres festen Holzes?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Aus der Erde im Topf</span></button>
+          <button data-v="b"><span class="k">b</span><span>Aus dem Giesswasser</span></button>
+          <button data-v="c"><span class="k">c</span><span>Aus der Luft, genauer aus dem CO₂</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Erde im Topf war nach fünf Jahren nur etwa <strong>57 Gramm</strong> leichter. Van Helmont schloss daraus: Der Baum ist aus Wasser gemacht. Das stimmt nur halb. Eine frische Weide besteht etwa zur Hälfte aus Wasser. Das <strong>feste Holz</strong> aber ist vor allem <strong>Kohlenstoff</strong>, und den holt die Pflanze als CO₂ aus der Luft. Aus dem Wasser stammt der Wasserstoff, aus dem Boden nur ein paar Prozent Mineralien. Lass die Weide wachsen und trockne sie.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Wenn du Holz verbrennst, geht es dorthin zurück, woher es kam: als CO₂ und Wasserdampf in die Luft. Übrig bleibt fast nur die Asche. Das ist ziemlich genau der Teil, der aus dem Boden stammt.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="treeCv" style="height:360px" aria-label="Eine Weide wächst in einem Topf, darunter ein Balken, der zeigt, woher ihre Masse stammt"></canvas>
+        <div class="locked" id="treeLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="yrIn">Jahre</label><input type="range" id="yrIn" min="0" max="5" step="0.1" value="0" disabled><output id="yrOut">0,0</output></div>
+        <div class="legend" id="treeMode">
+          <span class="eyebrow">Weide wiegen:</span>
+          <button data-mode="fresh" class="active" disabled><span class="sw" style="background:#4f9fd0"></span>Frisch</button>
+          <button data-mode="dry" disabled><span class="sw" style="background:#8a6a3f"></span>Getrocknet</button>
+        </div>
+        <span class="status" id="treeStatus">Zieh die Jahre nach rechts und schau, was mit der Erde passiert.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Masse der Weide</span><span class="val" id="trMass">2,3 kg</span><span class="formula" id="trMassF">frisch, mit Wasser</span></div>
+        <div><span class="lbl">Erde im Topf</span><span class="val" id="trSoil">−0 g</span><span class="formula">von 91 kg Erde</span></div>
+        <div><span class="lbl">Neue Trockenmasse aus der Luft</span><span class="val" id="trAir">0,0 kg</span><span class="formula">C und O aus CO₂, vereinfacht</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Die Formel -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Die Bauanleitung <span class="chip solved-chip">gelöst</span></span>
+      <h2>Aus Luft und Wasser wird Zucker</h2>
+      <p>In den Blättern baut die Pflanze mit der Energie des Lichts <strong>Traubenzucker</strong>. Daraus macht sie später Holz (Zellulose), Stärke und fast alles andere. Die Kurzform kennst du vielleicht aus der Schule:</p>
+      <p class="mono">6 CO₂ + 6 H₂O + Licht → C₆H₁₂O₆ + 6 O₂</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="rxLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Die Pflanze gibt Sauerstoff (O₂) ab. Woher stammen diese Sauerstoff-Atome?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Aus dem CO₂: Die Pflanze trennt C und O₂</span></button>
+          <button data-v="b"><span class="k">b</span><span>Aus dem Wasser, das die Pflanze spaltet</span></button>
+          <button data-v="c"><span class="k">c</span><span>Je zur Hälfte aus CO₂ und aus Wasser</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Der Sauerstoff kommt <strong>aus dem Wasser</strong>. Mit der Energie des Lichts reisst die Pflanze Wassermoleküle auseinander. Den Wasserstoff braucht sie zum Bauen, der Sauerstoff ist Abfall und entweicht. Das zeigten Forscher 1941 mit «schwerem» Sauerstoff, den sie ins Wasser mischten: Er tauchte im O₂ wieder auf. Ganz genau geschrieben braucht die Pflanze deshalb <strong>12 Wasser</strong> und gibt <strong>6 neue Wasser</strong> wieder ab. Zähl die Atome nach. Verfolge die blau umrandeten O-Atome aus dem Wasser.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Fast der ganze Sauerstoff in der Luft stammt von Lebewesen. Vor rund 2,4 Milliarden Jahren begannen winzige Cyanobakterien damit, Wasser zu spalten. Jeder Atemzug von dir ist also Abfall von Fotosynthese.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="rxCv" style="height:420px" aria-label="Atome aus 6 CO₂ und 12 H₂O ordnen sich neu zu Traubenzucker, 6 O₂ und 6 H₂O; darunter eine Kurve, wie die Fotosynthese mit dem Licht zunimmt"></canvas>
+        <div class="locked" id="rxLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="litIn">Licht</label><input type="range" id="litIn" min="0" max="2000" step="10" value="1000" disabled><output id="litOut">1'000</output></div>
+        <div class="ctrl"><label for="co2In">CO₂ in der Luft</label><input type="range" id="co2In" min="100" max="1200" step="10" value="420" disabled><output id="co2Out">420 ppm</output></div>
+        <div class="row">
+          <button class="btn ghost" id="rxPause" disabled>Pause</button>
+          <button class="btn ghost" id="rxToday" disabled>Heutige Luft</button>
+        </div>
+        <span class="status" id="rxStatus">Licht in µmol Lichtteilchen pro m² und Sekunde. Volle Sonne im Sommer: etwa 2'000.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">CO₂-Aufnahme des Blatts</span><span class="val" id="rxRate">0,0</span><span class="formula">µmol pro m² und s, netto</span></div>
+        <div><span class="lbl">Lichtsättigung</span><span class="val" id="rxSat">0 %</span><span class="formula">mehr Licht hilft kaum noch</span></div>
+        <div><span class="lbl">Atome links = rechts</span><span class="val" id="rxAtoms" style="font-size:14px">C 6 · H 24 · O 24</span><span class="formula">nichts geht verloren</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Grüne Blätter -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Der grüne Farbstoff <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum sind Blätter grün?</h2>
+      <p>Das Licht für die Fotosynthese fängt der Farbstoff <strong>Chlorophyll</strong> ein. Ein Blatt sieht grün aus, weil es grünes Licht zurückwirft. Wie aus Licht überhaupt Farben werden, erfährst du in der Lektion <a href="farben.html">Gibt es Farben wirklich?</a>.</p>
+      <div class="quiz" data-q="q3" data-correct="c" data-unlock="specLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Drei gleich starke Lampen, je eine Farbe. Unter welcher wächst eine Pflanze am schlechtesten?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Unter der roten Lampe</span></button>
+          <button data-v="b"><span class="k">b</span><span>Unter der blauen Lampe</span></button>
+          <button data-v="c"><span class="k">c</span><span>Unter der grünen Lampe</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Chlorophyll schluckt vor allem <strong>Blau und Rot</strong>. Grünes Licht nimmt es kaum auf. Was ein Blatt grün macht, ist also genau das Licht, das es <strong>nicht</strong> nutzt. Darum wachsen Pflanzen unter grünem Licht am schlechtesten. Aber Achtung: Ein ganzes Blatt nutzt Grün besser, als du denkst. Vergleiche die beiden Kurven.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Im Reagenzglas lässt Chlorophyll fast alles grüne Licht durch. Im Blatt wird das Licht aber hin und her gestreut und trifft viele Male auf Chlorophyll. So schluckt ein dickes Blatt trotzdem einen grossen Teil des Grüns, und grünes Licht treibt die Fotosynthese noch erstaunlich gut an.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="specCv" style="height:340px" aria-label="Spektrum von Violett bis Rot mit den Absorptionskurven von Chlorophyll a und b und einer Lampe, deren Farbe man verschieben kann"></canvas>
+        <div class="locked" id="specLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="nmIn">Lampenfarbe</label><input type="range" id="nmIn" min="400" max="700" step="1" value="530" disabled><output id="nmOut">530 nm</output></div>
+        <div class="legend" id="lampSet">
+          <span class="eyebrow">Lampe:</span>
+          <button data-nm="450" disabled><span class="sw" style="background:rgb(0,70,255)"></span>Blau</button>
+          <button data-nm="530" class="active" disabled><span class="sw" style="background:rgb(60,255,0)"></span>Grün</button>
+          <button data-nm="660" disabled><span class="sw" style="background:rgb(255,0,0)"></span>Rot</button>
+          <button data-nm="white" disabled><span class="sw" style="background:rgb(255,255,255); border:1px solid var(--line)"></span>Sonne</button>
+        </div>
+        <span class="status" id="specStatus">Alle Lampen liefern gleich viele Lichtteilchen. Nur die Farbe ändert sich.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Lampe</span><span class="val" id="spLamp">530 nm</span><span class="formula" id="spName">Grün</span></div>
+        <div><span class="lbl">Chlorophyll im Glas schluckt</span><span class="val" id="spAbs">0 %</span><span class="formula">im Vergleich zum Maximum</span></div>
+        <div><span class="lbl">Fotosynthese im Blatt</span><span class="val" id="spRate">0 %</span><span class="formula">im Vergleich zu Rot, ungefähr</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Alter Urwald oder junger Wald?</h2>
+      <p>Wälder speichern riesige Mengen CO₂ in Holz und Boden. Trotzdem gilt: Ein junger, wachsender Wald holt jedes Jahr viel zusätzliches CO₂ aus der Luft. Ein alter Urwald bindet insgesamt kaum noch mehr dazu. Warum?</p>
+      <p><strong>Tipp:</strong> Denk an das Verbrennen aus Teil 1. Was passiert mit einem Baum, der im Wald stirbt und verrottet?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, im alten Wald …, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Stell dir eine Badewanne vor: Oben läuft Wasser hinein, unten fliesst es ab. Wie viel Wasser in der Wanne ist, ist etwas anderes als wie schnell es mehr wird. Was ist im Wald der Zufluss, und was der Abfluss?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Auch im alten Urwald machen die Bäume fleissig Fotosynthese. Aber dort sterben ebenso viele Bäume, Äste und Blätter, wie neu wachsen. Pilze, Bakterien und Insekten zersetzen das tote Holz. Dabei <strong>atmen</strong> sie, und der Kohlenstoff geht als CO₂ zurück in die Luft. Aufnahme und Abgabe sind im alten Wald fast <strong>im Gleichgewicht</strong>. Die volle Badewanne läuft nicht mehr weiter auf.</p>
+          <p>Ein junger Wald dagegen baut Jahr für Jahr mehr Holz auf, als verrottet. Er ist eine Wanne, die sich gerade füllt. Wichtig ist aber: Der alte Wald ist ein riesiger <strong>Speicher</strong>. Holzt man ihn ab oder brennt er, wird in kurzer Zeit freigesetzt, was über Jahrhunderte gesammelt wurde. Vereinfacht: Messungen zeigen, dass manche alte Wälder auch heute noch etwas CO₂ aufnehmen, vor allem in ihren Böden, aber viel weniger, als ihr Vorrat vermuten lässt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Holz ist <em>eingefangene Luft</em>.</h2>
+    <ul class="learned">
+      <li><b>Masse aus der Luft</b><span>Das feste Holz besteht vor allem aus Kohlenstoff, Sauerstoff und Wasserstoff. Das allermeiste davon stammt aus CO₂ und Wasser, nur wenige Prozent aus dem Boden.</span></li>
+      <li><b>Licht spaltet Wasser</b><span>Die Pflanze baut aus CO₂ und Wasser Zucker. Der Sauerstoff, den sie abgibt, stammt aus dem Wasser.</span></li>
+      <li><b>Grün ist übrig</b><span>Chlorophyll schluckt vor allem Blau und Rot. Das grüne Licht wirft das Blatt zum grossen Teil zurück, darum sehen wir es grün.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/fotosynthese.js"></script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hören · mindblow</title>
+<meta name="description" content="Schall ist eine Druckwelle, Tonhöhe ist Frequenz: wie Ohr und Schnecke aus schubsender Luft Töne machen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 18 · Körper &amp; Leben</span>
+    <h1>Wie hörst du <em>Töne</em>?</h1>
+    <p class="intro">Ein Ton fliegt nicht durch die Luft. Die Luft schubst und drückt, und dieses Schubsen wird von Teilchen zu Teilchen weitergereicht. In deinem Ohr wird daraus Musik, Stimmen und Vogelgezwitscher.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Druckwelle -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Was ist Schall? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Die Luft bleibt, wo sie ist</h2>
+      <p>Ein Lautsprecher hat eine Membran, die schnell vor und zurück zuckt. Du stehst drei Meter daneben und hörst die Musik. Irgendetwas kommt also bei dir an.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="waveLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was wandert vom Lautsprecher zu deinem Ohr?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Luft selbst, wie ein feiner Windstoss</span></button>
+          <button data-v="b"><span class="k">b</span><span>Eine Druckwelle: Die Luftteilchen schubsen ihre Nachbarn an und bleiben selbst am Platz</span></button>
+          <button data-v="c"><span class="k">c</span><span>Winzige Tonteilchen, die durch die Luft fliegen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Es wandert eine <strong>Druckwelle</strong>. Die Membran drückt die Luft vor sich zusammen. Diese Teilchen schubsen ihre Nachbarn, die schubsen ihre Nachbarn, und so weiter. Jedes Teilchen pendelt nur ein winziges Stück hin und her und landet wieder dort, wo es war. Was reist, ist das Muster aus <strong>Verdichtung</strong> und <strong>Verdünnung</strong>. Folge unten dem markierten Teilchen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Schall läuft in Luft mit etwa 343 Metern pro Sekunde, in Wasser rund viermal schneller. Im Weltall gibt es keinen Schall: Ohne Teilchen kann niemand schubsen. Die Explosionen in Weltraumfilmen wären in Wirklichkeit lautlos.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="waveCv" style="height:300px" aria-label="Lautsprecher links, Ohr rechts, dazwischen Reihen von Luftteilchen, die hin und her pendeln. Verdichtungen wandern nach rechts."></canvas>
+        <div class="locked" id="waveLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="wfIn">Tonhöhe</label><input type="range" id="wfIn" min="100" max="1000" step="10" value="300" disabled><output id="wfOut">300 Hz</output></div>
+        <div class="ctrl"><label for="waIn">Lautstärke</label><input type="range" id="waIn" min="0" max="100" step="1" value="60" disabled><output id="waOut">60 %</output></div>
+        <div class="row">
+          <button class="btn" id="wavePlay" disabled>Ton hören</button>
+          <button class="btn ghost" id="wavePick" disabled>Anderes Teilchen markieren</button>
+        </div>
+        <span class="status" id="waveStatus">Die Bewegung ist stark verlangsamt und vergrössert. Kopfhörer: leise stellen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Wellenlänge</span><span class="val" id="wLam">1,14 m</span><span class="formula">343 m/s ÷ Frequenz</span></div>
+        <div><span class="lbl">Weg bis zum Ohr (3 m)</span><span class="val" id="wTime">8,7 ms</span><span class="formula">3 m ÷ 343 m/s</span></div>
+        <div><span class="lbl">Weg des markierten Teilchens</span><span class="val" id="wNet">0 m</span><span class="formula">pendelt nur hin und her</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Tonhöhe -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Tonhöhe <span class="chip solved-chip">gelöst</span></span>
+      <h2>Hoch heisst schnell</h2>
+      <p>Je öfter die Luft pro Sekunde hin und her schwingt, desto höher klingt der Ton. Diese Zahl heisst <strong>Frequenz</strong> und wird in Hertz (Hz) gemessen. 440 Hz bedeutet: 440 Schwingungen pro Sekunde. Junge Menschen hören ungefähr von 20 bis 20'000 Hz.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="toneLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Ab welchem Alter hören viele Menschen einen Ton von 17'000 Hz nicht mehr?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Erst im Alter, so ab 70</span></button>
+          <button data-v="b"><span class="k">b</span><span>Bei vielen schon ab Mitte 20</span></button>
+          <button data-v="c"><span class="k">c</span><span>Nie: Gesunde Ohren hören ein Leben lang bis 20'000 Hz</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die obere Grenze sinkt schon früh. Bei vielen Menschen ist um <strong>Mitte 20</strong> bei etwa 17'000 Hz Schluss, mit 50 oft schon bei rund 12'000 Hz. Das ist von Mensch zu Mensch sehr verschieden, und viel Lärm beschleunigt es. Für Sprache macht das fast nichts aus: Die wichtigen Anteile liegen weit tiefer. Teste dich selbst, aber <strong>leise</strong>.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Es gibt Geräte, die einen Ton um 17'000 Hz abspielen, um Jugendliche von Plätzen zu vertreiben. Viele Erwachsene stehen daneben und hören nichts. Umgekehrt haben Jugendliche solche Töne als Klingelton benutzt, den Lehrpersonen oft nicht hören.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="toneCv" style="height:320px" aria-label="Schwingung des gewählten Tons über fünf Millisekunden und eine Skala des Hörbereichs von 20 bis 20'000 Hertz"></canvas>
+        <div class="locked" id="toneLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="tfIn">Frequenz</label><input type="range" id="tfIn" min="0" max="1000" step="1" value="434" disabled><output id="tfOut">440 Hz</output></div>
+        <div class="ctrl"><label for="tvIn">Lautstärke</label><input type="range" id="tvIn" min="0" max="100" step="1" value="50" disabled><output id="tvOut">50 %</output></div>
+        <div class="row">
+          <button class="btn" id="tonePlay" disabled>Abspielen</button>
+          <button class="btn ghost" id="toneSweep" disabled>Hochton-Test</button>
+          <button class="btn ghost" id="toneStop" disabled>Stopp</button>
+        </div>
+        <span class="status" id="toneStatus">Starte leise. Handy-Lautsprecher schaffen sehr tiefe und sehr hohe Töne oft nicht.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Frequenz</span><span class="val" id="tHz">440 Hz</span><span class="formula">Schwingungen pro Sekunde</span></div>
+        <div><span class="lbl">Wellenlänge in Luft</span><span class="val" id="tLam">78 cm</span><span class="formula">343 m/s ÷ Frequenz</span></div>
+        <div><span class="lbl">Ton</span><span class="val" id="tState">Aus</span><span class="formula">Kopfhörer: leise stellen</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Schnecke -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Die Schnecke <span class="chip solved-chip">gelöst</span></span>
+      <h2>Dein Ohr sortiert die Töne</h2>
+      <p>Die Druckwelle bringt dein <strong>Trommelfell</strong> zum Zittern. Drei winzige Knöchelchen geben das Zittern weiter an die <strong>Schnecke</strong>, ein mit Flüssigkeit gefülltes Röhrchen, aufgerollt und etwa so gross wie eine Erbse. Bei einem Akkord kommen mehrere Töne gleichzeitig an.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="cochLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wo wird ein Klang nach Tonhöhen sortiert?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Im Trommelfell: Es unterscheidet die Tonhöhe</span></button>
+          <button data-v="b"><span class="k">b</span><span>In der Schnecke: Jede Tonhöhe bringt eine andere Stelle zum Schwingen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Erst im Gehirn: Das Ohr meldet nur, wie laut es ist</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Das Trommelfell schwingt einfach mit dem ganzen Gemisch mit. Sortiert wird in der <strong>Schnecke</strong>. Durch sie zieht sich die <strong>Basilarmembran</strong>, ein Band von gut 3 Zentimetern. Vorne an der <strong>Basis</strong> ist es schmal und steif, hinten an der <strong>Spitze</strong> breit und weich. Hohe Töne bringen das Band vorne zum Schwingen, tiefe weiter hinten. Dort sitzen Haarzellen, die melden: «Hier schwingt es.» So zerlegt dein Ohr einen Akkord in seine Töne (vereinfacht: das Gehirn wertet zusätzlich den Takt der Nervensignale aus). Unten ist die Schnecke abgerollt.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Jedes Ohr hat nur etwa 3'500 innere Haarzellen, die das Hören melden. Beim Menschen wachsen sie nicht nach. Die Haarzellen für hohe Töne an der Basis gehen meist zuerst verloren. Darum verschwinden mit dem Alter und nach viel Lärm zuerst die hohen Töne.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="cochCv" style="height:320px" aria-label="Abgerollte Schnecke: ein Band von der Basis links bis zur Spitze rechts. Für jeden Ton schwingt das Band an einer anderen Stelle am stärksten."></canvas>
+        <div class="locked" id="cochLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="cfIn">Grundton</label><input type="range" id="cfIn" min="0" max="1000" step="1" value="434" disabled><output id="cfOut">440 Hz</output></div>
+        <div class="legend" id="cochMode">
+          <span class="eyebrow">Klang:</span>
+          <button data-mode="one" class="active" disabled><span class="sw" style="background:var(--accent)"></span>Ein Ton</button>
+          <button data-mode="chord" disabled><span class="sw" style="background:var(--glow)"></span>Dur-Akkord</button>
+          <button data-mode="far" disabled><span class="sw" style="background:var(--copper)"></span>Tief + hoch</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="cochPlay" disabled>Anhören</button>
+          <button class="btn ghost" id="cochStop" disabled>Stopp</button>
+        </div>
+        <span class="status" id="cochStatus">Schieb den Grundton und schau, wo das Band am stärksten schwingt.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Töne</span><span class="val" id="cTones" style="font-size:15px">440 Hz</span><span class="formula">was ins Ohr kommt</span></div>
+        <div><span class="lbl">Stärkste Stelle</span><span class="val" id="cPos" style="font-size:15px">17,6 mm</span><span class="formula">ab Basis, Greenwood-Formel</span></div>
+        <div><span class="lbl">Ton</span><span class="val" id="cState">Aus</span><span class="formula">Kopfhörer: leise stellen</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ist das wirklich meine Stimme?</h2>
+      <p>Du hörst eine Sprachnachricht von dir selbst und denkst: So klinge ich doch nicht! Die anderen sagen: Doch, genau so.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1 und Teil 3. Schall braucht etwas, das schubst. Was liegt zwischen deinem Kehlkopf und deiner Schnecke ausser Luft?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, die Aufnahme klingt fremd, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Wenn du sprichst, schwingt nicht nur die Luft vor deinem Mund. Auch dein Kopf vibriert. Leg die Hand auf deinen Scheitel und summ tief. Auf welchen Wegen kommt deine Stimme also zur Schnecke? Und auf welchem Weg kommt die Aufnahme?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Wenn du sprichst, erreicht deine Stimme die Schnecke auf <strong>zwei Wegen</strong>: durch die Luft ins Ohr und direkt durch die <strong>Schädelknochen</strong>. Das nennt man Knochenleitung. Die Knochen leiten vor allem tiefe Töne gut weiter. Darum klingst du für dich selbst tiefer und voller.</p>
+          <p>Bei der Aufnahme fehlt der Weg durch die Knochen. Du hörst nur den Luftschall, also ungefähr das, was die anderen hören. Weil du diese Version kaum kennst, wirkt sie fremd. Ein schlechtes Handymikrofon kann den Klang zusätzlich verändern.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Hören heisst <em>zerlegen</em>.</h2>
+    <ul class="learned">
+      <li><b>Schall ist Schubsen</b><span>Eine Druckwelle reist mit etwa 343 m/s. Die Luftteilchen selbst pendeln nur hin und her.</span></li>
+      <li><b>Tonhöhe ist Frequenz</b><span>Schnelle Schwingungen klingen hoch. Die obere Hörgrenze sinkt schon ab dem jungen Erwachsenenalter.</span></li>
+      <li><b>Die Schnecke sortiert</b><span>Jede Tonhöhe bringt eine andere Stelle der Basilarmembran zum Schwingen: hoch vorne, tief hinten.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="geld.html">Weiter: Woher kommt Geld? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/gehoer.js"></script>
+</body>
+</html>

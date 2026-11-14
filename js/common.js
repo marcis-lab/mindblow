@@ -102,77 +102,176 @@ window.MB = (() => {
     requestAnimationFrame(frame);
   };
 
-  /* ---------- Themen-Register: neue Themen nur hier eintragen ---------- */
-  const CATS = [
-    { id: 'technik', name: 'Technik' },
-    { id: 'natur', name: 'Natur & Universum' },
-    { id: 'leben', name: 'Körper & Leben' },
-    { id: 'geld', name: 'Geld & Gesellschaft' },
-  ];
-  const TOPICS = [
-    { slug: 'strom', cat: 'technik', short: 'Strom', title: 'Wie funktioniert <em>Strom?</em>', teaser: 'Warum geht das Licht sofort an, obwohl die Elektronen langsamer kriechen als eine Schnecke?' },
-    { slug: 'internet', cat: 'technik', short: 'Internet', title: 'Wie funktioniert das <em>Internet?</em>', teaser: 'Wie kommt ein Foto in einer Zehntelsekunde nach New York? Nicht durch die Luft.' },
-    { slug: 'ki', cat: 'technik', short: 'Künstliche Intelligenz', title: 'Was ist eigentlich <em>KI?</em>', teaser: 'Denkt ein Chatbot? Bau ein Mini-Sprachmodell und trainiere eine Maschine.' },
-    { slug: 'gps', cat: 'technik', short: 'GPS', title: 'Woher weiss dein Handy, <em>wo du bist?</em>', teaser: 'Satelliten, sehr genaue Uhren und ein Trick mit Kreisen. Einstein hilft auch mit.' },
-    { slug: 'flugzeug', cat: 'technik', short: 'Fliegen', title: 'Warum fliegt ein <em>Flugzeug?</em>', teaser: 'Hunderte Tonnen in der Luft. Die Erklärung aus vielen Schulbüchern stimmt leider nicht.' },
-    { slug: 'verschluesselung', cat: 'technik', short: 'Verschlüsselung', title: 'Wie bleiben Geheimnisse <em>geheim?</em>', teaser: 'Du schickst deine Kartennummer durchs offene Internet. Warum kann sie trotzdem niemand lesen?' },
-    { slug: 'kuehlschrank', cat: 'technik', short: 'Kühlschrank', title: 'Wie macht ein Kühlschrank <em>Kälte?</em>', teaser: 'Er macht gar keine Kälte. Er pumpt Wärme weg, und hinten wird es warm.' },
-    { slug: 'himmel', cat: 'natur', short: 'Blauer Himmel', title: 'Warum ist der Himmel <em>blau?</em>', teaser: 'Und warum wird er am Abend orange? Die Antwort steckt im Licht selbst.' },
-    { slug: 'jahreszeiten', cat: 'natur', short: 'Jahreszeiten', title: 'Warum gibt es <em>Jahreszeiten?</em>', teaser: 'Im Januar ist die Erde der Sonne am nächsten. Trotzdem ist bei uns Winter.' },
-    { slug: 'universum', cat: 'natur', short: 'Universum', title: 'Wie gross ist das <em>Universum?</em>', teaser: 'Von der Ameise bis zur nächsten Galaxie: eine Reise durch dreissig Zehnerpotenzen.' },
-    { slug: 'gezeiten', cat: 'natur', short: 'Ebbe & Flut', title: 'Warum gibt es <em>Ebbe und Flut?</em>', teaser: 'Der Mond zieht das Meer an. Aber warum gibt es dann zwei Fluten am Tag?' },
-    { slug: 'treibhaus', cat: 'natur', short: 'Treibhauseffekt', title: 'Wie wärmt <em>CO₂</em> die Erde?', teaser: 'Ein Gas, das nur 0,04 Prozent der Luft ausmacht. Wie kann das den ganzen Planeten wärmen?' },
-    { slug: 'fallen', cat: 'natur', short: 'Schwerkraft', title: 'Fällt Schweres <em>schneller?</em>', teaser: 'Eine Bowlingkugel und eine Feder fallen gleichzeitig. Man muss nur die Luft weglassen.' },
-    { slug: 'gedaechtnis', cat: 'leben', short: 'Gedächtnis', title: 'Wie erinnert sich das <em>Gehirn?</em>', teaser: 'Dein Gedächtnis ist keine Festplatte. Es erfindet mit, und du merkst es nicht.' },
-    { slug: 'farben', cat: 'leben', short: 'Farben', title: 'Gibt es Farben <em>wirklich?</em>', teaser: 'Dein Auge kennt nur drei Farben. Den ganzen Rest baut dein Gehirn.' },
-    { slug: 'evolution', cat: 'leben', short: 'Evolution', title: 'Wie funktioniert <em>Evolution?</em>', teaser: 'Niemand plant, und trotzdem entstehen perfekte Tarnungen. Wie geht das?' },
-    { slug: 'immunsystem', cat: 'leben', short: 'Immunsystem', title: 'Wie wehrt sich dein <em>Körper?</em>', teaser: 'In dir tobt jeden Tag ein Krieg gegen Eindringlinge. Und eine Impfung ist ein Übungsalarm.' },
-    { slug: 'gehoer', cat: 'leben', short: 'Hören', title: 'Wie hörst du <em>Töne?</em>', teaser: 'Schall ist nur Luft, die hin und her schubst. Wie wird daraus Musik in deinem Kopf?' },
-    { slug: 'geld', cat: 'geld', short: 'Geld', title: 'Woher kommt <em>Geld?</em>', teaser: 'Das meiste Geld wurde nie gedruckt. Es entsteht, wenn jemand einen Kredit aufnimmt.' },
-    { slug: 'zinseszins', cat: 'geld', short: 'Zinseszins', title: 'Wie wächst <em>Geld?</em>', teaser: 'Ein Rappen, jeden Tag verdoppelt. Wie viel ist es nach einem Monat?' },
-    { slug: 'inflation', cat: 'geld', short: 'Inflation', title: 'Warum wird alles <em>teurer?</em>', teaser: 'Ein Kaffee kostete früher einen Franken. Ist der Kaffee besser geworden oder das Geld schlechter?' },
-    { slug: 'lotto', cat: 'geld', short: 'Wahrscheinlichkeit', title: 'Warum gewinnt das Casino <em>immer?</em>', teaser: 'Glück ist launisch, aber Zufall rechnet erstaunlich genau. Und das Casino kennt die Rechnung.' },
-    { slug: 'stau', cat: 'geld', short: 'Stau', title: 'Woher kommt Stau <em>aus dem Nichts?</em>', teaser: 'Kein Unfall, keine Baustelle, und trotzdem stehst du. Schuld ist ein kurzes Bremsen, weit vorne.' },
-  ];
+  /* ---------- Themen: Bereich → Gebiet → Thema (Daten in js/themen.js) ---------- */
+  const DATA = window.MB_THEMEN || { BEREICHE: [], THEMEN: [] };
+  const BEREICHE = DATA.BEREICHE;
+  const bById = {}, gById = {};
+  BEREICHE.forEach((b, bi) => { b.i = bi; bById[b.id] = b; b.gebiete.forEach((g, gi) => { g.i = gi; g.b = b; gById[b.id + '/' + g.id] = g; }); });
+  const ALL = DATA.THEMEN.map((t, i) => ({ ...t, i, bereich: bById[t.b], gebiet: gById[t.b + '/' + t.g] })).filter(t => t.bereich && t.gebiet);
+  // Lernreihenfolge: Bereich, dann Gebiet, dann Reihenfolge in der Datei
+  ALL.sort((a, b) => a.bereich.i - b.bereich.i || a.gebiet.i - b.gebiet.i || a.i - b.i);
+  const TOPICS = ALL.filter(t => !t.soon);
   TOPICS.forEach((t, i) => { t.nr = String(i + 1).padStart(2, '0'); });
+  const bySlug = Object.fromEntries(ALL.map(t => [t.slug, t]));
+  const topicsIn = (b, g) => ALL.filter(t => t.b === b && (!g || t.g === g));
+  const liveIn = (b, g) => topicsIn(b, g).filter(t => !t.soon);
+  const plain = s => String(s).replace(/<[^>]+>/g, '');
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const urlB = b => `themen.html?b=${b}`;
+  const urlG = (b, g) => `themen.html?b=${b}&g=${g}`;
+  const urlT = t => `${t.slug}.html`;
+  const CATS = BEREICHE; // alter Name, für ältere Seiten
 
-  /* Navigation mit Überbegriffen */
+  /* ---------- Suche ---------- */
+  // Kleinbuchstaben, Umlaute vereinheitlichen: «Kühlschrank», «kuehlschrank» und «kuhlschrank» treffen sich.
+  const norm = s => plain(s).toLowerCase().replace(/ß/g, 'ss')
+    .normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/([aou])e/g, '$1').replace(/[^a-z0-9]+/g, ' ').trim();
+  const index = ALL.map(t => ({ t, f: [
+    [norm(t.title + ' ' + t.short), 10],
+    [norm(t.tags || ''), 6],
+    [norm(t.gebiet.name + ' ' + t.bereich.name), 4],
+    [norm(t.teaser), 2],
+  ] }));
+  const search = (q, limit = 50) => {
+    const words = norm(q).split(' ').filter(Boolean);
+    if (!words.length) return [];
+    const hits = [];
+    for (const { t, f } of index) {
+      let score = 0, ok = true;
+      for (const w of words) {
+        let best = 0;
+        for (const [txt, wt] of f) {
+          const at = txt.indexOf(w);
+          if (at < 0) continue;
+          const start = at === 0 || txt[at - 1] === ' ';
+          best = Math.max(best, wt * (start ? 1 : .5));
+        }
+        if (!best) { ok = false; break; }
+        score += best;
+      }
+      if (ok) hits.push({ t, score: score - (t.soon ? 3 : 0) });
+    }
+    return hits.sort((a, b) => b.score - a.score || a.t.i - b.t.i).slice(0, limit).map(h => h.t);
+  };
+  const stateOf = t => {
+    if (t.soon) return { cls: 'soon', chip: 'Bald', txt: 'In Arbeit' };
+    const n = progressOf(t.slug);
+    return n >= 4 ? { cls: 'done', chip: 'Erledigt', txt: 'Abgeschlossen' }
+      : n > 0 ? { cls: 'started', chip: 'Angefangen', txt: `${n} von 4 gelöst` }
+      : { cls: 'fresh', chip: 'Offen', txt: '4 Aufgaben · 15 Min.' };
+  };
+  // Eine Themenkarte (Startseite, Übersichten)
+  const card = (t, opt = {}) => {
+    const s = stateOf(t);
+    const path = opt.path === false ? '' : `<span class="crumbs">${esc(t.bereich.name)} · ${esc(t.gebiet.name)}</span>`;
+    const inner = `${path}<span class="chip">${s.chip}</span><h3>${t.title}</h3><p>${t.teaser}</p>
+      <div class="meta"><span>${s.txt}</span>${t.soon ? '' : '<span class="go">Starten</span>'}</div>`;
+    return t.soon ? `<div class="topic soon-t" aria-disabled="true">${inner}</div>`
+      : `<a class="topic ${s.cls}" href="${urlT(t)}" data-tilt>${inner}</a>`;
+  };
+
+  /* ---------- Kopfzeile: Themen-Menü und Suche ---------- */
   const here = (location.pathname.split('/').pop() || 'index.html').replace('.html', '') || 'index';
+  const params = new URLSearchParams(location.search);
+  const curT = bySlug[here];
+  const curB = curT ? curT.b : (here === 'themen' ? params.get('b') : null);
   const nav = $('header.top nav');
+  let openSearch = () => {};
   if (nav) {
     nav.className = 'mainnav'; nav.setAttribute('aria-label', 'Themen');
     nav.innerHTML = `
-      <button class="navtoggle" type="button" aria-expanded="false">Themen <span class="caret"></span></button>
-      <div class="navgroups">
-        ${CATS.map(c => {
-          const list = TOPICS.filter(t => t.cat === c.id);
-          const cur = list.some(t => t.slug === here);
-          return `<div class="navgroup${cur ? ' current' : ''}">
-            <button class="navcat" type="button" aria-expanded="false">${c.name} <span class="caret"></span></button>
-            <div class="navmenu">
-              ${list.map(t => `<a href="${t.slug}.html"${t.slug === here ? ' aria-current="page"' : ''}><span class="nr">${t.nr}</span>${t.short}</a>`).join('')}
-            </div>
-          </div>`;
-        }).join('')}
+      <button class="navcat" type="button" id="megaBtn" aria-expanded="false" aria-controls="mega">Themen <span class="caret"></span></button>
+      <button class="navcat searchbtn" type="button" id="searchBtn" aria-label="Suchen"><svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4.5 4.5"/></svg><span class="sb-l">Suchen</span><kbd>/</kbd></button>
+      <div class="mega" id="mega" hidden>
+        <div class="mega-grid">
+          ${BEREICHE.map(b => `<div class="mega-col${b.id === curB ? ' current' : ''}">
+            <a class="mega-b" href="${urlB(b.id)}">${esc(b.name)} <span class="cnt">${liveIn(b.id).length}</span></a>
+            ${b.gebiete.map(g => {
+              const n = liveIn(b.id, g.id).length;
+              return `<a class="mega-g${n ? '' : ' empty'}${curT && curT.g === g.id && curT.b === b.id ? ' current' : ''}" href="${urlG(b.id, g.id)}">${esc(g.name)}<span class="cnt">${n || 'bald'}</span></a>`;
+            }).join('')}
+          </div>`).join('')}
+        </div>
+        <div class="mega-foot"><a href="themen.html">Alle ${TOPICS.length} Themen von A bis Z →</a></div>
       </div>`;
-    const groups = $$('.navgroup', nav);
-    const closeAll = except => groups.forEach(g => { if (g !== except) { g.classList.remove('open'); $('.navcat', g).setAttribute('aria-expanded', 'false'); } });
-    groups.forEach(g => {
-      const b = $('.navcat', g);
-      b.addEventListener('click', e => {
-        e.stopPropagation();
-        const open = !g.classList.contains('open');
-        closeAll(g); g.classList.toggle('open', open); b.setAttribute('aria-expanded', String(open));
-      });
+    const mb = $('#megaBtn'), mega = $('#mega');
+    const setMega = open => { mega.hidden = !open; mb.setAttribute('aria-expanded', String(open)); nav.classList.toggle('open', open); };
+    mb.addEventListener('click', e => { e.stopPropagation(); setMega(mega.hidden); });
+    document.addEventListener('click', e => { if (!nav.contains(e.target)) setMega(false); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') setMega(false); });
+
+    // Suchfenster
+    const dlg = document.createElement('div');
+    dlg.className = 'search-dlg'; dlg.hidden = true;
+    dlg.setAttribute('role', 'dialog'); dlg.setAttribute('aria-modal', 'true'); dlg.setAttribute('aria-label', 'Themen durchsuchen');
+    dlg.innerHTML = `<div class="search-box">
+        <div class="search-in"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4.5 4.5"/></svg>
+          <input type="search" id="sQ" placeholder="Was willst du verstehen? z. B. Herz, Blitz, Geld" autocomplete="off" spellcheck="false" aria-controls="sRes">
+          <button type="button" class="s-close" aria-label="Schliessen">Esc</button></div>
+        <div class="s-res" id="sRes" role="listbox"></div>
+      </div>`;
+    document.body.append(dlg);
+    const q = $('#sQ', dlg), res = $('#sRes', dlg);
+    let sel = 0, hits = [];
+    const sugg = ['Herz', 'Geld', 'Licht', 'Weltall', 'Gehirn', 'Strom'];
+    const render = () => {
+      const v = q.value.trim();
+      if (!v) {
+        res.innerHTML = `<p class="s-empty">Probier: ${sugg.map(s => `<button type="button" class="s-sug">${s}</button>`).join(' ')}</p>`;
+        $$('.s-sug', res).forEach(b => b.addEventListener('click', () => { q.value = b.textContent; render(); q.focus(); }));
+        hits = []; return;
+      }
+      hits = search(v, 12);
+      if (!hits.length) { res.innerHTML = `<p class="s-empty">Nichts gefunden zu «${esc(v)}». Dieses Thema gibt es noch nicht.</p>`; return; }
+      sel = Math.min(sel, hits.length - 1);
+      res.innerHTML = hits.map((t, i) => `<a class="s-hit${t.soon ? ' soon' : ''}${i === sel ? ' sel' : ''}" role="option" aria-selected="${i === sel}" ${t.soon ? '' : `href="${urlT(t)}"`} data-i="${i}">
+          <span class="s-path">${esc(t.bereich.name)} · ${esc(t.gebiet.name)}</span>
+          <span class="s-t">${plain(t.title)}${t.soon ? ' <span class="s-soon">bald</span>' : ''}</span>
+          <span class="s-d">${t.teaser}</span></a>`).join('')
+        + `<a class="s-all" href="themen.html?q=${encodeURIComponent(v)}">Alle Treffer zeigen →</a>`;
+    };
+    const mark = () => $$('.s-hit', res).forEach((a, i) => { a.classList.toggle('sel', i === sel); a.setAttribute('aria-selected', String(i === sel)); if (i === sel) a.scrollIntoView({ block: 'nearest' }); });
+    q.addEventListener('input', () => { sel = 0; render(); });
+    q.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); sel = Math.min(sel + 1, hits.length - 1); mark(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); sel = Math.max(sel - 1, 0); mark(); }
+      else if (e.key === 'Enter') {
+        e.preventDefault();
+        const t = hits[sel];
+        if (t && !t.soon) location.href = urlT(t);
+        else if (q.value.trim()) location.href = `themen.html?q=${encodeURIComponent(q.value.trim())}`;
+      }
     });
-    const tog = $('.navtoggle', nav);
-    tog.addEventListener('click', e => {
-      e.stopPropagation();
-      const open = !nav.classList.contains('open');
-      nav.classList.toggle('open', open); tog.setAttribute('aria-expanded', String(open));
+    const close = () => { dlg.hidden = true; document.documentElement.classList.remove('s-open'); };
+    openSearch = (text = '') => {
+      setMega(false); dlg.hidden = false; document.documentElement.classList.add('s-open');
+      q.value = text; sel = 0; render(); q.focus();
+    };
+    $('.s-close', dlg).addEventListener('click', close);
+    dlg.addEventListener('click', e => { if (e.target === dlg) close(); });
+    $('#searchBtn').addEventListener('click', () => openSearch());
+    document.addEventListener('keydown', e => {
+      const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName) || document.activeElement?.isContentEditable;
+      if (e.key === 'Escape' && !dlg.hidden) close();
+      else if ((e.key === 'k' && (e.ctrlKey || e.metaKey)) || (e.key === '/' && !typing)) { e.preventDefault(); openSearch(); }
     });
-    document.addEventListener('click', e => { if (!nav.contains(e.target)) { closeAll(); nav.classList.remove('open'); tog.setAttribute('aria-expanded', 'false'); } });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAll(); nav.classList.remove('open'); } });
+  }
+
+  /* ---------- Lektionsseiten: Pfad, Zurück und Weiter automatisch ---------- */
+  if (curT && !curT.soon) {
+    const eb = $('.lesson-head > .eyebrow');
+    if (eb) {
+      eb.classList.add('crumbpath');
+      eb.innerHTML = `<a href="${urlB(curT.b)}">${esc(curT.bereich.name)}</a><span aria-hidden="true">/</span><a href="${urlG(curT.b, curT.g)}">${esc(curT.gebiet.name)}</a>`;
+    }
+    const back = $('.lesson-head .back');
+    if (back) { back.href = urlG(curT.b, curT.g); back.textContent = `← ${curT.gebiet.name}`; }
+    const next = TOPICS[TOPICS.indexOf(curT) + 1];
+    const btn = $('.wrapup .row a.btn');
+    if (btn) {
+      if (next) { btn.href = urlT(next); btn.textContent = `Weiter: ${plain(next.title)} →`; }
+      else { btn.href = 'index.html'; btn.textContent = 'Zu allen Themen'; }
+    }
   }
 
   /* ---------- Atmosphäre & Mikro-Interaktionen ---------- */
@@ -232,5 +331,5 @@ window.MB = (() => {
     }
   }
 
-  return { $, $$, reduced, fmt, C, fit, roundRect, lesson, loop, progressOf, CATS, TOPICS };
+  return { $, $$, reduced, fmt, C, fit, roundRect, lesson, loop, progressOf, CATS, TOPICS, BEREICHE, ALL, bySlug, topicsIn, liveIn, search, stateOf, card, plain, esc, urlB, urlG, urlT, params, openSearch: t => openSearch(t) };
 })();

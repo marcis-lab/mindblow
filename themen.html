@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Themen · mindblow</title>
+<meta name="description" content="Alle Themen von mindblow: nach Bereich und Gebiet geordnet oder durchsuchbar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap" id="view"></main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Startseite</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script>
+/* Übersichten: ?b=Bereich, ?b=Bereich&g=Gebiet, ?q=Suche, ohne Parameter: alle Themen A bis Z */
+(() => {
+  const { $, $$, BEREICHE, ALL, TOPICS, liveIn, topicsIn, search, card, esc, urlB, urlG, urlT, params, progressOf } = MB;
+  const view = $('#view');
+  const b = BEREICHE.find(x => x.id === params.get('b'));
+  const g = b && b.gebiete.find(x => x.id === params.get('g'));
+  const q = params.get('q');
+  const STATES = [['alle', 'Alle'], ['open', 'Offen'], ['started', 'Angefangen'], ['done', 'Erledigt']];
+  const stOf = t => { const n = progressOf(t.slug); return t.soon ? 'soon' : n >= 4 ? 'done' : n > 0 ? 'started' : 'open'; };
+  const head = (eyebrow, h1, intro) => `<section class="list-head">
+      <a class="back" href="${g ? urlB(b.id) : 'index.html'}">← ${g ? esc(b.name) : 'Startseite'}</a>
+      <span class="eyebrow crumbpath">${eyebrow}</span>
+      <h1>${h1}</h1>${intro ? `<p class="intro">${intro}</p>` : ''}
+    </section>`;
+
+  if (q !== null) {
+    /* ---------- Suchergebnisse ---------- */
+    document.title = 'Suche · mindblow';
+    view.innerHTML = head('Suche', 'Was willst du <em>verstehen?</em>', '') + `
+      <label class="hero-search glass" style="margin-bottom:24px; cursor:text">
+        <svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4.5 4.5"/></svg>
+        <input id="pageQ" type="search" placeholder="Suchbegriff" aria-label="Suchbegriff" style="flex:1; min-width:0; border:0; outline:0; background:none; font:inherit; color:var(--fg)">
+      </label>
+      <div class="filters" id="bFilter"></div>
+      <p class="eyebrow" id="resInfo" style="margin-top:22px"></p>
+      <div class="cards" id="res" style="grid-column:auto; padding-block:20px 80px"></div>`;
+    $('#pageQ').value = q;
+    let bSel = 'alle';
+    const run = () => {
+      const v = $('#pageQ').value.trim();
+      const all = v ? search(v, 1000) : [];
+      const counts = {}; all.forEach(t => { counts[t.b] = (counts[t.b] || 0) + 1; });
+      if (bSel !== 'alle' && !counts[bSel]) bSel = 'alle';
+      $('#bFilter').innerHTML = all.length ? [['alle', 'Alle Bereiche', all.length], ...BEREICHE.filter(x => counts[x.id]).map(x => [x.id, x.name, counts[x.id]])]
+        .map(([k, n, c]) => `<button class="fchip" type="button" data-b="${k}" aria-pressed="${k === bSel}">${esc(n)}<span class="cnt">${c}</span></button>`).join('') : '';
+      $$('#bFilter .fchip').forEach(x => x.addEventListener('click', () => { bSel = x.dataset.b; run(); }));
+      const list = bSel === 'alle' ? all : all.filter(t => t.b === bSel);
+      $('#resInfo').textContent = !v ? 'Gib einen Suchbegriff ein.'
+        : all.length ? `${all.length} Treffer für «${v}»` : `Keine Treffer für «${v}». Dieses Thema gibt es noch nicht.`;
+      $('#res').innerHTML = list.map(t => card(t)).join('');
+      history.replaceState(null, '', 'themen.html?q=' + encodeURIComponent(v));
+    };
+    $('#pageQ').addEventListener('input', run);
+    run(); $('#pageQ').focus();
+
+  } else if (g) {
+    /* ---------- Gebiet: alle Themen, filterbar nach Fortschritt ---------- */
+    const list = topicsIn(b.id, g.id);
+    document.title = `${g.name} · mindblow`;
+    const counts = Object.fromEntries(STATES.map(([k]) => [k, k === 'alle' ? list.length : list.filter(t => stOf(t) === k).length]));
+    view.innerHTML = head(`<a href="${urlB(b.id)}">${esc(b.name)}</a><span aria-hidden="true">/</span>${esc(g.name)}`,
+        esc(g.name), `${liveIn(b.id, g.id).length} Themen im Bereich ${esc(b.name)}.`) +
+      `<div class="filters" style="margin-bottom:12px">${b.gebiete.map(x => `<a class="fchip${x.id === g.id ? ' on' : ''}" href="${urlG(b.id, x.id)}">${esc(x.name)}<span class="cnt">${liveIn(b.id, x.id).length}</span></a>`).join('')}</div>
+      <div class="filters" id="stFilter" role="group" aria-label="Nach Fortschritt filtern">${STATES.map(([k, n], i) =>
+        `<button class="fchip" type="button" data-st="${k}" aria-pressed="${i === 0}">${n}<span class="cnt">${counts[k]}</span></button>`).join('')}</div>
+      <div class="cards" id="res" style="grid-column:auto; padding-block:26px 80px"></div>`;
+    const render = l => { $('#res').innerHTML = l.length ? l.map(t => card(t, { path: false })).join('') : '<p class="empty-note">Hier ist noch nichts.</p>'; };
+    $$('#stFilter .fchip').forEach(btn => btn.addEventListener('click', () => {
+      $$('#stFilter .fchip').forEach(x => x.setAttribute('aria-pressed', String(x === btn)));
+      render(btn.dataset.st === 'alle' ? list : list.filter(t => stOf(t) === btn.dataset.st));
+    }));
+    render(list);
+
+  } else if (b) {
+    /* ---------- Bereich: Gebiete mit je den ersten Themen ---------- */
+    const MAX = 6;
+    document.title = `${b.name} · mindblow`;
+    view.innerHTML = head('Bereich', esc(b.name), esc(b.intro)) +
+      `<div class="filters" style="margin-bottom:24px">${b.gebiete.map(x => `<a class="fchip" href="#${x.id}">${esc(x.name)}<span class="cnt">${liveIn(b.id, x.id).length}</span></a>`).join('')}</div>` +
+      b.gebiete.map(x => {
+        const list = topicsIn(b.id, x.id), live = liveIn(b.id, x.id);
+        return `<section class="gsec" id="${x.id}">
+          <div class="cat-head"><h2><a href="${urlG(b.id, x.id)}">${esc(x.name)}</a></h2><span class="eyebrow">${live.length} ${live.length === 1 ? 'Thema' : 'Themen'}</span></div>
+          <div class="cards">${list.length ? list.slice(0, MAX).map(t => card(t, { path: false })).join('') : '<p class="empty-note">Hier entstehen bald Themen.</p>'}</div>
+          ${list.length > MAX ? `<div class="more"><a class="btn ghost" href="${urlG(b.id, x.id)}">Alle ${list.length} in ${esc(x.name)} →</a></div>` : ''}
+        </section>`;
+      }).join('') + '<div style="height:60px"></div>';
+
+  } else {
+    /* ---------- Alle Themen von A bis Z ---------- */
+    document.title = 'Alle Themen · mindblow';
+    const sorted = [...ALL].sort((x, y) => x.short.localeCompare(y.short, 'de'));
+    view.innerHTML = head('Alle Themen', 'Von A <em>bis Z</em>', `${TOPICS.length} Themen, ${ALL.length - TOPICS.length} weitere in Arbeit.`) +
+      `<div class="filters" id="bFilter" style="margin-bottom:12px">${[['alle', 'Alle Bereiche'], ...BEREICHE.map(x => [x.id, x.name])].map(([k, n], i) =>
+        `<button class="fchip" type="button" data-b="${k}" aria-pressed="${i === 0}">${esc(n)}</button>`).join('')}</div>
+      <div class="az" id="az"></div>`;
+    const render = sel => {
+      const list = sel === 'alle' ? sorted : sorted.filter(t => t.b === sel);
+      let last = '', html = '';
+      for (const t of list) {
+        const L = t.short[0].toUpperCase().normalize('NFD')[0];
+        if (L !== last) { html += `<h3>${L}</h3>`; last = L; }
+        html += t.soon ? `<div class="soon">${esc(t.short)}<small>bald</small></div>`
+          : `<a href="${urlT(t)}">${esc(t.short)}<small>${esc(t.gebiet.name)}</small></a>`;
+      }
+      $('#az').innerHTML = html;
+    };
+    $$('#bFilter .fchip').forEach(x => x.addEventListener('click', () => {
+      $$('#bFilter .fchip').forEach(y => y.setAttribute('aria-pressed', String(y === x)));
+      render(x.dataset.b);
+    }));
+    render('alle');
+  }
+})();
+</script>
+</body>
+</html>

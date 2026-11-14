@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Treibhauseffekt · mindblow</title>
+<meta name="description" content="Warum die Erde nicht eisig ist: wie CO₂ und Wasserdampf Wärmestrahlung schlucken und wieder abgeben, und warum schon 0,04 Prozent der Luft so viel ausmachen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 12 · Natur &amp; Universum</span>
+    <h1>Wie wärmt <em>CO₂</em> die Erde?</h1>
+    <p class="intro">Die Sonne heizt die Erde. Aber warum ist es hier im Mittel angenehme 15 °C warm und nicht eisig? Ein paar Gase in der Luft halten Wärme zurück, vor allem Wasserdampf und CO₂. Und eines davon nimmt gerade stark zu.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Energiebilanz -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Die Energiebilanz <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum ist die Erde nicht eisig?</h2>
+      <p>Die Sonne liefert Energie, die Erde strahlt Wärme ins All ab. Ein Planet wird so lange wärmer oder kälter, bis <strong>beides gleich gross</strong> ist. Diese Rechnung kann man erstaunlich einfach aufstellen.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="balLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Die Erde wirft etwa 30 % des Sonnenlichts zurück ins All. Wie warm wäre sie im Mittel, wenn ihre Luft keine Treibhausgase enthielte?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Etwa +15 °C wie heute. Die Luft ist ja durchsichtig.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Etwa −18 °C, also eisig</span></button>
+          <button data-v="c"><span class="k">c</span><span>Gegen −270 °C, so kalt wie das leere Weltall</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ohne Treibhausgase strahlt der Boden seine Wärme direkt ins All. Das Gleichgewicht stellt sich dann bei etwa <strong>−18 °C</strong> ein (bei gleicher Rückstrahlung wie heute). Tatsächlich sind es im Mittel etwa +15 °C. Die Differenz von rund 33 °C ist der <strong>natürliche Treibhauseffekt</strong>. Ohne ihn wäre die Erde weitgehend vereist. Probier es aus: Das Modell hat nur eine einzige Luftschicht und ist stark vereinfacht, trifft aber die Grössenordnung.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Der Erdboden strahlt im Mittel rund 390 Watt Wärme pro Quadratmeter ab. Von der Sonne nimmt die Erde nach Abzug des Reflektierten aber nur etwa 240 Watt auf. Den Rest bekommt der Boden als Wärmestrahlung aus der Luft zurück.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="balCv" style="height:340px" aria-label="Energiebilanz der Erde: Sonnenlicht kommt herein, ein Teil wird reflektiert, der Boden strahlt Wärme ab, eine Luftschicht schluckt einen Teil und strahlt nach oben und unten"></canvas>
+        <div class="locked" id="balLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="albIn">Rückstrahlung (Albedo)</label><input type="range" id="albIn" min="10" max="70" step="1" value="30" disabled><output id="albOut">30 %</output></div>
+        <div class="ctrl"><label for="epsIn">Treibhausgase</label><input type="range" id="epsIn" min="0" max="100" step="1" value="78" disabled><output id="epsOut">78 %</output></div>
+        <div class="row">
+          <button class="btn ghost" id="balNone" disabled>Ohne Treibhausgase</button>
+          <button class="btn ghost" id="balToday" disabled>Erde heute</button>
+        </div>
+        <span class="status" id="balStatus">«Treibhausgase» heisst hier: So viel Prozent der Wärmestrahlung vom Boden schluckt die Luft.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Aufgenommenes Sonnenlicht</span><span class="val" id="balIn">238 W/m²</span><span class="formula">340 × (1 − Albedo)</span></div>
+        <div><span class="lbl">Boden strahlt ab</span><span class="val" id="balUp">390 W/m²</span><span class="formula">Wärmestrahlung</span></div>
+        <div><span class="lbl">Mitteltemperatur</span><span class="val" id="balT">15 °C</span><span class="formula">1-Schicht-Modell, vereinfacht</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Photonen -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Licht rein, Wärme raus <span class="chip solved-chip">gelöst</span></span>
+      <h2>Was macht CO₂ eigentlich?</h2>
+      <p>Sonnenlicht ist vor allem <strong>sichtbares Licht</strong>. Die warme Erde strahlt dagegen unsichtbares <strong>Infrarot</strong> ab, also Wärmestrahlung. Für die Luft ist das ein grosser Unterschied.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="phoLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie hält CO₂ die Wärme der Erde zurück?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Wie eine Rettungsdecke: Es spiegelt die Wärme zurück zur Erde.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Es schluckt Wärmestrahlung und gibt sie in alle Richtungen wieder ab, auch nach unten.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Es vergrössert das Ozonloch, und dadurch kommt mehr Sonnenhitze herein.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Sichtbares Licht geht fast ungehindert durch CO₂ hindurch. Infrarot bestimmter Wellenlängen bringt die Moleküle aber zum Schwingen: Sie <strong>schlucken</strong> die Strahlung. Danach geben sie die Energie wieder ab, als neue Strahlung oder durch Stösse an die Luft rundherum. Die neue Strahlung fliegt in eine <strong>zufällige Richtung</strong>, ungefähr die Hälfte also wieder nach unten. Ein Spiegel ist das nicht. Und das Ozonloch ist ein anderes Problem: Ozon schützt vor UV-Strahlung, mit der Erwärmung hat das Loch nur wenig zu tun. Schick selbst Strahlung los.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Stickstoff und Sauerstoff machen 99 % der Luft aus, aber Wärmestrahlung fliegt fast ungehindert durch sie hindurch. Erst Moleküle aus drei oder mehr Atomen wie Wasserdampf (H₂O), CO₂ und Methan (CH₄) können sie schlucken.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="phoCv" style="height:330px" aria-label="Animation: gelbe Lichtteilchen der Sonne fliegen durch die Luft zum Boden, rote Wärmestrahlung fliegt vom Boden nach oben und wird von CO₂- und Wassermolekülen geschluckt und in zufällige Richtungen wieder abgegeben"></canvas>
+        <div class="locked" id="phoLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="phoLevels">
+          <span class="eyebrow">CO₂ in der Luft:</span>
+          <button data-lvl="0" disabled>Kein CO₂</button>
+          <button data-lvl="1" disabled>1850: 280 ppm</button>
+          <button data-lvl="1.5" class="active" disabled>Heute: 420 ppm</button>
+          <button data-lvl="3" disabled>Doppelt: 840 ppm</button>
+        </div>
+        <div class="row">
+          <button class="btn ghost" id="phoReset" disabled>Zähler neu starten</button>
+        </div>
+        <span class="status" id="phoStatus">Wasserdampf (H₂O) bleibt immer gleich. Ändere nur das CO₂ und schau, was mit der Wärmestrahlung passiert.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Wärmestrahlung entkommt ins All</span><span class="val" id="phoOut">–</span><span class="formula">pro Flug vom Boden</span></div>
+        <div><span class="lbl">Kommt zum Boden zurück</span><span class="val" id="phoBack">–</span><span class="formula">pro Flug vom Boden</span></div>
+        <div><span class="lbl">CO₂-Moleküle im Bild</span><span class="val" id="phoN">–</span><span class="formula">Modell, vereinfacht</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Wie viel CO₂ -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Ein Hauch Gas <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wie viel CO₂ ist in der Luft?</h2>
+      <p>CO₂ entsteht, wenn du Holz, Kohle, Erdöl oder Erdgas verbrennst. Seit rund 200 Jahren verbrennt die Menschheit davon sehr viel. Aber wie viel CO₂ steckt überhaupt in der Luft?</p>
+      <div class="quiz" data-q="q3" data-correct="c" data-unlock="co2Lock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie viel Prozent der Luft ist heute CO₂?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Etwa 20 %</span></button>
+          <button data-v="b"><span class="k">b</span><span>Etwa 1 %</span></button>
+          <button data-v="c"><span class="k">c</span><span>Etwa 0,04 %</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Nur etwa <strong>0,04 %</strong>, also rund 4 von 10'000 Teilchen. Man rechnet deshalb in <strong>ppm</strong>, Teilchen pro Million. Vor der Industrialisierung waren es etwa 280 ppm, heute über 420 ppm. Das ist ein Plus von rund <strong>50 %</strong>. Der Zuwachs stammt vor allem aus Kohle, Erdöl und Erdgas sowie aus gerodeten Wäldern. Man weiss das auch, weil sich die Isotope des Kohlenstoffs in der Luft genau so verändern, wie es bei fossilem Kohlenstoff zu erwarten ist. Wenig heisst nicht wirkungslos: Schon ein kleiner Anteil kann viel Wärmestrahlung schlucken, wie in Teil 2.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Die Kurve hat jedes Jahr kleine Zacken. Im Sommer der Nordhalbkugel wachsen dort sehr viele Pflanzen und holen CO₂ aus der Luft. Im Winter verrotten Blätter und geben es wieder ab. Man sieht die Erde sozusagen atmen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="co2Cv" style="height:330px" aria-label="Diagramm des CO₂-Gehalts der Luft von 1850 bis heute, von etwa 285 auf etwa 424 ppm, wahlweise als Bild von 10'000 Luftteilchen"></canvas>
+        <div class="locked" id="co2Lock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="yearIn">Jahr</label><input type="range" id="yearIn" min="1850" max="2024" step="1" value="2024" disabled><output id="yearOut">2024</output></div>
+        <div class="legend" id="co2Modes">
+          <span class="eyebrow">Ansicht:</span>
+          <button data-mode="zoom" class="active" disabled>Kurve</button>
+          <button data-mode="zero" disabled>Kurve ab 0</button>
+          <button data-mode="dots" disabled>10'000 Luftteilchen</button>
+        </div>
+        <span class="status" id="co2Status">Zieh das Jahr zurück bis 1850 und wieder vor.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">CO₂ im Jahr <span id="co2Yr">2024</span></span><span class="val" id="co2Ppm">424 ppm</span><span class="formula">gerundete Werte</span></div>
+        <div><span class="lbl">Anteil an der Luft</span><span class="val" id="co2Pct">0,042 %</span><span class="formula">ppm ÷ 10'000</span></div>
+        <div><span class="lbl">Mehr als vor 1800</span><span class="val" id="co2Inc">+51 %</span><span class="formula">gegenüber 280 ppm</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum ist die Venus heisser als Merkur?</h2>
+      <p>Merkur kreist viel näher an der Sonne als die Venus und bekommt pro Quadratmeter rund dreieinhalbmal so viel Sonnenlicht. Trotzdem hat die Venus die heisseste Oberfläche aller Planeten.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1 und 2. Was hat die Venus, was Merkur fehlt?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, die Venus ist heisser, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Wohin geht die Wärme eines Planeten, der fast keine Luft hat? Und was passiert, wenn die Luft eines Planeten fast nur aus CO₂ besteht und sehr dicht ist? Denk auch an die Nacht.</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Merkur hat praktisch <strong>keine Atmosphäre</strong>. Seine Wärme strahlt ungehindert ins All. Auf der Tagseite wird es bis etwa 430 °C heiss, in der Nacht kühlt der Boden bis etwa −180 °C ab.</p>
+          <p>Die Venus hat eine <strong>sehr dichte Atmosphäre aus rund 96 % CO₂</strong>. Am Boden ist der Druck etwa 90-mal so hoch wie auf der Erde. Die Wärmestrahlung des Bodens wird immer wieder geschluckt und kommt kaum hinaus. Darum ist es auf der Venus überall rund 460 °C heiss, Tag und Nacht. Das Verblüffende: Ihre hellen Wolken werfen etwa drei Viertel des Sonnenlichts zurück. Die Venus nimmt also sogar weniger Sonnenenergie auf als die Erde. Ihre Hitze kommt fast ganz vom Treibhauseffekt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Wenig Gas, <em>grosse Wirkung</em>.</h2>
+    <ul class="learned">
+      <li><b>Energiebilanz</b><span>Die Erde strahlt so viel Wärme ab, wie sie von der Sonne aufnimmt. Ohne Treibhausgase wäre dieses Gleichgewicht bei etwa −18 °C.</span></li>
+      <li><b>Schlucken, nicht spiegeln</b><span>CO₂ und Wasserdampf lassen Sonnenlicht durch, schlucken aber Wärmestrahlung und geben sie in alle Richtungen wieder ab.</span></li>
+      <li><b>280 → 420 ppm</b><span>CO₂ ist nur rund 0,04 % der Luft. Seit der Industrialisierung ist sein Anteil aber um etwa die Hälfte gestiegen.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="fallen.html">Weiter: Fällt Schweres schneller? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/treibhaus.js"></script>
+</body>
+</html>

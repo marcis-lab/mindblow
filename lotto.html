@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wahrscheinlichkeit · mindblow</title>
+<meta name="description" content="Zufall hat kein Gedächtnis, aber das Casino rechnet: Spielerfehlschluss, Hausvorteil beim Roulette und die echte Chance auf den Lotto-Jackpot.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 22 · Geld &amp; Gesellschaft</span>
+    <h1>Warum gewinnt das Casino <em>immer</em>?</h1>
+    <p class="intro">Jeden Abend gewinnen im Casino Leute Geld. Trotzdem verdient das Casino jedes Jahr Millionen. Das ist kein Trick und keine Magie. Es ist Wahrscheinlichkeit, und die rechnet erstaunlich genau.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Spielerfehlschluss -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Kein Gedächtnis <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ist Schwarz jetzt fällig?</h2>
+      <p>Am Roulettetisch kam gerade <strong>achtmal hintereinander Rot</strong>. Die Leute am Tisch werden unruhig. So eine Serie muss doch bald vorbei sein, oder?</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="coinLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Worauf setzt du in der nächsten Runde, wenn du die besten Chancen willst?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Auf Schwarz: Nach so viel Rot ist Schwarz jetzt fällig</span></button>
+          <button data-v="b"><span class="k">b</span><span>Egal: Rot und Schwarz sind genau gleich wahrscheinlich wie vorher</span></button>
+          <button data-v="c"><span class="k">c</span><span>Auf Rot: Rot hat gerade eine Glückssträhne</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Kugel hat <strong>kein Gedächtnis</strong>. Sie weiss nicht, was in den Runden davor passiert ist. Jede Drehung beginnt von vorne: Rot hat 18 von 37 Fächern, Schwarz auch. Das Gefühl «jetzt ist Schwarz dran» heisst <strong>Spielerfehlschluss</strong>. Bei einer Münze ist es genauso. Wirf selbst und beobachte, was nach langen Serien passiert.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Im Casino von Monte Carlo kam 1913 <strong>26-mal hintereinander Schwarz</strong>. Immer mehr Leute setzten auf Rot, weil Rot «fällig» sein musste. Sie verloren sehr viel Geld.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="coinCv" style="height:320px" aria-label="Münzwurf: oben die letzten Würfe als Münzen, unten der Anteil Kopf in Prozent, der sich mit vielen Würfen bei 50 Prozent einpendelt"></canvas>
+        <div class="locked" id="coinLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="row">
+          <button class="btn" id="flip1" disabled>1 Wurf</button>
+          <button class="btn ghost" id="flip10" disabled>10 Würfe</button>
+          <button class="btn ghost" id="flip1000" disabled>1000 Würfe</button>
+          <button class="btn ghost" id="flipReset" disabled>Neu</button>
+        </div>
+        <span class="status" id="coinStatus">Wirf die Münze. Was kommt nach einer langen Serie?</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Würfe</span><span class="val" id="cN">0</span><span class="formula">Kopf und Zahl zusammen</span></div>
+        <div><span class="lbl">Anteil Kopf</span><span class="val" id="cK">–</span><span class="formula">Kopf ÷ alle Würfe</span></div>
+        <div><span class="lbl">Längste Serie</span><span class="val" id="cS">–</span><span class="formula">gleiche Seite hintereinander</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Hausvorteil -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Der Hausvorteil <span class="chip solved-chip">gelöst</span></span>
+      <h2>Die kleine grüne Null</h2>
+      <p>Wer beim Roulette auf Rot setzt und gewinnt, bekommt seinen Einsatz doppelt zurück. Das klingt nach einem fairen Spiel: Rot oder Schwarz, halbe-halbe. Aber auf dem Rad gibt es noch ein <strong>grünes Fach mit der Null</strong>.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="rouLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du setzt immer wieder 1 Franken auf Rot. Was passiert auf lange Sicht?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Es gleicht sich aus: Gewinne und Verluste heben sich auf</span></button>
+          <button data-v="b"><span class="k">b</span><span>Du verlierst im Schnitt rund 2,7 Rappen pro Runde</span></button>
+          <button data-v="c"><span class="k">c</span><span>Das kann man nicht sagen, es hängt nur vom Glück ab</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Das europäische Roulette hat <strong>37 Fächer</strong>: 18 rot, 18 schwarz und die grüne Null. Rot gewinnt also in 18 von 37 Fällen und verliert in 19. Im Schnitt ergibt das pro Runde: (18 × 1 Fr. − 19 × 1 Fr.) ÷ 37 = <strong>−2,7 Rappen</strong>. Das nennt man den <strong>Erwartungswert</strong>. Eine einzelne Runde ist reines Glück. Über viele Runden aber setzt sich die Rechnung durch. Lass 1000 Leute spielen.</p>
+          <p>Auch bei Wetten auf eine einzelne Zahl ist der Verlust im Schnitt genau 1/37 des Einsatzes. Manche Casinos geben bei der Null die Hälfte eines Rot-Einsatzes zurück. Dann sind es 1,35 %, aber immer noch ein Verlust.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Das Casino verliert ständig gegen einzelne Spieler. Es braucht aber kein Glück. Bei Tausenden Wetten pro Abend wird aus 2,7 % ein fast so sicherer Gewinn wie ein Lohn.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="rouCv" style="height:320px" aria-label="Histogramm: Gewinn oder Verlust vieler Spieler nach vielen Roulette-Runden, Verlierer rot, Gewinner grün"></canvas>
+        <div class="locked" id="rouLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="plIn">Spieler</label><input type="range" id="plIn" min="0" max="9" step="1" value="6" disabled><output id="plOut">100</output></div>
+        <div class="ctrl"><label for="rdIn">Runden pro Person</label><input type="range" id="rdIn" min="0" max="6" step="1" value="3" disabled><output id="rdOut">200</output></div>
+        <div class="row">
+          <button class="btn" id="rouPlay" disabled>Spielen lassen</button>
+        </div>
+        <span class="status" id="rouStatus">Jede Person setzt pro Runde 1 Franken auf Rot.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Im Plus</span><span class="val" id="rW">–</span><span class="formula">Anteil Spieler mit Gewinn</span></div>
+        <div><span class="lbl">Gewinn des Casinos</span><span class="val" id="rC">–</span><span class="formula">Verluste minus Gewinne</span></div>
+        <div><span class="lbl">Casino behält</span><span class="val" id="rP">–</span><span class="formula">vom Einsatz, erwartet 2,70 %</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Lotto -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Lotto <span class="chip solved-chip">gelöst</span></span>
+      <h2>1 zu 31 Millionen</h2>
+      <p>Beim Swiss Lotto kreuzt du <strong>6 von 42 Zahlen</strong> an und dazu eine <strong>Glückszahl von 1 bis 6</strong>. Für den Jackpot muss alles stimmen. Zwei Freunde streiten sich, welcher Tipp besser ist.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="lotLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Tipp A ist 1-2-3-4-5-6, Tipp B ist 3-11-17-25-34-40. Was stimmt?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Tipp A ist viel seltener, so eine Reihe kommt nie</span></button>
+          <button data-v="b"><span class="k">b</span><span>Beide sind gleich selten, aber mit Tipp A müsstest du öfter teilen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Tipp A ist besser, weil kleine Zahlen schon lange nicht mehr kamen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Jede einzelne Reihe von 6 Zahlen hat genau dieselbe Chance: <strong>1 zu 5'245'786</strong>. So viele Möglichkeiten gibt es, 6 aus 42 Zahlen zu wählen. Mit der Glückszahl wird es sechsmal schwieriger: <strong>1 zu 31'474'716</strong> für den Jackpot. 1-2-3-4-5-6 sieht nur besonders aus. Die Kugeln kennen keine Muster.</p>
+          <p>Der Unterschied liegt bei den anderen Spielern: Viele tippen Muster oder Geburtstage, also Zahlen bis 31. Trifft so ein Tipp, teilen sich viele Gewinner den Jackpot. Wie gross ist 1 zu 31 Millionen wirklich? Spiel ein ganzes Leben lang.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>In der Schweiz leben rund 9 Millionen Menschen. Stell dir vor, jede Person bekommt drei bis vier Lose, und nur ein einziges davon gewinnt. Ungefähr so gross ist deine Chance auf den Jackpot.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="lotCv" style="height:380px" aria-label="Ein grosses Quadrat aus 10'000 kleinen Feldern steht für alle 31 Millionen Lotto-Möglichkeiten. Deine Tipps füllen davon nur einen winzigen Teil."></canvas>
+        <div class="locked" id="lotLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="tpIn">Tipps pro Woche</label><input type="range" id="tpIn" min="1" max="50" step="1" value="2" disabled><output id="tpOut">2</output></div>
+        <div class="ctrl"><label for="yrIn">Jahre</label><input type="range" id="yrIn" min="1" max="80" step="1" value="50" disabled><output id="yrOut">50</output></div>
+        <div class="row">
+          <button class="btn ghost" id="lotSwiss" disabled>Die ganze Schweiz spielt einmal</button>
+        </div>
+        <span class="status" id="lotStatus">Swiss Lotto wird zweimal pro Woche gezogen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Tipps total</span><span class="val" id="lN">–</span><span class="formula">Tipps × 52 Wochen × Jahre</span></div>
+        <div><span class="lbl">Chance auf den Jackpot</span><span class="val" id="lC">–</span><span class="formula">mindestens einmal</span></div>
+        <div><span class="lbl">Einsatz total</span><span class="val" id="lK">–</span><span class="formula">CHF 2,50 pro Tipp</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum spielen Leute trotzdem?</h2>
+      <p>Jede Woche kaufen Hunderttausende Menschen in der Schweiz Lottoscheine. Viele von ihnen wissen genau, wie klein die Chance ist. Sind sie einfach unvernünftig?</p>
+      <p><strong>Tipp:</strong> Denk daran, was man für 2,50 Franken eigentlich kauft. Und was passiert, wenn man das jede Woche tut, ein Leben lang?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, die Leute spielen, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Vergleiche ein Lotto-Los mit einem Kinobillett: Bei beiden bekommst du dein Geld nicht zurück. Was bekommst du dafür? Und warum liest du in der Zeitung oft von Gewinnern, aber nie von den Millionen, die verloren haben?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Wer Lotto spielt, kauft vor allem einen <strong>Traum</strong>: ein paar Tage lang die Vorstellung, alles könnte anders werden. Das ist Unterhaltung, ähnlich wie ein Kinobillett. Dazu kommt, dass unser Hirn sehr kleine Chancen schlecht einschätzen kann. 1 zu 31 Millionen fühlt sich an wie «vielleicht». Und Gewinner kommen in die Zeitung, die vielen Verlierer nicht.</p>
+          <p>Teuer wird es durch die Wiederholung. Der Erwartungswert ist immer negativ: Im Schnitt fliesst weniger zurück, als alle einsetzen. Zwei Tipps pro Woche kosten 260 Franken im Jahr, in 40 Jahren über 10'000 Franken. Gespart und angelegt wäre es dank Zinseszins noch mehr. Wer spielt, sollte es wie einen Kinobesuch sehen: Das Geld ist weg, und das ist der Preis für den Spass. Wenn Spielen nicht mehr Spass macht oder man Verluste zurückgewinnen will, ist das ein Warnsignal. Hilfe gibt es zum Beispiel bei SOS Spielsucht.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Zufall hat <em>kein Gedächtnis</em>.</h2>
+    <ul class="learned">
+      <li><b>Nichts ist fällig</b><span>Jeder Wurf und jede Drehung beginnt von vorne. Erst über sehr viele Versuche pendelt sich der Anteil ein.</span></li>
+      <li><b>Kleiner Vorteil, sicherer Gewinn</b><span>Die grüne Null gibt dem Casino 2,7 %. Bei vielen Wetten wird daraus ein fast sicherer Gewinn.</span></li>
+      <li><b>1 zu 31 Millionen</b><span>Jede Lotto-Reihe ist gleich selten. Ein ganzes Leben Lotto füllt nur einen winzigen Bruchteil aller Möglichkeiten.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="stau.html">Weiter: Woher kommt Stau aus dem Nichts? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/lotto.js"></script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Atmung · mindblow</title>
+<meta name="description" content="Die Lunge saugt nicht und pumpt nicht. Wie Zwerchfell, Millionen Lungenbläschen und Diffusion den Sauerstoff aus der Luft ins Blut bringen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Körper &amp; Gesundheit</span>
+    <h1>Wie kommt Luft <em>ins Blut</em>?</h1>
+    <p class="intro">Rund 20'000 Mal am Tag holst du Luft, meistens ohne daran zu denken. Aber wie kommt der Sauerstoff aus der Luft in dein Blut? Deine Lunge hat keine Pumpe und saugt nicht. Trotzdem klappt es bei jedem Atemzug.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Zwerchfell & Unterdruck -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Das Zwerchfell <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wer zieht die Luft hinein?</h2>
+      <p>Beim Einatmen wird deine Lunge grösser und füllt sich mit Luft. Das sieht aus, als würde sie die Luft ansaugen. Aber irgendetwas muss die Arbeit machen.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="breathLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was bewegt die Luft in deine Lunge?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Lunge selbst: Sie hat Muskeln und saugt die Luft an</span></button>
+          <button data-v="b"><span class="k">b</span><span>Ein Muskel unter der Lunge, das Zwerchfell: Es macht den Brustraum grösser</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Bauchmuskeln: Du ziehst den Bauch ein, und das saugt die Luft an</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Lunge hat keine Muskeln, mit denen sie sich aufblasen könnte. Sie klebt über einen dünnen Flüssigkeitsfilm an der Innenseite des Brustkorbs. Zieht sich das <strong>Zwerchfell</strong> zusammen, wird es flacher und senkt sich. Der Brustraum wird grösser, die Lunge wird mitgezogen, und der Druck in ihr sinkt ein wenig unter den Druck draussen. Die Aussenluft strömt nach, bis der Druck wieder gleich ist. Die Zwischenrippenmuskeln helfen mit. In Ruhe ist das Ausatmen passiv: Das Zwerchfell entspannt sich, und die elastische Lunge zieht sich zurück. Probier es am klassischen Modell aus: zwei Ballons in einer Flasche, unten eine Gummihaut.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Beim ruhigen Einatmen sinkt der Druck in deiner Lunge nur um etwa 1 Hektopascal. Das ist rund ein Tausendstel des Luftdrucks, ungefähr der Unterschied zwischen Erdgeschoss und drittem Stock.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="breathCv" style="height:360px" aria-label="Modell der Atmung: eine Glasglocke mit zwei Ballons als Lunge und einer Gummihaut als Zwerchfell, darunter eine Kurve des Lungenvolumens"></canvas>
+        <div class="locked" id="breathLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="diaIn">Zwerchfell ziehen</label><input type="range" id="diaIn" min="0" max="100" step="1" value="0" disabled><output id="diaOut">0 %</output></div>
+        <div class="ctrl"><label for="rateIn">Atemfrequenz</label><input type="range" id="rateIn" min="6" max="40" step="1" value="14" disabled><output id="rateOut">14/min</output></div>
+        <div class="ctrl"><label for="tidalIn">Luft pro Atemzug</label><input type="range" id="tidalIn" min="0.3" max="3" step="0.1" value="0.5" disabled><output id="tidalOut">0,5 l</output></div>
+        <div class="row">
+          <button class="btn" id="autoBtn" disabled>Automatisch atmen</button>
+          <button class="btn ghost" id="restBtn" disabled>Ruhe</button>
+          <button class="btn ghost" id="sportBtn" disabled>Sport</button>
+        </div>
+        <span class="status" id="breathStatus">Zieh am Zwerchfell und schau, was mit dem Druck in der Lunge passiert.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Luft in der Lunge</span><span class="val" id="brVol">2,5 l</span><span class="formula">vereinfachtes Modell</span></div>
+        <div><span class="lbl">Druck in der Lunge</span><span class="val" id="brPres">0,0 hPa</span><span class="formula">gegenüber der Aussenluft</span></div>
+        <div><span class="lbl">Atemminutenvolumen</span><span class="val" id="brMin">7,0 l/min</span><span class="formula">Frequenz × Luft pro Atemzug</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Oberfläche -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Der Bronchialbaum <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Baum in deiner Brust</h2>
+      <p>Die Luftröhre teilt sich in zwei Äste, jeder Ast wieder in zwei, und so weiter. Am Ende der feinsten Ästchen sitzen winzige Säckchen: die <strong>Lungenbläschen</strong>, auch Alveolen genannt. Nur dort gelangt Sauerstoff ins Blut.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="treeLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie gross ist die innere Oberfläche aller Lungenbläschen zusammen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Etwa so gross wie ein Badetuch, rund 1 bis 2 m²</span></button>
+          <button data-v="b"><span class="k">b</span><span>Etwa so gross wie eine Wohnung, rund 70 bis 100 m²</span></button>
+          <button data-v="c"><span class="k">c</span><span>So gross wie ein Fussballfeld, rund 7'000 m²</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Du hast rund <strong>300 bis 500 Millionen Lungenbläschen</strong>. Zusammen haben sie eine Fläche von etwa <strong>70 bis 100 m²</strong>, je nach Körpergrösse und Messmethode. Das ist ungefähr eine Dreizimmerwohnung oder ein halber Tennisplatz. Ältere Bücher nennen oft grössere Zahlen. Der Trick dahinter ist das Verzweigen: Bei jeder Stufe verdoppelt sich die Zahl der Röhrchen. Nach etwa 23 Stufen sind es Millionen. Lass den Baum wachsen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>23 Mal verdoppeln ergibt 2<sup>23</sup>, also über 8 Millionen feinste Ästchen. Diese ganze Fläche ist so gefaltet, dass sie in deinen Brustkorb passt. Die Lunge eines Erwachsenen fasst dabei nur etwa 6 Liter Luft.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="treeCv" style="height:360px" aria-label="Bronchialbaum: Die Luftröhre verzweigt sich immer wieder in zwei Äste, am Ende sitzen Lungenbläschen"></canvas>
+        <div class="locked" id="treeLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="genIn">Verzweigungs­stufen</label><input type="range" id="genIn" min="0" max="23" step="1" value="0" disabled><output id="genOut">0</output></div>
+        <div class="row">
+          <button class="btn ghost" id="treeGrow" disabled>Ganz wachsen lassen</button>
+          <button class="btn ghost" id="treeReset" disabled>Nur Luftröhre</button>
+        </div>
+        <span class="status" id="treeStatus">Stufe 0 ist die Luftröhre. Schieb den Regler nach rechts.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Röhrchen auf dieser Stufe</span><span class="val" id="trCount">1</span><span class="formula">2 hoch Stufe</span></div>
+        <div><span class="lbl">Durchmesser</span><span class="val" id="trDiam">18 mm</span><span class="formula">typischer Wert, vereinfacht</span></div>
+        <div><span class="lbl">Innere Fläche bis hier</span><span class="val" id="trArea">0,0 m²</span><span class="formula">Röhrchen + Bläschen, grob</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Gasaustausch -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Gasaustausch <span class="chip solved-chip">gelöst</span></span>
+      <h2>Durch eine Wand, die kaum da ist</h2>
+      <p>Jedes Lungenbläschen ist von feinsten Blutgefässen umsponnen, den Kapillaren. Zwischen Luft und Blut liegt eine Wand, die nur etwa <strong>1/1000 mm</strong> dünn ist. Sauerstoff wandert hinüber ins Blut, Kohlendioxid in die Gegenrichtung.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="gasLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Frische Luft enthält rund 21 % Sauerstoff. Wie viel Sauerstoff steckt noch in der Luft, die du ausatmest?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Fast keiner mehr: Ausgeatmete Luft ist vor allem CO₂</span></button>
+          <button data-v="b"><span class="k">b</span><span>Rund 16 %, also nur etwas weniger als vorher</span></button>
+          <button data-v="c"><span class="k">c</span><span>Rund 5 %, der Rest geht ins Blut</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ausgeatmete Luft enthält noch rund <strong>16 % Sauerstoff</strong> und nur etwa 4 % CO₂. Der grösste Teil ist Stickstoff, wie in der Aussenluft. Darum kann auch Atemspende funktionieren. Der Austausch läuft über <strong>Diffusion</strong>: Teilchen bewegen sich zufällig, und unter dem Strich wandern mehr von dort, wo viele sind, nach dort, wo wenige sind. Keine Pumpe, kein Ventil. Im Blut wird der Sauerstoff an die roten Blutkörperchen gebunden. Nimm die Lunge mit in die Berge: Der Sauerstoff-Anteil bleibt überall 21 %, aber die Luft wird dünner.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Ein rotes Blutkörperchen fliesst in Ruhe in etwa einer dreiviertel Sekunde an einem Lungenbläschen vorbei. Für den Austausch braucht es nur etwa ein Drittel dieser Zeit. Den Rest hat der Körper als Reserve, zum Beispiel für Sport.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="gasCv" style="height:340px" aria-label="Lungenbläschen und Kapillare: Sauerstoffteilchen wandern durch die dünne Wand ins Blut, Kohlendioxid in die Luft"></canvas>
+        <div class="locked" id="gasLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="altIn">Höhe über Meer</label><input type="range" id="altIn" min="0" max="8849" step="1" value="0" disabled><output id="altOut">0 m</output></div>
+        <div class="legend" id="altPresets">
+          <span class="eyebrow">Ort:</span>
+          <button data-alt="0" class="active" disabled>Meer</button>
+          <button data-alt="408" disabled>Zürich</button>
+          <button data-alt="3454" disabled>Jungfraujoch</button>
+          <button data-alt="8849" disabled>Everest</button>
+        </div>
+        <span class="status" id="gasStatus">Türkise Punkte: Sauerstoff (O₂). Graue Punkte: Kohlendioxid (CO₂). Stark verlangsamt.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Luftdruck</span><span class="val" id="gsPres">1'013 hPa</span><span class="formula">O₂-Anteil bleibt 20,9 %</span></div>
+        <div><span class="lbl">O₂-Druck im Lungenbläschen</span><span class="val" id="gsPO2">133 hPa</span><span class="formula">treibt die Diffusion an</span></div>
+        <div><span class="lbl">Sauerstoff-Sättigung</span><span class="val" id="gsSat">98 %</span><span class="formula">im Blut danach, vereinfacht</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum keuchst du nach dem Sprint weiter?</h2>
+      <p>Du rennst 100 Meter, so schnell du kannst. Im Ziel bleibst du stehen. Deine Muskeln arbeiten nicht mehr. Trotzdem atmest du noch minutenlang schnell und tief.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 3. Was muss nach dem Sprint aus dem Körper hinaus, und was muss nachgeliefert werden?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, ich atme weiter schnell, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Ein Sprint ist so schnell, dass die Muskeln nicht warten können, bis genug Sauerstoff ankommt. Sie holen Energie auch ohne Sauerstoff. Das hinterlässt etwas. Und: Woran merkt dein Körper eigentlich, wie stark du atmen musst? Am fehlenden Sauerstoff oder an etwas anderem?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Beim Sprint holen deine Muskeln einen Teil der Energie <strong>ohne Sauerstoff</strong>. Das geht schnell, aber es leert Energiespeicher in den Muskeln, und es entsteht Säure. Nach dem Sprint muss der Körper die Speicher wieder auffüllen und die Säure abbauen. Dafür braucht er zusätzlichen Sauerstoff. Man nennt das vereinfacht <strong>Sauerstoffschuld</strong>.</p>
+          <p>Noch wichtiger für das Keuchen ist das <strong>Kohlendioxid</strong>. Die Muskeln haben viel CO₂ produziert, und beim Abpuffern der Säure entsteht noch mehr. Das Atemzentrum im Hirnstamm misst vor allem den CO₂-Gehalt und den Säuregrad im Blut, viel weniger den Sauerstoff. Solange zu viel CO₂ im Blut ist, treibt es dich zum schnellen, tiefen Atmen. Erst wenn das CO₂ abgeatmet ist, beruhigt sich die Atmung wieder.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Atmen ist <em>Druck, Fläche und Zufall</em>.</h2>
+    <ul class="learned">
+      <li><b>Das Zwerchfell zieht</b><span>Die Lunge hat keine Muskeln zum Aufblasen. Das Zwerchfell vergrössert den Brustraum, und die Aussenluft strömt nach.</span></li>
+      <li><b>Riesige Fläche</b><span>Rund 23 Verzweigungen führen zu Hunderten Millionen Lungenbläschen mit 70 bis 100 m² Fläche.</span></li>
+      <li><b>Diffusion</b><span>Sauerstoff wandert von viel zu wenig durch eine hauchdünne Wand ins Blut. CO₂ geht den umgekehrten Weg.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/lunge.js"></script>
+</body>
+</html>

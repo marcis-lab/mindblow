@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Immunsystem · mindblow</title>
+<meta name="description" content="Fresszellen, Antikörper und Gedächtniszellen: wie dein Körper Keime abwehrt und warum eine Impfung ein Übungsalarm ist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 17 · Körper &amp; Leben</span>
+    <h1>Wie wehrt sich dein <em>Körper</em>?</h1>
+    <p class="intro">Jeden Tag gelangen Bakterien und Viren in deinen Körper: durch einen Kratzer, mit dem Essen, mit jedem Atemzug. Meistens merkst du nichts davon. Dein Immunsystem hat zwei Teams: eine schnelle Eingreiftruppe und Spezialisten mit einem Gedächtnis.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Fresszellen -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Die schnelle Abwehr <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Splitter, ein paar Bakterien</h2>
+      <p>Du ziehst dir einen Splitter ein. Mit ihm landen ein paar Bakterien unter der Haut. Dort ist es warm und feucht, und es gibt Nährstoffe. Bakterien vermehren sich, indem sie sich <strong>teilen</strong>: aus einem werden zwei, aus zwei werden vier.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="bacLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Ein Bakterium teilt sich alle 20 Minuten. Wie viele sind es nach 8 Stunden, wenn niemand sie aufhält?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Etwa 50</span></button>
+          <button data-v="b"><span class="k">b</span><span>Etwa 16 Millionen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Etwa 5'000</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>8 Stunden sind 24 mal 20 Minuten. Die Zahl verdoppelt sich also 24 Mal: 2 × 2 × 2 … ergibt <strong>16'777'216</strong> Bakterien. Das schaffen manche Bakterien unter idealen Bedingungen im Labor. Im Körper geht es langsamer, denn dort warten die <strong>Fresszellen</strong>. Sie sind die angeborene Abwehr: Sie kommen innert Minuten bis Stunden, kriechen zu den Eindringlingen und verschlingen sie. Schau zu, wie viele Fresszellen es braucht.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Dein Knochenmark bildet jeden Tag rund 100 Milliarden neue Fresszellen der häufigsten Sorte. Die meisten leben nur ein bis zwei Tage.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="bacCv" style="height:320px" aria-label="Gewebe unter der Haut: rote Bakterien teilen sich, grüne Fresszellen jagen und fressen sie"></canvas>
+        <div class="locked" id="bacLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="phagIn">Fresszellen</label><input type="range" id="phagIn" min="0" max="10" step="1" value="2" disabled><output id="phagOut">2</output></div>
+        <div class="row">
+          <button class="btn" id="bacRun" disabled>Start</button>
+          <button class="btn ghost" id="bacReset" disabled>Neu starten</button>
+        </div>
+        <span class="status" id="bacStatus">Acht Bakterien sitzen in der Wunde. Wähle, wie viele Fresszellen in der Nähe sind, und starte.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Zeit seit dem Splitter</span><span class="val" id="bacTime">0 min</span><span class="formula">1 Sekunde = 5 Minuten</span></div>
+        <div><span class="lbl">Bakterien in der Wunde</span><span class="val" id="bacCount">8</span><span class="formula">mit Fresszellen</span></div>
+        <div><span class="lbl">Ohne jede Abwehr</span><span class="val" id="bacFree">8</span><span class="formula">8 × 2 hoch (t / 20 min)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Schlüssel und Schloss -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Schlüssel und Schloss <span class="chip solved-chip">gelöst</span></span>
+      <h2>Für jeden Keim der passende Antikörper</h2>
+      <p>Fresszellen greifen alles an, was fremd aussieht. Das zweite Team arbeitet genauer: <strong>B-Zellen</strong> bilden <strong>Antikörper</strong>. Das sind winzige Eiweisse in Y-Form. Sie packen ein ganz bestimmtes Merkmal auf der Oberfläche eines Keims, das <strong>Antigen</strong>, und markieren den Keim so für die Fresszellen.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="abLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Ein Keim taucht auf, den dein Körper noch nie gesehen hat. Woher kommt der passende Antikörper?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Ein Antikörper passt auf alle Keime, es braucht nur genug davon</span></button>
+          <button data-v="b"><span class="k">b</span><span>Unter Millionen verschiedener B-Zellen passt eine zufällig, und genau diese wird vermehrt</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die B-Zellen schauen sich den Keim an und bauen einen Antikörper nach seiner Form</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Jede B-Zelle trägt einen eigenen Antikörper als Fühler. Er passt nur auf ein bestimmtes Antigen, wie ein Schlüssel in ein Schloss. Dein Körper hält Millionen verschiedener B-Zellen bereit, lange bevor ein Keim kommt. Trifft eine davon auf ihr passendes Antigen, teilt sie sich immer wieder. Aus einer Zelle werden Tausende, und alle bilden genau diesen Antikörper. Das nennt man <strong>klonale Selektion</strong>. Ausprobieren: Unten gibt es 27 B-Zellen statt Millionen (vereinfacht).</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Die Vielfalt entsteht durch Würfeln: In jeder jungen B-Zelle werden Genstücke zufällig neu zusammengesetzt. So gibt es sogar Antikörper gegen Keime, die es noch gar nie gab.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="abCv" style="height:340px" aria-label="Oben Keime mit einem gezackten Antigen, darunter 27 B-Zellen mit verschiedenen Fühlern. Die passende B-Zelle vermehrt sich und bildet Antikörper"></canvas>
+        <div class="locked" id="abLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="abGerms">
+          <span class="eyebrow">Keim:</span>
+          <button data-g="0" class="active" disabled><span class="sw" style="background:var(--bad)"></span>Keim A</button>
+          <button data-g="1" disabled><span class="sw" style="background:var(--copper)"></span>Keim B</button>
+          <button data-g="2" disabled><span class="sw" style="background:var(--glow)"></span>Keim C</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="abSearch" disabled>Passende B-Zelle suchen</button>
+          <button class="btn ghost" id="abReset" disabled>Neu starten</button>
+        </div>
+        <span class="status" id="abStatus">Vergleiche die Zacken auf dem Keim mit den Fühlern der B-Zellen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Geprüfte B-Zellen</span><span class="val" id="abChecked">0</span><span class="formula">von 27, vereinfacht</span></div>
+        <div><span class="lbl">Klone der passenden Zelle</span><span class="val" id="abClones">–</span><span class="formula">durch Teilung</span></div>
+        <div><span class="lbl">Antikörper passen auf</span><span class="val" id="abFits">–</span><span class="formula">nur ein Antigen</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Gedächtnis -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Gedächtnis und Impfung <span class="chip solved-chip">gelöst</span></span>
+      <h2>Beim zweiten Mal geht es schneller</h2>
+      <p>Bis die passende B-Zelle gefunden und genug vermehrt ist, dauert es beim ersten Kontakt mit einem Keim etwa <strong>ein bis zwei Wochen</strong>. In dieser Zeit bist du oft krank.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="memLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum bekommt man Masern meistens nur einmal im Leben?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Nach der Krankheit ist der Körper allgemein abgehärtet</span></button>
+          <button data-v="b"><span class="k">b</span><span>Das Immunsystem merkt sich das Virus und wehrt es beim nächsten Mal ab, bevor du krank wirst</span></button>
+          <button data-v="c"><span class="k">c</span><span>Ein Rest des Virus bleibt im Körper und hält neue Masernviren fern</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Nach einer Infektion bleiben <strong>Gedächtniszellen</strong> zurück, oft jahrzehntelang. Bei Masern bilden manche Zellen sogar lebenslang weiter Antikörper. Kommt das Virus wieder, ist die passende B-Zelle schon vermehrt. Die Antwort startet nach wenigen Tagen und ist viel stärker. Das Virus wird gestoppt, bevor es sich ausbreiten kann. Eine <strong>Impfung</strong> nutzt genau das: Sie zeigt dem Körper ungefährliche Teile oder abgeschwächte Keime. Das ist ein Übungsalarm ohne Krankheit. Vergleiche die Kurven.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Masern können das Gedächtnis des Immunsystems für andere Keime teilweise löschen. Nach einer Masernerkrankung ist man darum oft eine Zeit lang anfälliger für andere Infekte.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="memCv" style="height:320px" aria-label="Diagramm über 70 Tage: Menge der Keime und Menge der Antikörper beim ersten und beim zweiten Kontakt"></canvas>
+        <div class="locked" id="memLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="memMode">
+          <span class="eyebrow">Am Tag 0:</span>
+          <button data-m="inf" class="active" disabled><span class="sw" style="background:var(--bad)"></span>Ansteckung</button>
+          <button data-m="vac" disabled><span class="sw" style="background:var(--fiber)"></span>Impfung</button>
+        </div>
+        <div class="ctrl"><label for="secIn">Ansteckung am Tag</label><input type="range" id="secIn" min="25" max="55" step="1" value="35" disabled><output id="secOut">35</output></div>
+        <div class="row">
+          <button class="btn" id="memPlay" disabled>Abspielen</button>
+        </div>
+        <span class="status" id="memStatus">Vereinfachtes Modell: Die Kurven zeigen den typischen Verlauf, keine echten Messwerte.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl" id="memL1">Krank nach Tag 0</span><span class="val" id="memSick1">–</span><span class="formula">Tage mit vielen Keimen</span></div>
+        <div><span class="lbl">Krank beim zweiten Kontakt</span><span class="val" id="memSick2">–</span><span class="formula">Tage mit vielen Keimen</span></div>
+        <div><span class="lbl">Antikörper beim zweiten Kontakt</span><span class="val" id="memRatio">–</span><span class="formula">Spitze im Vergleich zu Tag 0</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Grippe jedes Jahr, Masern einmal</h2>
+      <p>Gegen Masern reichen zwei Impfungen in der Kindheit, meist für das ganze Leben. Gegen die Grippe gibt es dagegen jeden Herbst eine neue Impfung.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Was passiert mit dem Schlüssel, wenn sich das Schloss verändert?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, bei der Grippe braucht es jedes Jahr eine neue Impfung, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Viren machen beim Kopieren ihres Erbguts Fehler. Bei manchen Viren verändern diese Fehler genau die Antigene auf der Oberfläche. Passen die alten Antikörper dann noch?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Grippeviren verändern ihre Antigene laufend. Durch kleine Fehler beim Kopieren ändern sich die Eiweisse auf ihrer Oberfläche ein wenig, Jahr für Jahr. Die Antikörper vom letzten Jahr passen dann nur noch schlecht, wie ein Schlüssel zu einem leicht umgebauten Schloss. Fachleute schätzen darum jedes Jahr, welche Grippeviren als Nächstes kommen, und passen die Impfung an. Dazu kommt: Der Schutz der Grippeimpfung lässt nach einigen Monaten nach.</p>
+          <p>Das Masernvirus verändert seine Antigene dagegen kaum. Der Schlüssel passt darum noch nach Jahrzehnten. Die Masernimpfung von heute schützt gegen dasselbe Virus wie vor 60 Jahren. Nach zwei Dosen sind rund <strong>97 Prozent</strong> der Geimpften geschützt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Dein Körper <em>lernt</em> dazu.</h2>
+    <ul class="learned">
+      <li><b>Schnelle Fresszellen</b><span>Die angeborene Abwehr ist sofort da und frisst alles Fremde. Ohne sie würden sich Bakterien explosionsartig vermehren.</span></li>
+      <li><b>Schlüssel und Schloss</b><span>Jeder Antikörper passt nur auf ein Antigen. Der Körper hält Millionen B-Zellen bereit und vermehrt die passende.</span></li>
+      <li><b>Gedächtnis</b><span>Gedächtniszellen machen den zweiten Kontakt schnell und stark. Eine Impfung ist ein Übungsalarm ohne Krankheit.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="gehoer.html">Weiter: Wie hörst du Töne? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/immunsystem.js"></script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kühlschrank · mindblow</title>
+<meta name="description" content="Ein Kühlschrank macht keine Kälte, er pumpt Wärme nach hinten. Verdunsten, Druck und ein Kreislauf zeigen, wie das geht.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 07 · Technik</span>
+    <h1>Wie macht ein Kühlschrank <em>Kälte</em>?</h1>
+    <p class="intro">Kälte kann man nicht herstellen. Kälte ist einfach wenig Wärme. Dein Kühlschrank macht deshalb etwas Schlaueres: Er pumpt die Wärme aus seinem Inneren hinaus. Fass mal hinten an die Rückwand. Sie ist warm.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Verdunsten kühlt -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Verdunsten kühlt <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum du nach dem Baden frierst</h2>
+      <p>Du steigst aus dem See, die Luft hat angenehme 28 °C. Dann kommt ein Windstoss und du bekommst Gänsehaut. Ein Deo-Spray fühlt sich auf der Haut sogar eiskalt an. Beides hat denselben Grund, und genau den nutzt dein Kühlschrank.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="evapLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum fühlt sich nasse Haut im Wind kalt an, auch an einem warmen Tag?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Das Wasser auf der Haut ist kälter als die Luft</span></button>
+          <button data-v="b"><span class="k">b</span><span>Das Wasser verdunstet und nimmt dabei Wärme von der Haut mit</span></button>
+          <button data-v="c"><span class="k">c</span><span>Der Wind bringt kältere Luft heran</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Teilchen im Wasser sind nicht alle gleich schnell. Nur die <strong>schnellsten</strong> haben genug Schwung, um sich von der Oberfläche loszureissen und als Dampf davonzufliegen. Zurück bleiben die langsameren. Und langsamere Teilchen heisst: <strong>kälter</strong>. Die fehlende Wärme holt sich das Wasser von deiner Haut. Wind bläst den Dampf weg, damit weniger davon zurückfällt. Beim Deo-Spray verdunstet das Treibgas, und zwar viel schneller als Wasser. Probier es aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Um 1 Liter Schweiss zu verdunsten, braucht es rund 2'400 Kilojoule Wärme. Damit könntest du etwa 7 Liter Wasser von 20 °C bis zum Kochen bringen. Darum ist Schwitzen eine so starke Kühlung.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="evapCv" style="height:320px" aria-label="Wasserteilchen in einem Tropfen auf der Haut. Die schnellsten fliegen als Dampf davon, die übrigen werden langsamer und kälter."></canvas>
+        <div class="locked" id="evapLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="humIn">Luftfeuchte</label><input type="range" id="humIn" min="0" max="100" step="5" value="40" disabled><output id="humOut">40 %</output></div>
+        <div class="ctrl"><label for="windIn">Wind</label><input type="range" id="windIn" min="0" max="8" step="1" value="2" disabled><output id="windOut">2 m/s</output></div>
+        <div class="row">
+          <button class="btn ghost" id="evSlow" disabled>Zeitlupe</button>
+          <button class="btn ghost" id="evReset" disabled>Neuer Tropfen</button>
+        </div>
+        <span class="status" id="evStatus">Rot: schnelle Teilchen. Blau: langsame. Ringe sind Dampf in der Luft.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Wasser auf der Haut</span><span class="val" id="evT">34,0 °C</span><span class="formula">Modell, vereinfacht</span></div>
+        <div><span class="lbl">Fliegen davon</span><span class="val" id="evOut">0,0 /s</span><span class="formula">Teilchen pro Sekunde</span></div>
+        <div><span class="lbl">Fallen zurück</span><span class="val" id="evIn">0,0 /s</span><span class="formula">Teilchen pro Sekunde</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Siedepunkt und Druck -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Druck verschiebt das Kochen <span class="chip solved-chip">gelöst</span></span>
+      <h2>Kochen bei 70 Grad</h2>
+      <p>Wasser kocht bei 100 °C. So hast du es gelernt. Aber das gilt nur beim normalen Luftdruck auf Meereshöhe. Auf einem hohen Berg ist der Luftdruck viel kleiner.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="boilLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du kochst Wasser auf dem Gipfel des Mount Everest. Bei welcher Temperatur sprudelt es?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Bei 100 °C, wie überall</span></button>
+          <button data-v="b"><span class="k">b</span><span>Schon bei rund 70 °C</span></button>
+          <button data-v="c"><span class="k">c</span><span>Erst über 100 °C, weil es dort so kalt ist</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Wasser kocht, wenn seine Teilchen genug Schwung haben, um Dampfblasen gegen den Druck von aussen aufzublähen. Auf dem Everest ist der Druck nur etwa ein Drittel so gross. Da reicht weniger Schwung, also eine tiefere Temperatur: <strong>rund 70 °C</strong>. Mehr Druck heisst umgekehrt: höherer Siedepunkt.</p>
+          <p>Das ist der ganze Trick des Kühlschranks. Sein <strong>Kältemittel</strong> kocht bei tiefem Druck schon bei etwa minus 25 °C. Bei hohem Druck wird es erst bei etwa plus 40 °C wieder flüssig. Schalte unten auf das Kältemittel um.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Im Dampfkochtopf ist der Druck etwa doppelt so hoch wie draussen. Das Wasser kocht erst bei rund 120 °C, darum werden Kartoffeln viel schneller gar.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="boilCv" style="height:320px" aria-label="Diagramm: Siedetemperatur von Wasser und Kältemittel je nach Druck. Ein Punkt zeigt den eingestellten Druck."></canvas>
+        <div class="locked" id="boilLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="pIn">Druck</label><input type="range" id="pIn" min="0" max="100" step="1" value="57" disabled><output id="pOut">1,01 bar</output></div>
+        <div class="legend" id="subst">
+          <span class="eyebrow">Stoff:</span>
+          <button data-s="water" class="active" disabled><span class="sw" style="background:var(--fiber)"></span>Wasser</button>
+          <button data-s="iso" disabled><span class="sw" style="background:var(--glow)"></span>Kältemittel (Isobutan)</button>
+        </div>
+        <div class="row" id="presets">
+          <button class="btn ghost" data-i="0" disabled>Everest</button>
+          <button class="btn ghost" data-i="1" disabled>Meereshöhe</button>
+          <button class="btn ghost" data-i="2" disabled>Dampfkochtopf</button>
+        </div>
+        <span class="status" id="boilStatus">Unter der Kurve ist der Stoff flüssig, darüber ein Gas.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Druck</span><span class="val" id="bP">1,01 bar</span><span class="formula">1 bar ≈ Luftdruck am Meer</span></div>
+        <div><span class="lbl">Siedepunkt</span><span class="val" id="bT">100 °C</span><span class="formula">hier kocht der Stoff</span></div>
+        <div><span class="lbl">Bei 20 °C ist er</span><span class="val" id="bRoom">flüssig</span><span class="formula">Zimmertemperatur</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Der Kreislauf -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Der Kreislauf <span class="chip solved-chip">gelöst</span></span>
+      <h2>Eine Pumpe für Wärme</h2>
+      <p>Jetzt kommt alles zusammen. Im Kühlschrank kreist das Kältemittel in einem geschlossenen Rohr. Der <strong>Kompressor</strong> presst das Gas zusammen, dabei wird es heiss. Im <strong>Kondensator</strong> hinten gibt es Wärme an die Küche ab und wird flüssig. Durch ein enges Röhrchen, die <strong>Drossel</strong>, fällt der Druck, und das Kältemittel wird eiskalt. Im <strong>Verdampfer</strong> innen kocht es und nimmt Wärme aus dem Innenraum mit. Dann beginnt alles von vorn.</p>
+      <div class="quiz" data-q="q3" data-correct="c" data-unlock="cycLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Ein heisser Sommertag. Du lässt die Kühlschranktür offen, damit die Küche kühler wird. Was passiert?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Küche wird kühler, der Kühlschrank macht ja Kälte</span></button>
+          <button data-v="b"><span class="k">b</span><span>Nichts, Kälte und Wärme heben sich genau auf</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Küche wird sogar langsam wärmer</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ein Kühlschrank vernichtet keine Wärme. Er <strong>verschiebt</strong> sie nur: Innen nimmt das Kältemittel Wärme auf, hinten gibt es sie wieder ab. Steht die Tür offen, holt er die Wärme aus der Küche und gibt sie hinten an die Küche zurück. Dazu kommt der Strom für den Kompressor, und auch der wird am Ende zu Wärme. Unter dem Strich wird die Küche also <strong>wärmer</strong>. Öffne die Tür im Modell und schau auf die Bilanz.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Albert Einstein hat zusammen mit Leó Szilárd einen Kühlschrank erfunden, der ohne Kompressor und ohne bewegliche Teile auskommt. 1930 bekamen die beiden dafür ein Patent in den USA.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="cycCv" style="height:380px" aria-label="Kühlschrank von der Seite: Das Kältemittel kreist vom Kompressor durch den warmen Kondensator hinten, die Drossel und den kalten Verdampfer innen."></canvas>
+        <div class="locked" id="cycLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="kitIn">Küche</label><input type="range" id="kitIn" min="15" max="35" step="1" value="25" disabled><output id="kitOut">25 °C</output></div>
+        <div class="row">
+          <button class="btn" id="doorBtn" disabled>Tür öffnen</button>
+          <button class="btn ghost" id="cycReset" disabled>Neu starten</button>
+        </div>
+        <span class="status" id="cycStatus">Zeitraffer: 1 Sekunde entspricht 1 Minute. Ein Thermostat schaltet den Kompressor ein und aus.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Wärme aus dem Innenraum</span><span class="val" id="fcIn">0 W</span><span class="formula">gerade jetzt</span></div>
+        <div><span class="lbl">Strom für den Kompressor</span><span class="val" id="fcEl">0 W</span><span class="formula">gerade jetzt</span></div>
+        <div><span class="lbl">Wärme hinten an die Küche</span><span class="val" id="fcOut">0 W</span><span class="formula">= beides zusammen</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Heizen mit kalter Luft</h2>
+      <p>Eine Wärmepumpe heizt ein Haus mit Wärme aus kalter Winterluft. Draussen hat es minus 5 °C, drinnen sollen es 21 °C sein. Wie kann das gehen? Kalte Luft ist doch kalt.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2 und Teil 3. Was ist eine Wärmepumpe im Grunde?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, die Wärmepumpe …, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Ein Kühlschrank holt Wärme aus einem Raum, der schon kalt ist, und gibt sie an einen wärmeren ab. Was wäre, wenn sein «Innen» die Winterluft ist und sein «Hinten» deine Heizung? Und wie kalt kann das Kältemittel bei tiefem Druck werden?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Eine Wärmepumpe ist ein <strong>umgedrehter Kühlschrank</strong>. Draussen steht der Verdampfer. Bei tiefem Druck kocht das Kältemittel dort zum Beispiel bei minus 15 °C. Die Winterluft mit minus 5 °C ist also <strong>wärmer</strong> als das Kältemittel, und Wärme fliesst hinein. Auch kalte Luft enthält viel Wärme. Ganz weg wäre sie erst bei minus 273 °C.</p>
+          <p>Der Kompressor presst das Gas zusammen, bis es heisser ist als das Heizwasser, zum Beispiel 40 °C. Im Haus wird es wieder flüssig und gibt dabei seine Wärme ab. Aus 1 Kilowattstunde Strom macht eine Luft-Wärmepumpe übers Jahr gerechnet etwa 3 Kilowattstunden Wärme. Nur ein Drittel kommt aus der Steckdose, der Rest aus der Luft draussen. Je kälter es draussen ist, desto mehr muss der Kompressor arbeiten.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Kälte ist <em>weggepumpte</em> Wärme.</h2>
+    <ul class="learned">
+      <li><b>Verdunsten kühlt</b><span>Die schnellsten Teilchen fliegen davon und nehmen Wärme mit. Zurück bleibt, was langsamer und kälter ist.</span></li>
+      <li><b>Druck bestimmt das Kochen</b><span>Bei tiefem Druck kocht das Kältemittel eiskalt. Bei hohem Druck wird es warm wieder flüssig.</span></li>
+      <li><b>Wärme wird gepumpt</b><span>Ein Kühlschrank macht keine Kälte. Er schleppt Wärme nach hinten, und der Strom kommt als Wärme dazu.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="himmel.html">Weiter: Warum ist der Himmel blau? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/kuehlschrank.js"></script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stau · mindblow</title>
+<meta name="description" content="Kein Unfall, keine Baustelle, und trotzdem stehst du: wie aus einem kurzen Bremsen eine Stauwelle wird, die rückwärts wandert.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 23 · Geld &amp; Gesellschaft</span>
+    <h1>Woher kommt Stau <em>aus dem Nichts</em>?</h1>
+    <p class="intro">Kein Unfall, keine Baustelle, keine Einfahrt. Trotzdem stehst du plötzlich still, und zwei Minuten später rollt alles wieder. Schuld ist kein Hindernis, sondern eine Welle, die durch die Autos wandert.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Ringstrasse -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Stau ohne Grund <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Kreis, 22 Autos, kein Hindernis</h2>
+      <p>2008 haben Forschende in Japan ein einfaches Experiment gemacht: <strong>22 Autos</strong> fahren auf einer runden Strecke von 230 Metern. Alle sollen gleichmässig etwa 30 km/h fahren. Es gibt keine Kreuzung, keine Baustelle und keinen Unfall.</p>
+      <p>Nach kurzer Zeit stehen trotzdem einige Autos still. Und dieser Stau bleibt nicht an einem Ort.</p>
+      <div class="quiz" data-q="q1" data-correct="c" data-unlock="ringLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">In welche Richtung wandert so ein Stau?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Vorwärts, mit den Autos mit, nur langsamer</span></button>
+          <button data-v="b"><span class="k">b</span><span>Gar nicht, er bleibt immer an derselben Stelle</span></button>
+          <button data-v="c"><span class="k">c</span><span>Rückwärts, gegen die Fahrtrichtung</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Der Stau wandert <strong>rückwärts</strong>. Vorne fahren Autos aus dem Stau heraus, hinten bremsen neue hinein. So rutscht die Stelle mit den stehenden Autos nach hinten, auf Autobahnen mit etwa <strong>15 bis 20 km/h</strong>. Der Auslöser ist oft winzig: Jemand bremst ein wenig zu stark, der Nächste noch etwas stärker, und irgendwann steht einer. Probier es aus. Die Autos unten fahren nach einem vereinfachten Modell im Kreis.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Eine Stauwelle kann über eine Stunde lang leben und dabei viele Kilometer rückwärts wandern. Wenn du hineinfährst, ist ihr Auslöser längst weg.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="ringCv" style="height:340px" aria-label="Simulation: Autos fahren auf einer kreisförmigen Strasse, langsame Autos sind rot gefärbt"></canvas>
+        <div class="locked" id="ringLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="ringN">Autos auf dem Kreis</label><input type="range" id="ringN" min="10" max="30" step="1" value="22" disabled><output id="ringNOut">22</output></div>
+        <div class="row">
+          <button class="btn" id="ringBrake" disabled>Ein Auto bremst kurz</button>
+          <button class="btn ghost" id="ringReset" disabled>Neu starten</button>
+        </div>
+        <span class="status" id="ringStatus">Schau einfach zu. Oder lass das markierte Auto kurz bremsen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Durchschnittstempo</span><span class="val" id="ringV">–</span><span class="formula">alle Autos zusammen</span></div>
+        <div><span class="lbl">Stehende Autos</span><span class="val" id="ringStop">0</span><span class="formula">langsamer als 5 km/h</span></div>
+        <div><span class="lbl">Stauwelle</span><span class="val" id="ringWave">keine</span><span class="formula" id="ringWaveF">Tempo der Welle, vereinfacht</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Reaktionszeit und Abstand -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Reaktionszeit und Abstand <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum wird die Welle grösser?</h2>
+      <p>Niemand reagiert sofort. Bis du merkst, dass vorne jemand bremst, und selbst auf die Bremse trittst, vergeht rund <strong>eine Sekunde</strong>. In dieser Zeit fährst du ungebremst weiter und kommst näher. Also musst du danach <strong>stärker bremsen</strong> als das Auto vor dir.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="platLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du steckst im Stop-and-go. Auf der Nachbarspur rollt es gerade. Was bringt dir ein Spurwechsel?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Viel: Die andere Spur ist fast immer schneller</span></button>
+          <button data-v="b"><span class="k">b</span><span>Kaum etwas: Die Wellen erfassen alle Spuren, und dein Wechsel bremst andere</span></button>
+          <button data-v="c"><span class="k">c</span><span>Er löst den Stau auf, weil sich die Autos besser verteilen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Im Stau bringt ein Spurwechsel meist <strong>kaum Zeit</strong>. Die Wellen laufen über alle Spuren: Mal ist die eine Spur vorne, kurz danach die andere. Und wenn du dich in eine Lücke drängst, muss das Auto hinter dir bremsen. Du startest damit eine neue Welle. Teste unten, wann eine Welle wächst und wann sie verschwindet: Das vorderste von zehn Autos bremst kurz von 80 auf 50 km/h.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Die Nachbarspur wirkt fast immer schneller. Autos, die dich überholen, siehst du lange. Autos, die du überholst, sind schnell aus deinem Blick verschwunden. Das hat eine Studie schon 1999 gezeigt.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="platCv" style="height:360px" aria-label="Zehn Autos hintereinander mit Bremslichtern und ein Diagramm, wie sich das Tempo jedes Autos über die Zeit ändert"></canvas>
+        <div class="locked" id="platLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="reactIn">Reaktionszeit</label><input type="range" id="reactIn" min="0.2" max="2" step="0.1" value="1" disabled><output id="reactOut">1,0 s</output></div>
+        <div class="ctrl"><label for="gapIn">Abstand</label><input type="range" id="gapIn" min="0.6" max="3" step="0.1" value="1" disabled><output id="gapOut">1,0 s</output></div>
+        <div class="row">
+          <button class="btn" id="platGo" disabled>Vorderstes Auto bremst</button>
+        </div>
+        <span class="status" id="platStatus">Der Abstand ist hier in Sekunden angegeben: so lange brauchst du bis zur Stelle, wo dein Vordermann jetzt ist.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Tiefstes Tempo Auto 1</span><span class="val" id="platMin1">–</span><span class="formula">vorne, bremst absichtlich</span></div>
+        <div><span class="lbl">Tiefstes Tempo Auto 10</span><span class="val" id="platMinN">–</span><span class="formula">ganz hinten</span></div>
+        <div><span class="lbl">Die Welle</span><span class="val" id="platVerdict">–</span><span class="formula">von vorne nach hinten</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Fundamentaldiagramm -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Mehr Autos, weniger Durchfluss <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wann kommen am meisten Autos durch?</h2>
+      <p>Der <strong>Durchfluss</strong> zählt, wie viele Autos pro Stunde an einer Stelle vorbeifahren. Er ist Dichte mal Tempo: Autos pro Kilometer mal Kilometer pro Stunde. Eine Autobahnspur schafft höchstens etwa <strong>2'000 Autos pro Stunde</strong>.</p>
+      <div class="quiz" data-q="q3" data-correct="a" data-unlock="fdLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Bei dichtem Verkehr bringt Tempo 80 oft mehr Autos durch als Tempo 120. Warum?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Gleichmässiger Verkehr kippt seltener in Stop-and-go, und Stop-and-go schluckt viel Durchfluss</span></button>
+          <button data-v="b"><span class="k">b</span><span>Stimmt gar nicht: Schneller fahren bringt immer mehr Autos durch</span></button>
+          <button data-v="c"><span class="k">c</span><span>Weil bei Tempo 80 weniger Leute überhaupt losfahren</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Wer bei 120 km/h dicht fährt, hat <strong>keine Reserve</strong>: Wird die Lücke etwas kleiner, muss er sofort bremsen. Kleine Störungen wachsen zu Stop-and-go, und dann fliessen deutlich weniger Autos als vorher. Bei Tempo 80 fahren alle etwas langsamer, als die Lücke erlauben würde. Kleine Schwankungen werden geschluckt. Deshalb zeigen auf manchen Schweizer Autobahnen bei viel Verkehr Anzeigetafeln automatisch 100 oder 80 an. Miss es unten selbst: eine Spur, ein Kilometer im Kreis, stark vereinfacht.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Im Stau sind die meisten Autos pro Kilometer, aber nicht die meisten pro Stunde. Am meisten Autos schafft eine Spur bei mittlerem Tempo und mittlerer Dichte.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="fdCv" style="height:380px" aria-label="Ausschnitt einer Spur mit fahrenden Autos und ein Diagramm: Durchfluss in Autos pro Stunde gegen Dichte in Autos pro Kilometer, für Tempo 80 und Tempo 120"></canvas>
+        <div class="locked" id="fdLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="densIn">Dichte</label><input type="range" id="densIn" min="5" max="80" step="1" value="22" disabled><output id="densOut">22 Fz/km</output></div>
+        <div class="legend" id="limitBtns">
+          <span class="eyebrow">Tempolimit:</span>
+          <button data-lim="120" class="active" disabled><span class="sw" style="background:var(--copper)"></span>Tempo 120</button>
+          <button data-lim="80" disabled><span class="sw" style="background:var(--fiber)"></span>Tempo 80</button>
+        </div>
+        <div class="row">
+          <button class="btn ghost" id="fdBrake" disabled>Ein Auto bremst kurz</button>
+        </div>
+        <span class="status" id="fdStatus">Stell rund 22 Autos pro Kilometer ein und vergleiche Tempo 120 mit Tempo 80.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Durchschnittstempo</span><span class="val" id="fdV">–</span><span class="formula">gemessen</span></div>
+        <div><span class="lbl">Durchfluss</span><span class="val" id="fdQ">–</span><span class="formula">Dichte × Tempo, Mittel der letzten Minute</span></div>
+        <div><span class="lbl">Zustand</span><span class="val" id="fdState">–</span><span class="formula">flüssig oder Stop-and-go</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Kannst du allein eine Stauwelle auflösen?</h2>
+      <p>Du fährst auf der Autobahn. Weit vorne leuchten Bremslichter, die Welle rollt auf dich zu. Was kannst du als einzelne Fahrerin oder einzelner Fahrer tun, damit die Welle hinter dir kleiner wird?</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Wann wurde die Welle von Auto zu Auto kleiner?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich würde …, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Eine Welle wächst, wenn jedes Auto stärker bremst als das vor ihm. Wie musst du fahren, damit du weniger stark bremsen musst als dein Vordermann? Was brauchst du dafür vor dir?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p><strong>Lass eine grosse Lücke</strong> und fahr gleichmässig. Siehst du vorne Bremslichter, gehst du früh vom Gas und rollst langsam weiter. Du schliesst nicht bis zum Vordermann auf, um dann voll zu bremsen. Deine Lücke wirkt wie ein Puffer: Sie schluckt das Bremsen von vorne, und hinter dir kommt eine kleinere Welle an. Spät ankommen tust du deshalb nicht, denn vorne im Stau wärst du ohnehin nicht schneller.</p>
+          <p>Dazu hilft: nicht ständig die Spur wechseln und den Abstand halten, auch wenn sich jemand hineindrängt. Die Faustregel <strong>halber Tacho</strong> gibt den Abstand in Metern: bei 100 km/h also 50 Meter, rund 1,8 Sekunden. Ein Versuch in den USA hat 2017 gezeigt, dass ein einziges Auto, das so fährt, die Wellen in einem Kreis mit gut 20 Autos fast ganz glätten kann.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Stau ist eine <em>Welle</em>.</h2>
+    <ul class="learned">
+      <li><b>Stau aus dem Nichts</b><span>Bei dichtem Verkehr genügt ein kurzes Bremsen. Daraus wächst eine Welle, die rückwärts wandert.</span></li>
+      <li><b>Reaktion und Abstand</b><span>Wer spät reagiert und dicht auffährt, bremst stärker als der Vordermann. So wird die Welle von Auto zu Auto grösser.</span></li>
+      <li><b>Langsamer kann schneller sein</b><span>Gleichmässiger Verkehr kippt später in Stop-and-go. Darum bringt Tempo 80 bei dichtem Verkehr oft mehr Autos durch.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/stau.js"></script>
+</body>
+</html>

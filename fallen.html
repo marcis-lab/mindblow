@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Schwerkraft · mindblow</title>
+<meta name="description" content="Fällt eine Bowlingkugel schneller als eine Feder? Ohne Luft nicht. Wie Schwerkraft, Trägheit und Luftwiderstand zusammenspielen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 13 · Natur &amp; Universum</span>
+    <h1>Fällt Schweres <em>schneller</em>?</h1>
+    <p class="intro">Lass einen Schlüssel und ein Blatt Papier fallen. Der Schlüssel ist zuerst unten. Also fällt Schweres schneller? Fast 2000 Jahre lang glaubten das die klügsten Köpfe. Sie lagen falsch.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Fallrohr -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Kugel gegen Feder <span class="chip solved-chip">gelöst</span></span>
+      <h2>Das grosse Wettfallen</h2>
+      <p>Der griechische Denker <strong>Aristoteles</strong> lehrte um 350 v. Chr.: Schwere Dinge fallen schneller. Ein doppelt so schwerer Stein falle doppelt so schnell. Das klingt logisch, und lange hat es kaum jemand nachgeprüft.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="tubeLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">In einem Rohr ohne Luft lässt du eine Bowlingkugel und eine Feder gleichzeitig los. Was passiert?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Kugel ist viel früher unten, sie ist ja tausendmal schwerer</span></button>
+          <button data-v="b"><span class="k">b</span><span>Beide kommen genau gleichzeitig unten an</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Kugel ist ein kleines bisschen früher unten</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ohne Luft kommen beide <strong>gleichzeitig</strong> an. Um 1600 zeigte <strong>Galileo Galilei</strong> mit Versuchen, dass Aristoteles falsch lag. Die Erde zieht an der schweren Kugel zwar viel stärker. Aber die schwere Kugel ist auch viel <strong>träger</strong>: Sie lässt sich schwerer in Bewegung bringen. Beides wächst im gleichen Mass und hebt sich auf. Darum wird ohne Luft alles gleich schnell schneller, um rund 9,81 m/s pro Sekunde. Probier es aus, mit Luft und ohne.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>1971 liess der Astronaut David Scott auf dem Mond einen Hammer und eine Falkenfeder fallen. Dort gibt es keine Luft. Beide landeten gleichzeitig im Staub.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="tubeCv" style="height:360px" aria-label="Ein zwei Meter hohes Fallrohr mit einer Kugel und einer Feder, wahlweise mit Luft oder ohne"></canvas>
+        <div class="locked" id="tubeLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="airBtns">
+          <span class="eyebrow">Im Rohr:</span>
+          <button data-air="1" class="active" disabled>Luft</button>
+          <button data-air="0" disabled>Vakuum</button>
+        </div>
+        <div class="ctrl"><label for="ballMass">Masse der Kugel</label><input type="range" id="ballMass" min="0.5" max="8" step="0.5" value="7" disabled><output id="ballMassOut">7,0 kg</output></div>
+        <div class="row">
+          <button class="btn" id="dropBtn" disabled>Fallen lassen</button>
+        </div>
+        <span class="status" id="tubeStatus">Die Feder wiegt etwa 0,005 kg. Die Kugel über tausendmal mehr.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Fallzeit Kugel</span><span class="val" id="tBall">–</span><span class="formula">für 2 m</span></div>
+        <div><span class="lbl">Fallzeit Feder</span><span class="val" id="tFea">–</span><span class="formula">für 2 m</span></div>
+        <div><span class="lbl">Tempo jetzt</span><span class="val" id="vNow" style="font-size:14px">–</span><span class="formula">Kugel · Feder in km/h</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Stroboskop -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Immer schneller <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wie weit in zwei Sekunden?</h2>
+      <p>Ein fallender Ball wird jede Sekunde um etwa 10 m/s <strong>schneller</strong>. Er fällt also nicht gleichmässig, sondern legt pro Sekunde immer mehr Weg zurück.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="strobeLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Ein Ball fällt in der ersten Sekunde rund 5 m tief. Wie weit ist er nach 2 Sekunden gefallen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>10 m, doppelte Zeit gibt doppelten Weg</span></button>
+          <button data-v="b"><span class="k">b</span><span>20 m</span></button>
+          <button data-v="c"><span class="k">c</span><span>15 m, weil er etwas schneller wird</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Nach 2 Sekunden ist er rund <strong>20 m</strong> tief gefallen, nach 3 Sekunden schon 44 m. Der Weg wächst mit dem <strong>Quadrat der Zeit</strong>: s = ½ · g · t². Doppelte Zeit gibt vierfachen Weg. Schau dir die Strecken pro Sekunde an: 5 m, dann 15 m, dann 25 m. Sie wachsen wie die ungeraden Zahlen 1, 3, 5, 7. Das hat schon Galilei entdeckt. Hier ein Stroboskop-Bild, ohne Luft gerechnet (vereinfacht).</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Ob Galilei wirklich Kugeln vom Schiefen Turm von Pisa warf, ist unsicher. Sicher ist: Er liess Kugeln über schiefe Rinnen rollen, weil freier Fall für seine Wasseruhren zu schnell war.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="strobeCv" style="height:380px" aria-label="Stroboskop-Bild eines fallenden Balls: Die Abstände zwischen den Bildern werden immer grösser"></canvas>
+        <div class="locked" id="strobeLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="tIn">Zeit</label><input type="range" id="tIn" min="0" max="3" step="0.05" value="0" disabled><output id="tOut">0,00 s</output></div>
+        <div class="legend" id="gBtns">
+          <span class="eyebrow">Ort:</span>
+          <button data-g="9.81" class="active" disabled>Erde</button>
+          <button data-g="1.62" disabled>Mond</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="playBtn" disabled>Abspielen</button>
+        </div>
+        <span class="status" id="strobeStatus">Ein Blitz alle 0,25 s hält den Ball fest.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Zeit</span><span class="val" id="sT">0,00 s</span><span class="formula">seit dem Loslassen</span></div>
+        <div><span class="lbl">Fallweg</span><span class="val" id="sS">0,0 m</span><span class="formula">s = ½ · g · t²</span></div>
+        <div><span class="lbl">Tempo</span><span class="val" id="sV">0 km/h</span><span class="formula">v = g · t</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Endgeschwindigkeit -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Die Luft bremst <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum nicht immer schneller?</h2>
+      <p>Nach Teil 2 müsste ein Fallschirmspringer nach einer Minute über 2'100 km/h schnell sein. In Wirklichkeit fällt er in Bauchlage höchstens rund <strong>200 km/h</strong>, auch wenn er noch so lange fällt.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="diveLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum wird ein Fallschirmspringer nach einigen Sekunden nicht mehr schneller?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Hoch oben zieht die Erde viel schwächer</span></button>
+          <button data-v="b"><span class="k">b</span><span>Der Luftwiderstand wächst mit dem Tempo, bis er so gross ist wie das Gewicht</span></button>
+          <button data-v="c"><span class="k">c</span><span>Schneller als etwa 200 km/h kann nichts durch die Luft fallen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Der <strong>Luftwiderstand</strong> wächst mit dem Quadrat des Tempos: doppelt so schnell gibt viermal so viel Widerstand. Nach etwa 10 bis 12 Sekunden ist er so gross wie das Gewicht. Dann heben sich die Kräfte auf und das Tempo bleibt gleich: die <strong>Endgeschwindigkeit</strong>. Kopfüber, mit wenig Fläche, sind es fast 300 km/h. Der Fallschirm vergrössert die Fläche enorm, dann reichen rund 20 km/h. Und hier hat Aristoteles ein bisschen recht: In Luft fällt ein schwerer Springer schneller als ein leichter mit gleicher Haltung.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>2012 sprang Felix Baumgartner aus 39 km Höhe. Die Luft dort ist so dünn, dass er schneller als der Schall wurde: rund 1'358 km/h. Weiter unten bremste ihn die dichtere Luft wieder ab.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="diveCv" style="height:340px" aria-label="Fallschirmspringer mit Pfeilen für Gewicht und Luftwiderstand, daneben ein Diagramm seines Tempos"></canvas>
+        <div class="locked" id="diveLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="massIn">Masse mit Ausrüstung</label><input type="range" id="massIn" min="50" max="150" step="5" value="90" disabled><output id="massOut">90 kg</output></div>
+        <div class="ctrl"><label for="areaIn">Haltung (Fläche)</label><input type="range" id="areaIn" min="0.2" max="1" step="0.02" value="0.52" disabled><output id="areaOut">0,52 m²</output></div>
+        <div class="row">
+          <button class="btn" id="jumpBtn" disabled>Absprung</button>
+          <button class="btn ghost" id="chuteBtn" disabled>Fallschirm öffnen</button>
+        </div>
+        <span class="status" id="diveStatus">Absprung aus 4'000 m. Beobachte die beiden Pfeile.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Tempo</span><span class="val" id="dV">0 km/h</span><span class="formula">jetzt</span></div>
+        <div><span class="lbl">Endgeschwindigkeit</span><span class="val" id="dVt">200 km/h</span><span class="formula">Luftwiderstand = Gewicht</span></div>
+        <div><span class="lbl">Höhe</span><span class="val" id="dAlt">4'000 m</span><span class="formula">über Boden</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum stürzt die ISS nicht ab?</h2>
+      <p>Die Raumstation ISS kreist in rund 400 km Höhe. Dort gibt es kaum Luft, aber noch viel Schwerkraft. Die ISS fällt ständig Richtung Erde und trifft sie trotzdem nie. Warum?</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Wie weit fällt etwas in einer Sekunde? Und was passiert, wenn es dabei sehr schnell zur Seite fliegt? Bonus: Wie stark ist die Schwerkraft dort oben, verglichen mit hier?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, die ISS stürzt nicht ab, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Stell dir eine Kanone auf einem riesigen Berg vor. Je schneller die Kugel fliegt, desto weiter weg landet sie. Was passiert, wenn sie so schnell ist, dass sich die runde Erde unter ihr genauso schnell wegkrümmt, wie sie fällt?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Die ISS fällt wirklich, die ganze Zeit. Aber sie fliegt dabei rund <strong>28'000 km/h</strong> schnell zur Seite, etwa 7,7 km pro Sekunde. In einer Sekunde fällt sie rund 4,3 m Richtung Erde. Auf diesen 7,7 km krümmt sich die Erdoberfläche aber fast genau gleich viel nach unten weg. Die ISS fällt also immer um die Erde herum. Das nennt man <strong>Umlaufbahn</strong>. Eine Runde dauert etwa 90 Minuten.</p>
+          <p>Bonus: Die Schwerkraft ist dort oben noch rund <strong>90 Prozent</strong> so stark wie am Boden. Die Astronauten schweben nicht, weil die Schwerkraft fehlt. Sie fallen zusammen mit der Station, genau wie Kugel und Feder im Vakuum. Ganz von selbst geht es übrigens nicht ewig: Ein Hauch von Luft bremst die ISS, und Triebwerke heben sie regelmässig wieder an.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Alles fällt <em>gleich</em>. Nur die Luft bremst.</h2>
+    <ul class="learned">
+      <li><b>Masse kürzt sich weg</b><span>Schweres wird stärker angezogen, ist aber auch träger. Ohne Luft fallen Kugel und Feder gleich schnell.</span></li>
+      <li><b>Quadratisch tiefer</b><span>Der Fallweg wächst mit dem Quadrat der Zeit: 5 m nach einer Sekunde, 20 m nach zwei, 45 m nach drei.</span></li>
+      <li><b>Luft setzt die Grenze</b><span>Der Luftwiderstand wächst mit dem Tempo, bis er das Gewicht ausgleicht. Dann ist die Endgeschwindigkeit erreicht.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="gedaechtnis.html">Weiter: Wie erinnert sich das Gehirn? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/fallen.js"></script>
+</body>
+</html>

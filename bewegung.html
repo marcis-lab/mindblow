@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Knochen &amp; Muskeln · mindblow</title>
+<meta name="description" content="Muskeln können nur ziehen: wie Gegenspieler, Hebel und clever gebaute Knochen deinen Körper bewegen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Körper &amp; Gesundheit</span>
+    <h1>Wie bewegt sich dein <em>Körper</em>?</h1>
+    <p class="intro">Du greifst nach deinem Handy, und schon arbeiten Dutzende Muskeln, Sehnen und Knochen zusammen. Dabei können Muskeln etwas Wichtiges gar nicht: stossen. Sie können nur ziehen.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Gegenspieler -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Muskeln ziehen nur <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Seil kann man nicht stossen</h2>
+      <p>Ein Muskel besteht aus langen Fasern. Wenn er arbeitet, werden die Fasern <strong>kürzer</strong>. Über eine Sehne zieht er so an einem Knochen. Länger machen kann er sich aber nicht selbst. Dein <strong>Bizeps</strong> auf der Vorderseite des Oberarms beugt den Ellbogen.</p>
+      <div class="quiz" data-q="q1" data-correct="c" data-unlock="armLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie streckst du den Arm wieder, wenn Muskeln nur ziehen können?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Der Bizeps drückt den Unterarm wieder weg</span></button>
+          <button data-v="b"><span class="k">b</span><span>Der Arm federt von selbst zurück wie ein Gummiband</span></button>
+          <button data-v="c"><span class="k">c</span><span>Ein zweiter Muskel auf der Rückseite zieht in die Gegenrichtung</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Auf der Rückseite des Oberarms sitzt der <strong>Trizeps</strong>. Er setzt hinter dem Ellbogen an, an der Knochenspitze, auf die du dich beim Aufstützen lehnst. Zieht er, streckt sich der Arm. Bizeps und Trizeps sind <strong>Gegenspieler</strong>: Arbeitet der eine, lässt der andere nach und wird gedehnt. Wenn dein Arm hängt, hilft manchmal die Schwerkraft mit. Aber bei einem Liegestütz streckst du den Arm gegen dein Körpergewicht: Das schafft nur der Trizeps. Beweg den Arm selbst und schau, wer gerade zieht.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Deine Zunge hat keinen Knochen. Ihre Muskeln ziehen in drei Richtungen. Weil das Gewebe sein Volumen behält, wird die Zunge länger, wenn sie dünner wird. So kannst du sie herausstrecken, obwohl auch dort jeder Muskel nur zieht.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="armCv" style="height:320px" aria-label="Seitenansicht eines Arms mit Oberarm, Unterarm, Ellbogengelenk, Bizeps oben und Trizeps unten"></canvas>
+        <div class="locked" id="armLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="angIn">Ellbogenwinkel</label><input type="range" id="angIn" min="40" max="180" step="1" value="120" disabled><output id="angOut">120°</output></div>
+        <div class="row">
+          <button class="btn ghost" id="armFlex" disabled>Ganz beugen</button>
+          <button class="btn ghost" id="armExt" disabled>Ganz strecken</button>
+        </div>
+        <span class="status" id="armStatus">Zieh am Regler und achte darauf, welcher Muskel kürzer und dicker wird.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Ellbogenwinkel</span><span class="val" id="armAng">120°</span><span class="formula">180° = ganz gestreckt</span></div>
+        <div><span class="lbl">Bizeps</span><span class="val" id="armBi">hält</span><span class="formula">beugt den Ellbogen</span></div>
+        <div><span class="lbl">Trizeps</span><span class="val" id="armTri">hält</span><span class="formula">streckt den Ellbogen</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Hebel -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Der Hebel im Arm <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum dein Bizeps so schuftet</h2>
+      <p>Dein Unterarm ist ein <strong>Hebel</strong>, das Ellbogengelenk der Drehpunkt. Der Bizeps setzt mit seiner Sehne nur etwa <strong>4 bis 5 cm</strong> vor dem Ellbogen an. Deine Hand ist rund <strong>35 cm</strong> vom Ellbogen entfernt.</p>
+      <div class="quiz" data-q="q2" data-correct="c" data-unlock="levLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du hältst 5 kg in der Hand, der Ellbogen ist im rechten Winkel. Wie viel Kraft braucht dein Bizeps?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>So viel, wie 5 kg wiegen, also gleich viel wie das Gewicht</span></button>
+          <button data-v="b"><span class="k">b</span><span>Weniger, denn der Arm ist ein Hebel und hilft mit</span></button>
+          <button data-v="c"><span class="k">c</span><span>Etwa so viel, wie 35 bis 40 kg wiegen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Beim Hebel gilt: <strong>Kraft mal Abstand</strong> zum Drehpunkt muss auf beiden Seiten gleich sein. Die Hand ist etwa 8-mal so weit weg wie der Ansatz des Bizeps. Also muss der Muskel etwa <strong>8-mal so stark</strong> ziehen: 5 kg × 35 cm ÷ 4,5 cm ergibt rund 39 kg. Dazu kommt noch das Gewicht des Unterarms selbst, das lassen wir hier weg (vereinfacht). Der Hebel hilft also nicht beim Kraftsparen. Er macht etwas anderes: Probier es aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Der Hebel ist ein Tauschgeschäft: Kraft gegen Weg. Verkürzt sich dein Bizeps um 1 cm, bewegt sich deine Hand um rund 8 cm. Darum kann deine Hand so schnell und weit ausholen, obwohl sich der Muskel nur wenig zusammenzieht.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="levCv" style="height:300px" aria-label="Unterarm als Hebel mit Ellbogen als Drehpunkt, Bizeps-Ansatz nahe am Gelenk und Gewicht in der Hand, mit Kraftpfeilen"></canvas>
+        <div class="locked" id="levLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="kgIn">Gewicht in der Hand</label><input type="range" id="kgIn" min="0" max="10" step="0.5" value="5" disabled><output id="kgOut">5,0 kg</output></div>
+        <div class="ctrl"><label for="insIn">Ansatz des Bizeps</label><input type="range" id="insIn" min="2" max="12" step="0.5" value="4.5" disabled><output id="insOut">4,5 cm</output></div>
+        <div class="row">
+          <button class="btn ghost" id="levMove" disabled>Bewegung zeigen</button>
+        </div>
+        <span class="status" id="levStatus">Verschieb den Ansatz des Bizeps. Was passiert mit der Kraft und mit dem Weg der Hand?</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Kraft im Bizeps</span><span class="val" id="levKg">≈ 39 kg</span><span class="formula">als Gewichtskraft, vereinfacht</span></div>
+        <div><span class="lbl">In Newton</span><span class="val" id="levN">381 N</span><span class="formula">Gewicht × 35 cm ÷ Ansatz</span></div>
+        <div><span class="lbl">Weg der Hand</span><span class="val" id="levRatio">7,8 cm</span><span class="formula">pro 1 cm Muskelverkürzung</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Knochen -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Knochen <span class="chip solved-chip">gelöst</span></span>
+      <h2>Leicht, stark und lebendig</h2>
+      <p>Knochen wirken wie toter Stein. Aber sie sind lebendes Gewebe mit Blutgefässen und Zellen, die ständig Knochen abbauen und neuen aufbauen. Ein Erwachsener hat meist <strong>206 Knochen</strong>.</p>
+      <div class="quiz" data-q="q3" data-correct="c" data-unlock="boneLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Hat ein neugeborenes Baby mehr, gleich viele oder weniger Knochen als du?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Weniger, es ist ja viel kleiner</span></button>
+          <button data-v="b"><span class="k">b</span><span>Gleich viele, sie sind nur kleiner</span></button>
+          <button data-v="c"><span class="k">c</span><span>Mehr, nämlich rund 300</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ein Neugeborenes hat rund <strong>300 Knochen und Knochenanlagen</strong>, viele davon noch teilweise aus Knorpel. Beim Wachsen verwachsen manche miteinander. Die Schädelplatten wachsen zusammen, das Kreuzbein entsteht aus fünf Wirbeln, jedes Hüftbein aus drei Knochen. Und weil Knochen leben, passen sie sich an: Sie werden dort dicker, wo sie viel tragen müssen. Dazu kommt ein Trick bei der <strong>Bauweise</strong>. Lange Knochen wie der Oberschenkel sind innen hohl, eine Röhre mit Knochenmark. Vergleich selbst: ein voller Stab und ein Rohr, beide gleich schwer.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Bei Erwachsenen wird jedes Jahr ungefähr ein Zehntel des Skeletts abgebaut und neu aufgebaut. Ganz grob hast du also etwa alle zehn Jahre ein fast neues Skelett.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="boneCv" style="height:320px" aria-label="Biegeversuch: ein voller Stab und ein gleich schweres Rohr, beide in der Mitte belastet"></canvas>
+        <div class="locked" id="boneLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="loadIn">Last in der Mitte</label><input type="range" id="loadIn" min="0" max="200" step="5" value="60" disabled><output id="loadOut">60 kg</output></div>
+        <div class="ctrl"><label for="diaIn">Ø des Rohrs</label><input type="range" id="diaIn" min="2" max="4" step="0.1" value="3" disabled><output id="diaOut">3,0 cm</output></div>
+        <div class="row">
+          <button class="btn ghost" id="boneReset" disabled>Last entfernen</button>
+        </div>
+        <span class="status" id="boneStatus">Beide Stäbe bestehen aus gleich viel Knochenmaterial. Das Rohr hat das Material nur weiter aussen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Voller Stab biegt sich</span><span class="val" id="bSolid">5,9 mm</span><span class="formula">Ø 2 cm, 40 cm lang</span></div>
+        <div><span class="lbl">Rohr biegt sich</span><span class="val" id="bTube">1,7 mm</span><span class="formula">gleich viel Material</span></div>
+        <div><span class="lbl">Rohr ist steifer</span><span class="val" id="bRatio">3,5×</span><span class="formula">Steifigkeit wächst mit r⁴</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Schwache Knochen im All</h2>
+      <p>Astronautinnen und Astronauten leben oft ein halbes Jahr auf der Raumstation ISS. Sie essen gut und sind gesund. Trotzdem werden ihre Knochen in dieser Zeit messbar schwächer.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 3. Knochen leben und bauen sich ständig um. Wonach richtet sich das?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, die Knochen werden schwächer, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Was müssen deine Bein- und Rückenknochen auf der Erde jede Sekunde tragen, wenn du stehst oder gehst? Und wie viel davon bleibt in der Schwerelosigkeit übrig?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Knochen bauen sich nach <strong>Belastung</strong> um. Auf der Erde trägst du bei jedem Schritt dein Körpergewicht. Zellen im Knochen spüren diese Verformung, und der Körper hält den Knochen stark. In der Schwerelosigkeit fällt diese Last fast ganz weg. Der Abbau läuft weiter, der Aufbau wird schwächer. Vor allem Hüfte, Beine und Wirbelsäule verlieren ohne Gegenmassnahmen grob <strong>1 bis 1,5 Prozent</strong> ihrer Knochenmasse pro Monat. Auch die Muskeln werden schwächer.</p>
+          <p>Darum trainieren die Crews auf der ISS rund <strong>zwei Stunden pro Tag</strong>: auf einem Laufband, an das sie sich mit Gurten festschnallen, auf einem Velo-Ergometer und an einem Kraftgerät. Das bremst den Verlust stark. Auf der Erde gilt dasselbe Prinzip: Bei Tennisspielerinnen und Tennisspielern ist der Knochen im Schlagarm dicker als im anderen Arm.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Ziehen, hebeln, <em>tragen</em>.</h2>
+    <ul class="learned">
+      <li><b>Gegenspieler</b><span>Muskeln können nur ziehen. Für jede Bewegung gibt es einen Muskel, der in die Gegenrichtung zieht, wie Bizeps und Trizeps.</span></li>
+      <li><b>Hebel</b><span>Der Bizeps setzt nah am Ellbogen an. Er braucht viel mehr Kraft, als die Last wiegt, dafür bewegt sich die Hand weit und schnell.</span></li>
+      <li><b>Kluge Knochen</b><span>Hohle Röhren sind bei gleichem Gewicht viel steifer als volle Stäbe. Knochen leben und werden stärker, wenn du sie belastest.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/bewegung.js"></script>
+</body>
+</html>

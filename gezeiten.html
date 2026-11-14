@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ebbe und Flut · mindblow</title>
+<meta name="description" content="Warum das Meer zweimal am Tag steigt: wie der Mond die Erde in die Länge zieht und die Sonne mithilft.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 11 · Natur &amp; Universum</span>
+    <h1>Warum gibt es <em>Ebbe und Flut</em>?</h1>
+    <p class="intro">Zweimal am Tag steigt das Meer an der Küste und sinkt wieder. Schuld ist der Mond. Aber nicht ganz so, wie die meisten denken.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Zwei Fluten am Tag -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Der Rhythmus <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wie oft kommt die Flut?</h2>
+      <p>Am Meer siehst du es: Ein paar Stunden liegt der Strand breit und nass da, später steht das Wasser bis an die Mauer. Das Steigen heisst <strong>Flut</strong>, das Sinken <strong>Ebbe</strong>.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="dayLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie oft am Tag ist an einer Küste Hochwasser?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Einmal, wenn der Mond über dem Ort steht</span></button>
+          <button data-v="b"><span class="k">b</span><span>Zweimal, etwa alle 12 Stunden 25 Minuten</span></button>
+          <button data-v="c"><span class="k">c</span><span>Zweimal, immer genau zur gleichen Uhrzeit</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>An den meisten Küsten kommt die Flut <strong>zweimal am Tag</strong>. Es gibt nämlich zwei Flutberge: einen auf der Seite zum Mond und einen auf der Gegenseite. Die Erde dreht sich unter beiden hindurch. Weil der Mond auf seiner Bahn weiterwandert, steht dein Ort erst nach <strong>24 Stunden 50 Minuten</strong> wieder gleich zum Mond. Darum folgen sich die Fluten im Abstand von etwa <strong>12 Stunden 25 Minuten</strong>, und jeden Tag kommt die Flut rund 50 Minuten später. Dreh die Zeit vorwärts.</p>
+          <p>Vereinfacht: Im echten Meer bremsen Kontinente und Meeresbecken das Wasser. Darum kommt die Flut oft Stunden nach dem Mond, und an einigen Küsten gibt es sogar nur eine Flut pro Tag.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Mitten im Ozean hebt sich das Meer nur um etwa einen halben Meter. Erst an Küsten und in engen Buchten schaukelt sich das Wasser auf: In der Bay of Fundy in Kanada um bis zu 16 Meter.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="dayCv" style="height:340px" aria-label="Die Erde von oben mit einer Wasserhülle, die zum Mond hin und auf der Gegenseite ausgebeult ist. Ein Hafen dreht sich mit der Erde. Daneben die Kurve des Wasserstands über zwei Tage."></canvas>
+        <div class="locked" id="dayLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="timeIn">Zeit</label><input type="range" id="timeIn" min="0" max="48" step="0.05" value="12" disabled><output id="timeOut">Tag 1, 12:00</output></div>
+        <div class="ctrl"><label for="moonIn">Mond am Start</label><input type="range" id="moonIn" min="0" max="359" step="1" value="40" disabled><output id="moonOut">40°</output></div>
+        <div class="row">
+          <button class="btn" id="dayPlay" disabled>Zwei Tage abspielen</button>
+          <button class="btn ghost" id="dayNext" disabled>Zur nächsten Flut</button>
+        </div>
+        <span class="status" id="dayStatus">Der gelbe Punkt ist ein Hafen. Er dreht sich mit der Erde einmal pro Tag.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Wasserstand im Hafen</span><span class="val" id="dLevel">–</span><span class="formula">±1 m angenommen, vereinfacht</span></div>
+        <div><span class="lbl">Nächste Flut in</span><span class="val" id="dNext">–</span><span class="formula">Stunden und Minuten</span></div>
+        <div><span class="lbl">Flut heute um</span><span class="val" id="dTimes" style="font-size:15px">–</span><span class="formula">Uhrzeit der Hochwasser</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Gezeitenkraft -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Die Gezeitenkraft <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum auch hinten ein Flutberg?</h2>
+      <p>Der Mond zieht alles auf der Erde an: Wasser, Felsen und dich. Dass er das Wasser auf seiner Seite anhebt, klingt logisch. Aber auf der Rückseite der Erde, weg vom Mond, gibt es ebenfalls einen Flutberg.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="pullLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Woher kommt der Flutberg auf der Seite, die vom Mond weg zeigt?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Erde dreht sich, und die Fliehkraft schleudert das Wasser nach aussen</span></button>
+          <button data-v="b"><span class="k">b</span><span>Der Mond zieht dort schwächer als am Erdmittelpunkt, das Wasser bleibt zurück</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Sonne zieht das Wasser auf der Rückseite hoch</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Anziehung des Mondes wird mit dem Abstand schwächer. Die nahe Seite der Erde ist rund 12'700 km näher am Mond als die ferne. Darum zieht der Mond das Wasser vorne etwas <strong>stärker</strong> als den Erdmittelpunkt und das Wasser hinten etwas <strong>schwächer</strong>. Für die Gezeiten zählt nur dieser <strong>Unterschied</strong>: Vorne wird das Wasser von der Erde weggezogen, hinten bleibt es hinter der Erde zurück. Die Erde wird in die Länge gezogen. Das ist die <strong>Gezeitenkraft</strong>.</p>
+          <p>Die tägliche Drehung der Erde hat damit nichts zu tun. Manche Bücher sprechen von einer Fliehkraft, weil Erde und Mond um einen gemeinsamen Schwerpunkt kreisen. Das ist nur eine andere Art, denselben Unterschied zu beschreiben. Schalte unten zwischen beiden Pfeilarten um.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Die Flutberge bremsen die Erde wie ein Bremsklotz. Die Tage werden darum pro Jahrhundert etwa 2 Millisekunden länger, und der Mond entfernt sich jedes Jahr um rund 3,8 cm. Vor 400 Millionen Jahren hatte ein Jahr etwa 400 Tage. Das zeigen Wachstumsringe in versteinerten Korallen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="pullCv" style="height:330px" aria-label="Die Erde mit Pfeilen: entweder die Anziehung des Mondes an verschiedenen Orten oder der Unterschied zur Anziehung im Erdmittelpunkt"></canvas>
+        <div class="locked" id="pullLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="pullModes">
+          <span class="eyebrow">Pfeile:</span>
+          <button data-mode="pull" class="active" disabled><span class="sw" style="background:var(--glow)"></span>Anziehung des Mondes</button>
+          <button data-mode="diff" disabled><span class="sw" style="background:var(--copper)"></span>Unterschied zur Mitte</button>
+        </div>
+        <div class="ctrl"><label for="distIn">Mondabstand</label><input type="range" id="distIn" min="30" max="120" step="1" value="60" disabled><output id="distOut">60 R</output></div>
+        <span class="status" id="pullStatus">Vergleiche die Pfeile vorne, in der Mitte und hinten.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Zug auf der nahen Seite</span><span class="val" id="pNear">–</span><span class="formula">im Vergleich zur Erdmitte</span></div>
+        <div><span class="lbl">Zug auf der fernen Seite</span><span class="val" id="pFar">–</span><span class="formula">im Vergleich zur Erdmitte</span></div>
+        <div><span class="lbl">Gezeitenkraft</span><span class="val" id="pTide">–</span><span class="formula">im Vergleich zu heute, ∝ 1/Abstand³</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Springtide und Nipptide -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Die Sonne hilft mit <span class="chip solved-chip">gelöst</span></span>
+      <h2>Mal hohe, mal niedrige Fluten</h2>
+      <p>Nicht jede Flut ist gleich hoch. Der <strong>Tidenhub</strong>, also der Unterschied zwischen Hoch- und Niedrigwasser, schwankt im Lauf eines Monats. Denn auch die Sonne macht Gezeiten, etwa halb so starke wie der Mond.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="monthLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wann ist der Tidenhub am grössten?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Nur bei Vollmond, wenn der Mond ganz zu sehen ist</span></button>
+          <button data-v="b"><span class="k">b</span><span>Bei Neumond und bei Vollmond</span></button>
+          <button data-v="c"><span class="k">c</span><span>Bei Halbmond, wenn Sonne und Mond von zwei Seiten ziehen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Bei Neumond und bei Vollmond stehen Sonne, Erde und Mond in einer Linie. Die Flutberge von Sonne und Mond liegen übereinander und addieren sich: <strong>Springtide</strong>, auch Springflut genannt. Bei Halbmond stehen Sonne und Mond im rechten Winkel. Der Flutberg der Sonne füllt dann die Ebbe des Mondes etwas auf: <strong>Nipptide</strong> oder Nippflut. Ob der Mond hell ist, spielt keine Rolle. Bei Neumond steht er auf der Sonnenseite, bei Vollmond gegenüber, und beides ergibt dieselbe Linie.</p>
+          <p>Vereinfacht: In Wirklichkeit kommt die Springtide meist ein bis zwei Tage nach Neu- oder Vollmond, weil das Meer etwas Zeit braucht.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Die Sonne zieht die Erde rund 180-mal stärker an als der Mond. Trotzdem macht der Mond die grösseren Gezeiten. Die Sonne ist 390-mal weiter weg, und für die Gezeiten zählt nur der Unterschied über die Erde hinweg. Der nimmt mit der dritten Potenz des Abstands ab.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="monthCv" style="height:340px" aria-label="Sonne, Erde und Mond von oben. Die Flutberge von Mond und Sonne addieren sich je nach Mondphase. Daneben der Tidenhub über einen Monat."></canvas>
+        <div class="locked" id="monthLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="phaseIn">Tag im Mondmonat</label><input type="range" id="phaseIn" min="0" max="29.5" step="0.1" value="4" disabled><output id="phaseOut">Tag 4,0</output></div>
+        <div class="row">
+          <button class="btn" id="monthPlay" disabled>Einen Monat abspielen</button>
+          <button class="btn ghost" id="sunBtn" disabled>Sonne ausschalten</button>
+        </div>
+        <span class="status" id="monthStatus">Schieb den Mond einmal um die Erde und schau, wie hoch die Flutberge werden.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Mondphase</span><span class="val" id="mPhase" style="font-size:16px">–</span><span class="formula">von der Erde aus gesehen</span></div>
+        <div><span class="lbl">Tidenhub</span><span class="val" id="mRange">–</span><span class="formula">Mond allein = 100 %</span></div>
+        <div><span class="lbl">Art der Tide</span><span class="val" id="mKind" style="font-size:16px">–</span><span class="formula">Sonne wirkt 46 % so stark</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum hat der Bodensee keine Flut?</h2>
+      <p>Der Mond steht über dem Bodensee genauso wie über der Nordsee. Trotzdem steigt und sinkt der See nicht zweimal am Tag. Am Meer sind es oft mehrere Meter.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Woraus entsteht die Gezeitenkraft genau?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, der See hat keine Flut, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Die Gezeitenkraft ist ein Unterschied der Anziehung zwischen zwei Orten. Wie weit liegen die beiden Enden des Sees auseinander, verglichen mit den zwei Seiten der Erde? Und woher müsste das Wasser für einen Flutberg im See kommen?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Die Gezeitenkraft wirkt auch auf den Bodensee. Aber sie entsteht aus dem <strong>Unterschied</strong> der Anziehung zwischen zwei Orten. Der Bodensee ist rund 63 km lang, die Erde rund 12'700 km dick. Über so eine kurze Strecke ist der Unterschied winzig. Der Seespiegel kippt dadurch nur um <strong>wenige Millimeter</strong>, und das geht in Wind und Wellen unter.</p>
+          <p>Dazu kommt: Der See ist <strong>abgeschlossen</strong>. Im Ozean kann Wasser über Tausende Kilometer zum Flutberg strömen. Im See kann es nur ein wenig von einem Ende ans andere schwappen. Übrigens hat sogar der feste Boden Gezeiten: Die Schweiz hebt und senkt sich zweimal am Tag um etwa 20 bis 40 Zentimeter. Weil See, Ufer und du mitgehen, merkt das niemand.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Der Mond <em>dehnt</em> die Erde.</h2>
+    <ul class="learned">
+      <li><b>Zwei Flutberge</b><span>Einer zeigt zum Mond, einer weg vom Mond. Die Erde dreht sich darunter durch: zwei Fluten alle 24 Stunden 50 Minuten.</span></li>
+      <li><b>Der Unterschied zählt</b><span>Vorne zieht der Mond stärker als in der Mitte, hinten schwächer. Dieser Unterschied zieht die Erde in die Länge.</span></li>
+      <li><b>Die Sonne hilft mit</b><span>Bei Neumond und Vollmond addieren sich Sonne und Mond zur Springtide, bei Halbmond gibt es Nipptide.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="treibhaus.html">Weiter: Wie wärmt CO₂ die Erde? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/gezeiten.js"></script>
+</body>
+</html>

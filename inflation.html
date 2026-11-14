@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inflation · mindblow</title>
+<meta name="description" content="Warum Preise steigen: Geldmenge und Waren, wie Teuerung die Kaufkraft schmelzen lässt und warum Zentralbanken trotzdem ein bisschen Inflation wollen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 21 · Geld &amp; Gesellschaft</span>
+    <h1>Warum wird alles <em>teurer</em>?</h1>
+    <p class="intro">Ein Kaffee, ein Gipfeli, ein Zugbillett: Fast alles kostet heute mehr als vor zwanzig Jahren. Ist der Kaffee besser geworden? Meistens nicht. Oft ist einfach das Geld weniger wert.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Mini-Markt auf der Insel -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Der Inselmarkt <span class="chip solved-chip">gelöst</span></span>
+      <h2>Mehr Geld, gleich viele Kokosnüsse</h2>
+      <p>Stell dir eine kleine Insel vor. Dort gibt es nur eine Ware: <strong>100 Kokosnüsse</strong> pro Woche. Und es gibt <strong>200 Franken</strong>, die jede Woche für Kokosnüsse ausgegeben werden. Eine Nuss kostet also 2 Franken.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="islLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Die Zentralbank verdoppelt über Nacht alles Geld. Jede Person hat am Morgen doppelt so viel im Portemonnaie. Neue Waren gibt es aber keine. Was passiert?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Alle sind doppelt so reich und können doppelt so viel kaufen</span></button>
+          <button data-v="b"><span class="k">b</span><span>Die Preise steigen, bis sie ungefähr doppelt so hoch sind. Reicher ist niemand.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Nichts, die Preise bleiben gleich, weil es gleich viele Waren gibt</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Alle wollen mit dem neuen Geld mehr Kokosnüsse kaufen. Es gibt aber nur 100. Die Händler merken das und verlangen mehr. Am Ende werden <strong>400 Franken für 100 Nüsse</strong> ausgegeben, und eine Nuss kostet 4 Franken. Jede Person hat doppelt so viel Geld, aber alles kostet doppelt so viel. Das ist <strong>Inflation</strong>: Das Preisniveau steigt, jeder Franken kauft weniger. Probier es aus, auch mit einer guten oder schlechten Ernte.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Preise steigen nicht nur, wenn mehr Geld da ist. Auch wenn Waren knapp werden, wird es teurer. 2022 wurde Energie plötzlich viel teurer. Die Teuerung lag in der Schweiz bei 2,8 %, im Euroraum zeitweise über 10 %.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="islCv" style="height:330px" aria-label="Inselmarkt: links ein Haufen Kokosnüsse, rechts ein Stapel Geldscheine, unten der Preis pro Nuss"></canvas>
+        <div class="locked" id="islLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="moneyIn">Geldmenge</label><input type="range" id="moneyIn" min="100" max="1000" step="10" value="200" disabled><output id="moneyOut">200 Fr.</output></div>
+        <div class="ctrl"><label for="cropIn">Ernte pro Woche</label><input type="range" id="cropIn" min="20" max="200" step="10" value="100" disabled><output id="cropOut">100 Nüsse</output></div>
+        <div class="row">
+          <button class="btn" id="dblMoney" disabled>Geld verdoppeln</button>
+          <button class="btn ghost" id="badCrop" disabled>Schlechte Ernte</button>
+          <button class="btn ghost" id="islReset" disabled>Zurück zum Start</button>
+        </div>
+        <span class="status" id="islStatus">Vereinfacht: Alles Geld wird jede Woche genau einmal für Kokosnüsse ausgegeben.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Geld auf der Insel</span><span class="val" id="iMoney">200 Fr.</span><span class="formula">pro Woche ausgegeben</span></div>
+        <div><span class="lbl">Kokosnüsse</span><span class="val" id="iCrop">100</span><span class="formula">Ernte pro Woche</span></div>
+        <div><span class="lbl">Preis pro Nuss</span><span class="val" id="iPrice">2,00 Fr.</span><span class="formula">Geld ÷ Nüsse, vereinfacht</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Kaufkraft schmilzt -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Die Kaufkraft schmilzt <span class="chip solved-chip">gelöst</span></span>
+      <h2>Die Note bleibt gleich, ihr Wert nicht</h2>
+      <p>Auf deiner 100er-Note steht in 35 Jahren immer noch 100. Was sie wert ist, hängt aber davon ab, was du damit <strong>kaufen</strong> kannst. Das nennt man <strong>Kaufkraft</strong>.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="powLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Die Preise steigen 35 Jahre lang um 2 % pro Jahr. Wie viel kannst du dann mit 100 Fr. noch kaufen, gemessen an den Preisen von heute?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Rund 30 Fr., denn 35 mal 2 % sind 70 % weniger</span></button>
+          <button data-v="b"><span class="k">b</span><span>Rund 50 Fr., also nur noch halb so viel</span></button>
+          <button data-v="c"><span class="k">c</span><span>Fast noch 100 Fr., 2 % pro Jahr sind kaum etwas</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Nach 35 Jahren kosten die Dinge 1,02<sup>35</sup>, also rund <strong>2-mal so viel</strong>. Deine 100 Fr. kaufen nur noch so viel wie heute <strong>rund 50 Fr.</strong> Wer 30 Fr. tippt, rechnet linear. Aber die Teuerung wirkt wie der Zinseszins aus der letzten Lektion, nur gegen dich: Jedes Jahr kommen 2 % auf die schon gestiegenen Preise. Die Faustregel: <strong>70 geteilt durch die Teuerung</strong> ergibt ungefähr die Jahre, bis sich die Kaufkraft halbiert.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Wie misst man Teuerung? Das Bundesamt für Statistik verfolgt jeden Monat die Preise eines Warenkorbs: Brot, Mieten, Kleider, Bahnbillette, Coiffeur und vieles mehr. Was im Budget mehr Gewicht hat, zählt stärker. Daraus entsteht der <strong>Landesindex der Konsumentenpreise</strong>.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="powCv" style="height:300px" aria-label="Liniendiagramm: Was 100 Franken über die Jahre noch kaufen können, je nach Teuerung"></canvas>
+        <div class="locked" id="powLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="infIn">Teuerung pro Jahr</label><input type="range" id="infIn" min="0" max="10" step="0.5" value="2" disabled><output id="infOut">2,0 %</output></div>
+        <div class="ctrl"><label for="yrsIn">Jahre</label><input type="range" id="yrsIn" min="0" max="50" step="1" value="35" disabled><output id="yrsOut">35</output></div>
+        <div class="row">
+          <button class="btn ghost" id="powEx" disabled>Beispiel aus der Frage</button>
+          <button class="btn ghost" id="powZero" disabled>Keine Teuerung</button>
+        </div>
+        <span class="status" id="powStatus">Vereinfacht: jedes Jahr dieselbe Teuerung.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">100 Fr. kaufen dann so viel wie heute</span><span class="val" id="pReal">–</span><span class="formula">100 ÷ (1 + p)^Jahre</span></div>
+        <div><span class="lbl">Was heute 100 Fr. kostet</span><span class="val" id="pPrice">–</span><span class="formula">100 · (1 + p)^Jahre</span></div>
+        <div><span class="lbl">Kaufkraft halbiert nach</span><span class="val" id="pHalf">–</span><span class="formula" id="pRule">Faustregel 70 ÷ p</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Wie viel Teuerung ist gut? -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Die richtige Dosis <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein bisschen Teuerung ist gewollt</h2>
+      <p>Wenn Teuerung unser Geld schrumpfen lässt, wären dann sinkende Preise nicht am besten? Die Schweizerische Nationalbank (SNB) sorgt für <strong>stabile Preise</strong>. Aber was heisst stabil genau?</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="brdLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Welche Teuerung gilt für die SNB als Preisstabilität?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Sinkende Preise, damit das Geld jedes Jahr mehr wert wird</span></button>
+          <button data-v="b"><span class="k">b</span><span>Eine leicht positive Teuerung von weniger als 2 % pro Jahr</span></button>
+          <button data-v="c"><span class="k">c</span><span>Ruhig etwas mehr, etwa 5 bis 10 %, damit die Wirtschaft wächst</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die SNB setzt Preisstabilität gleich mit einer Teuerung von <strong>weniger als 2 % pro Jahr</strong>. Auch dauerhaft sinkende Preise, also <strong>Deflation</strong>, gelten als Verstoss. Warum? Wenn alles nächstes Jahr billiger ist, warten viele mit dem Kaufen. Firmen verkaufen weniger, sparen bei Löhnen und Stellen, und die Preise sinken weiter. Schulden werden dabei immer schwerer. Viel Teuerung ist aber auch schlecht: Löhne und Ersparnisse verlieren schnell an Wert. Im Extremfall wird daraus <strong>Hyperinflation</strong>. Schau, was mit dem Preis eines Brotes passiert.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Simbabwe druckte 2009 eine Note über 100 Billionen Dollar, eine 1 mit 14 Nullen. Kaufen konnte man damit nur wenig. Kurz darauf gab das Land seine eigene Währung auf.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="brdCv" style="height:330px" aria-label="Ein Brot mit Preisschild und darunter ein Diagramm, wie sich der Brotpreis je nach Szenario entwickelt"></canvas>
+        <div class="locked" id="brdLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="scen">
+          <span class="eyebrow">Szenario:</span>
+          <button data-s="defl" disabled>Deflation</button>
+          <button data-s="stab" class="active" disabled>Stabil</button>
+          <button data-s="high" disabled>Hohe Inflation</button>
+          <button data-s="hyper" disabled>Hyperinflation</button>
+        </div>
+        <div class="ctrl"><label for="timeIn">Zeit</label><input type="range" id="timeIn" min="0" max="10" step="1" value="10" disabled><output id="timeOut">10 Jahre</output></div>
+        <span class="status" id="brdStatus">Ein Brot kostet heute 4 Fr. (Beispielpreis).</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Preis des Brotes</span><span class="val" id="bPrice">–</span><span class="formula">Start: 4,00 Fr.</span></div>
+        <div><span class="lbl">Brote für 100 Fr.</span><span class="val" id="bCount">–</span><span class="formula">heute: 25</span></div>
+        <div><span class="lbl">Teuerung</span><span class="val" id="bRate">–</span><span class="formula" id="bRateF">pro Jahr</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wirst du reicher oder ärmer?</h2>
+      <p>Du hast 1'000 Fr. auf einem Sparkonto. Die Bank zahlt dir 0,5 % Zins pro Jahr. Die Teuerung liegt bei 2 % pro Jahr. Nach einem Jahr steht mehr auf deinem Konto. Bist du deshalb reicher?</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Was zählt: die Zahl auf dem Konto oder was du damit kaufen kannst?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich werde …, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Rechne zwei Dinge aus: Wie viel steht nach einem Jahr auf dem Konto? Und wie viel kostet dann ein Warenkorb, der heute 1'000 Fr. kostet?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Auf dem Konto stehen nach einem Jahr <strong>1'005 Fr.</strong> Die Zahl ist grösser. Aber der Warenkorb, der vorher 1'000 Fr. kostete, kostet jetzt <strong>1'020 Fr.</strong> Du kannst dir also weniger kaufen als vorher. Gemessen an den Preisen von heute sind deine 1'005 Fr. nur noch rund <strong>985 Fr.</strong> wert. Du wirst also <strong>ärmer</strong>, obwohl dein Kontostand wächst.</p>
+          <p>Fachleute sagen: Der <strong>Realzins</strong> ist negativ, ungefähr 0,5 % minus 2 % gleich minus 1,5 %. Nach 10 Jahren hättest du (vereinfacht, ohne Steuern und Gebühren) rund 1'051 Fr. auf dem Konto, die aber nur noch so viel kaufen wie heute rund 862 Fr. Das ist die leise Seite der Inflation: Niemand nimmt dir etwas weg, und trotzdem schrumpft dein Erspartes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Teurer heisst oft: Das Geld ist <em>weniger wert</em>.</h2>
+    <ul class="learned">
+      <li><b>Geld gegen Waren</b><span>Mehr Geld für gleich viele Waren treibt die Preise hoch. Reicher wird dadurch niemand.</span></li>
+      <li><b>Kaufkraft schmilzt</b><span>Teuerung wirkt wie Zinseszins gegen dich. Bei 2 % pro Jahr kauft dein Geld nach 35 Jahren nur noch halb so viel.</span></li>
+      <li><b>Die richtige Dosis</b><span>Die SNB will eine Teuerung unter 2 %, aber keine Deflation. Zu viel Inflation zerstört Ersparnisse, im Extremfall die ganze Währung.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="lotto.html">Weiter: Warum gewinnt das Casino immer? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/inflation.js"></script>
+</body>
+</html>

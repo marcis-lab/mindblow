@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Herz · mindblow</title>
+<meta name="description" content="Rund 5 Liter pro Minute, zwei Pumpen in einem Muskel und vier Ventile: wie dein Herz Blut durch Lunge und Körper schickt und woher das Lub-Dub kommt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Körper &amp; Gesundheit</span>
+    <h1>Wie arbeitet dein <em>Herz</em>?</h1>
+    <p class="intro">Es schlug schon vor deiner Geburt und macht nie Pause. Finde heraus, wie viel es pumpt, wohin das Blut fliesst und woher das Pochen kommt, das du in deiner Brust spürst.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Pumpleistung -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Die Pumpleistung <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Muskel so gross wie deine Faust</h2>
+      <p>Dein Herz ist ein hohler Muskel und wiegt etwa 300 Gramm. Bei jedem Schlag drückt es rund <strong>70 Milliliter</strong> Blut in die Adern. Das sind etwa viereinhalb Esslöffel. Klingt nach wenig. In Ruhe schlägt es etwa 60 bis 80 Mal pro Minute.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="pumpLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie viel Blut pumpt dein Herz in Ruhe pro Minute?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Etwa einen halben Liter</span></button>
+          <button data-v="b"><span class="k">b</span><span>Etwa 5 Liter</span></button>
+          <button data-v="c"><span class="k">c</span><span>Etwa 50 Liter</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Rechnung ist einfach: <strong>Puls mal Schlagvolumen</strong>. 70 Schläge × 70 ml ergibt knapp <strong>5 Liter pro Minute</strong>. Das ist ungefähr so viel Blut, wie ein erwachsener Mensch insgesamt hat (vereinfacht, je nach Körpergrösse etwa 4,5 bis 6 Liter). Dein ganzes Blut fliesst also etwa einmal pro Minute durch dein Herz. Beim Sport schlägt es schneller und pumpt pro Schlag mehr. Bei gut Trainierten werden es über 20 Liter pro Minute. Stell selbst ein.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Bei 70 Schlägen pro Minute schlägt dein Herz rund 100'000 Mal am Tag und pumpt etwa 7'000 Liter. Das füllt fast 50 Badewannen, jeden Tag, ohne einen einzigen Tag Pause.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="pumpCv" style="height:300px" aria-label="Ein schlagendes Herz füllt bei jedem Schlag einen Messbecher mit Blut, bis 5 Liter erreicht sind"></canvas>
+        <div class="locked" id="pumpLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="hrIn">Puls</label><input type="range" id="hrIn" min="60" max="180" step="1" value="70" disabled><output id="hrOut">70 / min</output></div>
+        <div class="ctrl"><label for="svIn">Schlagvolumen</label><input type="range" id="svIn" min="50" max="130" step="1" value="70" disabled><output id="svOut">70 ml</output></div>
+        <div class="row">
+          <button class="btn ghost" id="pRest" disabled>Ruhe</button>
+          <button class="btn ghost" id="pWalk" disabled>Treppe steigen</button>
+          <button class="btn ghost" id="pSport" disabled>Sport</button>
+        </div>
+        <span class="status" id="pumpStatus">Schau zu, wie schnell der Messbecher voll wird.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Pro Minute</span><span class="val" id="pLmin">4,9 l</span><span class="formula">Puls × Schlagvolumen</span></div>
+        <div><span class="lbl">Pro Tag</span><span class="val" id="pLday">7'056 l</span><span class="formula">wenn es so bliebe</span></div>
+        <div><span class="lbl">Schläge in 80 Jahren</span><span class="val" id="pLife">2,9 Mrd.</span><span class="formula">bei diesem Puls</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Doppelter Kreislauf -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Zwei Pumpen in einer <span class="chip solved-chip">gelöst</span></span>
+      <h2>Rechts zur Lunge, links in den Körper</h2>
+      <p>Dein Herz hat vier Räume: oben zwei <strong>Vorhöfe</strong>, unten zwei <strong>Kammern</strong>. Eine Wand trennt die rechte Hälfte von der linken. Rechts und links meint deine eigene Körperseite. Schaust du von vorne auf ein Herz, ist es also vertauscht.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="circLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Blut mit wenig Sauerstoff fliesst durch die Venen zurück zum Herzen. Welche Farbe hat es?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Blau. Darum sehen die Adern am Handgelenk blau aus.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Dunkelrot</span></button>
+          <button data-v="c"><span class="k">c</span><span>Hellrot, genau gleich wie Blut mit viel Sauerstoff</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Blut ist <strong>nie blau</strong>. Der rote Blutfarbstoff Hämoglobin ist mit viel Sauerstoff hellrot, mit wenig Sauerstoff <strong>dunkelrot</strong>. Venen unter der Haut wirken bläulich, weil Haut und Blut das Licht verschieden zurückwerfen: Rotes Licht dringt tiefer ein und wird vom Blut geschluckt, blaues wird eher schon in der Haut zurückgestreut (vereinfacht).</p>
+          <p>Die <strong>rechte Hälfte</strong> pumpt sauerstoffarmes Blut in die Lunge. Dort gibt es CO₂ ab und nimmt Sauerstoff auf. Die <strong>linke Hälfte</strong> pumpt es dann in den ganzen Körper. Zwei Kreisläufe hintereinander: der doppelte Kreislauf. Im Schema malt man sauerstoffarmes Blut blau, nur damit man es unterscheiden kann. Schalte unten auf die echten Farben um.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Arterie heisst nur: Das Gefäss führt vom Herzen weg. Darum fliesst in der Lungenarterie sauerstoffarmes Blut und in den Lungenvenen sauerstoffreiches. Genau umgekehrt wie im restlichen Körper.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="circCv" style="height:420px" aria-label="Schema des Herzens mit vier Räumen, Lunge oben und Körper unten. Bluttropfen fliessen im doppelten Kreislauf"></canvas>
+        <div class="locked" id="circLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="circSel">
+          <span class="eyebrow">Zeigen:</span>
+          <button data-c="both" class="active" disabled>Beide</button>
+          <button data-c="lung" disabled><span class="sw" style="background:#3b6fd8"></span>Lungenkreislauf</button>
+          <button data-c="body" disabled><span class="sw" style="background:#d23a3a"></span>Körperkreislauf</button>
+        </div>
+        <div class="ctrl"><label for="spdIn">Tempo</label><input type="range" id="spdIn" min="0" max="100" step="1" value="40" disabled><output id="spdOut">×1,0</output></div>
+        <div class="row">
+          <button class="btn ghost" id="realBtn" disabled>Echte Farben zeigen</button>
+        </div>
+        <span class="status" id="circStatus">Folge dem markierten Tropfen mit dem Ring.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Der Tropfen ist in</span><span class="val" id="cPlace" style="font-size:15px">–</span><span class="formula">Ort im Kreislauf</span></div>
+        <div><span class="lbl">Sauerstoff</span><span class="val" id="cOxy" style="font-size:15px">–</span><span class="formula">echte Farbe des Bluts</span></div>
+        <div><span class="lbl">Kreislauf</span><span class="val" id="cLoop" style="font-size:15px">–</span><span class="formula">eine Runde dauert rund 1 min</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Klappen und Herzton -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Klappen und Herzton <span class="chip solved-chip">gelöst</span></span>
+      <h2>Lub-Dub</h2>
+      <p>Im Herz sitzen vier <strong>Klappen</strong>. Sie wirken wie Ventile und lassen Blut nur in eine Richtung durch. Legst du dein Ohr an die Brust von jemandem, hörst du pro Schlag zwei Töne: Lub-Dub.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="valveLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Woher kommt das Geräusch des Herzschlags?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Der Herzmuskel klatscht beim Zusammenziehen</span></button>
+          <button data-v="b"><span class="k">b</span><span>Die Herzklappen schlagen zu</span></button>
+          <button data-v="c"><span class="k">c</span><span>Das Blut rauscht durch die Adern</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Du hörst die <strong>Klappen, wenn sie schliessen</strong>. Genauer: Klappen und Blut werden dabei abrupt gestoppt und schwingen kurz nach (vereinfacht). Den Muskel selbst hörst du kaum.</p>
+          <p><strong>Lub</strong> ist der erste Ton. Die Kammern spannen sich an (Systole), und die Segelklappen zwischen Vorhof und Kammer gehen zu. <strong>Dub</strong> ist der zweite Ton. Die Kammern entspannen sich (Diastole), und die Taschenklappen zu Aorta und Lungenarterie gehen zu. Schau dir die linke Herzhälfte in Zeitlupe an.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Dein Herz braucht keinen Befehl vom Gehirn. Ein eigener Taktgeber im rechten Vorhof, der Sinusknoten, löst jeden Schlag selbst aus. Nerven und Hormone machen den Takt nur schneller oder langsamer.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="valveCv" style="height:420px" aria-label="Linker Vorhof, linke Kammer und Aorta mit zwei Klappen, darunter die Druckkurven während eines Herzschlags"></canvas>
+        <div class="locked" id="valveLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="tIn">Zeitpunkt im Herzschlag</label><input type="range" id="tIn" min="0" max="800" step="1" value="0" disabled><output id="tOut">0,00 s</output></div>
+        <div class="row">
+          <button class="btn" id="playBtn" disabled>Zeitlupe abspielen</button>
+          <button class="btn ghost" id="leakBtn" disabled>Klappe undicht</button>
+        </div>
+        <span class="status" id="valveStatus">Ein Herzschlag dauert in Ruhe etwa 0,8 Sekunden. Hier läuft er rund achtmal langsamer.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Phase</span><span class="val" id="vPhase" style="font-size:15px">Systole</span><span class="formula" id="vPhase2">Anspannung</span></div>
+        <div><span class="lbl">Druck linke Kammer</span><span class="val" id="vPress">10 mmHg</span><span class="formula">vereinfachte Werte</span></div>
+        <div><span class="lbl">Blut in der Kammer</span><span class="val" id="vVol">120 ml</span><span class="formula">Volumen linke Kammer</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum ist links mehr Muskel?</h2>
+      <p>Schneidet man ein Herz quer durch, sieht man: Die Wand der linken Kammer ist viel dicker als die der rechten. Dabei pumpen beide Kammern bei jedem Schlag etwa gleich viel Blut.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Wohin pumpt jede Seite, und wie weit ist der Weg?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, die linke Wand ist dicker, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Stell dir zwei Gartenschläuche vor. Einer ist einen Meter lang, der andere führt durch einen ganzen Garten mit vielen engen Düsen. Bei welchem musst du stärker drücken, damit gleich viel Wasser herauskommt?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Die linke Kammer pumpt das Blut durch den <strong>ganzen Körper</strong>: bis in die Zehen, ins Gehirn und durch ein riesiges Netz feiner Gefässe. Dafür braucht sie viel Druck, bei jedem Schlag etwa <strong>120 mmHg</strong>. Die rechte Kammer pumpt nur durch die <strong>Lunge</strong> gleich nebenan. Dort reichen etwa <strong>25 mmHg</strong>.</p>
+          <p>Mehr Druck braucht mehr Muskel. Die Wand links ist deshalb etwa 1 cm dick, rechts nur 3 bis 5 mm (vereinfacht, je nach Mensch). Beide Kammern müssen trotzdem gleich viel Blut pumpen, sonst würde es sich in einem Kreislauf stauen. Und der niedrige Druck schützt die Lunge: Ihre hauchdünnen Bläschen würden hohen Druck nicht gut aushalten.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Zwei Pumpen, <em>ein</em> Muskel.</h2>
+    <ul class="learned">
+      <li><b>Fleissige Pumpe</b><span>Puls mal Schlagvolumen: In Ruhe rund 5 Liter pro Minute. Etwa dein ganzes Blut, jede Minute einmal.</span></li>
+      <li><b>Doppelter Kreislauf</b><span>Rechts geht es zur Lunge, links in den Körper. Blut ist immer rot: hell mit Sauerstoff, dunkel ohne.</span></li>
+      <li><b>Klappen als Ventile</b><span>Sie lassen Blut nur in eine Richtung durch. Ihr Zuschlagen hörst du als Lub-Dub.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/herz.js"></script>
+</body>
+</html>
