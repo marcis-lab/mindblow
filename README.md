@@ -5,7 +5,7 @@ Jede Lektion: vermuten → ausprobieren → verstehen.
 
 ## Themen
 
-Alle Themen stehen im Register in `js/common.js` (`TOPICS`). Startseite und Navigation werden daraus erzeugt.
+Alle Themen stehen im Register `js/themen.js` (Bereich → Gebiet → Thema). Startseite, Menü, Übersichten, Suche und «Weiter»-Links werden daraus erzeugt.
 
 - **Körper & Gesundheit:** herz, blut, lunge, bewegung, immunsystem, verdauung, farben, gehoer, gedaechtnis, schlaf
 - **Pflanzen, Tiere & Evolution:** fotosynthese, herbst, dna, evolution, zugvoegel, bienen, nahrungsnetz
@@ -33,8 +33,7 @@ Nichts von Hand hochladen. Konfiguration: `wrangler.jsonc`, ausgeschlossene Date
 
 1. Eine bestehende Lektion (z. B. `ki.html`) kopieren.
 2. Ein eigenes Skript in `js/` anlegen und `MB.lesson('<name>', <anzahl>, { ... })` aufrufen.
-3. Das Thema im Register `TOPICS` in `js/common.js` eintragen (Karte und Navigation entstehen automatisch).
-4. Nummer im Eyebrow (`Thema NN`) und die «Weiter»-Links der Nachbarseiten anpassen.
+3. Das Thema in `js/themen.js` eintragen (ohne `soon: true`), danach `node tools/lexikon-index.js`.
 
 Gemeinsames Design: `css/style.css`. Gemeinsame Logik: `js/common.js`.
 
