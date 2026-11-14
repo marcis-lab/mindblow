@@ -5,9 +5,12 @@ Jede Lektion: vermuten → ausprobieren → verstehen.
 
 ## Themen
 
-- `strom.html`: Wie funktioniert Strom?
-- `internet.html`: Wie funktioniert das Internet?
-- `ki.html`: Was ist eigentlich KI?
+Alle Themen stehen im Register in `js/common.js` (`TOPICS`). Startseite und Navigation werden daraus erzeugt.
+
+- **Technik:** strom, internet, ki, gps, flugzeug, verschluesselung, kuehlschrank
+- **Natur & Universum:** himmel, jahreszeiten, universum, gezeiten, treibhaus, fallen
+- **Körper & Leben:** gedaechtnis, farben, evolution, immunsystem, gehoer
+- **Geld & Gesellschaft:** geld, zinseszins, inflation, lotto, stau
 
 ## Lokal starten
 
@@ -28,6 +31,7 @@ Nichts von Hand hochladen. Konfiguration: `wrangler.jsonc`, ausgeschlossene Date
 
 1. Eine bestehende Lektion (z. B. `ki.html`) kopieren.
 2. Ein eigenes Skript in `js/` anlegen und `MB.lesson('<name>', <anzahl>, { ... })` aufrufen.
-3. Eine Karte in `index.html` ergänzen und den Link in allen Navigationen eintragen.
+3. Das Thema im Register `TOPICS` in `js/common.js` eintragen (Karte und Navigation entstehen automatisch).
+4. Nummer im Eyebrow (`Thema NN`) und die «Weiter»-Links der Nachbarseiten anpassen.
 
 Gemeinsames Design: `css/style.css`. Gemeinsame Logik: `js/common.js`.
