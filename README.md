@@ -17,10 +17,12 @@ node server.js
 
 Dann http://localhost:8080 öffnen.
 
-## Veröffentlichen (Cloudflare Pages)
+## Veröffentlichen
 
-Das Repository ist mit Cloudflare Pages verbunden. Jede Änderung auf dem Branch `main`
-wird automatisch veröffentlicht. Einstellungen: kein Build-Befehl, Ausgabeordner `/`.
+Cloudflare Worker `mindblow`, online unter https://mindblow.thinklabs.workers.dev
+
+Cloudflare ist direkt mit diesem GitHub-Repo verbunden: **Jeder Push auf `main` wird automatisch veröffentlicht.**
+Nichts von Hand hochladen. Konfiguration: `wrangler.jsonc`, ausgeschlossene Dateien: `.assetsignore`.
 
 ## Neues Thema hinzufügen
 
