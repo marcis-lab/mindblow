@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Computer · mindblow</title>
+<meta name="description" content="Nur an oder aus: wie ein Computer mit 0 und 1 zählt, mit Logik-Gattern rechnet und mit Milliarden Schaltern Fotos und Musik möglich macht.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Technik</span>
+    <h1>Wie rechnet ein Computer nur mit <em>0 und 1?</em></h1>
+    <p class="intro">Dein Handy spielt Musik, zeigt Fotos und rechnet blitzschnell. Darin gibt es aber nur winzige Schalter, und jeder kennt nur zwei Zustände: an oder aus, 1 oder 0. Finde heraus, wie daraus Zahlen, Buchstaben und ganze Rechnungen werden.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Binärzahlen -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Zählen mit Schaltern <span class="chip solved-chip">gelöst</span></span>
+      <h2>Zwei Ziffern reichen</h2>
+      <p>Wir zählen mit zehn Ziffern, 0 bis 9. Ist eine Stelle voll, geht es an der nächsten Stelle weiter: nach 9 kommt 10. Ein Schalter im Computer kennt aber nur <strong>aus (0)</strong> und <strong>an (1)</strong>. Also zählt er mit nur zwei Ziffern. Das nennt man das <strong>Binärsystem</strong>.</p>
+      <div class="quiz" data-q="q1" data-correct="c" data-unlock="bitLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du hast 8 Schalter nebeneinander. Wie viele verschiedene Zahlen kannst du damit darstellen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>8, für jeden Schalter eine</span></button>
+          <button data-v="b"><span class="k">b</span><span>16, jeder Schalter hat ja zwei Stellungen</span></button>
+          <button data-v="c"><span class="k">c</span><span>256</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Jeder zusätzliche Schalter <strong>verdoppelt</strong> die Möglichkeiten. Ein Schalter: 2. Zwei Schalter: 4. Drei: 8. Bei acht Schaltern sind es 2 × 2 × 2 × 2 × 2 × 2 × 2 × 2 = <strong>256</strong> Muster, also die Zahlen 0 bis 255.</p>
+          <p>Jede Stelle ist doppelt so viel wert wie die rechts daneben: 1, 2, 4, 8, 16, 32, 64, 128. Für eine Zahl zählst du einfach die Werte zusammen, deren Lampe leuchtet. Ein einzelner Schalter heisst <strong>Bit</strong>, acht zusammen ein <strong>Byte</strong>. Tippe die Lampen an.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Auch Buchstaben sind nur Zahlen. Man hat sich einfach geeinigt: 65 bedeutet A, 66 bedeutet B, 97 bedeutet a. Die Schalter wissen davon nichts. Erst das Programm entscheidet, ob es ein Muster als Zahl, als Buchstabe oder als Farbe liest.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="bitCv" style="height:280px" aria-label="Acht Lampen mit den Stellenwerten 128 bis 1. Antippen schaltet eine Lampe an oder aus"></canvas>
+        <div class="locked" id="bitLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="numIn">Zahl</label><input type="range" id="numIn" min="0" max="255" step="1" value="0" disabled><output id="numOut">0</output></div>
+        <div class="row">
+          <button class="btn ghost" id="bPlus" disabled>+1 zählen</button>
+          <button class="btn ghost" id="bA" disabled>Buchstabe A</button>
+          <button class="btn ghost" id="bClear" disabled>Alle aus</button>
+        </div>
+        <span class="status" id="bitStatus">Tippe auf eine Lampe, um sie ein- oder auszuschalten.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Dezimal</span><span class="val" id="bDec">0</span><span class="formula">Summe der Stellenwerte</span></div>
+        <div><span class="lbl">Als Buchstabe</span><span class="val" id="bChr" style="font-size:15px">kein Buchstabe</span><span class="formula">nach dem ASCII-Code</span></div>
+        <div><span class="lbl">Binär</span><span class="val" id="bBin">0000 0000</span><span class="formula">8 Bit = 1 Byte</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Logik-Gatter -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Logik-Gatter <span class="chip solved-chip">gelöst</span></span>
+      <h2>Rechnen ohne zu verstehen</h2>
+      <p>Zahlen speichern ist das eine. Aber wie rechnet ein Computer damit? Mit kleinen Schaltungen, den <strong>Logik-Gattern</strong>. Jedes befolgt eine einzige feste Regel. <strong>UND</strong> gibt 1, wenn beide Eingänge 1 sind. <strong>ODER</strong> gibt 1, wenn mindestens einer 1 ist. <strong>NICHT</strong> dreht um: aus 1 wird 0, aus 0 wird 1.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="gateLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was passiert im Computer, wenn er 1 + 1 rechnet?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Er weiss, was 1 + 1 bedeutet, und denkt sich die Antwort aus</span></button>
+          <button data-v="b"><span class="k">b</span><span>Schalter schalten nach festen Regeln. Heraus kommt ein Muster aus an und aus.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Er rechnet innen mit den Ziffern 0 bis 9, nur sehr schnell</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ein Computer <strong>versteht keine Zahlen</strong> und denkt nicht nach. Strom kommt an den Eingängen an oder nicht, und die Gatter leiten ihn nach ihren Regeln weiter. Dass das Ergebnis eine Zahl ist, wissen nur wir.</p>
+          <p>Mit vier Gattern kannst du zwei Bits addieren. Das heisst <strong>Halbaddierer</strong>. Binär gilt: 1 + 1 = <strong>10</strong>. Das ist nicht zehn, sondern zwei: eine 0 an dieser Stelle und eine 1 als Übertrag zur nächsten. Genau wie bei 5 + 5 = 10 im Zehnersystem. Schalte die Eingänge A und B um.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Die Regeln für UND, ODER und NICHT schrieb der Mathematiker George Boole schon 1854 auf, ohne an Maschinen zu denken. Erst rund 80 Jahre später zeigte Claude Shannon, dass man mit Schaltern genau diese Regeln bauen kann.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="gateCv" style="height:340px" aria-label="Schaltplan eines Halbaddierers: Eingänge A und B, Gatter ODER, UND, NICHT und UND, Ausgänge Summe und Übertrag"></canvas>
+        <div class="locked" id="gateLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="row">
+          <button class="btn ghost" id="gA" disabled>A umschalten</button>
+          <button class="btn ghost" id="gB" disabled>B umschalten</button>
+          <button class="btn" id="gAll" disabled>Alle vier Fälle zeigen</button>
+        </div>
+        <span class="status" id="gateStatus">Tippe auf A oder B. Leuchtende Leitungen führen Strom, also eine 1.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Rechnung</span><span class="val" id="gCalc">0 + 0</span><span class="formula">A + B</span></div>
+        <div><span class="lbl">Ergebnis binär</span><span class="val" id="gBin">00</span><span class="formula">Übertrag, Summe</span></div>
+        <div><span class="lbl">Ergebnis dezimal</span><span class="val" id="gDec">0</span><span class="formula">so lesen wir es</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Transistoren und Takt -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Milliarden Schalter <span class="chip solved-chip">gelöst</span></span>
+      <h2>Dumm, aber unglaublich schnell</h2>
+      <p>Die Schalter in einem Chip sind <strong>Transistoren</strong>. Sie haben keine beweglichen Teile. Eine kleine Spannung an einem Anschluss entscheidet, ob Strom durch den Transistor fliessen kann oder nicht. Einzeln kann ein Gatter fast nichts. Die Kraft kommt aus der Menge und dem Tempo.</p>
+      <div class="quiz" data-q="q3" data-correct="c" data-unlock="clockLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie viele Transistoren stecken ungefähr im Hauptchip eines neuen Smartphones?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Einige Tausend</span></button>
+          <button data-v="b"><span class="k">b</span><span>Ein paar Millionen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Mehr als 10 Milliarden</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Im Hauptchip eines neuen Smartphones stecken <strong>rund 10 bis 20 Milliarden</strong> Transistoren, in grossen Computerchips noch mehr. Das sind mehr Schalter, als Menschen auf der Erde leben. Jeder ist so winzig, dass du ihn nur mit einem Elektronenmikroskop sehen könntest.</p>
+          <p>Dazu kommt das Tempo. Ein <strong>Taktgeber</strong> gibt den Rhythmus vor. Bei jedem Takt machen die Schaltungen einen Schritt. 3 <strong>Gigahertz</strong> heisst: 3 Milliarden Takte pro Sekunde. Stell unten ein, wie schnell der Chip ist, und vergleiche mit einem Menschen, der eine Addition pro Sekunde schafft.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Bei 3 Gigahertz dauert ein Takt eine Drittel Milliardstelsekunde. In dieser Zeit kommt sogar Licht nur etwa 10 Zentimeter weit. Der erste Mikroprozessor von 1971 hatte rund 2'300 Transistoren.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="clockCv" style="height:380px" aria-label="Wettrennen zwischen einem Menschen und einem Chip beim Addieren, darunter eine Zeitachse, wie lange ein Mensch für eine Sekunde Chiparbeit bräuchte"></canvas>
+        <div class="locked" id="clockLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="fIn">Taktfrequenz</label><input type="range" id="fIn" min="0" max="100" step="1" value="91" disabled><output id="fOut">3 GHz</output></div>
+        <div class="ctrl"><label for="kIn">Rechenkerne</label><input type="range" id="kIn" min="1" max="16" step="1" value="1" disabled><output id="kOut">1</output></div>
+        <div class="row">
+          <button class="btn ghost" id="cOld" disabled>Chip von 1971</button>
+          <button class="btn ghost" id="cNow" disabled>Heutiges Handy</button>
+          <button class="btn ghost" id="cRace" disabled>Neu starten</button>
+        </div>
+        <span class="status" id="clockStatus">Vereinfacht: ein Kern schafft hier eine Addition pro Takt.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Additionen pro Sekunde</span><span class="val" id="cOps">3 Mrd.</span><span class="formula">Takt × Kerne</span></div>
+        <div><span class="lbl">Ein Mensch bräuchte</span><span class="val" id="cHuman">95 Jahre</span><span class="formula">für 1 s Chiparbeit, ohne Pause</span></div>
+        <div><span class="lbl">Ein Takt dauert</span><span class="val" id="cTick">0,33 ns</span><span class="formula">1 ns = 1 Milliardstelsekunde</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wie wird aus 0 und 1 ein Foto?</h2>
+      <p>Auf deinem Handy ist ein Ferienfoto gespeichert: blauer Himmel, gelber Sand, ein rotes Badetuch. Im Speicher gibt es aber nur Schalter, die an oder aus sind. Keine Farben, keine Formen.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1: Ein Byte kann 256 verschiedene Werte haben. Und überleg, aus welchen drei Farben dein Bildschirm alle anderen mischt. Das erfährst du auch in der Lektion <a href="farben.html">Gibt es Farben wirklich?</a></p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Ein Foto ist ein Raster aus winzigen Punkten, den <strong>Pixeln</strong>. Für jedes Pixel speichert das Handy drei Zahlen: wie viel <strong>Rot</strong>, wie viel <strong>Grün</strong> und wie viel <strong>Blau</strong>. Jede Zahl ist meist ein Byte, also 0 bis 255. Das ergibt 256 × 256 × 256 = rund <strong>16,7 Millionen</strong> mögliche Farben. Der Bildschirm lässt dann an jeder Stelle drei winzige Lichtpunkte so hell leuchten, wie die Zahlen sagen. Dein Auge mischt sie zu einer Farbe.</p>
+          <p>Ein Foto mit 12 Millionen Pixeln hätte so rund 36 Millionen Bytes. Damit es weniger Platz braucht, wird es geschickt zusammengepresst (vereinfacht). Mit Musik ist es ähnlich: Zehntausende Zahlen pro Sekunde beschreiben, wie die Lautsprechermembran schwingen soll. Alles ist am Ende ein langes Muster aus 0 und 1. Was es bedeutet, legt das Programm fest.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Alles ist <em>an</em> oder <em>aus</em>.</h2>
+    <ul class="learned">
+      <li><b>Zählen mit zwei Ziffern</b><span>Jede Stelle ist doppelt so viel wert wie die davor. 8 Bit ergeben 256 Muster: Zahlen, Buchstaben oder Farben.</span></li>
+      <li><b>Gatter statt Denken</b><span>UND, ODER und NICHT folgen festen Regeln. Richtig verbunden addieren sie, ohne etwas zu verstehen.</span></li>
+      <li><b>Menge und Tempo</b><span>Milliarden Transistoren schalten Milliarden Mal pro Sekunde. Ein Mensch bräuchte für eine Sekunde davon ein ganzes Leben.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/computer.js"></script>
+</body>
+</html>
