@@ -15,6 +15,7 @@
     { id: 'bibel', name: 'Bibel verstehen', desc: 'Die ganze Bibel als geführter Weg', url: 'https://bibelerklaert.ch', c: '#A23FE6' },
     { id: 'musik-lexikon', name: 'soundcheck', desc: 'Musik und Instrumente', url: 'https://musik-lexikon.thinklabs.workers.dev', c: '#8B5CF6' },
     { id: 'sprachen-schriften', name: 'wordtrip', desc: 'Sprachen, Schriften und Zeichen', url: 'https://sprachen-schriften.thinklabs.workers.dev', c: '#E8336F' },
+    { id: 'koerper-atlas', name: 'bodyscan', desc: 'Der Mensch von innen, in 3D', url: 'https://koerper-atlas.thinklabs.workers.dev', c: '#F59E0B' },
   ];
   const cur = (me && me.dataset.site) || (SITES.find(s => location.origin === s.url) || {}).id;
   // Seiten, die (noch) nicht zum Lexikon gehören, zeigen keinen Knopf
