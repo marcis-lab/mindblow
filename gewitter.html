@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gewitter · mindblow</title>
+<meta name="description" content="Sekunden zählen und durch drei teilen, Eis und Graupel als Ladungstrenner, das Auto als Faradayscher Käfig: wie Blitz und Donner entstehen und wo der Blitz einschlägt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Erde &amp; Weltall</span>
+    <h1>Wie entsteht ein <em>Blitz</em>?</h1>
+    <p class="intro">Ein greller Strich am Himmel, Sekunden später ein Knall. Finde heraus, wie weit das Gewitter weg ist, wie sich eine Wolke elektrisch auflädt und warum du im Auto sicher bist.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Entfernung -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Blitz und Donner <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wie weit ist das Gewitter?</h2>
+      <p>Blitz und Donner entstehen im selben Augenblick. Trotzdem siehst du zuerst den Blitz und hörst erst später den Donner. Der Grund: <strong>Licht</strong> ist fast eine Million Mal schneller als <strong>Schall</strong>. Schall legt in der Luft nur rund <strong>343 Meter pro Sekunde</strong> zurück.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="distLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Zwischen Blitz und Donner zählst du 9 Sekunden. Wie weit weg ist der Blitz eingeschlagen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Etwa 9 km. Eine Sekunde pro Kilometer.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Etwa 3 km</span></button>
+          <button data-v="c"><span class="k">c</span><span>Etwa 1,8 km. Man teilt die Sekunden durch 5.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Das Licht ist praktisch sofort bei dir. Der Schall braucht für einen Kilometer rund <strong>3 Sekunden</strong>. Darum gilt: <strong>Sekunden zählen und durch 3 teilen</strong> ergibt die Entfernung in Kilometern. 9 Sekunden heisst also etwa 3 km.</p>
+          <p>Die Regel «durch 5 teilen» stimmt auch, aber für <strong>Meilen</strong>. Eine Meile ist etwa 1,6 km, dafür braucht der Schall rund 5 Sekunden. In Kilometern rechnest du mit 3. Probier es aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Siehst du in einer warmen Nacht Blitze, hörst aber keinen Donner, nennt man das Wetterleuchten. Es ist ein ganz normales Gewitter, nur so weit weg, dass der Donner unterwegs zu leise wird. Meist hört man Donner höchstens rund 10 bis 20 km weit.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="distCv" style="height:300px" aria-label="Eine Person in einer Landschaft. In der Ferne schlägt ein Blitz ein, eine Schallwelle läuft zur Person, ein Zähler zählt die Sekunden bis zum Donner"></canvas>
+        <div class="locked" id="distLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="dIn">Entfernung</label><input type="range" id="dIn" min="5" max="100" step="1" value="30" disabled><output id="dOut">3,0 km</output></div>
+        <div class="row">
+          <button class="btn" id="flashBtn" disabled>Blitz!</button>
+          <button class="btn ghost" id="randBtn" disabled>Zufälliger Ort</button>
+        </div>
+        <span class="status" id="distStatus">Drück auf «Blitz!» und zähl mit, bis der Donner bei der Person ankommt.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Gezählt bis zum Donner</span><span class="val" id="dSec">–</span><span class="formula">Schall: rund 343 m/s</span></div>
+        <div><span class="lbl">Sekunden ÷ 3</span><span class="val" id="dKm">–</span><span class="formula">Faustregel in km</span></div>
+        <div><span class="lbl">Licht braucht dafür</span><span class="val" id="dLight">10 µs</span><span class="formula">Millionstel Sekunden</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Ladungstrennung -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Die Wolke lädt sich auf <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Kraftwerk aus Eis</h2>
+      <p>Eine Gewitterwolke ist ein Turm, oft über 10 km hoch. In ihr steigt warme, feuchte Luft schnell auf: der <strong>Aufwind</strong>. Oben ist es weit unter null Grad. Dort schweben kleine <strong>Eiskristalle</strong> und schwerere, weiche Eiskörner, der <strong>Graupel</strong>.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="cloudLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie lädt sich eine Gewitterwolke elektrisch auf?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Zwei Wolken prallen zusammen und reiben sich</span></button>
+          <button data-v="b"><span class="k">b</span><span>In der Wolke stossen Eiskristalle und Graupel zusammen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Wolke saugt elektrische Ladung aus dem Boden</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Es passiert <strong>in einer einzigen Wolke</strong>. Im Aufwind stossen unzählige Eiskristalle und Graupelkörner zusammen. Bei jedem Stoss wechselt ein winziges bisschen Ladung den Besitzer. Meist werden die leichten Kristalle positiv und der Graupel negativ (vereinfacht: es hängt von Temperatur und Feuchte ab).</p>
+          <p>Der Aufwind trägt die leichten Kristalle nach oben, der schwere Graupel bleibt weiter unten. So wird die Wolke <strong>oben positiv, unten negativ</strong>. Die Spannung wächst, bis die Luft sie nicht mehr isolieren kann. Dann gleicht ein Blitz sie aus, mit rund <strong>30'000 Ampere</strong>. Dreh am Aufwind.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Der Blitzkanal wird für einen Sekundenbruchteil rund 30'000 Grad heiss, etwa fünfmal heisser als die Oberfläche der Sonne. Die Luft dehnt sich dabei explosionsartig aus. Diesen Knall hörst du als Donner.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="cloudCv" style="height:420px" aria-label="Eine Gewitterwolke mit Eiskristallen und Graupel. Ein Aufwind trägt die Teilchen, Ladungen trennen sich, bis ein Blitz die Spannung ausgleicht"></canvas>
+        <div class="locked" id="cloudLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="upIn">Aufwind</label><input type="range" id="upIn" min="0" max="100" step="1" value="60" disabled><output id="upOut">60 %</output></div>
+        <div class="row">
+          <button class="btn ghost" id="chargeBtn" disabled>Ladungen ausblenden</button>
+        </div>
+        <span class="status" id="cloudStatus">Kristalle (klein, hell) steigen mit dem Aufwind, Graupel (gross, grau) bleibt unten.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Spannung bis zum Blitz</span><span class="val" id="cV">0 %</span><span class="formula">vereinfacht</span></div>
+        <div><span class="lbl">Blitze</span><span class="val" id="cN">0</span><span class="formula" id="cRate">pro Minute: –</span></div>
+        <div><span class="lbl">Strom im Blitz</span><span class="val">rund 30'000 A</span><span class="formula">typischer Wert</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Einschlag -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Wo schlägt er ein? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Der Blitz sucht sich einen Weg</h2>
+      <p>Ein Blitz kommt nicht in einem Stück. Zuerst tastet sich ein schwach leuchtender <strong>Leitblitz</strong> in Stufen nach unten. Kurz vor dem Boden wachsen ihm von hohen Spitzen <strong>Fangentladungen</strong> entgegen. Wo sich beide treffen, schlägt der helle Hauptblitz ein. Darum trifft es oft hohe Punkte: Türme, Gipfel, einzelne Bäume.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="strikeLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Im Auto bist du bei Gewitter gut geschützt. Warum?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Gummireifen isolieren das Auto vom Boden</span></button>
+          <button data-v="b"><span class="k">b</span><span>Die Karosserie aus Metall leitet den Strom aussen um dich herum</span></button>
+          <button data-v="c"><span class="k">c</span><span>Autos sind zu niedrig, in sie schlägt nie ein Blitz ein</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Reifen helfen <strong>nicht</strong>. Ein Blitz, der kilometerweit durch die Luft geschlagen ist, überspringt ein paar Zentimeter Gummi mühelos. Schützen tut die <strong>geschlossene Metallhülle</strong>: Der Strom fliesst aussen über das Blech und springt am Ende zum Boden. Innen bleibt es fast feldfrei. Das nennt man einen <strong>Faradayschen Käfig</strong>.</p>
+          <p>In ein Auto kann der Blitz durchaus einschlagen. Ein Cabrio mit Stoffdach schützt dagegen kaum. Wähle unten, wo die Person steht, und lass es blitzen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>«Der Blitz schlägt nie zweimal am gleichen Ort ein» stimmt nicht. Hohe Türme und Sendemasten werden oft viele Male pro Jahr getroffen. Genau dafür haben sie einen Blitzableiter.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="strikeCv" style="height:380px" aria-label="Landschaft mit einem einzelnen Baum, einem Haus mit Blitzableiter, einem Auto und einer Person. Ein Leitblitz tastet sich nach unten und schlägt ein"></canvas>
+        <div class="locked" id="strikeLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="posSel">
+          <span class="eyebrow">Person:</span>
+          <button data-p="feld" class="active" disabled>Freies Feld</button>
+          <button data-p="baum" disabled>Unter dem Baum</button>
+          <button data-p="auto" disabled>Im Auto</button>
+          <button data-p="haus" disabled>Im Haus</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="boltBtn" disabled>Blitz auslösen</button>
+          <button class="btn ghost" id="rodBtn" disabled>Blitzableiter entfernen</button>
+        </div>
+        <span class="status" id="strikeStatus">Wo landet der Blitz? Probier es mehrmals, der Leitblitz ist jedes Mal anders.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Eingeschlagen in</span><span class="val" id="sHit" style="font-size:15px">–</span><span class="formula">nächster hoher Punkt</span></div>
+        <div><span class="lbl">Die Person</span><span class="val" id="sPerson" style="font-size:15px">–</span><span class="formula">vereinfacht</span></div>
+        <div><span class="lbl">Einschläge</span><span class="val" id="sCount" style="font-size:15px">–</span><span class="formula">Baum · Haus · Auto · Feld</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum rollt der Donner so lange?</h2>
+      <p>Schlägt ein Blitz ganz nah ein, hörst du einen kurzen, harten Knall. Ist er weiter weg, grollt und rollt der Donner oft viele Sekunden lang. Dabei dauert der Blitz selbst nur einen Sekundenbruchteil.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1. Schall braucht rund 3 Sekunden pro Kilometer. Und ein Blitz ist kein Punkt, sondern eine lange Linie.</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Der Blitzkanal ist <strong>mehrere Kilometer lang</strong>, oft mit Ästen und Zacken. Der Knall entsteht überall entlang des Kanals fast gleichzeitig. Aber die einzelnen Stücke sind <strong>verschieden weit von dir weg</strong>. Ein Stück 2 km entfernt ist nach rund 6 Sekunden bei dir, eines 5 km entfernt erst nach rund 15 Sekunden. Der Donner kommt also stückweise an und zieht sich in die Länge.</p>
+          <p>Dazu kommen <strong>Echos</strong>: Der Schall wird an Bergen, Hügeln und Häusern zurückgeworfen und kommt auf Umwegen nochmals bei dir an. In den Bergen rollt der Donner darum besonders lange. Je weiter weg der Blitz, desto tiefer und dumpfer klingt er, weil die Luft die hohen Töne stärker schluckt (vereinfacht).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Erst das Licht, dann der <em>Knall</em>.</h2>
+    <ul class="learned">
+      <li><b>Sekunden durch 3</b><span>Licht ist sofort da, Schall braucht rund 3 Sekunden pro Kilometer. So schätzt du die Entfernung.</span></li>
+      <li><b>Eis als Ladungstrenner</b><span>Kristalle und Graupel stossen im Aufwind zusammen. Oben wird es positiv, unten negativ, bis ein Blitz ausgleicht.</span></li>
+      <li><b>Hohe Punkte meiden</b><span>Der Blitz trifft gern das Höchste. Geh in ein Gebäude oder ins Auto, nie unter einen einzelnen Baum.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/gewitter.js"></script>
+</body>
+</html>
