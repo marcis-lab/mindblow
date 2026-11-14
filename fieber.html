@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fieber · mindblow</title>
+<meta name="description" content="Ein Thermostat im Gehirn, Schüttelfrost trotz Hitze und ein teures Abwehrmittel: warum dein Körper bei einer Infektion absichtlich aufheizt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Körper &amp; Gesundheit</span>
+    <h1>Wozu ist <em>Fieber</em> gut?</h1>
+    <p class="intro">Normalerweise hält dein Körper seine Temperatur erstaunlich genau bei etwa 37 °C. Bei einer Infektion heizt er plötzlich auf 38, 39 oder sogar 40 °C. Ist das ein Fehler? Oder Absicht? Finde heraus, wer da am Thermostat dreht und was es bringt.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Thermostat -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Das Thermostat im Gehirn <span class="chip solved-chip">gelöst</span></span>
+      <h2>Zittern, obwohl du glühst</h2>
+      <p>Tief in deinem Gehirn sitzt der <strong>Hypothalamus</strong>. Er arbeitet wie das Thermostat einer Heizung: Er vergleicht die gemessene Temperatur mit einem <strong>Sollwert</strong>. Ist es zu kalt, lässt er heizen. Ist es zu warm, lässt er kühlen.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="thermoLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie entsteht Fieber?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Der Körper überhitzt, weil die Abwehr so hart arbeitet und dabei Wärme abgibt</span></button>
+          <button data-v="b"><span class="k">b</span><span>Das Gehirn stellt den Sollwert absichtlich höher, und der Körper heizt nach</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Keime selbst geben Wärme ab und heizen den Körper auf</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Fieber ist <strong>kein Überhitzen</strong>. Abwehrzellen schütten bei einer Infektion Botenstoffe aus. Diese gelangen zum Hypothalamus und lassen ihn den <strong>Sollwert höher stellen</strong>, zum Beispiel auf 39 °C. Das Thermostat hält deine normalen 37 °C nun für zu kalt.</p>
+          <p>Darum <strong>frierst</strong> du am Anfang, obwohl du schon heiss bist: Du zitterst (Schüttelfrost), bekommst Gänsehaut, und die Haut wird blass, weil sich die Gefässe verengen. Sinkt der Sollwert wieder, ist dir plötzlich zu heiss, und du <strong>schwitzt</strong>. Dreh selbst am Thermostat.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Bei einem Hitzschlag ist es genau umgekehrt: Der Sollwert bleibt normal, aber der Körper wird von aussen zu heiss und kann nicht genug kühlen. Das ist kein Fieber, sondern echte Überhitzung.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="thermoCv" style="height:320px" aria-label="Verlauf von Sollwert und Körpertemperatur über die Zeit, daneben eine Figur, die friert oder schwitzt"></canvas>
+        <div class="locked" id="thermoLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="setIn">Sollwert im Gehirn</label><input type="range" id="setIn" min="365" max="405" step="1" value="370" disabled><output id="setOut">37,0 °C</output></div>
+        <div class="row">
+          <button class="btn" id="infOn" disabled>Infekt beginnt</button>
+          <button class="btn ghost" id="infOff" disabled>Infekt vorbei</button>
+        </div>
+        <span class="status" id="thermoStatus">Die gestrichelte Linie ist der Sollwert, die volle Linie deine echte Temperatur.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Sollwert</span><span class="val" id="tSet">37,0 °C</span><span class="formula">eingestellt im Gehirn</span></div>
+        <div><span class="lbl">Körpertemperatur</span><span class="val" id="tIst">37,0 °C</span><span class="formula">1 s ≈ 5 min, vereinfacht</span></div>
+        <div><span class="lbl">Fühlt sich an wie</span><span class="val" id="tFeel" style="font-size:15px">angenehm</span><span class="formula" id="tDo">nichts zu tun</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Warum höher hilft -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Warum wärmer hilft <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein paar Grad machen einen Unterschied</h2>
+      <p>Viele Bakterien und Viren, die Menschen krank machen, sind genau auf deine normale Temperatur eingestellt. Bei 37 °C fühlen sie sich am wohlsten. Dein Fieber verschiebt die Bedingungen.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="raceLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie hilft Fieber gegen Keime?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Bei 39 °C werden die Keime einfach gekocht und sterben</span></button>
+          <button data-v="b"><span class="k">b</span><span>Viele Keime vermehren sich langsamer, und manche Abwehrzellen arbeiten schneller</span></button>
+          <button data-v="c"><span class="k">c</span><span>Gar nicht. Fieber ist nur eine lästige Nebenwirkung der Krankheit</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Gekocht wird nichts: Die meisten Keime überleben 40 °C problemlos. Aber viele von ihnen <strong>vermehren sich langsamer</strong>, wenn es ein paar Grad wärmer ist. Gleichzeitig arbeiten Teile deiner Abwehr <strong>schneller</strong>: Abwehrzellen wandern zügiger zum Infektionsort, und manche Zellen vermehren sich rascher.</p>
+          <p>Fieber verschiebt also das Rennen zwischen Keimen und Abwehr ein Stück zu deinen Gunsten. Das ist kein Wundermittel. Wie gross der Vorteil ist, hängt stark vom Keim ab. Das Modell unten zeigt nur die Richtung, keine echten Messwerte.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Vor rund 100 Jahren infizierten Ärzte Menschen mit einer späten Form der Syphilis absichtlich mit Malaria. Das hohe Fieber schadete dem empfindlichen Syphilis-Erreger. Für diese gefährliche Behandlung gab es 1927 sogar einen Nobelpreis. Heute ist sie längst durch Antibiotika ersetzt.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="raceCv" style="height:340px" aria-label="Modell: Vermehrung der Keime und Tempo der Abwehr in Abhängigkeit von der Körpertemperatur zwischen 36 und 41 °C"></canvas>
+        <div class="locked" id="raceLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="tempIn">Körpertemperatur</label><input type="range" id="tempIn" min="360" max="410" step="1" value="370" disabled><output id="tempOut">37,0 °C</output></div>
+        <div class="row">
+          <button class="btn ghost" id="t37" disabled>Normal</button>
+          <button class="btn ghost" id="t39" disabled>Fieber 39 °C</button>
+          <button class="btn ghost" id="t41" disabled>Sehr hoch</button>
+        </div>
+        <span class="status" id="raceStatus">Vereinfachtes Modell: 37 °C = 100 %. Es zeigt die Richtung, keine echten Messwerte.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Vermehrung der Keime</span><span class="val" id="rBug">100 %</span><span class="formula">Modell, 37 °C = 100 %</span></div>
+        <div><span class="lbl">Tempo der Abwehr</span><span class="val" id="rDef">100 %</span><span class="formula">Modell, 37 °C = 100 %</span></div>
+        <div><span class="lbl">Im Vorteil</span><span class="val" id="rWin" style="font-size:15px">ausgeglichen</span><span class="formula">Abwehr ÷ Keime</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Kosten -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Der Preis der Hitze <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum Fieber so müde macht</h2>
+      <p>Heizen kostet. Dein Körper verbrennt ohnehin ständig Nährstoffe, auch im Schlaf. Diesen Grundbedarf nennt man <strong>Ruheumsatz</strong>. Bei einem Erwachsenen sind das je nach Grösse und Gewicht rund 1'300 bis 2'000 Kilokalorien pro Tag.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="energyLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du hast 1 Grad Fieber und liegst im Bett. Wie viel mehr Energie braucht dein Körper?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Kaum mehr, vielleicht 1 Prozent</span></button>
+          <button data-v="b"><span class="k">b</span><span>Rund 10 Prozent mehr</span></button>
+          <button data-v="c"><span class="k">c</span><span>Etwa doppelt so viel</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Oft genannt wird: pro Grad Fieber <strong>rund 10 Prozent</strong> mehr Energie, je nach Mensch und Studie etwas mehr oder weniger. Bei 39 °C sind das also rund 20 Prozent. Der Grund: Fast alle chemischen Vorgänge in deinen Zellen laufen bei mehr Wärme schneller und verbrauchen mehr. Dazu kommt das Zittern beim Aufheizen, das viel Energie frisst.</p>
+          <p>Darum bist du mit Fieber so <strong>müde</strong>. Und darum hast du oft <strong>keinen Appetit</strong>: Der Körper fährt alles herunter, was nicht nötig ist, und steckt die Kraft in die Abwehr (vereinfacht, ganz geklärt ist das nicht). Probier aus, was das pro Tag ausmacht.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Gut zu wissen</span>
+        <p>Fieber ist meist ein nützliches Abwehrmittel. Bei hohem oder lange dauerndem Fieber und bei Säuglingen gilt aber: eine Ärztin oder einen Arzt fragen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="energyCv" style="height:320px" aria-label="Zwei Balken vergleichen den Energiebedarf bei 37 °C und mit Fieber, daneben der Mehrbedarf in Bananen"></canvas>
+        <div class="locked" id="energyLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="feverIn">Körpertemperatur</label><input type="range" id="feverIn" min="370" max="410" step="1" value="390" disabled><output id="feverOut">39,0 °C</output></div>
+        <div class="ctrl"><label for="baseIn">Ruheumsatz</label><input type="range" id="baseIn" min="1200" max="2200" step="50" value="1600" disabled><output id="baseOut">1'600 kcal</output></div>
+        <span class="status" id="energyStatus">Vereinfacht: rund 10 Prozent mehr pro Grad über 37 °C, nur in Ruhe gerechnet.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Mehrbedarf</span><span class="val" id="eExtraP">+20 %</span><span class="formula">rund 10 % pro Grad</span></div>
+        <div><span class="lbl">Zusätzlich pro Tag</span><span class="val" id="eExtra">320 kcal</span><span class="formula">zum Ruheumsatz dazu</span></div>
+        <div><span class="lbl">Entspricht etwa</span><span class="val" id="eBan">3 Bananen</span><span class="formula">à rund 100 kcal</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum bekommen Eidechsen Fieber?</h2>
+      <p>Eidechsen können ihren Körper nicht selbst heizen. Ihre Temperatur hängt davon ab, ob sie in der Sonne oder im Schatten sitzen. Forscher haben Wüstenleguane mit Bakterien angesteckt und ihnen warme und kühle Plätze angeboten. Die kranken Tiere suchten sich deutlich wärmere Plätze als die gesunden.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1. Wer stellt den Sollwert ein, und wie kommt ein Körper ohne eigene Heizung auf diesen Wert?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Auch bei Eidechsen verstellt die Infektion den Sollwert im Gehirn, über ähnliche Botenstoffe wie bei dir. Weil sie nicht zittern und heizen können, erreichen sie den neuen Wert mit dem <strong>Verhalten</strong>: Sie suchen sich wärmere Plätze. Man nennt das <strong>Verhaltensfieber</strong>. In weiteren Versuchen überlebten Tiere, die man warm hielt, die Infektion häufiger als jene, die kühl bleiben mussten.</p>
+          <p>Verhaltensfieber kennt man auch bei Fischen und sogar bei manchen Insekten. Fieber ist also kein Zufall und keine Panne. Es ist ein <strong>sehr altes Abwehrmittel</strong>, das es schon lange vor den Säugetieren gab. Hätte es nichts gebracht, wäre es im Lauf der Evolution kaum so lange erhalten geblieben, obwohl es so viel Energie kostet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Fieber ist <em>Absicht</em>.</h2>
+    <ul class="learned">
+      <li><b>Höherer Sollwert</b><span>Botenstoffe der Abwehr lassen das Gehirn den Sollwert höher stellen. Darum frierst du beim Aufheizen und schwitzt, wenn es vorbei ist.</span></li>
+      <li><b>Vorteil für die Abwehr</b><span>Viele Keime vermehren sich bei ein paar Grad mehr langsamer, und Teile der Abwehr arbeiten schneller.</span></li>
+      <li><b>Teure Waffe</b><span>Pro Grad braucht der Körper rund 10 Prozent mehr Energie. Darum macht Fieber müde, und der Appetit fehlt.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/fieber.js"></script>
+</body>
+</html>
