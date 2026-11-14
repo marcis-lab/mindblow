@@ -57,7 +57,7 @@ window.MB_THEMEN = {
   THEMEN: [
     /* ---------- Körper & Gesundheit ---------- */
     { slug: 'herz', b: 'koerper', g: 'herz-kreislauf', short: 'Herz', title: 'Wie arbeitet dein <em>Herz?</em>', teaser: 'Rund 100\'000 Schläge am Tag, ein Leben lang ohne Pause. Was pumpt da eigentlich wohin?', tags: 'herz puls blut kreislauf pumpe herzschlag blutdruck arterie vene anatomie', added: '2026-11-14' },
-    { slug: 'blut', b: 'koerper', g: 'herz-kreislauf', soon: true, short: 'Blut', title: 'Was steckt im <em>Blut?</em>', teaser: 'Rote Blutkörperchen, Plasma, Blutplättchen: ein flüssiges Organ.', tags: 'blut blutgruppe blutspende eisen hämoglobin' },
+    { slug: 'blut', b: 'koerper', g: 'herz-kreislauf', short: 'Blut', title: 'Was steckt im <em>Blut?</em>', teaser: 'Rote Blutkörperchen, Plasma, Blutplättchen: ein flüssiges Organ.', tags: 'blut blutgruppe blutspende eisen hämoglobin', added: '2026-11-14' },
     { slug: 'lunge', b: 'koerper', g: 'atmung', short: 'Atmung', title: 'Wie kommt Luft <em>ins Blut?</em>', teaser: 'Innen ist deine Lunge so gross wie eine ganze Wohnung. Wozu so viel Fläche?', tags: 'lunge atmung atmen sauerstoff co2 lungenkreislauf lungenbläschen alveolen zwerchfell anatomie', added: '2026-11-14' },
     { slug: 'ersticken', b: 'koerper', g: 'atmung', soon: true, short: 'Atemreiz', title: 'Warum musst du <em>atmen?</em>', teaser: 'Nicht der fehlende Sauerstoff zwingt dich zum Luftholen, sondern etwas anderes.', tags: 'atemreiz co2 luft anhalten tauchen' },
     { slug: 'bewegung', b: 'koerper', g: 'bewegung', short: 'Knochen & Muskeln', title: 'Wie bewegt sich dein <em>Körper?</em>', teaser: 'Muskeln können nur ziehen, nie stossen. Wie streckst du dann deinen Arm?', tags: 'knochen muskeln skelett gelenk hebel sehne anatomie bizeps trizeps bewegung', added: '2026-11-14' },
@@ -70,7 +70,7 @@ window.MB_THEMEN = {
     { slug: 'gehoer', b: 'koerper', g: 'sinne', short: 'Hören', title: 'Wie hörst du <em>Töne?</em>', teaser: 'Schall ist nur Luft, die hin und her schubst. Wie wird daraus Musik in deinem Kopf?', tags: 'hören ohr schall ton frequenz musik hertz cochlea gehör', added: '2026-11-14' },
     { slug: 'geschmack', b: 'koerper', g: 'sinne', soon: true, short: 'Geschmack', title: 'Warum schmeckt Essen mit Schnupfen <em>nach nichts?</em>', teaser: 'Deine Zunge kann viel weniger, als du denkst.', tags: 'geschmack zunge nase riechen' },
     { slug: 'gedaechtnis', b: 'koerper', g: 'gehirn', short: 'Gedächtnis', title: 'Wie erinnert sich das <em>Gehirn?</em>', teaser: 'Dein Gedächtnis ist keine Festplatte. Es erfindet mit, und du merkst es nicht.', tags: 'gedächtnis gehirn erinnern lernen vergessen neuronen', added: '2026-11-13' },
-    { slug: 'schlaf', b: 'koerper', g: 'gehirn', soon: true, short: 'Schlaf', title: 'Warum müssen wir <em>schlafen?</em>', teaser: 'Ein Drittel des Lebens, scheinbar nutzlos. Was tut das Gehirn in der Nacht?', tags: 'schlaf traum müde gehirn' },
+    { slug: 'schlaf', b: 'koerper', g: 'gehirn', short: 'Schlaf', title: 'Warum müssen wir <em>schlafen?</em>', teaser: 'Ein Drittel des Lebens, scheinbar nutzlos. Was tut das Gehirn in der Nacht?', tags: 'schlaf traum müde gehirn', added: '2026-11-14' },
     { slug: 'nerven', b: 'koerper', g: 'gehirn', soon: true, short: 'Nerven', title: 'Wie schnell ist ein <em>Gedanke?</em>', teaser: 'Nervensignale sind elektrisch, aber viel langsamer als Strom im Kabel.', tags: 'nerven reflex reaktion neuronen' },
 
     /* ---------- Pflanzen, Tiere & Evolution ---------- */
