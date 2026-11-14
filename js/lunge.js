@@ -8,7 +8,7 @@
   // bewusst feste Farben: Lungengewebe und Blut sehen hell und dunkel gleich aus
   const LUNG = 'rgba(232,128,146,0.82)', LUNG_EDGE = 'rgba(160,60,80,0.9)';
   const blood = s => { // s = Sättigung 0..1: dunkles zu hellem Rot
-    const t = clamp((s - .5) / .5, 0, 1);
+    const t = clamp((s - .4) / .6, 0, 1);
     return `rgb(${Math.round(lerp(120, 214, t))},${Math.round(lerp(22, 38, t))},${Math.round(lerp(48, 44, t))})`;
   };
 
@@ -136,7 +136,7 @@
     ctx.fillText('Lunge', bx[0], by + r + 14);
     ctx.fillText('Lunge', bx[1], by + r + 14);
     ctx.fillStyle = C.copper; ctx.textAlign = 'left';
-    ctx.fillText('Zwerchfell', jx + 12, bottom - 10);
+    ctx.fillText('Zwerchfell', jx + 12, bottom + 18);
     ctx.fillStyle = C.muted; ctx.textAlign = 'right';
     ctx.fillText('Brustraum', jx + jw - 14, jy + 20);
     // Strömung und Druck
@@ -187,11 +187,11 @@
     $('#trCount').textContent = bigNum(2 ** g);
     $('#trDiam').textContent = DIAM[g] >= 1 ? `${fmt(DIAM[g], DIAM[g] >= 10 ? 0 : 1)} mm` : `${fmt(DIAM[g], 2)} mm`;
     const a = AREA[g];
-    $('#trArea').textContent = `${fmt(a, a < 10 ? 1 : 0)} m²`;
+    $('#trArea').textContent = `${fmt(a, a < 1 ? 2 : a < 10 ? 1 : 0)} m²`;
     let m;
     if (g === 0) m = 'Stufe 0 ist die Luftröhre. Schieb den Regler nach rechts.';
     else if (g === 1) m = 'Stufe 1: die zwei Hauptbronchien, einer für jeden Lungenflügel.';
-    else if (g < 17) m = `Bis hier nur Leitungen: Sie wärmen, befeuchten und reinigen die Luft. Ins Blut kommt hier noch nichts. Fläche: kaum ${fmt(a, 1)} m².`;
+    else if (g < 17) m = `Bis hier nur Leitungen: Sie wärmen, befeuchten und reinigen die Luft. Ins Blut kommt hier noch nichts. Fläche bisher: nur ${fmt(a, 2)} m².`;
     else if (g < 23) m = `Ab Stufe 17 sitzen Lungenbläschen an den Wänden. Bisher rund ${bigNum(ALVS[g])} Bläschen, die Fläche wächst rasant.`;
     else m = `Stufe 23: rund ${bigNum(2 ** g)} Endästchen und etwa ${fmt(ALVS[g] / 1e6, 0)} Mio. Bläschen mit rund ${fmt(a, 0)} m². Echte Lungen haben 300 bis 500 Mio. Bläschen und 70 bis 100 m².`;
     $('#treeStatus').textContent = m;
@@ -287,7 +287,7 @@
   $$('#altPresets button').forEach(b => b.addEventListener('click', () => { GS.alt = +b.dataset.alt; updGas(); }));
   updGas();
 
-  const VEN = .75; // Sättigung des Blutes, das zur Lunge kommt (in Ruhe, vereinfacht)
+  const venous = () => Math.max(.3, GS.sat - .23); // Blut, das zur Lunge kommt: in Ruhe rund ein Viertel weniger beladen (vereinfacht)
   let gasGeo = null;
   const gasLayout = (w, h) => {
     const wallY = Math.round(h * .5), wallT = 6;
@@ -337,7 +337,7 @@
       c.x += flowV * dt;
       // Sättigung nimmt entlang der Kapillare zu, bis zum Wert, den der O₂-Druck erlaubt
       const f = clamp(c.x / (G.w * .45), 0, 1);
-      c.sat = lerp(VEN, GS.sat, 1 - Math.pow(1 - f, 2));
+      c.sat = lerp(venous(), GS.sat, 1 - Math.pow(1 - f, 2));
       if (c.x > G.w + 30) { c.x -= G.w + 60; c.y = lerp(G.capTop + 18, G.capBot - 18, Math.random()); c.load = []; }
     });
     // CO₂: kommt mit dem Blut, wandert in die Luft und wird ausgeatmet
@@ -375,7 +375,7 @@
     GS.rbc.forEach(c => {
       const rx = narrow ? 15 : 18, ry = rx * .55;
       ctx.beginPath(); ctx.ellipse(c.x, c.y, rx, ry, 0, 0, TAU);
-      ctx.fillStyle = blood(c.sat ?? VEN); ctx.fill();
+      ctx.fillStyle = blood(c.sat ?? venous()); ctx.fill();
       ctx.beginPath(); ctx.ellipse(c.x, c.y, rx * .5, ry * .45, 0, 0, TAU);
       ctx.fillStyle = 'rgba(0,0,0,0.12)'; ctx.fill();
       ctx.fillStyle = C.fiber;

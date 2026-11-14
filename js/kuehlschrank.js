@@ -271,9 +271,9 @@
       }
       ctx.stroke(); ctx.restore();
       // Name an der Kurve
-      const pl = k === 'water' ? .12 : 4, yl = Y(S.bp(pl));
+      const pl = k === 'water' ? .12 : .07, yl = Y(S.bp(pl));
       ctx.globalAlpha = act ? 1 : .45; ctx.fillStyle = S.col(); ctx.font = mono(11); ctx.textAlign = 'left';
-      ctx.fillText(narrow && k === 'iso' ? 'Kältem.' : S.name, X(pl) + 6, yl + (k === 'water' ? -8 : 16));
+      ctx.fillText(S.name, X(pl) + 6, yl - 10);
       ctx.globalAlpha = 1;
     }
     // Zustände
@@ -312,7 +312,7 @@
 
   /* ---------- Teil 3: Der Kreislauf ---------- */
   const cycCv = $('#cycCv');
-  const P_EL = 60, CAP = 20000, UA_CLOSED = 1.7, UA_OPEN = 40, T_EVAP = -25, SPEED = 60;
+  const P_EL = 60, CAP = 8000, UA_CLOSED = 1.7, UA_OPEN = 40, T_EVAP = -25, SPEED = 60;
   const FC = { Tk: 25, Tin: 5, door: false, on: false, run: false, phase: 0, avg: 0, avgT: 0, txt: 0 };
   // Leistungszahl: vereinfacht 45 % des theoretischen Bestwerts (Carnot)
   const cop = () => { const tc = T_EVAP + 273.15, th = FC.Tk + 15 + 273.15; return .45 * tc / (th - tc); };
@@ -329,7 +329,7 @@
     FC.door = !FC.door; FC.avg = 0; FC.avgT = 0;
     $('#doorBtn').textContent = FC.door ? 'Tür schliessen' : 'Tür öffnen';
     $('#cycStatus').textContent = FC.door
-      ? 'Tür offen: Der Kompressor läuft ohne Pause. Die Wärme, die er innen holt, kommt aus der Küche und geht hinten zurück in die Küche. Dazu kommen 60 W Strom.'
+      ? 'Tür offen: Zuerst strömt Küchenwärme in den kalten Innenraum. Dann läuft der Kompressor ohne Pause. Die Wärme, die er innen holt, geht hinten zurück in die Küche, und 60 W Strom kommen dazu. Schau, wo der Schnitt landet.'
       : 'Tür zu: Der Innenraum kühlt ab, dann schaltet das Thermostat den Kompressor aus. Im Schnitt bekommt die Küche nur die Wärme aus dem Strom.';
   });
   $('#cycReset').addEventListener('click', () => { cycReset(); $('#cycStatus').textContent = 'Neu gestartet: innen 5 °C.'; });
@@ -341,7 +341,7 @@
     const ua = FC.door ? UA_OPEN : UA_CLOSED;
     FC.Tin += (ua * (FC.Tk - FC.Tin) - (FC.on ? qCold() : 0)) / CAP * sdt;
     FC.avgT += sdt;
-    const wgt = Math.min(1, sdt / Math.min(FC.avgT, 3600));
+    const wgt = Math.min(1, sdt / Math.min(FC.avgT, 1200));
     FC.avg += (net() - FC.avg) * wgt;
     if (FC.on) FC.phase = (FC.phase + dt * (reduced ? .025 : .07)) % 1;
     FC.txt += dt; if (FC.txt > .2) { FC.txt = 0; updCyc(); }
@@ -458,10 +458,10 @@
     }
     // Beschriftung
     ctx.font = mono(10); ctx.textAlign = 'center';
-    ctx.fillStyle = cold; ctx.fillText(narrow ? 'kalt' : 'Verdampfer', ex, y0 + (y1 - y0) * .55 + 18);
-    ctx.fillStyle = hot;
-    ctx.save(); ctx.translate(cx + (narrow ? 22 : 24), y1 - 16); ctx.textAlign = 'right';
-    ctx.fillText(narrow ? 'warm' : 'Kondensator', 0, 0); ctx.restore();
+    ctx.fillStyle = cold; ctx.textAlign = 'right';
+    ctx.fillText(narrow ? 'kalt' : 'Verdampfer', ex - 16, y0 + (y1 - y0) * .55 + 4);
+    ctx.fillStyle = hot; ctx.textAlign = 'left';
+    ctx.fillText(narrow ? 'warm' : 'Kondensator', cx + 16, y1 - 20);
     ctx.fillStyle = C.fg; ctx.font = mono(narrow ? 12 : 13); ctx.textAlign = 'center';
     const ix = (x0 + ex - 20) / 2;
     ctx.fillText('Innen', ix, y1 - 40);
