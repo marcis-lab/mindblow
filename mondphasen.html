@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mondphasen · mindblow</title>
+<meta name="description" content="Die Sonne beleuchtet immer eine Hälfte des Mondes. Wie daraus Sichel, Halbmond und Vollmond werden, wie du zunehmend von abnehmend unterscheidest und warum es nicht jeden Monat eine Mondfinsternis gibt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Erde &amp; Weltall</span>
+    <h1>Warum ändert der Mond seine <em>Form</em>?</h1>
+    <p class="intro">Mal eine schmale Sichel, mal eine runde Scheibe, mal gar nichts. Dabei ist der Mond immer gleich rund. Finde heraus, was sich wirklich ändert und warum der Erdschatten fast nie etwas damit zu tun hat.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Immer halb beleuchtet -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Immer halb beleuchtet <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Ball im Sonnenlicht</h2>
+      <p>Der Mond leuchtet nicht selbst. Er ist eine Kugel aus grauem Gestein und wirft nur das Licht der Sonne zurück. Die Sonne beleuchtet immer <strong>genau eine Hälfte</strong> von ihm, so wie auf der Erde immer auf einer Hälfte Tag ist. In rund <strong>29,5 Tagen</strong> wandert der Mond einmal von Neumond zu Neumond.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="orbLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum siehst du manchmal nur eine schmale Sichel?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Der Schatten der Erde fällt auf den Rest des Mondes</span></button>
+          <button data-v="b"><span class="k">b</span><span>Du schaust schräg von der Seite auf die beleuchtete Hälfte</span></button>
+          <button data-v="c"><span class="k">c</span><span>Der Mond dreht sich und zeigt dir einen Teil seiner dunklen Rückseite</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die beleuchtete Hälfte ist immer gleich gross. Was sich ändert, ist dein <strong>Blickwinkel</strong>. Steht der Mond fast zwischen Erde und Sonne, zeigt seine helle Seite von dir weg: Du siehst nur einen schmalen Rand, die Sichel. Steht er gegenüber der Sonne, schaust du voll auf die helle Hälfte: Vollmond. Dazwischen siehst du genau halb auf die helle Seite: Halbmond.</p>
+          <p>Der Erdschatten zeigt immer von der Sonne weg. Bei Sichel und Halbmond ist der Mond weit davon entfernt. Schieb den Mond selbst um die Erde.</p>
+          <p>Vereinfacht: Für eine Runde um die Erde braucht der Mond 27,3 Tage. Weil die Erde inzwischen ein Stück um die Sonne weitergewandert ist, dauert es von Neumond zu Neumond rund 29,5 Tage.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Der Mond zeigt uns immer dieselbe Seite. Er dreht sich genau einmal um sich selbst, während er einmal um die Erde läuft. Seine Rückseite ist aber nicht dunkel: Bei Neumond liegt sie voll in der Sonne.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="orbCv" style="height:420px" aria-label="Links die Draufsicht auf Sonne, Erde und Mondbahn, rechts der Mond so, wie man ihn von der Erde aus sieht"></canvas>
+        <div class="locked" id="orbLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="dayIn">Tag nach Neumond</label><input type="range" id="dayIn" min="0" max="29.5" step="0.1" value="4" disabled><output id="dayOut">Tag 4,0</output></div>
+        <div class="row">
+          <button class="btn" id="orbPlay" disabled>Einen Monat abspielen</button>
+          <button class="btn ghost" id="orbHalf" disabled>Halbmond</button>
+          <button class="btn ghost" id="orbFull" disabled>Vollmond</button>
+        </div>
+        <span class="status" id="orbStatus">Die helle Hälfte zeigt immer zur Sonne. Der farbige Bogen markiert die Hälfte, die zur Erde schaut.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Phase</span><span class="val" id="oPhase" style="font-size:15px">Sichel</span><span class="formula">Nordhalbkugel</span></div>
+        <div><span class="lbl">Von der Erde aus hell</span><span class="val" id="oLit">15 %</span><span class="formula">sichtbarer Teil der Scheibe</span></div>
+        <div><span class="lbl">Von der Sonne beleuchtet</span><span class="val">50 %</span><span class="formula">der Mondkugel, immer</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Zunehmend oder abnehmend -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Zunehmend oder abnehmend? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Die Rundung verrät es</h2>
+      <p>Der Mond wandert jeden Tag ein Stück weiter um die Erde. Darum geht er jeden Tag rund <strong>50 Minuten später</strong> auf (im Schnitt, je nach Jahreszeit deutlich mehr oder weniger). Das ist derselbe Grund, warum die Flut jeden Tag später kommt.</p>
+      <div class="quiz" data-q="q2" data-correct="a" data-unlock="guessLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Am frühen Abend steht eine schmale Sichel im Westen. Ihre Rundung zeigt nach rechts. Was macht der Mond?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Er nimmt zu. In ein paar Tagen ist Halbmond.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Er nimmt ab. Bald ist Neumond.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Das kann man an der Form allein nicht erkennen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die helle Seite zeigt immer zur Sonne. Am Abend steht die Sonne im Westen, also rechts von dir, wenn du nach Süden schaust. Eine Abendsichel ist darum rechts hell: Sie hat sich gerade von der Sonne gelöst und <strong>nimmt zu</strong>. Die Morgensichel vor Neumond ist links hell.</p>
+          <p>Die Merkregel für uns auf der Nordhalbkugel: Ergänze die Sichel in Gedanken mit einem senkrechten Strich. Rundung links ergibt ein <strong>a</strong> wie abnehmend. Rundung rechts ergibt ein <strong>z</strong> wie zunehmend, so wie man das z früher in Schreibschrift schrieb. Rate selbst.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Bei einer schmalen Sichel siehst du oft auch den Rest des Mondes schwach grau schimmern. Das ist Sonnenlicht, das zuerst von der Erde und dann vom Mond zurückgeworfen wird: das aschgraue Mondlicht. Leonardo da Vinci hat es schon vor 500 Jahren richtig erklärt.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="guessCv" style="height:380px" aria-label="Ein Mond am Nachthimmel und darunter eine Zeitachse über 24 Stunden, die zeigt, wann er über dem Horizont steht"></canvas>
+        <div class="locked" id="guessLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="row">
+          <button class="btn" id="zuBtn" disabled>Zunehmend</button>
+          <button class="btn" id="abBtn" disabled>Abnehmend</button>
+          <button class="btn ghost" id="nextBtn" disabled>Nächster Mond</button>
+        </div>
+        <div class="ctrl"><label for="gIn">Phase selbst wählen</label><input type="range" id="gIn" min="0" max="29.5" step="0.1" value="20" disabled><output id="gOut">Mond</output></div>
+        <span class="status" id="guessStatus">Schau dir den Mond an und rate: zunehmend oder abnehmend?</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Form</span><span class="val" id="gShape" style="font-size:15px">Sichel</span><span class="formula">von der Schweiz aus</span></div>
+        <div><span class="lbl">Mondaufgang</span><span class="val" id="gRise" style="font-size:15px">?</span><span class="formula">rund, vereinfacht</span></div>
+        <div><span class="lbl">Gut zu sehen</span><span class="val" id="gWhen" style="font-size:15px">?</span><span class="formula" id="gScore">noch nicht geraten</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Mondfinsternis -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Mondfinsternis <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wann der Erdschatten wirklich trifft</h2>
+      <p>Einmal im Monat steht der Mond der Sonne gegenüber, hinter der Erde: Vollmond. Genau dort zeigt auch der Schatten der Erde hin. Trotzdem wird der Vollmond nur selten dunkel.</p>
+      <div class="quiz" data-q="q3" data-correct="c" data-unlock="eclLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum gibt es nicht bei jedem Vollmond eine Mondfinsternis?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Der Erdschatten reicht meistens nicht bis zum Mond</span></button>
+          <button data-v="b"><span class="k">b</span><span>Es gibt jedes Mal eine, aber meistens am Tag, wenn wir den Mond nicht sehen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Mondbahn ist etwas geneigt. Meist zieht der Mond knapp über oder unter dem Schatten vorbei.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Bahn des Mondes ist gegenüber der Bahn der Erde um die Sonne um rund <strong>5 Grad gekippt</strong>. Das klingt nach wenig. Aber beim Mond ist der Erdschatten nur knapp drei Monddurchmesser breit. Meistens verfehlt ihn der Vollmond, mal oben, mal unten.</p>
+          <p>Nur wenn ein Vollmond gerade dort stattfindet, wo die Mondbahn die Ebene der Erdbahn kreuzt, taucht er in den Schatten. Das klappt nur in zwei Zeitfenstern pro Jahr, und auch dann nicht immer. Bei Neumond geht es um etwas ganz anderes: Dann steht der Mond zwischen Erde und Sonne. Liegt er genau auf der Linie, wirft er seinen Schatten auf die Erde. Das ist eine Sonnenfinsternis.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Bei einer totalen Mondfinsternis wird der Mond nicht schwarz, sondern kupferrot. Die Lufthülle der Erde lenkt etwas Sonnenlicht in den Schatten, vor allem rotes. Auf den Mond fällt dann das Licht aller Sonnenaufgänge und Sonnenuntergänge der Erde zugleich.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="eclCv" style="height:380px" aria-label="Seitenansicht von Sonne, Erde und geneigter Mondbahn mit dem Erdschatten. Ein Bild oben rechts zeigt den Vollmond von der Erde aus"></canvas>
+        <div class="locked" id="eclLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="nIn">Vollmond Nummer</label><input type="range" id="nIn" min="1" max="37" step="1" value="1" disabled><output id="nOut">1 von 37</output></div>
+        <div class="row">
+          <button class="btn" id="eclPlay" disabled>Drei Jahre abspielen</button>
+          <button class="btn ghost" id="eclNext" disabled>Zur nächsten Finsternis</button>
+        </div>
+        <span class="status" id="eclStatus">37 Vollmonde, rund drei Jahre. Schau, wo der Mond am Schatten vorbeizieht.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Mond neben der Schattenmitte</span><span class="val" id="eOff" style="font-size:15px">–</span><span class="formula">als Winkel von der Erde aus</span></div>
+        <div><span class="lbl">Ergebnis</span><span class="val" id="eRes" style="font-size:15px">–</span><span class="formula">bei diesem Vollmond</span></div>
+        <div><span class="lbl">Neumond davor</span><span class="val" id="eNew" style="font-size:15px">–</span><span class="formula">zwei Wochen früher</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Sehen Menschen in Australien den Mond anders?</h2>
+      <p>Am selben Abend schaut jemand in Sydney zum Himmel, auf der anderen Seite der Erdkugel. Dort steht derselbe Mond wie bei uns, am selben Tag in derselben Phase. Gilt die Merkregel aus Teil 2 dort auch?</p>
+      <p><strong>Tipp:</strong> Bei uns steht der Mond im Süden, und wir schauen nach Süden. In welche Richtung schaut man in Australien, und wo ist dort oben?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Die Phase ist überall auf der Erde gleich, denn sie hängt nur davon ab, wie Sonne, Erde und Mond zueinander stehen. Aber in Australien steht der Mond im <strong>Norden</strong>, und die Menschen dort stehen im Vergleich zu uns gewissermassen auf dem Kopf. Sie sehen den Mond darum <strong>um 180 Grad gedreht</strong>: Was bei uns rechts hell ist, ist dort links hell. Auch das Mondgesicht steht kopf.</p>
+          <p>Die Merkregel ist dort also umgekehrt: Rundung links heisst zunehmend. Nahe am Äquator liegt die Sichel am Abend sogar fast waagrecht da, wie eine Schale. Die Form bleibt dieselbe, nur dein Standort dreht das Bild.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Immer halb <em>beleuchtet</em>.</h2>
+    <ul class="learned">
+      <li><b>Nur der Blickwinkel</b><span>Die Sonne beleuchtet immer eine Hälfte des Mondes. Je nach Stellung siehst du mehr oder weniger davon.</span></li>
+      <li><b>Rundung rechts, zunehmend</b><span>Bei uns heisst rechts hell: Der Mond nimmt zu und steht am Abend am Himmel. Jeden Tag geht er rund 50 Minuten später auf.</span></li>
+      <li><b>Finsternis nur bei Vollmond</b><span>Der Erdschatten trifft den Mond nur, wenn ein Vollmond genau auf der Linie liegt. Wegen der geneigten Bahn ist das selten.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/mondphasen.js"></script>
+</body>
+</html>
