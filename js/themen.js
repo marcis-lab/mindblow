@@ -90,7 +90,7 @@ window.MB_THEMEN = {
     { slug: 'regenbogen', b: 'physik', g: 'licht', soon: true, short: 'Regenbogen', title: 'Wo steht der <em>Regenbogen?</em>', teaser: 'Jeder Mensch sieht seinen eigenen.', tags: 'regenbogen licht brechung regen' },
     { slug: 'waerme', b: 'physik', g: 'waerme', soon: true, short: 'Wärme', title: 'Warum fühlt sich Metall <em>kälter</em> an?', teaser: 'Löffel und Holzbrett haben dieselbe Temperatur. Wirklich.', tags: 'wärme temperatur metall leiten' },
     { slug: 'feuer', b: 'physik', g: 'stoffe', soon: true, short: 'Feuer', title: 'Was ist eigentlich eine <em>Flamme?</em>', teaser: 'Fest, flüssig, gasförmig? Nichts davon so richtig.', tags: 'feuer flamme verbrennung chemie' },
-    { slug: 'atome', b: 'physik', g: 'stoffe', soon: true, short: 'Atome', title: 'Wie klein ist ein <em>Atom?</em>', teaser: 'Und warum besteht es fast nur aus Leere?', tags: 'atom teilchen chemie elemente' },
+    { slug: 'atome', b: 'physik', g: 'stoffe', short: 'Atome', title: 'Wie klein ist ein <em>Atom?</em>', teaser: 'Und warum besteht es fast nur aus Leere?', tags: 'atom teilchen chemie elemente', added: '2026-11-14' },
 
     /* ---------- Erde & Weltall ---------- */
     { slug: 'jahreszeiten', b: 'erde', g: 'sonne-mond', short: 'Jahreszeiten', title: 'Warum gibt es <em>Jahreszeiten?</em>', teaser: 'Im Januar ist die Erde der Sonne am nächsten. Trotzdem ist bei uns Winter.', tags: 'jahreszeiten sommer winter erdachse sonne', added: '2026-11-13' },
