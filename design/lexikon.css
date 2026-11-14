@@ -115,7 +115,8 @@ h1 em, h2 em, h3 em, .grad {
 }
 
 /* ---------- Glas (mit Lichtschein, der der Maus folgt: lexikon-ui.js setzt --mx/--my) ---------- */
-.glass {
+/* .topic ist immer Glas (common.js baut die Kacheln ohne die Klasse glass, wie in mindblows style.css) */
+.glass, .topic {
   background: radial-gradient(420px circle at var(--mx, -500px) var(--my, -500px), var(--spot), transparent 45%), var(--glass);
   -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--glass-edge); box-shadow: var(--shadow), inset 0 1px 0 var(--glass-edge);
@@ -325,13 +326,13 @@ html.s-open { overflow: hidden; }
 .filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .fchip .cnt { font-size: 11px; opacity: .6; margin-left: 4px; }
 .gsec { padding-block: 34px 44px; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; scroll-margin-top: 20px; }
-.gsec .cat-head { grid-column: 1 / span 3; display: grid; gap: 8px; align-content: start; position: sticky; top: 20px; align-self: start; }
-.cat-head h2 { font-size: clamp(32px, 3.4vw, 46px); line-height: 1; letter-spacing: -0.035em; }
+.gsec .cat-head { grid-column: 1 / span 4; min-width: 0; display: grid; gap: 8px; align-content: start; position: sticky; top: calc(var(--hb, 72px) + 30px); align-self: start; }   /* bleibt unter der schwebenden Kopfzeile sichtbar */
+.cat-head h2 { font-size: clamp(26px, 2.8vw, 40px); line-height: 1.02; letter-spacing: -0.035em; overflow-wrap: anywhere; hyphens: auto; }   /* lange Gebietsnamen («Streicher & Zupfinstrumente») bleiben in ihrer Spalte */
 .cat-head .eyebrow { font-size: 11px; }
 .gsec .cat-head h2 a { text-decoration: none; }
 .gsec .cat-head h2 a:hover { color: var(--accent); }
-.gsec .cards { grid-column: 4 / -1; }
-.gsec .more { grid-column: 4 / -1; }
+.gsec .cards { grid-column: 5 / -1; min-width: 0; }
+.gsec .more { grid-column: 5 / -1; }
 .az { columns: 3 260px; column-gap: 32px; padding-bottom: 80px; }
 .az h3 { font-size: 34px; margin: 18px 0 6px; break-after: avoid; }
 .az a, .az div { display: block; padding: 5px 0; text-decoration: none; break-inside: avoid; font-size: 15.5px; }
