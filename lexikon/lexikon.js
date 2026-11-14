@@ -1,4 +1,4 @@
-/* Lexikon-Verbund: verbindet mindblow, Weltgeschichte, Periodensystem und Bibel verstehen.
+/* Lexikon-Verbund: verbindet mindblow, timewarp (Weltgeschichte) und Periodensystem.
    Einbinden auf jeder Seite (vor </body>):
      <script src="https://mindblow.thinklabs.workers.dev/lexikon/lexikon.js" data-site="weltgeschichte" defer></script>
    - data-site: welche Seite das ist (id aus SITES).
@@ -12,9 +12,12 @@
     { id: 'mindblow', name: 'mindblow', desc: 'Wie die Welt funktioniert', url: 'https://mindblow.thinklabs.workers.dev', c: '#FF3D85' },
     { id: 'weltgeschichte', name: 'timewarp', desc: 'Menschen und Momente der Weltgeschichte', url: 'https://weltgeschichte.thinklabs.workers.dev', c: '#F07A2A' },
     { id: 'periodensystem', name: 'Periodensystem', desc: 'Alle Elemente zum Drehen und Ausprobieren', url: 'https://periodensystem.thinklabs.workers.dev', c: '#0E9EC4' },
-    { id: 'bibel', name: 'Bibel verstehen', desc: 'Die Bibel Schritt für Schritt', url: 'https://bibelerklaert.ch', c: '#A23FE6' },
+    // Bibel verstehen (https://bibelerklaert.ch, id 'bibel', Farbe #A23FE6) ist vorerst nicht dabei (Wunsch 14.11.2026).
+    // Zum Wiederaufnehmen die Zeile wieder eintragen; die Seite hat Knopf, lexikon.json und _headers schon.
   ];
   const cur = (me && me.dataset.site) || (SITES.find(s => location.origin === s.url) || {}).id;
+  // Seiten, die (noch) nicht zum Lexikon gehören, zeigen keinen Knopf
+  if (!SITES.some(s => s.id === cur)) return;
   // Für lokale Tests: data-local="mindblow=http://localhost:8093,weltgeschichte=http://localhost:8201"
   if (me && me.dataset.local) me.dataset.local.split(',').forEach(p => { const [k, v] = p.split('='); const s = SITES.find(x => x.id === k); if (s) s.url = v; });
 
@@ -30,7 +33,7 @@
   .lx-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px 6px}
   .lx-head b{font-weight:300;font-size:20px}.lx-head b span{font-weight:600;background:linear-gradient(100deg,#FF3D85 10%,#5072FF 75%);-webkit-background-clip:text;background-clip:text;color:transparent}
   .lx-x{border:1px solid rgba(11,11,15,.1);background:none;border-radius:9px;font:500 12px/1 inherit;padding:6px 9px;color:#6b6b78;cursor:pointer;font-family:inherit}
-  .lx-sites{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:8px 18px 12px}
+  .lx-sites{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:8px 18px 12px}
   .lx-site{display:grid;gap:3px;padding:12px;border-radius:16px;text-decoration:none;color:inherit;border:1px solid rgba(11,11,15,.08);background:#F6F6F9;min-width:0}
   .lx-site:hover{border-color:#5072FF}.lx-site.lx-cur{background:#0B0B0F;color:#fff;border-color:#0B0B0F}
   .lx-site i{width:10px;height:10px;border-radius:3px;display:block}
@@ -73,7 +76,7 @@
   dlg.innerHTML = `<div class="lx-box">
       <div><div class="lx-head"><b>Das <span>Lexikon</span></b><button type="button" class="lx-x" aria-label="Schliessen">Esc</button></div>
       <div class="lx-sites">${SITES.map(s => `<a class="lx-site${s.id === cur ? ' lx-cur' : ''}" href="${s.url}/"${s.id === cur ? ' aria-current="page"' : ''}><i style="background:${s.c}"></i><b>${esc(s.name)}</b><small>${esc(s.desc)}</small></a>`).join('')}</div></div>
-      <label class="lx-in"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4.5 4.5"/></svg><input type="search" placeholder="Alles durchsuchen: Herz, Cäsar, Eisen, Daniel …" aria-label="Alle Seiten durchsuchen" autocomplete="off"></label>
+      <label class="lx-in"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4.5 4.5"/></svg><input type="search" placeholder="Alles durchsuchen: Herz, Cäsar, Eisen …" aria-label="Alle Seiten durchsuchen" autocomplete="off"></label>
       <div class="lx-res" role="listbox"></div>
     </div>`;
   document.body.append(dlg);
@@ -96,7 +99,7 @@
   let hits = [], sel = 0;
   const run = async () => {
     const q = norm(inp.value), words = q.split(' ').filter(Boolean);
-    if (!words.length) { res.innerHTML = '<p class="lx-note">Ein Wort reicht. Gesucht wird in allen vier Seiten gleichzeitig.</p>'; hits = []; return; }
+    if (!words.length) { res.innerHTML = '<p class="lx-note">Ein Wort reicht. Gesucht wird in allen Seiten gleichzeitig.</p>'; hits = []; return; }
     const all = await loadAll();
     if (norm(inp.value) !== q) return;
     hits = []; let html = ''; const failed = [], groups = [];

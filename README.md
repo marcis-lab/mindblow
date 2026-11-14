@@ -38,8 +38,8 @@ Gemeinsames Design: `css/style.css`. Gemeinsame Logik: `js/common.js`.
 
 ## Lexikon-Verbund
 
-mindblow ist mit Weltgeschichte, Periodensystem und Bibel verstehen verbunden. Das gemeinsame Skript liegt hier:
-`lexikon/lexikon.js` (Knopf «Lexikon» und Suche über alle vier Seiten). Die anderen Seiten laden es von
+mindblow ist mit timewarp (Weltgeschichte) und dem Periodensystem verbunden. Bibel verstehen ist vorbereitet, aber vorerst nicht dabei (in `SITES` auskommentiert). Das gemeinsame Skript liegt hier:
+`lexikon/lexikon.js` (Knopf «Lexikon» und Suche über alle Seiten). Die anderen Seiten laden es von
 https://mindblow.thinklabs.workers.dev/lexikon/lexikon.js.
 
 Jede Seite hat einen Suchindex `lexikon.json`. Für mindblow nach jeder Änderung an `js/themen.js` ausführen:
