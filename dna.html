@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DNA · mindblow</title>
+<meta name="description" content="Vier Buchstaben, rund zwei Meter Faden und ein Reissverschluss: wie der Bauplan deines Körpers geschrieben ist, wie er in einen winzigen Zellkern passt und wie die Zelle ihn kopiert.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Pflanzen, Tiere &amp; Evolution</span>
+    <h1>Wie passt ein Bauplan in eine <em>Zelle</em>?</h1>
+    <p class="intro">In fast jeder deiner Zellen steckt die Anleitung für deinen ganzen Körper. Finde heraus, mit welcher Schrift sie geschrieben ist, wie rund zwei Meter davon in einen winzigen Zellkern passen und wie die Zelle sie kopiert.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Der genetische Code -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Die Schrift <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Text aus Buchstaben</h2>
+      <p>DNA ist ein sehr langes Kettenmolekül. Entlang der Kette sitzen kleine Bausteine, die <strong>Basen</strong>. Man kürzt sie mit Buchstaben ab. Ein <strong>Gen</strong> ist ein Abschnitt dieser Kette. Viele Gene enthalten die Anleitung für ein <strong>Eiweiss</strong> (Protein): eine Kette aus <strong>Aminosäuren</strong>. Davon gibt es 20 verschiedene.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="codeLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie viele verschiedene Buchstaben braucht die Schrift der DNA?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Zwei, wie die 0 und 1 im Computer</span></button>
+          <button data-v="b"><span class="k">b</span><span>Vier</span></button>
+          <button data-v="c"><span class="k">c</span><span>Zwanzig, einen für jede Aminosäure</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Es sind nur <strong>vier</strong>: <strong>A</strong> (Adenin), <strong>T</strong> (Thymin), <strong>G</strong> (Guanin) und <strong>C</strong> (Cytosin). Die Zelle liest sie in <strong>Dreiergruppen</strong>, den <strong>Codons</strong>. Mit vier Buchstaben gibt es 4 × 4 × 4 = <strong>64</strong> Dreiergruppen. Das reicht locker für 20 Aminosäuren. Darum stehen oft mehrere Codons für dieselbe Aminosäure. Drei Codons bedeuten «Stopp: Kette fertig».</p>
+          <p>Vereinfacht: In Wirklichkeit macht die Zelle zuerst eine Arbeitskopie (die mRNA) und baut danach das Eiweiss. Tippe unten auf einen Buchstaben, um ihn zu ändern. So eine Änderung heisst <strong>Mutation</strong>.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Fast alle Lebewesen benutzen denselben Code, vom Bakterium bis zum Elefanten. Darum kann man einem Bakterium das menschliche Gen für Insulin einbauen. Das Bakterium liest es und stellt echtes menschliches Insulin her. So wird ein grosser Teil des Insulins für Menschen mit Diabetes heute gemacht.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="codeCv" style="height:360px" aria-label="Eine kurze DNA-Folge aus 18 Buchstaben in Dreiergruppen. Unter jeder Dreiergruppe steht die Aminosäure, die sie bedeutet"></canvas>
+        <div class="locked" id="codeLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="row">
+          <button class="btn" id="mutBtn" disabled>Zufällige Mutation</button>
+          <button class="btn ghost" id="insBtn" disabled>Buchstabe einfügen</button>
+          <button class="btn ghost" id="origBtn" disabled>Original</button>
+        </div>
+        <span class="status" id="codeStatus">Tippe auf einen Buchstaben: A wird zu T, T zu G, G zu C, C zu A.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Eiweiss-Kette</span><span class="val" id="cLen">5 Bausteine</span><span class="formula">bis zum Stopp</span></div>
+        <div><span class="lbl">Gleich wie das Original</span><span class="val" id="cSame">5 von 5</span><span class="formula">Aminosäuren</span></div>
+        <div><span class="lbl">Folge der Mutation</span><span class="val" id="cEffect" style="font-size:15px">keine</span><span class="formula">vereinfacht</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Länge und Verpackung -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Die Verpackung <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein extrem dünner, extrem langer Faden</h2>
+      <p>Dein Bauplan hat rund 3 Milliarden Buchstaben. In den meisten Zellen liegt er doppelt vor: einmal von der Mutter, einmal vom Vater. Der DNA-Faden ist nur etwa <strong>2 Nanometer</strong> dick. Das ist ein Millionstel von 2 Millimetern. Und der ganze Faden steckt im <strong>Zellkern</strong>, der nur rund 6 Tausendstel Millimeter misst.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="packLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie lang wäre die DNA aus einer einzigen deiner Zellen, wenn du sie ausstrecken könntest?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Etwa so lang wie die Zelle selbst, also winzig</span></button>
+          <button data-v="b"><span class="k">b</span><span>Rund 2 Meter</span></button>
+          <button data-v="c"><span class="k">c</span><span>Rund 2 Kilometer</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Rund <strong>2 Meter</strong>. Zwei Buchstaben liegen nur etwa ein Drittel Nanometer auseinander. Aber gut 6 Milliarden Buchstaben ergeben zusammen eben doch rund 2 Meter. Und das in einem Kern, der rund 300'000 Mal kleiner ist.</p>
+          <p>Möglich wird das durch geschicktes <strong>Aufwickeln</strong>. Die DNA wickelt sich um kleine Eiweiss-Spulen, die <strong>Histone</strong>. Diese «Perlen» legen sich dicht zusammen, bilden Schleifen und Knäuel. Vor einer Zellteilung wird alles noch viel enger gepackt: Dann sieht man im Mikroskop die <strong>Chromosomen</strong>. Wickle unten selbst auf.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Wäre der DNA-Faden so dick wie ein Nähfaden, dann wäre er rund 200 Kilometer lang. Und er müsste in einen Ball von gut einem halben Meter passen. Ohne sich zu verheddern, und so, dass die Zelle trotzdem jede Stelle ablesen kann.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="packCv" style="height:380px" aria-label="Ein DNA-Faden wird Schritt für Schritt um Histone gewickelt, bis ein Chromosom entsteht. Darunter ein Massstab-Vergleich"></canvas>
+        <div class="locked" id="packLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="packIn">Aufwickeln</label><input type="range" id="packIn" min="0" max="4" step="1" value="0" disabled><output id="packOut">Stufe 1</output></div>
+        <div class="legend" id="scaleSel">
+          <span class="eyebrow">Wenn DNA so dick wäre wie:</span>
+          <button data-s="0" class="active" disabled>Nähfaden</button>
+          <button data-s="1" disabled>Spaghetti</button>
+          <button data-s="2" disabled>Gartenschlauch</button>
+        </div>
+        <span class="status" id="packStatus">Ziehe am Regler und wickle die DNA auf.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">DNA ausgestreckt</span><span class="val" id="pLen">200 km</span><span class="formula">Länge = 1 Mrd. × Dicke</span></div>
+        <div><span class="lbl">Zellkern im selben Massstab</span><span class="val" id="pCore">60 cm</span><span class="formula">echter Kern rund 6 µm</span></div>
+        <div><span class="lbl">Dicke dieser Stufe</span><span class="val" id="pThick" style="font-size:15px">2 nm</span><span class="formula" id="pStage">nackter Doppelstrang</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Basenpaarung und Kopieren -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Das Kopieren <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Reissverschluss mit festen Paaren</h2>
+      <p>DNA ist ein <strong>Doppelstrang</strong>. Die Buchstaben des einen Strangs bilden Paare mit denen des anderen, wie die Zähne eines Reissverschlusses. Dabei gilt eine strenge Regel: <strong>A passt nur zu T</strong> und <strong>G passt nur zu C</strong>. Kennst du einen Strang, kennst du also auch den anderen.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="zipLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Eine Hautzelle und eine Nervenzelle von dir: Haben sie denselben Bauplan?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Nein. Jede Zellart hat ihre eigene DNA, sonst wären sie ja gleich.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Ja, fast genau denselben. Sie lesen aber verschiedene Teile davon.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Nur die Nervenzelle hat den ganzen Bauplan, die Hautzelle nur ein Stück.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Fast alle deine Körperzellen haben <strong>denselben Bauplan</strong>. Sie stammen alle von einer einzigen befruchteten Eizelle ab. Bei jeder Teilung wird die DNA kopiert und jede Tochterzelle bekommt eine vollständige Kopie. Eine Nervenzelle unterscheidet sich von einer Hautzelle, weil sie <strong>andere Gene einschaltet</strong>. Wie ein Kochbuch, aus dem jede Küche andere Rezepte kocht.</p>
+          <p>Ausnahmen gibt es: Rote Blutkörperchen haben gar keinen Zellkern mehr, Ei- und Samenzellen nur die halbe DNA. Und beim Kopieren schleichen sich ab und zu kleine Fehler ein. Wie kopiert wird, probierst du unten aus: Der Reissverschluss geht auf, und zu jedem freien Buchstaben kommt der passende Partner.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Jede neue DNA besteht zur Hälfte aus alt und zur Hälfte aus neu: Ein Strang ist der alte Vorlagestrang, der andere wurde frisch ergänzt. Nach dem Kopieren und Korrekturlesen bleibt nur etwa ein Fehler pro Milliarde Buchstaben übrig (grobe Grössenordnung).</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="zipCv" style="height:340px" aria-label="Ein DNA-Doppelstrang wie ein Reissverschluss. Wird er geöffnet, ergänzt du zu jedem Buchstaben des oberen Strangs den passenden Partner"></canvas>
+        <div class="locked" id="zipLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="zipIn">Öffnen</label><input type="range" id="zipIn" min="0" max="100" step="1" value="0" disabled><output id="zipOut">0 %</output></div>
+        <div class="legend" id="baseSel">
+          <span class="eyebrow">Partner setzen:</span>
+          <button data-b="A" disabled><span class="sw" style="background:#2f7fd0"></span>A</button>
+          <button data-b="T" disabled><span class="sw" style="background:#d98a1f"></span>T</button>
+          <button data-b="G" disabled><span class="sw" style="background:#2e9a5a"></span>G</button>
+          <button data-b="C" disabled><span class="sw" style="background:#c8475a"></span>C</button>
+        </div>
+        <div class="row">
+          <button class="btn ghost" id="autoBtn" disabled>Enzym machen lassen</button>
+          <button class="btn ghost" id="newBtn" disabled>Neue Folge</button>
+        </div>
+        <span class="status" id="zipStatus">Öffne zuerst den Reissverschluss.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Ergänzt</span><span class="val" id="zDone">0 von 10</span><span class="formula">neuer Strang</span></div>
+        <div><span class="lbl">Fehlversuche</span><span class="val" id="zErr">0</span><span class="formula">falscher Partner</span></div>
+        <div><span class="lbl">Regel</span><span class="val" style="font-size:15px">A–T · G–C</span><span class="formula">immer gleich</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Sind wir halb Banane?</h2>
+      <p>Manchmal liest man: Mensch und Banane teilen rund 60 Prozent ihrer Gene. Das klingt, als wären wir zu einem guten Teil Obst. Was bedeutet so ein Satz wirklich?</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1 und Teil 3. Welche Aufgaben muss jede Zelle erledigen, ob in einer Banane oder in dir?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Nein, halb Banane sind wir nicht. Die Zahl ist grob und meint etwas anderes, als sie klingt: Für viele unserer Gene gibt es in der Banane ein <strong>verwandtes Gen</strong> mit ähnlicher Aufgabe. Die Buchstaben sind dabei nicht gleich, oft nur teilweise ähnlich. Je nachdem, wie man zählt, kommen andere Zahlen heraus.</p>
+          <p>Diese gemeinsamen Gene erledigen die <strong>Grundarbeit jeder Zelle</strong>: DNA kopieren, den Code lesen, Eiweisse bauen, Energie aus Zucker gewinnen, sich teilen. Alles Leben stammt von gemeinsamen Vorfahren ab und benutzt dieselbe Schrift. Was dich zum Menschen macht, steckt in den übrigen Genen, in kleinen Unterschieden und vor allem darin, <strong>welche Gene wann eingeschaltet</strong> werden.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Vier Buchstaben, <em>ein</em> Bauplan.</h2>
+    <ul class="learned">
+      <li><b>Code in Dreiergruppen</b><span>A, T, G und C reichen. Je drei Buchstaben stehen für eine Aminosäure. Ein falscher Buchstabe kann nichts ändern oder alles.</span></li>
+      <li><b>Zwei Meter, gut verpackt</b><span>Rund 2 Meter DNA pro Zelle, um Histone gewickelt und in Schleifen gelegt, bis sie in einen winzigen Kern passen.</span></li>
+      <li><b>Feste Paare</b><span>A passt zu T, G zu C. Darum kann jeder Strang als Vorlage dienen, und fast jede Zelle bekommt denselben Bauplan.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/dna.js"></script>
+</body>
+</html>
