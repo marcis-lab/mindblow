@@ -123,7 +123,7 @@
   const CO2 = mk(160, 'co2'), H2O = mk(60, 'h2o'), AIR = mk(80, 'air');
   const P = { lvl: 1.5, ph: [], emit: [], spawn: 0, fates: [], w: 400, h: 330 };
   const SP = reduced ? 70 : 140, RHIT = 9;
-  const counts = w => ({ co2: Math.round(P.lvl * .017 * w), h2o: Math.round(.022 * w), air: Math.round(.05 * w) });
+  const counts = w => ({ co2: Math.round(P.lvl * .017 * w), h2o: Math.round(.03 * w), air: Math.round(.05 * w) });
   const geo = () => { const { w, h } = P; return { top: 30, gY: h - 34, atT: 46, atB: h - 46 }; };
   const molXY = m => { const { atT, atB } = geo(); return [8 + m.x * (P.w - 16), atT + m.y * (atB - atT)]; };
   const activeMols = () => { const n = counts(P.w); return [...CO2.slice(0, n.co2), ...H2O.slice(0, n.h2o)]; };
