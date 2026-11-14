@@ -75,7 +75,7 @@ window.MB_THEMEN = {
 
     /* ---------- Pflanzen, Tiere & Evolution ---------- */
     { slug: 'fotosynthese', b: 'leben', g: 'pflanzen', short: 'Fotosynthese', title: 'Wie macht ein Baum aus Luft <em>Holz?</em>', teaser: 'Ein Baum wiegt Tonnen. Fast alles davon kommt aus der Luft, nicht aus dem Boden.', tags: 'fotosynthese photosynthese pflanze baum blatt chlorophyll sauerstoff co2 licht zucker', added: '2026-11-14' },
-    { slug: 'herbst', b: 'leben', g: 'pflanzen', soon: true, short: 'Herbstlaub', title: 'Warum werden Blätter im Herbst <em>bunt?</em>', teaser: 'Die Farben waren schon den ganzen Sommer da.', tags: 'herbst blätter farbe laub' },
+    { slug: 'herbst', b: 'leben', g: 'pflanzen', short: 'Herbstlaub', title: 'Warum werden Blätter im Herbst <em>bunt?</em>', teaser: 'Die Farben waren schon den ganzen Sommer da.', tags: 'herbst blätter farbe laub', added: '2026-11-14' },
     { slug: 'dna', b: 'leben', g: 'zellen', short: 'DNA', title: 'Wie passt ein Bauplan in eine <em>Zelle?</em>', teaser: 'Zwei Meter DNA in jeder deiner Zellen, schön aufgewickelt.', tags: 'dna gene zelle erbgut vererbung', added: '2026-11-14' },
     { slug: 'zelle', b: 'leben', g: 'zellen', soon: true, short: 'Zellen', title: 'Woraus besteht <em>Leben?</em>', teaser: 'Du bist ein Volk aus rund 30 Billionen Zellen.', tags: 'zelle zellen mikroskop bakterien' },
     { slug: 'evolution', b: 'leben', g: 'evolution', short: 'Evolution', title: 'Wie funktioniert <em>Evolution?</em>', teaser: 'Niemand plant, und trotzdem entstehen perfekte Tarnungen. Wie geht das?', tags: 'evolution darwin selektion mutation tarnung arten', added: '2026-11-13' },
