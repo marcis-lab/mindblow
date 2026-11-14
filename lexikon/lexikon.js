@@ -45,7 +45,7 @@
   .lx-site b{font-weight:600;font-size:15px;line-height:1.15}.lx-site small{font-size:12.5px;opacity:.65;line-height:1.3}
   .lx-in{display:flex;align-items:center;gap:10px;margin:0 18px 10px;padding:12px 14px;border:1px solid rgba(11,11,15,.1);border-radius:14px;color:#6b6b78}
   .lx-in:focus-within{border-color:#5072FF}
-  .lx-in input{flex:1;min-width:0;border:0;outline:0;background:none;font:400 17px/1.3 inherit;font-family:inherit;color:#0B0B0F}
+  .lx-in input{flex:1;min-width:0;border:0;outline:0;background:none;font-family:inherit;font-weight:400;font-size:17px;line-height:1.3;color:#0B0B0F}
   .lx-res{overflow-y:auto;padding:0 10px 12px;overscroll-behavior:contain}
   .lx-grp{padding:10px 8px 4px;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#6b6b78;font-weight:500;display:flex;align-items:center;gap:8px}
   .lx-grp i{width:9px;height:9px;border-radius:3px}
@@ -142,7 +142,7 @@
     else if (e.key === 'ArrowUp') { e.preventDefault(); sel = Math.max(sel - 1, 0); mark(); }
     else if (e.key === 'Enter' && hits[sel]) { e.preventDefault(); location.href = hits[sel]; }
   });
-  const open = () => { dlg.hidden = false; document.documentElement.style.overflow = 'hidden'; inp.focus(); run(); loadAll(); };
+  const open = () => { dlg.hidden = false; document.documentElement.style.overflow = 'hidden'; if (matchMedia('(hover: hover)').matches) inp.focus(); run(); loadAll(); }; // am Handy kein Auto-Fokus (sonst springt Tastatur/Zoom auf)
   const close = () => { dlg.hidden = true; document.documentElement.style.overflow = ''; btn.focus(); };
   btn.addEventListener('click', open);
   dlg.querySelector('.lx-x').addEventListener('click', close);

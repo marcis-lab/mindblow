@@ -357,6 +357,8 @@ html.s-open { overflow: hidden; }
   .search-dlg { padding-top: 12px; }
   .search-box { max-height: calc(100vh - 24px); }
 }
+/* Handy: Eingabefelder mind. 16 px, sonst zoomt iOS beim Antippen automatisch hinein */
+@media (pointer: coarse) { input, select, textarea { font-size: max(16px, 1em); } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
