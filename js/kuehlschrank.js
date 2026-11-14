@@ -271,9 +271,9 @@
       }
       ctx.stroke(); ctx.restore();
       // Name an der Kurve
-      const pl = k === 'water' ? .12 : .07, yl = Y(S.bp(pl));
-      ctx.globalAlpha = act ? 1 : .45; ctx.fillStyle = S.col(); ctx.font = mono(11); ctx.textAlign = 'left';
-      ctx.fillText(S.name, X(pl) + 6, yl - 10);
+      ctx.globalAlpha = act ? 1 : .45; ctx.fillStyle = S.col(); ctx.font = mono(11);
+      if (k === 'water') { ctx.textAlign = 'left'; ctx.fillText(S.name, X(.12) + 6, Y(S.bp(.12)) - 10); }
+      else { ctx.textAlign = 'left'; ctx.fillText(S.name, X(.13) + 4, Y(S.bp(.13)) - 12); }
       ctx.globalAlpha = 1;
     }
     // Zustände

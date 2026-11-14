@@ -103,7 +103,7 @@ window.MB_THEMEN = {
 
     /* ---------- Technik ---------- */
     { slug: 'strom', b: 'technik', g: 'energie', short: 'Strom', title: 'Wie funktioniert <em>Strom?</em>', teaser: 'Warum geht das Licht sofort an, obwohl die Elektronen langsamer kriechen als eine Schnecke?', tags: 'strom elektrizität elektronen spannung volt ampere', added: '2026-11-12' },
-    { slug: 'kuehlschrank', soon: true, b: 'technik', g: 'energie', short: 'Kühlschrank', title: 'Wie macht ein Kühlschrank <em>Kälte?</em>', teaser: 'Er macht gar keine Kälte. Er pumpt Wärme weg, und hinten wird es warm.', tags: 'kühlschrank kälte wärmepumpe verdampfen kältemittel', added: '2026-11-14' },
+    { slug: 'kuehlschrank', b: 'technik', g: 'energie', short: 'Kühlschrank', title: 'Wie macht ein Kühlschrank <em>Kälte?</em>', teaser: 'Er macht gar keine Kälte. Er pumpt Wärme weg, und hinten wird es warm.', tags: 'kühlschrank kälte wärmepumpe verdampfen kältemittel', added: '2026-11-14' },
     { slug: 'akku', b: 'technik', g: 'energie', soon: true, short: 'Akku', title: 'Wie speichert ein Akku <em>Strom?</em>', teaser: 'Eigentlich speichert er gar keinen Strom.', tags: 'akku batterie lithium laden' },
     { slug: 'internet', b: 'technik', g: 'digital', short: 'Internet', title: 'Wie funktioniert das <em>Internet?</em>', teaser: 'Wie kommt ein Foto in einer Zehntelsekunde nach New York? Nicht durch die Luft.', tags: 'internet netz glasfaser pakete router wlan', added: '2026-11-12' },
     { slug: 'ki', b: 'technik', g: 'digital', short: 'Künstliche Intelligenz', title: 'Was ist eigentlich <em>KI?</em>', teaser: 'Denkt ein Chatbot? Bau ein Mini-Sprachmodell und trainiere eine Maschine.', tags: 'ki künstliche intelligenz chatbot sprachmodell lernen neuronales netz', added: '2026-11-12' },
