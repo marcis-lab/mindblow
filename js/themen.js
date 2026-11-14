@@ -89,7 +89,7 @@ window.MB_THEMEN = {
     { slug: 'himmel', b: 'physik', g: 'licht', short: 'Blauer Himmel', title: 'Warum ist der Himmel <em>blau?</em>', teaser: 'Und warum wird er am Abend orange? Die Antwort steckt im Licht selbst.', tags: 'himmel blau licht streuung sonnenuntergang abendrot', added: '2026-11-13' },
     { slug: 'regenbogen', b: 'physik', g: 'licht', short: 'Regenbogen', title: 'Wo steht der <em>Regenbogen?</em>', teaser: 'Jeder Mensch sieht seinen eigenen.', tags: 'regenbogen licht brechung regen', added: '2026-11-14' },
     { slug: 'waerme', b: 'physik', g: 'waerme', short: 'Wärme', title: 'Warum fühlt sich Metall <em>kälter</em> an?', teaser: 'Löffel und Holzbrett haben dieselbe Temperatur. Wirklich.', tags: 'wärme temperatur metall leiten', added: '2026-11-14' },
-    { slug: 'feuer', b: 'physik', g: 'stoffe', soon: true, short: 'Feuer', title: 'Was ist eigentlich eine <em>Flamme?</em>', teaser: 'Fest, flüssig, gasförmig? Nichts davon so richtig.', tags: 'feuer flamme verbrennung chemie' },
+    { slug: 'feuer', b: 'physik', g: 'stoffe', short: 'Feuer', title: 'Was ist eigentlich eine <em>Flamme?</em>', teaser: 'Fest, flüssig, gasförmig? Nichts davon so richtig.', tags: 'feuer flamme verbrennung chemie', added: '2026-11-14' },
     { slug: 'atome', b: 'physik', g: 'stoffe', short: 'Atome', title: 'Wie klein ist ein <em>Atom?</em>', teaser: 'Und warum besteht es fast nur aus Leere?', tags: 'atom teilchen chemie elemente', added: '2026-11-14' },
 
     /* ---------- Erde & Weltall ---------- */
