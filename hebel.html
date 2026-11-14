@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hebel · mindblow</title>
+<meta name="description" content="Wippe, Brechstange und Flaschenzug: wie du mit dem Hebelgesetz ein Auto anhebst, und warum du die gesparte Kraft mit Weg bezahlst.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Physik &amp; Chemie</span>
+    <h1>Wie hebt man ein <em>Auto</em> mit einer Hand?</h1>
+    <p class="intro">Ein Auto wiegt über eine Tonne. Trotzdem kannst du es anheben, ganz ohne Superkräfte. Du brauchst nur eine lange Stange und einen festen Punkt. Finde heraus, wo der Trick steckt und wo der Haken.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Wippe und Hebelgesetz -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Die Wippe <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wer sinkt nach unten?</h2>
+      <p>Auf dem Spielplatz sitzt ein Kind mit <strong>25 kg</strong> auf der einen Seite der Wippe. Auf der anderen Seite sitzt ein Erwachsener mit <strong>75 kg</strong>, also dreimal so schwer. Der Balken dreht sich um einen Punkt in der Mitte: den <strong>Drehpunkt</strong>.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="seeLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Kann das Kind den Erwachsenen hochheben?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Nein. Der Schwerere gewinnt immer.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Ja, wenn es mehr als dreimal so weit vom Drehpunkt sitzt</span></button>
+          <button data-v="c"><span class="k">c</span><span>Ja, aber nur wenn es sich kräftig vom Boden abstösst</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Es zählt nicht das Gewicht allein, sondern <strong>Gewicht mal Abstand</strong> zum Drehpunkt. Das ist das <strong>Hebelgesetz</strong>:</p>
+          <p><strong>Kraft × Kraftarm = Last × Lastarm</strong></p>
+          <p>Sitzt das Kind 2 m vom Drehpunkt und der Erwachsene nur 67 cm, dann gilt: 25 kg × 2 m = 75 kg × 0,67 m. Beide Seiten ergeben 50, die Wippe schwebt. Rutscht der Erwachsene noch näher zur Mitte, hebt ihn das Kind hoch. Das Brett selbst lassen wir weg, es wiegt auf beiden Seiten gleich viel (vereinfacht). Probier es aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Hebel stecken überall: Schere, Zange, Nussknacker, Flaschenöffner, Schubkarre. Immer gibt es einen Drehpunkt, und deine Hand greift möglichst weit weg davon an.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="seeCv" style="height:300px" aria-label="Eine Wippe mit einem Kind links und einem Erwachsenen rechts. Je nach Sitzplatz kippt sie zur einen Seite oder bleibt waagrecht"></canvas>
+        <div class="locked" id="seeLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="kidIn">Kind sitzt bei</label><input type="range" id="kidIn" min="0.2" max="2" step="0.05" value="2" disabled><output id="kidOut">2,00 m</output></div>
+        <div class="ctrl"><label for="adIn">Erwachsener bei</label><input type="range" id="adIn" min="0.2" max="2" step="0.05" value="1.5" disabled><output id="adOut">1,50 m</output></div>
+        <div class="row">
+          <button class="btn ghost" id="kid2Btn" disabled>Zweites Kind dazu</button>
+          <button class="btn ghost" id="balBtn" disabled>Gleichgewicht suchen</button>
+        </div>
+        <span class="status" id="seeStatus">Verschiebe die beiden, bis die Wippe waagrecht schwebt.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Seite Kind</span><span class="val" id="sL">50</span><span class="formula" id="sLf">25 kg × 2,00 m</span></div>
+        <div><span class="lbl">Seite Erwachsener</span><span class="val" id="sR">113</span><span class="formula" id="sRf">75 kg × 1,50 m</span></div>
+        <div><span class="lbl">Ergebnis</span><span class="val" id="sRes" style="font-size:15px">Erwachsener sinkt</span><span class="formula">grösseres Produkt gewinnt</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Kraft gegen Weg -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Der Haken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Auto mit der Brechstange</h2>
+      <p>Ein kleines Auto wiegt rund <strong>1'000 kg</strong>. Willst du nur eine Ecke anheben, etwa um ein Rad zu wechseln, trägst du ungefähr einen Viertel davon: rund <strong>250 kg</strong> (vereinfacht). Du schiebst eine Stange unter das Auto, legst einen Klotz als Drehpunkt darunter, 20 cm vom Ende entfernt, und drückst am anderen Ende.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="barLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Mit 2 m Stange auf deiner Seite brauchst du nur einen Zehntel der Kraft. Wo ist der Haken?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Es gibt keinen. Der Hebel macht zusätzliche Kraft aus dem Nichts.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Deine Hand muss einen zehnmal so langen Weg machen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Das Auto steigt dafür zehnmal weniger hoch</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ein Hebel spart Kraft, aber er schenkt dir nichts. Deine Seite ist 10-mal so lang wie die Seite unter dem Auto. Also reicht ein Zehntel der Kraft: rund 25 kg statt 250 kg. Dafür bewegt sich deine Hand <strong>10-mal so weit</strong>. Damit das Auto 5 cm steigt, drückst du die Stange 50 cm nach unten.</p>
+          <p><strong>Kraft × Weg</strong> heisst in der Physik <strong>Arbeit</strong>. Sie bleibt auf beiden Seiten gleich: 250 kg × 5 cm = 25 kg × 50 cm (ohne Reibung, vereinfacht). Das nennt man die <strong>goldene Regel der Mechanik</strong>: Was du an Kraft sparst, zahlst du an Weg.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Der Wagenheber aus dem Kofferraum macht es in Raten. Du drehst die Kurbel viele Male im Kreis, und das Auto steigt dabei nur ein paar Zentimeter. Der lange Kurbelweg ist der Preis für die kleine Kraft.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="barCv" style="height:260px" aria-label="Eine lange Stange liegt auf einem Klotz und hebt die Ecke eines Autos an. Pfeile zeigen die Kraft der Hand und den Weg von Hand und Auto"></canvas>
+        <div class="locked" id="barLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="lenIn">Stange auf deiner Seite</label><input type="range" id="lenIn" min="0.4" max="3" step="0.1" value="2" disabled><output id="lenOut">2,0 m</output></div>
+        <div class="ctrl"><label for="pushIn">Stange drücken</label><input type="range" id="pushIn" min="0" max="100" step="1" value="0" disabled><output id="pushOut">0 %</output></div>
+        <div class="row">
+          <button class="btn" id="liftBtn" disabled>Auto anheben</button>
+        </div>
+        <span class="status" id="barStatus">Unter dem Auto bleibt die Stange immer 20 cm lang. Ändere deine Seite.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Kraft der Hand</span><span class="val" id="bF">25 kg</span><span class="formula">250 kg × 20 cm ÷ deine Seite</span></div>
+        <div><span class="lbl">Weg der Hand</span><span class="val" id="bS">50 cm</span><span class="formula">damit das Auto 5 cm steigt</span></div>
+        <div><span class="lbl">Arbeit</span><span class="val" id="bW">≈ 120 J</span><span class="formula">Kraft × Weg, beide Seiten gleich</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Flaschenzug -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Der Flaschenzug <span class="chip solved-chip">gelöst</span></span>
+      <h2>Mehr Rollen, mehr Seil</h2>
+      <p>In der Autowerkstatt hebt man einen Motor, rund <strong>150 kg</strong>, oft mit einem <strong>Flaschenzug</strong> aus dem Wagen. Das Seil läuft dabei über mehrere Rollen hin und her. Oben hängen Rollen fest an der Decke, unten hängen Rollen an der Last und steigen mit ihr.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="pullLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Die Last hängt an 4 Seilstücken. Du willst sie 1 m hochheben. Wie viel Seil musst du ziehen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>1 m. Die Last steigt ja auch nur 1 m.</span></button>
+          <button data-v="b"><span class="k">b</span><span>4 m</span></button>
+          <button data-v="c"><span class="k">c</span><span>25 cm, weil mit vielen Rollen alles leichter geht</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Hängt die Last an <strong>4 Seilstücken</strong>, trägt jedes Stück einen Viertel. Deine Hand hält nur ein einziges Stück: Du brauchst also nur noch einen Viertel der Kraft, rund 38 kg statt 150 kg.</p>
+          <p>Aber: Damit die Last 1 m steigt, muss <strong>jedes</strong> der 4 Stücke 1 m kürzer werden. Dieses Seil ziehst du heraus: <strong>4 m</strong>. Wieder dasselbe Tauschgeschäft wie beim Hebel. In echt kommen Reibung und das Gewicht der unteren Rollen dazu, du brauchst also etwas mehr Kraft (vereinfacht).</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>«Gib mir einen festen Punkt, und ich bewege die Erde.» Das soll der griechische Forscher Archimedes vor über 2'000 Jahren gesagt haben. Überliefert ist der Satz erst von späteren Schriftstellern. Er stimmt sogar, im Prinzip. Nur müsste der Hebel unvorstellbar lang sein, und Archimedes hätte ihn länger drücken müssen, als das Universum alt ist, um die Erde auch nur ein winziges Stück zu bewegen. Ein Gedankenspiel.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="pullCv" style="height:400px" aria-label="Ein Flaschenzug mit festen Rollen oben und losen Rollen unten. Ein Motor hängt an mehreren Seilstücken, eine Hand zieht am freien Seilende"></canvas>
+        <div class="locked" id="pullLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="nIn">Tragende Seilstücke</label><input type="range" id="nIn" min="1" max="6" step="1" value="1" disabled><output id="nOut">1</output></div>
+        <div class="ctrl"><label for="hIn">Höhe der Last</label><input type="range" id="hIn" min="0" max="100" step="1" value="0" disabled><output id="hOut">0 cm</output></div>
+        <div class="row">
+          <button class="btn" id="pullBtn" disabled>Hochziehen</button>
+        </div>
+        <span class="status" id="pullStatus">Eine einzige feste Rolle spart keine Kraft. Sie lenkt das Seil nur um, damit du nach unten ziehen kannst.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Zugkraft</span><span class="val" id="pF">150 kg</span><span class="formula">150 kg ÷ tragende Stücke</span></div>
+        <div><span class="lbl">Seil gezogen</span><span class="val" id="pS">0,0 m</span><span class="formula">Höhe × tragende Stücke</span></div>
+        <div><span class="lbl">Für 1 m Höhe</span><span class="val" id="pM">1 m Seil</span><span class="formula">ohne Reibung, vereinfacht</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum sitzt die Türklinke so weit weg vom Scharnier?</h2>
+      <p>Schau dir eine Zimmertür an. Die Klinke sitzt fast immer am Rand, gegenüber den Scharnieren. Nie in der Mitte der Tür und nie gleich neben dem Scharnier.</p>
+      <p><strong>Tipp:</strong> Auch eine Tür ist ein Hebel. Wo ist ihr Drehpunkt?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Die Tür dreht sich um die <strong>Scharniere</strong>. Dort ist der Drehpunkt. An der Klinke hat deine Hand den grösstmöglichen <strong>Kraftarm</strong>, bei einer Zimmertür rund 75 cm. So reicht wenig Kraft, um die Tür zu bewegen. Drück eine Tür einmal 5 cm neben dem Scharnier auf: Du brauchst etwa 15-mal so viel Kraft.</p>
+          <p>Den Preis zahlst du auch hier mit Weg: Die Klinke beschreibt einen grossen Bogen. Den merkst du kaum, die Kraft schon. Aus demselben Grund haben Schraubenschlüssel lange Griffe.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Kraft sparen, mit <em>Weg</em> bezahlen.</h2>
+    <ul class="learned">
+      <li><b>Hebelgesetz</b><span>Kraft × Kraftarm = Last × Lastarm. Weit weg vom Drehpunkt reicht wenig Kraft. Darum kann ein Kind einen Erwachsenen hochwippen.</span></li>
+      <li><b>Goldene Regel</b><span>Ein Hebel spart Kraft, aber keine Arbeit. Ein Zehntel der Kraft heisst: zehnmal so viel Weg.</span></li>
+      <li><b>Flaschenzug</b><span>Die Last verteilt sich auf mehrere Seilstücke. Bei 4 Stücken brauchst du einen Viertel der Kraft und ziehst viermal so viel Seil.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/hebel.js"></script>
+</body>
+</html>

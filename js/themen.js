@@ -85,7 +85,7 @@ window.MB_THEMEN = {
 
     /* ---------- Physik & Chemie ---------- */
     { slug: 'fallen', b: 'physik', g: 'kraefte', short: 'Schwerkraft', title: 'Fällt Schweres <em>schneller?</em>', teaser: 'Eine Bowlingkugel und eine Feder fallen gleichzeitig. Man muss nur die Luft weglassen.', tags: 'schwerkraft fallen gravitation galilei luftwiderstand fallschirm', added: '2026-11-14' },
-    { slug: 'hebel', b: 'physik', g: 'kraefte', soon: true, short: 'Hebel', title: 'Wie hebt man ein <em>Auto</em> mit einer Hand?', teaser: 'Gib mir einen Hebel, und ich bewege die Welt.', tags: 'hebel kraft mechanik flaschenzug' },
+    { slug: 'hebel', b: 'physik', g: 'kraefte', short: 'Hebel', title: 'Wie hebt man ein <em>Auto</em> mit einer Hand?', teaser: 'Gib mir einen Hebel, und ich bewege die Welt.', tags: 'hebel kraft mechanik flaschenzug', added: '2026-11-14' },
     { slug: 'himmel', b: 'physik', g: 'licht', short: 'Blauer Himmel', title: 'Warum ist der Himmel <em>blau?</em>', teaser: 'Und warum wird er am Abend orange? Die Antwort steckt im Licht selbst.', tags: 'himmel blau licht streuung sonnenuntergang abendrot', added: '2026-11-13' },
     { slug: 'regenbogen', b: 'physik', g: 'licht', short: 'Regenbogen', title: 'Wo steht der <em>Regenbogen?</em>', teaser: 'Jeder Mensch sieht seinen eigenen.', tags: 'regenbogen licht brechung regen', added: '2026-11-14' },
     { slug: 'waerme', b: 'physik', g: 'waerme', short: 'Wärme', title: 'Warum fühlt sich Metall <em>kälter</em> an?', teaser: 'Löffel und Holzbrett haben dieselbe Temperatur. Wirklich.', tags: 'wärme temperatur metall leiten', added: '2026-11-14' },
