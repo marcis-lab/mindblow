@@ -123,9 +123,10 @@ window.MB = (() => {
   const liveIn = (b, g) => topicsIn(b, g).filter(t => !t.soon);
   const plain = s => String(s).replace(/<[^>]+>/g, '');
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const urlB = b => `themen.html?b=${b}`;
-  const urlG = (b, g) => `themen.html?b=${b}&g=${g}`;
-  const urlT = t => t.url || `${t.slug}.html`;          // url: Thema ohne eigene Seite (z. B. /instrumente/#e=violine)
+  // Adressen immer ab Wurzel (/themen.html), damit Menü und Suche auch auf Unterseiten wie /noten/ funktionieren (soundcheck)
+  const urlB = b => `/themen.html?b=${b}`;
+  const urlG = (b, g) => `/themen.html?b=${b}&g=${g}`;
+  const urlT = t => t.url || `/${t.slug}.html`;         // url: Thema ohne eigene Seite (z. B. /instrumente/#e=violine)
   const CATS = BEREICHE; // alter Name, für ältere Seiten
 
   /* ---------- Suche ---------- */
@@ -201,7 +202,7 @@ window.MB = (() => {
             }).join('')}
           </div>`).join('')}
         </div>
-        <div class="mega-foot"><a href="themen.html">${TOPICS.length ? `Alle ${TOPICS.length} Themen` : `Alle ${ALL.length} geplanten Themen`} von A bis Z →</a></div>
+        <div class="mega-foot"><a href="/themen.html">${TOPICS.length ? `Alle ${TOPICS.length} Themen` : `Alle ${ALL.length} geplanten Themen`} von A bis Z →</a></div>
       </div>`;
     const mb = $('#megaBtn'), mega = $('#mega');
     const setMega = open => { mega.hidden = !open; mb.setAttribute('aria-expanded', String(open)); nav.classList.toggle('open', open); };
@@ -237,7 +238,7 @@ window.MB = (() => {
           <span class="s-path">${esc(t.bereich.name)} · ${esc(t.gebiet.name)}</span>
           <span class="s-t">${plain(t.title)}${t.soon ? ' <span class="s-soon">bald</span>' : ''}</span>
           <span class="s-d">${t.teaser}</span></a>`).join('')
-        + `<a class="s-all" href="themen.html?q=${encodeURIComponent(v)}">Alle Treffer zeigen →</a>`;
+        + `<a class="s-all" href="/themen.html?q=${encodeURIComponent(v)}">Alle Treffer zeigen →</a>`;
     };
     const mark = () => $$('.s-hit', res).forEach((a, i) => { a.classList.toggle('sel', i === sel); a.setAttribute('aria-selected', String(i === sel)); if (i === sel) a.scrollIntoView({ block: 'nearest' }); });
     q.addEventListener('input', () => { sel = 0; render(); });
@@ -248,7 +249,7 @@ window.MB = (() => {
         e.preventDefault();
         const t = hits[sel];
         if (t && !t.soon) location.href = urlT(t);
-        else if (q.value.trim()) location.href = `themen.html?q=${encodeURIComponent(q.value.trim())}`;
+        else if (q.value.trim()) location.href = `/themen.html?q=${encodeURIComponent(q.value.trim())}`;
       }
     });
     const close = () => { dlg.hidden = true; document.documentElement.classList.remove('s-open'); };
@@ -288,7 +289,7 @@ window.MB = (() => {
     const btn = $('.wrapup .row a.btn');
     if (btn) {
       if (next) { btn.href = urlT(next); btn.textContent = `Weiter: ${plain(next.title)} →`; }
-      else { btn.href = 'index.html'; btn.textContent = 'Zu allen Themen'; }
+      else { btn.href = '/'; btn.textContent = 'Zu allen Themen'; }
     }
   }
 
