@@ -92,7 +92,7 @@
     if (!reduced && squeeze > 0) { ctx.shadowColor = HEART; ctx.shadowBlur = 24 * squeeze; }
     heartPath(ctx, hx, hy, hs); ctx.fillStyle = HEART; ctx.fill();
     ctx.restore();
-    heartPath(ctx, hx - hs * .16, hy - hs * .14, hs * .28); ctx.fillStyle = 'rgba(255,255,255,.18)'; ctx.fill();
+    ctx.beginPath(); ctx.ellipse(hx - hs * .24, hy - hs * .26, hs * .09, hs * .06, -.6, 0, TAU); ctx.fillStyle = 'rgba(255,255,255,.22)'; ctx.fill();
     ctx.textAlign = 'center'; ctx.fillStyle = C.fg; ctx.font = `500 ${narrow ? 13 : 15}px ${MONO}`;
     ctx.fillText(`${P.hr} Schläge / min`, hx, h - 44);
     ctx.fillStyle = C.muted; ctx.font = `11px ${MONO}`;
@@ -391,12 +391,12 @@
     ctx.fillText(narrow ? 'zum Körper' : '↑ zum Körper', ax + aw / 2 + 6, 31);
     ctx.textAlign = 'right';
     ctx.fillText(narrow ? 'von Lunge' : 'von der Lunge →', laX0 - 6, laY0 + 17);
-    ctx.fillText(narrow ? 'Segel-' : 'Segelklappe', mx - ow / 2 - 6, yv0 + 4);
-    if (narrow) ctx.fillText('klappe', mx - ow / 2 - 6, yv0 + 16);
+    ctx.fillText(narrow ? 'Segel-' : 'Segelklappe', laX0 - 6, yv0 + 4);
+    if (narrow) ctx.fillText('klappe', laX0 - 6, yv0 + 16);
     ctx.textAlign = 'left';
     ctx.fillText(narrow ? 'Taschen-' : 'Taschenklappe', cx + lw / 2 + 8, yv0 + 4);
     if (narrow) ctx.fillText('klappe', cx + lw / 2 + 8, yv0 + 16);
-    if (back) { ctx.fillStyle = C.bad; ctx.font = `500 12px ${MONO}`; ctx.textAlign = 'left'; ctx.fillText('Rückfluss!', laX1 + 6, laY0 + 40); }
+    if (back) { ctx.fillStyle = '#ffd34d'; ctx.font = `500 11px ${MONO}`; ctx.textAlign = 'center'; ctx.fillText('Rückfluss!', (laX0 + laX1) / 2, laY0 + 31); }
 
     // Lub und Dub
     const near = (a, b) => { const d = Math.abs(a - b); return Math.min(d, T - d); };

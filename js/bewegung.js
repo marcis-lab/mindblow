@@ -1,6 +1,6 @@
 /* mindblow – Lektion Knochen & Muskeln */
 (() => {
-  const { $, $$, C, fit, roundRect, reduced, fmt, lesson, loop } = MB;
+  const { $, C, fit, roundRect, reduced, fmt, lesson, loop } = MB;
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const TAU = Math.PI * 2;
   const DEG = Math.PI / 180;
@@ -29,8 +29,8 @@
     const T = { x: O.x + (I.x - O.x) * .78, y: O.y + (I.y - O.y) * .78 };
     const M = { x: (O.x + T.x) / 2, y: (O.y + T.y) / 2 };
     ctx.beginPath(); ctx.moveTo(O.x, O.y);
-    ctx.quadraticCurveTo(M.x + n.x * t * 2, M.y + n.y * t * 2, T.x, T.y);
-    ctx.quadraticCurveTo(M.x - n.x * t * .25, M.y - n.y * t * .25, O.x, O.y);
+    ctx.quadraticCurveTo(M.x + n.x * t * 2.6, M.y + n.y * t * 2.6, T.x, T.y);
+    ctx.quadraticCurveTo(M.x + n.x * t * .2, M.y + n.y * t * .2, O.x, O.y);
     ctx.closePath();
     ctx.globalAlpha = .3 + .65 * active; ctx.fillStyle = C.bad; ctx.fill();
     ctx.globalAlpha = 1; ctx.strokeStyle = C.bad; ctx.lineWidth = 1.2; ctx.stroke();
@@ -87,8 +87,8 @@
     const { ctx, w, h } = fit(armCv);
     ctx.clearRect(0, 0, w, h);
     const narrow = w < 420;
-    const Lu = Math.min((w - 56) * .52, 210), Lf = Math.min(Lu * .92, h * .55);
-    const S = { x: 28, y: h * .68 }, E = { x: S.x + Lu, y: S.y };
+    const Lu = Math.min((w - 56) * .52, 230), Lf = Math.min(Lu * .92, h * .55);
+    const S = { x: Math.max(28, (w - Lu - Lf) / 2), y: h * .66 }, E = { x: S.x + Lu, y: S.y };
     const phi = (180 - ARM.ang) * DEG;
     const f = { x: Math.cos(phi), y: -Math.sin(phi) };      // Richtung Unterarm
     const post = { x: Math.sin(phi), y: Math.cos(phi) };    // Rückseite des Unterarms
@@ -99,15 +99,15 @@
     ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.stroke();
 
     // Muskeln (hinter den Knochen beginnen)
-    const Ob = { x: S.x + 16, y: S.y - 9 }, Ib = { x: E.x + f.x * Lf * .14 - post.x * 4, y: E.y + f.y * Lf * .14 - post.y * 4 };
-    const Ot = { x: S.x + 16, y: S.y + 9 }, Ol = { x: E.x - f.x * 9 + post.x * 8, y: E.y - f.y * 9 + post.y * 8 };
+    const Ob = { x: S.x + 14, y: S.y - 10 }, Ib = { x: E.x + f.x * Lf * .14 - post.x * 4, y: E.y + f.y * Lf * .14 - post.y * 4 };
+    const Ot = { x: S.x + 14, y: S.y + 10 }, Ol = { x: E.x - f.x * 9 + post.x * 8, y: E.y - f.y * 9 + post.y * 8 };
     const relLen = (O, I, L0) => Math.hypot(I.x - O.x, I.y - O.y) / L0;
     const lb = relLen(Ob, Ib, Lu * 1.05), lt = relLen(Ot, Ol, Lu * .98);
     const ub = unit(Ib.x - Ob.x, Ib.y - Ob.y), ut = unit(Ol.x - Ot.x, Ol.y - Ot.y);
     let nb = { x: ub.y, y: -ub.x }; if (nb.y > 0) nb = { x: -nb.x, y: -nb.y };
     let nt = { x: -ut.y, y: ut.x }; if (nt.y < 0) nt = { x: -nt.x, y: -nt.y };
-    const tb = clamp(11 / Math.sqrt(lb), 8, 22) * (1 + .15 * ARM.bi);
-    const tt = clamp(11 / Math.sqrt(lt), 8, 20) * (1 + .15 * ARM.tri);
+    const tb = clamp(8 / lb ** 3, 5, 19) * (1 + .2 * ARM.bi);
+    const tt = clamp(8 / lt ** 3, 5, 17) * (1 + .2 * ARM.tri);
 
     bone(ctx, S.x, S.y, E.x, E.y, 12);                      // Oberarmknochen
     bone(ctx, E.x - f.x * 10 + post.x * 7, E.y - f.y * 10 + post.y * 7, W.x, W.y, 10);   // Elle mit Ellbogenhöcker
@@ -133,12 +133,13 @@
     // Beschriftung
     ctx.font = `${narrow ? 11 : 12}px ${MONO}`; ctx.textAlign = 'center';
     ctx.fillStyle = C.fg;
-    ctx.fillText('Bizeps', mb.M.x + nb.x * (tb + 14), mb.M.y + nb.y * (tb + 14));
-    ctx.fillText('Trizeps', mt.M.x + nt.x * (tt + 16), mt.M.y + nt.y * (tt + 16) + 4);
+    ctx.fillText('Bizeps', mb.M.x + nb.x * (tb * 1.3 + 12), mb.M.y + nb.y * (tb * 1.3 + 12));
+    ctx.fillText('Trizeps', mt.M.x + nt.x * (tt * 1.3 + 12), mt.M.y + nt.y * (tt * 1.3 + 12) + 8);
     ctx.fillStyle = C.muted;
     ctx.fillText(narrow ? 'Ellbogen' : 'Ellbogengelenk', E.x, E.y + 30 + (ARM.ang > 150 ? 6 : 0));
     ctx.textAlign = 'left';
-    ctx.fillText(narrow ? 'Schulter' : 'Schulter (vereinfacht)', 8, S.y + 34);
+    ctx.textAlign = 'center';
+    ctx.fillText('Schulter', S.x, S.y - 24);
     const uf = { x: E.x + f.x * Lf * .62 - post.x * 18, y: E.y + f.y * Lf * .62 - post.y * 18 };
     ctx.textAlign = 'center';
     if (ARM.ang > 70) ctx.fillText('Unterarm', uf.x, uf.y);
@@ -220,11 +221,9 @@
       // Kraftpfeile im selben Massstab
       const k = Math.min(3, (E.y - shY - 30) / Math.max(F, 1));
       if (LEV.kg > 0) {
-        const bh = 10 + LEV.kg * 1.2, y0 = Hd.y + 10 + bh;
         arrow(ctx, Hd.x - 22, Hd.y + 6, Hd.x - 22, Hd.y + 6 + Math.max(10, LEV.kg * k), C.accent);
         ctx.fillStyle = C.accent; ctx.textAlign = 'right';
         ctx.fillText(`${fmt(LEV.kg, 1)} kg`, Hd.x - 30, Hd.y + 18);
-        void y0;
       }
       if (F > 0) {
         const x = I.x + 16;
@@ -251,7 +250,7 @@
       ctx.fillText(lab, cm === HAND ? Math.min(x, w - 24) : x, ryy + 16);
     }
     ctx.textAlign = 'left';
-    ctx.fillText('Drehpunkt', Math.max(4, E.x - 26), ryy + 16);
+    ctx.fillText(narrow ? 'Ellbogen' : 'Ellbogen = Drehpunkt', 4, E.y + 26);
     ctx.fillText(narrow ? 'Unterarm als Hebel, vereinfacht' : 'Unterarm als Hebel · Gewicht des Unterarms weggelassen', 12, h - 6 > ryy + 30 ? h - 6 : 14, w - 24);
   };
 
@@ -373,7 +372,6 @@
     levLock: () => { ['#kgIn', '#insIn', '#levMove'].forEach(s => $(s).disabled = false); },
     boneLock: () => { ['#loadIn', '#diaIn', '#boneReset'].forEach(s => $(s).disabled = false); },
   });
-  void $$;
 
   loop(dt => { drawArm(dt); drawLev(dt); drawBone(dt); });
 })();

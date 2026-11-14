@@ -95,8 +95,9 @@
     const yTop = top + 4, lt = layY - layH / 2, lb = layY + layH / 2;
     arrow(ctx, xs[0], yTop, gY - 2, IN, k, C.glow);
     ctx.globalAlpha = .55; arrow(ctx, xs[1], gY - 2, yTop, refl, k, C.glow); ctx.globalAlpha = 1;
-    arrow(ctx, xs[2], gY - 2, esc > 1 ? lt : lb, U, k, C.bad);
-    if (esc > 1) { ctx.globalAlpha = .9; arrow(ctx, xs[2], lt, yTop, esc, k, C.bad); ctx.globalAlpha = 1; }
+    if (E.eps < .005) arrow(ctx, xs[2], gY - 2, yTop, U, k, C.bad);
+    else arrow(ctx, xs[2], gY - 2, esc > 1 ? lt : lb, U, k, C.bad);
+    if (esc > 1 && E.eps >= .005) { ctx.globalAlpha = .9; arrow(ctx, xs[2], lt, yTop, esc, k, C.bad); ctx.globalAlpha = 1; }
     arrow(ctx, xs[3], lt, yTop, lay, k, C.bad);
     arrow(ctx, xs[4], lb, gY - 2, lay, k, C.bad);
     // Werte

@@ -208,9 +208,9 @@
     const { ctx, w, h } = fit(rxCv);
     ctx.clearRect(0, 0, w, h);
     const narrow = w < 440;
-    const sc = Math.min((w - 20) / 400, (h - 180) / 190);
-    const topH = 190 * sc + 52;
-    const ox = (w - 400 * sc) / 2, oy = 26;
+    const sc = Math.min((w - 20) / 400, (h - 190) / 190);
+    const topH = 190 * sc + 60;
+    const ox = (w - 400 * sc) / 2, oy = 34;
     const P = (x, y) => [ox + x * sc, oy + y * sc];
     // Phasen: 0–0.2 links, 0.2–0.75 Umbau, 0.75–1 rechts
     const t = R.t;
@@ -224,8 +224,8 @@
     const pos = atoms.map(posOf);
     // Überschriften
     ctx.font = MONO; ctx.textAlign = 'center'; ctx.fillStyle = C.muted;
-    ctx.fillText(narrow ? '6 CO₂ + 12 H₂O' : 'vorher: 6 CO₂ + 12 H₂O', ...P(85, -12));
-    ctx.fillText(narrow ? 'Zucker + 6 O₂ + 6 H₂O' : 'nachher: C₆H₁₂O₆ + 6 O₂ + 6 H₂O', ...P(310, -12));
+    ctx.fillText(narrow ? '6 CO₂ + 12 H₂O' : 'vorher: 6 CO₂ + 12 H₂O', P(85, 0)[0], 18);
+    ctx.fillText(narrow ? 'Zucker + 6 O₂ + 6 H₂O' : 'nachher: C₆H₁₂O₆ + 6 O₂ + 6 H₂O', P(310, 0)[0], 18);
     // Lichtpfeil in der Mitte
     const [ax, ay] = P(200, 92);
     const glow = clamp(R.light / 2000, 0, 1) * (reduced ? .7 : .5 + .5 * Math.sin(t * TAU * 2) ** 2);

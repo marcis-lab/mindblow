@@ -198,7 +198,7 @@
 
   /* ---------- Teil 2: Zehn Autos hintereinander ---------- */
   const platCv = $('#platCv');
-  const P2 = { n: 10, l: 4.5, s0: 2, tau: .3, v0: 80 / KMH, vlow: 50 / KMH, vmax: 130 / KMH, dt: .02, T: 36, Tr: 1, Tg: 1 };
+  const P2 = { n: 10, l: 4.5, s0: 2, tau: .3, v0: 80 / KMH, vlow: 50 / KMH, vmax: 90 / KMH, dt: .02, T: 36, Tr: 1, Tg: 1 };
   const SPEED2 = reduced ? 1 : 1.5;
   let plat, platOn = false, platAcc = 0, platUi = 0;
   const platInit = () => {
@@ -310,14 +310,15 @@
     const gx = 40, gy = ry + rh + 34, gw = w - gx - 14, gh = h - gy - 30;
     ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.fillStyle = C.muted; ctx.textAlign = 'right'; ctx.font = '10px Geist Mono, monospace';
     for (const kmh of [0, 20, 40, 60, 80]) {
-      const y = gy + gh - kmh / 90 * gh;
+      const y = gy + gh - kmh / 100 * gh;
       ctx.beginPath(); ctx.moveTo(gx, y); ctx.lineTo(gx + gw, y); ctx.stroke();
       ctx.fillText(String(kmh), gx - 6, y + 3);
     }
     ctx.textAlign = 'left'; ctx.fillText('km/h', 4, gy - 8);
     ctx.textAlign = 'center';
     for (let t = 0; t <= P2.T; t += narrow ? 12 : 6) ctx.fillText(`${t} s`, gx + t / P2.T * gw, gy + gh + 16);
-    const tx = t => gx + t / P2.T * gw, vy = v => gy + gh - v * KMH / 90 * gh;
+    const tx = t => gx + t / P2.T * gw, vy = v => gy + gh - v * KMH / 100 * gh;
+    ctx.save(); ctx.beginPath(); ctx.rect(gx, gy - 4, gw + 2, gh + 6); ctx.clip();
     for (let i = n - 1; i >= 0; i--) {
       const tr = p.trace[i];
       if (tr.length < 2) continue;
@@ -328,6 +329,7 @@
       else { ctx.strokeStyle = C.copper; ctx.lineWidth = 1.2; ctx.globalAlpha = .25 + .5 * i / n; }
       ctx.stroke(); ctx.globalAlpha = 1;
     }
+    ctx.restore();
     // Legende
     ctx.textAlign = 'left'; ctx.font = '11px Geist Mono, monospace';
     const lg = [[C.fg, narrow ? 'Auto 1' : 'Auto 1 (vorne)'], [C.copper, '2 bis 9'], [C.bad, narrow ? 'Auto 10' : 'Auto 10 (hinten)']];
@@ -392,7 +394,7 @@
     $('#fdState').textContent = slow > 0 ? 'Stop-and-go' : 'flüssig';
   };
   updFd();
-  $('#densIn').addEventListener('input', e => { $('#densOut').textContent = `${e.target.value} Fz/km`; fdStart(); updFd(); });
+  $('#densIn').addEventListener('input', e => { $('#densOut').textContent = e.target.value; fdStart(); updFd(); });
   $$('#limitBtns button').forEach(b => b.addEventListener('click', () => {
     lim = +b.dataset.lim;
     $$('#limitBtns button').forEach(x => x.classList.toggle('active', x === b));
