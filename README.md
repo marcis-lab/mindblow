@@ -7,12 +7,12 @@ Jede Lektion: vermuten → ausprobieren → verstehen.
 
 Alle Themen stehen im Register `js/themen.js` (Bereich → Gebiet → Thema). Startseite, Menü, Übersichten, Suche und «Weiter»-Links werden daraus erzeugt.
 
-- **Körper & Gesundheit:** herz, blut, lunge, bewegung, immunsystem, verdauung, farben, gehoer, gedaechtnis, schlaf
-- **Pflanzen, Tiere & Evolution:** fotosynthese, herbst, dna, evolution, zugvoegel, bienen, nahrungsnetz
-- **Physik & Chemie:** fallen, himmel, regenbogen, waerme, atome
-- **Erde & Weltall:** jahreszeiten, gezeiten, mondphasen, treibhaus, gewitter, universum, vulkane
+- **Körper & Gesundheit:** herz, blut, lunge, ersticken, bewegung, muskelkater, immunsystem, fieber, verdauung, kalorien, farben, gehoer, geschmack, gedaechtnis, schlaf, nerven
+- **Pflanzen, Tiere & Evolution:** fotosynthese, herbst, dna, zelle, evolution, zugvoegel, bienen, nahrungsnetz
+- **Physik & Chemie:** fallen, hebel, himmel, regenbogen, waerme, feuer, atome
+- **Erde & Weltall:** jahreszeiten, gezeiten, mondphasen, treibhaus, gewitter, universum, schwarzeloecher, vulkane
 - **Technik:** strom, kuehlschrank, akku, internet, ki, verschluesselung, computer, gps, flugzeug
-- **Geld & Gesellschaft:** geld, zinseszins, inflation, lotto, stau
+- **Geld & Gesellschaft:** geld, zinseszins, inflation, lotto, stau, wahlen
 
 ## Lokal starten
 
