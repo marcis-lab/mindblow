@@ -4,7 +4,8 @@
 
 - **Live:** https://mindblow.thinklabs.workers.dev
 - **Produktions-Branch:** `main`
-- **Aufbau:** Statische Lernseiten (index, strom, internet, ki), css/ und js/. server.js ist nur der lokale Vorschau-Server und steht in .assetsignore.
+- **Aufbau:** Statische Lernseiten (index, themen, eine Seite pro Thema), css/ und js/. server.js ist nur der lokale Vorschau-Server und steht in .assetsignore.
+- **Vorbild für alle Lexika:** `design/lexikon.css`, `js/common.js`, `design/lexikon-ui.js` und `lexikon/lexikon.js` werden von den anderen Lexika per Adresse geladen. Änderungen daran wirken sofort überall; Kopfzeilen-CSS steht doppelt (`css/style.css` für mindblow, `design/lexikon.css` für alle anderen). Regel: `marcis-lab/claude-wissen`, `lexikon/README.md`.
 
 ## Regeln für Claude (gelten in jeder Sitzung, auch in der Cloud und am Handy)
 

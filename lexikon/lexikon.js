@@ -13,8 +13,8 @@
     { id: 'weltgeschichte', name: 'timewarp', desc: 'Menschen und Momente der Weltgeschichte', url: 'https://weltgeschichte.thinklabs.workers.dev', c: '#F07A2A' },
     { id: 'periodensystem', name: 'Periodensystem', desc: 'Alle Elemente zum Drehen und Ausprobieren', url: 'https://periodensystem.thinklabs.workers.dev', c: '#0E9EC4' },
     { id: 'bibel', name: 'Bibel verstehen', desc: 'Die ganze Bibel als geführter Weg', url: 'https://bibelerklaert.ch', c: '#A23FE6' },
-    { id: 'musik-lexikon', name: 'soundcheck', desc: 'Musik und Instrumente', url: 'https://musik-lexikon.thinklabs.workers.dev', c: '#14A874' },
-    { id: 'sprachen-schriften', name: 'wordtrip', desc: 'Sprachen, Schriften und Zeichen', url: 'https://sprachen-schriften.thinklabs.workers.dev', c: '#5072FF' },
+    { id: 'musik-lexikon', name: 'soundcheck', desc: 'Musik und Instrumente', url: 'https://musik-lexikon.thinklabs.workers.dev', c: '#8B5CF6' },
+    { id: 'sprachen-schriften', name: 'wordtrip', desc: 'Sprachen, Schriften und Zeichen', url: 'https://sprachen-schriften.thinklabs.workers.dev', c: '#E8336F' },
   ];
   const cur = (me && me.dataset.site) || (SITES.find(s => location.origin === s.url) || {}).id;
   // Seiten, die (noch) nicht zum Lexikon gehören, zeigen keinen Knopf

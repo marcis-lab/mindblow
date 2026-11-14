@@ -1,6 +1,21 @@
-/* mindblow – gemeinsame Werkzeuge für alle Seiten */
+/* mindblow – gemeinsame Werkzeuge für alle Seiten.
+   Dieselbe Datei ist die Logik ALLER Lexika (Kopfzeile mit Themen-Menü, Suche, Karten, Übersichten, Lexikon-Knopf).
+   Andere Lexika laden sie von https://mindblow.thinklabs.workers.dev/js/common.js und setzen davor ihre Angaben:
+     <script>window.MB_SITE = { id: 'musik-lexikon', placeholder: '…', sugg: ['…'], fresh: '…', go: '…' };</script>
+   Themen stehen in js/themen.js (window.MB_THEMEN). Ein Thema ohne eigene Seite bekommt dort ein Feld url. */
 window.MB = (() => {
   const $ = (s, r = document) => r.querySelector(s);
+  /* Angaben pro Lexikon; ohne MB_SITE gelten die Werte von mindblow */
+  const SITE = Object.assign({
+    id: 'mindblow',                                              // id im Lexikon-Verbund (SITES in lexikon/lexikon.js)
+    key: null,                                                   // Schlüssel für den Fortschritt im Browser (sonst id)
+    placeholder: 'Was willst du verstehen? z. B. Herz, Blitz, Geld',
+    sugg: ['Herz', 'Geld', 'Licht', 'Weltall', 'Gehirn', 'Strom'],
+    fresh: '4 Aufgaben · 15 Min.',                               // Hinweis auf noch nicht angefangenen Karten
+    go: 'Starten',                                               // Knopf auf den Karten
+  }, window.MB_SITE || {});
+  const KEY = (SITE.key || SITE.id) + '-';
+  const SELF = document.currentScript && document.currentScript.src;
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Schweizer Schreibweise wie in den Texten: 1'234,5
@@ -31,10 +46,10 @@ window.MB = (() => {
 
   /* Fortschritt pro Lektion, nur im eigenen Browser */
   const load = key => {
-    try { const s = JSON.parse(localStorage.getItem('mindblow-' + key) || '{}') || {}; s.solved = s.solved || {}; return s; }
+    try { const s = JSON.parse(localStorage.getItem(KEY + key) || '{}') || {}; s.solved = s.solved || {}; return s; }
     catch (e) { return { solved: {} }; }
   };
-  const store = (key, s) => { try { localStorage.setItem('mindblow-' + key, JSON.stringify(s)); } catch (e) {} };
+  const store = (key, s) => { try { localStorage.setItem(KEY + key, JSON.stringify(s)); } catch (e) {} };
   const progressOf = key => Object.keys(load(key).solved).length;
 
   /* Eine Lektion verdrahten: Denkfragen, Fortschritt, Selber-denken-Box, Zurücksetzen */
@@ -110,7 +125,7 @@ window.MB = (() => {
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const urlB = b => `themen.html?b=${b}`;
   const urlG = (b, g) => `themen.html?b=${b}&g=${g}`;
-  const urlT = t => `${t.slug}.html`;
+  const urlT = t => t.url || `${t.slug}.html`;          // url: Thema ohne eigene Seite (z. B. /instrumente/#e=violine)
   const CATS = BEREICHE; // alter Name, für ältere Seiten
 
   /* ---------- Suche ---------- */
@@ -149,14 +164,14 @@ window.MB = (() => {
     const n = progressOf(t.slug);
     return n >= 4 ? { cls: 'done', chip: 'Erledigt', txt: 'Abgeschlossen' }
       : n > 0 ? { cls: 'started', chip: 'Angefangen', txt: `${n} von 4 gelöst` }
-      : { cls: 'fresh', chip: 'Offen', txt: '4 Aufgaben · 15 Min.' };
+      : { cls: 'fresh', chip: 'Offen', txt: SITE.fresh };
   };
   // Eine Themenkarte (Startseite, Übersichten)
   const card = (t, opt = {}) => {
     const s = stateOf(t);
     const path = opt.path === false ? '' : `<span class="crumbs">${esc(t.bereich.name)} · ${esc(t.gebiet.name)}</span>`;
     const inner = `${path}<span class="chip">${s.chip}</span><h3>${t.title}</h3><p>${t.teaser}</p>
-      <div class="meta"><span>${s.txt}</span>${t.soon ? '' : '<span class="go">Starten</span>'}</div>`;
+      <div class="meta"><span>${s.txt}</span>${t.soon ? '' : `<span class="go">${SITE.go}</span>`}</div>`;
     return t.soon ? `<div class="topic soon-t" aria-disabled="true">${inner}</div>`
       : `<a class="topic ${s.cls}" href="${urlT(t)}" data-tilt>${inner}</a>`;
   };
@@ -165,7 +180,9 @@ window.MB = (() => {
   const here = (location.pathname.split('/').pop() || 'index.html').replace('.html', '') || 'index';
   const params = new URLSearchParams(location.search);
   const curT = bySlug[here];
-  const curB = curT ? curT.b : (here === 'themen' ? params.get('b') : null);
+  // Bereich dieser Seite: aus dem Thema, aus ?b= oder (Seiten ohne eigene Lektionen) aus dem Feld url des Bereichs
+  const curB = curT ? curT.b : here === 'themen' ? params.get('b')
+    : (BEREICHE.find(b => b.url && location.pathname.startsWith(b.url)) || {}).id || null;
   const nav = $('header.top nav');
   let openSearch = () => {};
   if (nav) {
@@ -184,7 +201,7 @@ window.MB = (() => {
             }).join('')}
           </div>`).join('')}
         </div>
-        <div class="mega-foot"><a href="themen.html">Alle ${TOPICS.length} Themen von A bis Z →</a></div>
+        <div class="mega-foot"><a href="themen.html">${TOPICS.length ? `Alle ${TOPICS.length} Themen` : `Alle ${ALL.length} geplanten Themen`} von A bis Z →</a></div>
       </div>`;
     const mb = $('#megaBtn'), mega = $('#mega');
     const setMega = open => { mega.hidden = !open; mb.setAttribute('aria-expanded', String(open)); nav.classList.toggle('open', open); };
@@ -198,14 +215,14 @@ window.MB = (() => {
     dlg.setAttribute('role', 'dialog'); dlg.setAttribute('aria-modal', 'true'); dlg.setAttribute('aria-label', 'Themen durchsuchen');
     dlg.innerHTML = `<div class="search-box">
         <div class="search-in"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4.5 4.5"/></svg>
-          <input type="search" id="sQ" placeholder="Was willst du verstehen? z. B. Herz, Blitz, Geld" autocomplete="off" spellcheck="false" aria-controls="sRes">
+          <input type="search" id="sQ" placeholder="${esc(SITE.placeholder)}" autocomplete="off" spellcheck="false" aria-controls="sRes">
           <button type="button" class="s-close" aria-label="Schliessen">Esc</button></div>
         <div class="s-res" id="sRes" role="listbox"></div>
       </div>`;
     document.body.append(dlg);
     const q = $('#sQ', dlg), res = $('#sRes', dlg);
     let sel = 0, hits = [];
-    const sugg = ['Herz', 'Geld', 'Licht', 'Weltall', 'Gehirn', 'Strom'];
+    const sugg = SITE.sugg;
     const render = () => {
       const v = q.value.trim();
       if (!v) {
@@ -252,7 +269,9 @@ window.MB = (() => {
   /* ---------- Lexikon-Verbund (mindblow, timewarp, Periodensystem, Bibel, soundcheck, wordtrip) ---------- */
   {
     const lx = document.createElement('script');
-    lx.src = 'lexikon/lexikon.js'; lx.defer = true; lx.dataset.site = 'mindblow';
+    // lexikon.js liegt neben dieser Datei (js/common.js → lexikon/lexikon.js), auch wenn sie von mindblow geladen wird
+    lx.src = SELF ? new URL('../lexikon/lexikon.js', SELF).href : 'lexikon/lexikon.js';
+    lx.defer = true; lx.dataset.site = SITE.id;
     document.head.append(lx);
   }
 
@@ -274,12 +293,17 @@ window.MB = (() => {
   }
 
   /* ---------- Atmosphäre & Mikro-Interaktionen ---------- */
-  const ambient = document.createElement('div');
-  ambient.className = 'ambient'; ambient.setAttribute('aria-hidden', 'true');
-  ambient.innerHTML = '<i></i><i></i><i></i>';
-  const grain = document.createElement('div');
-  grain.className = 'grain'; grain.setAttribute('aria-hidden', 'true');
-  document.body.prepend(ambient); document.body.append(grain);
+  if (!$('.ambient')) {
+    const ambient = document.createElement('div');
+    ambient.className = 'ambient'; ambient.setAttribute('aria-hidden', 'true');
+    ambient.innerHTML = '<i></i><i></i><i></i>';
+    document.body.prepend(ambient);
+  }
+  if (!$('.grain')) {
+    const grain = document.createElement('div');
+    grain.className = 'grain'; grain.setAttribute('aria-hidden', 'true');
+    document.body.append(grain);
+  }
 
   const finePointer = matchMedia('(pointer: fine)').matches;
   const GLASS = '.glass, .quiz, .controls, .think, .analogy > div, .learned li, .topic, .top nav, .navmenu';
@@ -330,5 +354,5 @@ window.MB = (() => {
     }
   }
 
-  return { $, $$, reduced, fmt, C, fit, roundRect, lesson, loop, progressOf, CATS, TOPICS, BEREICHE, ALL, bySlug, topicsIn, liveIn, search, stateOf, card, plain, esc, urlB, urlG, urlT, params, openSearch: t => openSearch(t) };
+  return { $, $$, SITE, reduced, fmt, C, fit, roundRect, lesson, loop, progressOf, CATS, TOPICS, BEREICHE, ALL, bySlug, topicsIn, liveIn, search, stateOf, card, plain, esc, urlB, urlG, urlT, params, openSearch: t => openSearch(t) };
 })();

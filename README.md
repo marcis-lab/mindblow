@@ -37,11 +37,18 @@ Nichts von Hand hochladen. Konfiguration: `wrangler.jsonc`, ausgeschlossene Date
 
 Gemeinsames Design: `css/style.css`. Gemeinsame Logik: `js/common.js`.
 
-## Lexikon-Verbund
+## Lexikon-Verbund und gemeinsames Paket
 
-mindblow ist mit timewarp (Weltgeschichte) und dem Periodensystem verbunden. Bibel verstehen ist vorbereitet, aber vorerst nicht dabei (in `SITES` auskommentiert). Das gemeinsame Skript liegt hier:
-`lexikon/lexikon.js` (Knopf «Lexikon» und Suche über alle Seiten). Die anderen Seiten laden es von
-https://mindblow.thinklabs.workers.dev/lexikon/lexikon.js.
+mindblow ist das **Vorbild für alle Lexika** (timewarp, Periodensystem, Bibel verstehen, soundcheck, wordtrip und neue).
+Die anderen Lexika laden Design und Logik von hier, per Adresse, nichts wird kopiert:
+
+- `design/lexikon.css` – das Design (Kopfzeile, Hero, Karten, Knöpfe, Menü, Suchfenster, Übersichten). Für mindblow selbst steht dasselbe in `css/style.css`: Wer am CSS der Kopfzeile etwas ändert, ändert beide Dateien.
+- `js/common.js` – die Logik (Kopfzeile mit Themen-Menü und Suche, Karten, Übersichten, Fortschritt). Andere Seiten setzen davor `window.MB_SITE = { id, placeholder, sugg, fresh, go }`.
+- `design/lexikon-ui.js` – Icon in der Kopfzeile aus dem Favicon der jeweiligen Seite.
+- `lexikon/lexikon.js` – Knopf «Lexikon» und Suche über alle Seiten (`SITES`), wird von common.js geladen.
+
+Regel und Anleitung: Repo `marcis-lab/claude-wissen`, Datei `lexikon/README.md`. Vorlage für neue Lexika: `marcis-lab/lexikon-vorlage`.
+Ausnahmen mit eigenem Design: Bibel verstehen und Periodensystem.
 
 Jede Seite hat einen Suchindex `lexikon.json`. Für mindblow nach jeder Änderung an `js/themen.js` ausführen:
 
@@ -49,4 +56,4 @@ Jede Seite hat einen Suchindex `lexikon.json`. Für mindblow nach jeder Änderun
 node tools/lexikon-index.js
 ```
 
-`_headers` erlaubt anderen Seiten, `lexikon.json` zu lesen.
+`_headers` erlaubt anderen Seiten, `lexikon.json`, `design/*` und `js/common.js` zu laden.

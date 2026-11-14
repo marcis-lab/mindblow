@@ -10,7 +10,7 @@ const items = [];
 for (const t of THEMEN) {
   if (t.soon) continue;
   const b = bName[t.b], g = b.gebiete.find(x => x.id === t.g);
-  items.push({ t: plain(t.title), u: `/${t.slug}.html`, d: t.teaser, k: [t.short, t.tags].join(' '), p: `${b.name} · ${g.name}` });
+  items.push({ t: plain(t.title), u: t.url || `/${t.slug}.html`, d: t.teaser, k: [t.short, t.tags].join(' '), p: `${b.name} · ${g.name}` });
 }
 for (const b of BEREICHE) {
   items.push({ t: b.name, u: `/themen.html?b=${b.id}`, d: b.intro, k: b.gebiete.map(g => g.name).join(' '), p: 'Bereich' });

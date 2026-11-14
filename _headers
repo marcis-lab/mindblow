@@ -4,3 +4,6 @@
 /design/*
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=300
+/js/common.js
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=300
