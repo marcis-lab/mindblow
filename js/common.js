@@ -181,7 +181,7 @@ window.MB = (() => {
     nav.className = 'mainnav'; nav.setAttribute('aria-label', 'Themen');
     nav.innerHTML = `
       <button class="navcat" type="button" id="megaBtn" aria-expanded="false" aria-controls="mega">Themen <span class="caret"></span></button>
-      <button class="navcat searchbtn" type="button" id="searchBtn" aria-label="Suchen"><svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4.5 4.5"/></svg><span class="sb-l">Suchen</span><kbd>/</kbd></button>
+      <button class="navcat searchbtn" type="button" id="searchBtn" aria-label="Suchen"><svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4.5 4.5"/></svg><span class="sb-l">Thema oder Begriff suchen</span><kbd>/</kbd></button>
       <div class="mega" id="mega" hidden>
         <div class="mega-grid">
           ${BEREICHE.map(b => `<div class="mega-col${b.id === curB ? ' current' : ''}">
