@@ -1,0 +1,158 @@
+/* mindblow – gemeinsame Werkzeuge für alle Seiten */
+window.MB = (() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fmt = (n, d = 1) => n.toLocaleString('de-CH', { minimumFractionDigits: d, maximumFractionDigits: d });
+
+  /* Farben aus den CSS-Tokens, damit Canvas-Zeichnungen hell und dunkel passen */
+  const C = {};
+  const readColors = () => {
+    const cs = getComputedStyle(document.documentElement);
+    for (const k of ['fg', 'muted', 'line', 'accent', 'glow', 'copper', 'fiber', 'surface', 'sunk', 'bg', 'bad', 'good'])
+      C[k] = cs.getPropertyValue('--' + k).trim();
+  };
+  readColors();
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', readColors);
+
+  const fit = cv => {
+    const r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    const w = Math.max(1, Math.round(r.width * d)), h = Math.max(1, Math.round(r.height * d));
+    if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
+    const ctx = cv.getContext('2d'); ctx.setTransform(d, 0, 0, d, 0, 0);
+    return { ctx, w: r.width, h: r.height };
+  };
+  const roundRect = (ctx, x, y, w, h, r) => {
+    ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+  };
+
+  /* Fortschritt pro Lektion, nur im eigenen Browser */
+  const load = key => {
+    try { const s = JSON.parse(localStorage.getItem('mindblow-' + key) || '{}') || {}; s.solved = s.solved || {}; return s; }
+    catch (e) { return { solved: {} }; }
+  };
+  const store = (key, s) => { try { localStorage.setItem('mindblow-' + key, JSON.stringify(s)); } catch (e) {} };
+  const progressOf = key => Object.keys(load(key).solved).length;
+
+  /* Eine Lektion verdrahten: Denkfragen, Fortschritt, Selber-denken-Box, Zurücksetzen */
+  const lesson = (key, total, unlockers = {}) => {
+    const saved = load(key);
+    const save = () => store(key, saved);
+    const update = () => {
+      const n = Object.keys(saved.solved).length;
+      $('#progBar').style.width = (n / total * 100) + '%';
+      $('#progText').textContent = `${n} von ${total} Denkaufgaben gelöst`;
+      $$('.step[data-q]').forEach(s => s.classList.toggle('solved', !!saved.solved[s.dataset.q]));
+    };
+    const answer = (quiz, v, silent) => {
+      const correct = quiz.dataset.correct;
+      $$('.opts button', quiz).forEach(b => {
+        b.disabled = true;
+        if (b.dataset.v === correct) b.classList.add('right');
+        else if (b.dataset.v === v) b.classList.add('wrong');
+        else b.classList.add('dim');
+      });
+      const verdict = $('.verdict', quiz);
+      if (v === correct) { verdict.textContent = 'Richtig gedacht.'; verdict.className = 'verdict ok'; }
+      else { verdict.textContent = 'Nicht ganz. Die meisten tippen so, und genau das macht es spannend:'; verdict.className = 'verdict no'; }
+      $('.reveal', quiz).hidden = false;
+      const lock = quiz.dataset.unlock;
+      if (lock) { const el = document.getElementById(lock); if (el) el.hidden = true; unlockers[lock]?.(); }
+      if (!silent) { saved.solved[quiz.dataset.q] = v; save(); update(); }
+    };
+    $$('.quiz').forEach(quiz => {
+      $$('.opts button', quiz).forEach(b => b.addEventListener('click', () => answer(quiz, b.dataset.v)));
+      const prev = saved.solved[quiz.dataset.q];
+      if (prev) answer(quiz, prev, true);
+    });
+
+    // Selber denken
+    const txt = $('#thinkTxt');
+    if (txt) {
+      const tKey = txt.dataset.q;
+      if (saved.draft) txt.value = saved.draft;
+      const check = () => {
+        const ok = txt.value.trim().split(/\s+/).filter(Boolean).length >= 4;
+        if (!saved.solved[tKey]) $('#ansBtn').disabled = !ok;
+        $('#thinkStatus').textContent = ok ? 'Bereit. Vergleiche jetzt mit der Auflösung.' : 'Schreib mindestens einen Satz, dann kannst du vergleichen.';
+      };
+      txt.addEventListener('input', () => { saved.draft = txt.value; save(); check(); });
+      $('#hintBtn').addEventListener('click', () => { $('#hint').hidden = false; $('#hintBtn').disabled = true; });
+      const show = silent => {
+        $('#answer').hidden = false; $('#ansBtn').disabled = true;
+        if (!silent) { saved.solved[tKey] = 'x'; save(); update(); }
+      };
+      $('#ansBtn').addEventListener('click', () => show());
+      check();
+      if (saved.solved[tKey]) show(true);
+    }
+
+    $('#resetBtn')?.addEventListener('click', () => { store(key, { solved: {} }); location.reload(); });
+    update();
+    return { saved, save };
+  };
+
+  /* Eine Animationsschleife für alles, was sich bewegt */
+  const loop = fn => {
+    let last = performance.now();
+    const frame = now => { const dt = Math.min(0.05, (now - last) / 1000); last = now; fn(dt, now); requestAnimationFrame(frame); };
+    requestAnimationFrame(frame);
+  };
+
+  /* ---------- Atmosphäre & Mikro-Interaktionen ---------- */
+  const ambient = document.createElement('div');
+  ambient.className = 'ambient'; ambient.setAttribute('aria-hidden', 'true');
+  ambient.innerHTML = '<i></i><i></i><i></i>';
+  const grain = document.createElement('div');
+  grain.className = 'grain'; grain.setAttribute('aria-hidden', 'true');
+  document.body.prepend(ambient); document.body.append(grain);
+
+  const finePointer = matchMedia('(pointer: fine)').matches;
+  const GLASS = '.glass, .quiz, .controls, .think, .analogy > div, .learned li, .topic.open, .topic.soon, .top nav, .manifest-card';
+
+  if (finePointer) {
+    // Lichtfleck folgt der Maus auf Glasflächen
+    document.addEventListener('pointermove', e => {
+      const el = e.target.closest?.(GLASS);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    }, { passive: true });
+
+    if (!reduced) {
+      // Cursor-Ring mit leichtem Nachziehen
+      const ring = document.createElement('div'); ring.className = 'cursor'; document.body.append(ring);
+      let tx = -100, ty = -100, x = -100, y = -100;
+      document.addEventListener('pointermove', e => {
+        tx = e.clientX; ty = e.clientY; ring.classList.add('on');
+        ring.classList.toggle('hover', !!e.target.closest?.('a, button:not(:disabled), input, textarea, [role=button], #netCv'));
+      }, { passive: true });
+      document.addEventListener('pointerleave', () => ring.classList.remove('on'));
+      const follow = () => { x += (tx - x) * .2; y += (ty - y) * .2; ring.style.transform = `translate(${x}px, ${y}px)`; requestAnimationFrame(follow); };
+      follow();
+
+      // Magnetische Buttons
+      $$('.btn, .brand').forEach(b => {
+        b.addEventListener('pointermove', e => {
+          if (b.disabled) return;
+          const r = b.getBoundingClientRect();
+          b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .18}px, ${(e.clientY - r.top - r.height / 2) * .28}px)`;
+        });
+        b.addEventListener('pointerleave', () => { b.style.transform = ''; });
+      });
+
+      // Leichtes Kippen der Themenkarten
+      $$('[data-tilt]').forEach(c => {
+        c.addEventListener('pointermove', e => {
+          const r = c.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+          c.style.setProperty('--ry', (px * 5).toFixed(2) + 'deg'); c.style.setProperty('--rx', (-py * 5).toFixed(2) + 'deg');
+        });
+        c.addEventListener('pointerleave', () => { c.style.setProperty('--ry', '0deg'); c.style.setProperty('--rx', '0deg'); });
+      });
+    }
+  }
+
+  return { $, $$, reduced, fmt, C, fit, roundRect, lesson, loop, progressOf };
+})();

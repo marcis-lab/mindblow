@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KI · mindblow</title>
+<meta name="description" content="Was ist KI? Erst vermuten, dann ausprobieren.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav>
+      <a href="index.html">Themen</a>
+      <a href="strom.html">Strom</a>
+      <a href="internet.html">Internet</a>
+      <a href="ki.html" aria-current="page">KI</a>
+    </nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 03 · Denken über Maschinen</span>
+    <h1>Was ist eigentlich <em class="copper">KI</em>?</h1>
+    <p class="intro">Sie schreibt Texte, malt Bilder und beantwortet fast jede Frage. Aber was passiert da drin? Denkt sie? Weiss sie etwas? Beantworte jede Frage zuerst selbst.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Nächstes Wort -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Wie schreibt eine KI? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Wort nach dem anderen</h2>
+      <p>Chatbots wie ChatGPT, Claude oder Gemini heissen <strong>Sprachmodelle</strong>. Sie schreiben flüssig wie ein Mensch, oft in Sekunden.</p>
+      <div class="quiz" data-q="q1" data-correct="c" data-unlock="wordLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie entsteht die Antwort eines Chatbots?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Er schlägt die fertige Antwort in einer riesigen Datenbank nach</span></button>
+          <button data-v="b"><span class="k">b</span><span>Er versteht die Frage wie ein Mensch und überlegt sich eine Antwort</span></button>
+          <button data-v="c"><span class="k">c</span><span>Er sagt immer wieder voraus, welches Wort am wahrscheinlichsten als Nächstes kommt</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ein Sprachmodell hat aus riesigen Mengen Text gelernt, <strong>welche Wörter typischerweise aufeinander folgen</strong>. Beim Schreiben berechnet es für jedes mögliche nächste Wort eine Wahrscheinlichkeit, wählt eines, hängt es an und beginnt von vorn. Probier es selbst: Wähle Wort für Wort oder lass das Modell schreiben.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Die «Temperatur» bestimmt, wie mutig das Modell wählt. Tief heisst: immer das Wahrscheinlichste. Hoch heisst: auch mal etwas Überraschendes. Darum bekommst du auf dieselbe Frage nicht immer dieselbe Antwort.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="sentence" id="sentence" aria-live="polite"></div>
+      <div class="stage" style="padding:16px; display:grid; gap:12px">
+        <span class="eyebrow">Wahrscheinlichkeit für das nächste Wort</span>
+        <div class="probs" id="probs"></div>
+        <div class="locked" id="wordLock">Erst vermuten, dann schreiben</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="tempIn">Temperatur</label><input type="range" id="tempIn" min="0.1" max="2" step="0.05" value="0.7" disabled><output id="tempOut">0,70</output></div>
+        <div class="row">
+          <button class="btn" id="autoBtn" disabled>Modell schreiben lassen</button>
+          <button class="btn ghost" id="restartBtn" disabled>Neu anfangen</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Lernen -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Wie lernt eine Maschine? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Niemand schreibt die Regeln</h2>
+      <p>Eine KI soll Äpfel von Bananen unterscheiden. Sie bekommt dafür nur zwei Messwerte pro Frucht: wie <strong>lang</strong> sie ist und wie <strong>rund</strong>.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="learnLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie lernt die KI, was ein Apfel ist?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Programmierer schreiben genaue Regeln wie «rund und rot heisst Apfel»</span></button>
+          <button data-v="b"><span class="k">b</span><span>Sie sieht viele Beispiele und dreht so lange an ihren inneren Zahlen, bis sie weniger Fehler macht</span></button>
+          <button data-v="c"><span class="k">c</span><span>Sie sucht im Internet nach Bildern von Äpfeln</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die KI beginnt mit <strong>zufälligen Zahlen</strong> und rät entsprechend schlecht. Nach jedem Beispiel prüft sie ihren Fehler und verschiebt die Zahlen ein kleines Stück in die bessere Richtung. Das nennt man <strong>Training</strong>. Drück auf «Lernschritt» und schau, wie sich die Trennlinie bewegt. Tippe ins Feld, um eigene Früchte hinzuzufügen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Dieses Modell hat 3 innere Zahlen. Grosse Sprachmodelle haben Hunderte von Milliarden. Was jede einzelne bedeutet, weiss niemand genau, nicht einmal die Leute, die sie gebaut haben.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="learnCv" style="height:300px" aria-label="Diagramm mit Äpfeln und Bananen und einer Trennlinie, die beim Lernen wandert"></canvas>
+        <div class="locked" id="learnLock">Erst vermuten, dann trainieren</div>
+      </div>
+      <div class="controls">
+        <div class="legend">
+          <span class="eyebrow">Neue Frucht setzen:</span>
+          <button id="addApple" class="active" disabled><span class="sw" style="background:var(--bad)"></span>Apfel</button>
+          <button id="addBanana" disabled><span class="sw" style="background:var(--glow)"></span>Banane</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="stepBtn" disabled>1 Lernschritt</button>
+          <button class="btn ghost" id="trainBtn" disabled>50 Schritte</button>
+          <button class="btn ghost" id="resetLearn" disabled>Vergessen</button>
+        </div>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Falsch eingeordnet</span><span class="val" id="lErr">–</span><span class="formula">von allen Früchten</span></div>
+        <div><span class="lbl">Lernschritte</span><span class="val" id="lSteps">0</span><span class="formula">Trainingsrunden</span></div>
+        <div><span class="lbl">Innere Zahlen</span><span class="val" id="lW" style="font-size:14px">–</span><span class="formula">Gewichte w₁, w₂, b</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Halluzination -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Weiss die KI, was stimmt? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Überzeugend ist nicht dasselbe wie wahr</h2>
+      <p>Du fragst einen Chatbot nach einer Person, die es gar nicht gibt: «Wer ist die Zürcher Erfinderin Lena Brunner?»</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="claimLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was kann passieren?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die KI sagt immer ehrlich «Das weiss ich nicht»</span></button>
+          <button data-v="b"><span class="k">b</span><span>Die KI kann eine flüssige, überzeugende, aber komplett erfundene Antwort schreiben</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die KI meldet automatisch einen Fehler</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Denk an Teil 1: Das Modell sagt voraus, welche Wörter <strong>plausibel klingen</strong>, nicht welche stimmen. Wenn es etwas nicht weiss, kann es trotzdem eine glaubwürdige Antwort zusammensetzen. Das nennt man <strong>Halluzination</strong>. Moderne Modelle sind darin besser geworden, aber nicht fehlerfrei. Teste dich: Welche dieser KI-Sätze stimmen?</p>
+        </div>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="controls">
+        <span class="eyebrow">Echt oder erfunden?</span>
+        <ul class="claims" id="claims"></ul>
+        <p class="status" id="claimStatus">Erst vermuten, dann prüfen.</p>
+      </div>
+      <div class="locked" id="claimLock" hidden></div>
+    </div>
+  </section>
+
+  <!-- 4: Selber denken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum selber denken, wenn KI alles beantworten kann?</h2>
+      <p>Das ist die Frage, für die es mindblow gibt. Du hast jetzt alles, was du brauchst, um sie selbst zu beantworten.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 3. Und daran, wie die KI in Teil 2 gelernt hat.</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich finde, man sollte trotzdem selber denken, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Mit unserer Sicht vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Wer merkt, wenn eine KI-Antwort falsch ist? Und: Die KI wurde besser, weil sie Fehler gemacht und korrigiert hat. Wie ist das bei dir?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Unsere Sicht</span>
+          <p>Eine KI klingt immer sicher, auch wenn sie falsch liegt. Nur wer selbst versteht, wie etwas funktioniert, <strong>merkt den Fehler</strong>. Und Verstehen lässt sich nicht abkürzen: Genau wie das Modell in Teil 2 lernst du, indem du vermutest, dich irrst und korrigierst. KI ist ein starkes Werkzeug. Das Denken bleibt deine Aufgabe.</p>
+          <p><strong>Hier gibt es kein Richtig oder Falsch.</strong> Wenn deine Antwort andere Gründe hat, umso besser.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>KI rät brillant. <em>Denken</em> musst du selbst.</h2>
+    <ul class="learned">
+      <li><b>Wort für Wort</b><span>Sprachmodelle sagen das wahrscheinlichste nächste Wort voraus, immer wieder, bis die Antwort fertig ist.</span></li>
+      <li><b>Lernen heisst nachjustieren</b><span>Eine KI startet zufällig und verbessert ihre inneren Zahlen mit jedem Fehler ein kleines Stück.</span></li>
+      <li><b>Plausibel ist nicht wahr</b><span>KI kann überzeugend falsch liegen. Prüfen und selber denken bleibt deine Aufgabe.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — selber denken, dann verstehen</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/ki.js"></script>
+</body>
+</html>

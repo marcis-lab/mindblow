@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Strom · mindblow</title>
+<meta name="description" content="Wie funktioniert Strom? Erst vermuten, dann ausprobieren.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav>
+      <a href="index.html">Themen</a>
+      <a href="strom.html" aria-current="page">Strom</a>
+      <a href="internet.html">Internet</a>
+      <a href="ki.html">KI</a>
+    </nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 01 · Physik des Alltags</span>
+    <h1>Wie funktioniert <em>Strom</em>?</h1>
+    <p class="intro">Du benutzt ihn jeden Tag hunderte Male, aber kannst du erklären, was in einem Kabel eigentlich passiert? Beantworte jede Frage zuerst selbst. Erst danach öffnet sich das Experiment.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Driftgeschwindigkeit -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Was fliesst da? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Das Licht geht sofort an. Aber wie schnell sind die Elektronen?</h2>
+      <p>Ein Kupferdraht ist voll mit freien <strong>Elektronen</strong>, winzigen Teilchen mit negativer Ladung. Strom heisst: diese Elektronen bewegen sich gemeinsam in eine Richtung.</p>
+      <div class="quiz" data-q="q1" data-correct="c" data-unlock="wireLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du drückst den Lichtschalter. Wie schnell bewegt sich ein einzelnes Elektron im Kabel?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">A</span><span>Fast mit Lichtgeschwindigkeit, 300'000 km pro Sekunde</span></button>
+          <button data-v="b"><span class="k">B</span><span>Etwa so schnell wie ein Auto, rund 100 km/h</span></button>
+          <button data-v="c"><span class="k">C</span><span>Langsamer als eine Schnecke</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ein Elektron kriecht mit etwa <strong>0,1 Millimeter pro Sekunde</strong> durch den Draht. Eine Schnecke ist rund zehnmal schneller. Trotzdem geht die Lampe sofort an, weil der Draht <strong>schon voll</strong> mit Elektronen ist. Der Schalter gibt allen gleichzeitig einen Schubs, wie bei einem Rohr voller Murmeln: Schiebst du hinten eine rein, fällt vorne sofort eine raus.</p>
+        </div>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="wireCv" style="height:230px" aria-label="Animation: Elektronen in einem Kupferdraht, eine Lampe am Ende"></canvas>
+        <div class="locked" id="wireLock">Erst vermuten, dann einschalten</div>
+      </div>
+      <div class="row">
+        <button class="btn" id="wireBtn" disabled>Licht einschalten</button>
+        <span class="status">Das markierte Elektron ist «deins». Beobachte es.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Lampe leuchtet nach</span><span class="val" id="rSignal">–</span><span class="formula">200 m Kabel</span></div>
+        <div><span class="lbl">Dein Elektron ist seither gewandert</span><span class="val" id="rDrift">0,000 mm</span><span class="formula">echte Zeit</span></div>
+        <div><span class="lbl">Für 200 m bräuchte es</span><span class="val">≈ 23 Tage</span><span class="formula">200 m ÷ 0,1 mm/s</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Ohmsches Gesetz -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Spannung, Strom, Widerstand <span class="chip solved-chip">gelöst</span></span>
+      <h2>Drei Grössen, die immer zusammenhängen</h2>
+      <p>Stell dir Wasser in einem Rohr vor. Das Bild ist nicht perfekt, aber es hilft beim Denken.</p>
+      <div class="analogy">
+        <div><span class="sym">U · Volt (V)</span><b>Spannung</b><span>Der Druck, der die Elektronen schiebt. Die Batterie ist die Pumpe.</span></div>
+        <div><span class="sym">I · Ampere (A)</span><b>Strom</b><span>Wie viele Elektronen pro Sekunde an einer Stelle vorbeifliessen.</span></div>
+        <div><span class="sym">R · Ohm (Ω)</span><b>Widerstand</b><span>Ein enges Rohr. Er bremst den Fluss und wird dabei warm.</span></div>
+      </div>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="circLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Die Spannung bleibt gleich. Du verdoppelst den Widerstand. Was passiert mit dem Strom?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">A</span><span>Er verdoppelt sich auch</span></button>
+          <button data-v="b"><span class="k">B</span><span>Er halbiert sich</span></button>
+          <button data-v="c"><span class="k">C</span><span>Er bleibt gleich, die Batterie gleicht das aus</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Doppelt so enges Rohr, halb so viel Fluss. Das ist das <strong>Ohmsche Gesetz: I = U ÷ R</strong>. Prüf es selbst: Stell 6 V und 10 Ω ein, dann 20 Ω. Schau, was mit dem Strom und der Lampe passiert. Und öffne den Schalter: Ohne geschlossenen Kreis fliesst gar nichts.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Die Elektronen fliessen vom Minus- zum Pluspol. In Schulbüchern zeigen die Pfeile oft andersrum. Das hat man festgelegt, bevor jemand wusste, dass es Elektronen gibt, und es nie geändert.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <svg id="circuit" viewBox="0 0 400 270" role="img" aria-label="Stromkreis mit Batterie, Lampe, Widerstand und Schalter">
+          <defs>
+            <radialGradient id="glowGrad">
+              <stop offset="0" stop-color="var(--glow)" stop-opacity=".9"/>
+              <stop offset="1" stop-color="var(--glow)" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <path id="loop" d="M60 60 H340 V210 H60 Z" fill="none" stroke="var(--copper)" stroke-width="5" stroke-linejoin="round"/>
+          <g id="dots"></g>
+          <rect x="40" y="118" width="40" height="26" fill="var(--surface)"/>
+          <line x1="36" y1="122" x2="84" y2="122" stroke="var(--fg)" stroke-width="3"/>
+          <line x1="48" y1="140" x2="72" y2="140" stroke="var(--fg)" stroke-width="7"/>
+          <text x="92" y="126" font-family="Geist Mono, monospace" font-size="13" fill="var(--muted)">+</text>
+          <text x="92" y="146" font-family="Geist Mono, monospace" font-size="13" fill="var(--muted)">−</text>
+          <text x="14" y="104" font-family="Geist Mono, monospace" font-size="11" fill="var(--muted)">Batterie</text>
+          <circle id="lampGlow" cx="200" cy="60" r="70" fill="url(#glowGrad)" opacity="0"/>
+          <circle cx="200" cy="60" r="20" fill="var(--surface)" stroke="var(--fg)" stroke-width="3"/>
+          <circle id="lampCore" cx="200" cy="60" r="17" fill="var(--glow)" opacity="0"/>
+          <line x1="186" y1="46" x2="214" y2="74" stroke="var(--fg)" stroke-width="2.5"/>
+          <line x1="214" y1="46" x2="186" y2="74" stroke="var(--fg)" stroke-width="2.5"/>
+          <text x="186" y="30" font-family="Geist Mono, monospace" font-size="11" fill="var(--muted)" text-anchor="end">Lampe</text>
+          <rect x="330" y="108" width="20" height="54" fill="var(--surface)" stroke="var(--fg)" stroke-width="3"/>
+          <text id="rLabel" x="362" y="140" font-family="Geist Mono, monospace" font-size="12" fill="var(--muted)">10 Ω</text>
+          <g id="switch" style="cursor:pointer" tabindex="0" role="button" aria-label="Schalter öffnen oder schliessen">
+            <rect x="160" y="180" width="80" height="50" fill="transparent"/>
+            <rect x="178" y="203" width="44" height="14" fill="var(--surface)"/>
+            <circle cx="180" cy="210" r="4.5" fill="var(--fg)"/>
+            <circle cx="220" cy="210" r="4.5" fill="var(--fg)"/>
+            <line id="lever" x1="180" y1="210" x2="220" y2="210" stroke="var(--fg)" stroke-width="3.5" stroke-linecap="round"/>
+          </g>
+          <text id="swLabel" x="200" y="248" font-family="Geist Mono, monospace" font-size="11" fill="var(--muted)" text-anchor="middle">Schalter: zu (antippen)</text>
+        </svg>
+        <div class="locked" id="circLock">Erst vermuten, dann ausprobieren</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="uIn">Spannung U</label><input type="range" id="uIn" min="0" max="12" step="0.5" value="6" disabled><output id="uOut">6,0 V</output></div>
+        <div class="ctrl"><label for="rIn">Widerstand R</label><input type="range" id="rIn" min="2" max="60" step="1" value="10" disabled><output id="rOut">10 Ω</output></div>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Strom</span><span class="val" id="iVal">0,60 A</span><span class="formula">I = U ÷ R</span></div>
+        <div><span class="lbl">Leistung</span><span class="val" id="pVal">3,6 W</span><span class="formula">P = U × I</span></div>
+        <div><span class="lbl">Elektronen pro Sekunde</span><span class="val" id="nVal">3,7 × 10¹⁸</span><span class="formula">I ÷ 1,602 × 10⁻¹⁹ C</span></div>
+      </div>
+      <p class="status" id="circStatus"></p>
+    </div>
+  </section>
+
+  <!-- 3: Generator -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Woher kommt er? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Magnet, eine Drahtspule, Bewegung</h2>
+      <p>Eine Batterie hält nicht ewig. Der Strom aus der Steckdose kommt aus <strong>Generatoren</strong> in Kraftwerken. Ihr Prinzip ist erstaunlich einfach: Bewegt sich ein Magnet in der Nähe einer Drahtspule, werden die Elektronen im Draht geschoben. Wasser, Dampf oder Wind sorgen nur dafür, dass sich etwas dreht.</p>
+      <div class="quiz" data-q="q3" data-correct="a" data-unlock="genLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Der Magnet dreht sich schneller. Was passiert mit der Spannung?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">A</span><span>Sie wird höher und wechselt öfter die Richtung</span></button>
+          <button data-v="b"><span class="k">B</span><span>Sie wird nur höher</span></button>
+          <button data-v="c"><span class="k">C</span><span>Nichts, die Spannung hängt nur vom Magnet ab</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Es zählt, <strong>wie schnell sich das Magnetfeld ändert</strong>. Schneller drehen heisst stärkerer Schub, also höhere Spannung. Und weil abwechselnd Nord- und Südpol vorbeikommen, wechselt die Richtung ständig. Das nennt man <strong>Wechselstrom</strong>. Probier den Regler aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>In der Steckdose wechselt der Strom 100-mal pro Sekunde die Richtung (50 Hertz). Die Elektronen in deinem Kabel zittern also nur hin und her. Kein einziges Elektron aus dem Kraftwerk kommt je bei dir an. Was ankommt, ist der Schub.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="genCv" style="height:260px" aria-label="Animation: drehender Magnet in einer Spule und ein Spannungsdiagramm"></canvas>
+        <div class="locked" id="genLock">Erst vermuten, dann drehen</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="spIn">Drehzahl</label><input type="range" id="spIn" min="0" max="3" step="0.05" value="0.6" disabled><output id="spOut">0,60 U/s</output></div>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Spitzenspannung</span><span class="val" id="gV">20 %</span><span class="formula">relativ zum Maximum</span></div>
+        <div><span class="lbl">Richtungswechsel</span><span class="val" id="gF">1,2 /s</span><span class="formula">2 × Drehzahl</span></div>
+        <div><span class="lbl">In der Steckdose</span><span class="val">230 V · 50 Hz</span><span class="formula">Schweizer Netz</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Selber denken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum überleben Vögel auf der Hochspannungsleitung?</h2>
+      <p>Durch die Leitung fliessen Tausende Ampere bei bis zu 380'000 Volt. Trotzdem sitzen Vögel seelenruhig darauf. Du weisst jetzt genug, um das selbst zu erklären.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Was braucht es, damit Strom überhaupt fliesst?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Erklärung, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, der Vogel überlebt, weil …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Strom fliesst nur, wenn es zwischen zwei Punkten einen <strong>Unterschied</strong> in der Spannung gibt. Wo stehen die beiden Füsse des Vogels?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Beide Füsse stehen auf demselben Draht, also auf fast derselben Spannung. Zwischen den Füssen gibt es kaum einen Unterschied, also fliesst praktisch kein Strom durch den Vogel. Gefährlich wird es erst, wenn er gleichzeitig zwei Leitungen oder Leitung und Mast berührt. Dann entsteht ein Kreis, und der Strom fliesst durch ihn hindurch.</p>
+          <p><strong>Vergleich ehrlich:</strong> Hattest du den Kern? Wenn nicht, ist das gut. Genau dieser Moment bleibt im Kopf.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Strom ist ein Schub, kein Rennen.</h2>
+    <ul class="learned">
+      <li><b>Elektronen kriechen</b><span>Sie bewegen sich langsamer als eine Schnecke. Schnell ist nur der Schub, der durch den vollen Draht weitergegeben wird.</span></li>
+      <li><b>I = U ÷ R</b><span>Mehr Druck heisst mehr Strom. Mehr Widerstand heisst weniger. Und ohne geschlossenen Kreis fliesst nichts.</span></li>
+      <li><b>Bewegung wird Strom</b><span>Ein drehender Magnet schiebt Elektronen hin und her. So entsteht der Wechselstrom aus der Steckdose.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="internet.html">Weiter: Wie funktioniert das Internet? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow · Selber denken. Dann verstehen.</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/strom.js"></script>
+</body>
+</html>

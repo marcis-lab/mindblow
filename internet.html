@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Internet · mindblow</title>
+<meta name="description" content="Wie funktioniert das Internet? Erst vermuten, dann ausprobieren.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav>
+      <a href="index.html">Themen</a>
+      <a href="strom.html">Strom</a>
+      <a href="internet.html" aria-current="page">Internet</a>
+      <a href="ki.html">KI</a>
+    </nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema 02 · Technik des Alltags</span>
+    <h1>Wie funktioniert das <em class="fiber">Internet</em>?</h1>
+    <p class="intro">Du tippst, und eine Sekunde später ist deine Nachricht auf einem anderen Kontinent. Aber welchen Weg nimmt sie, und woher weiss sie, wohin? Beantworte jede Frage zuerst selbst.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Seekabel vs Satellit -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Wo ist das Internet? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Foto von Zürich nach New York</h2>
+      <p>Zwischen der Schweiz und Amerika liegen rund <strong>6300 Kilometer</strong> und ein ganzer Ozean. Trotzdem kommt dein Foto in Sekundenbruchteilen an.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="pingLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie überquert dein Foto den Atlantik?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">A</span><span>Über einen Satelliten im Weltall</span></button>
+          <button data-v="b"><span class="k">B</span><span>Durch ein Kabel am Meeresgrund</span></button>
+          <button data-v="c"><span class="k">C</span><span>Per Funk durch «die Cloud» in der Luft</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Über 95 % aller Daten zwischen Kontinenten reisen durch <strong>Glasfaserkabel am Meeresgrund</strong>, etwa so dick wie ein Gartenschlauch. Darin flitzen Lichtpulse. «Die Cloud» ist also keine Wolke, sondern Kabel und Computerhallen. Teste rechts, warum Satelliten fürs Internet meistens zu langsam sind.</p>
+        </div>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="pingCv" style="height:280px" aria-label="Animation: Datenpaket reist über ein Seekabel oder über einen Satelliten von Zürich nach New York und zurück"></canvas>
+        <div class="locked" id="pingLock">Erst vermuten, dann messen</div>
+      </div>
+      <div class="row">
+        <button class="btn fiber" id="pingFiber" disabled>Ping über Seekabel</button>
+        <button class="btn sat" id="pingSat" disabled>Ping über Satellit</button>
+        <button class="btn ghost" id="pingBoth" disabled>Wettrennen</button>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Seekabel hin und zurück</span><span class="val" id="tFiber">–</span><span class="formula">2 × 7000 km ÷ 200'000 km/s</span></div>
+        <div><span class="lbl">Satellit hin und zurück</span><span class="val" id="tSat">–</span><span class="formula">4 × 36'000 km ÷ 300'000 km/s</span></div>
+        <div><span class="lbl">Animation</span><span class="val">10× Zeitlupe</span><span class="formula">damit du es siehst</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Pakete -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Pakete <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wie reist eine Nachricht durch das Netz?</h2>
+      <p>Das Internet ist ein riesiges Netz aus Leitungen und <strong>Routern</strong>, kleinen Computern an jeder Kreuzung. Kein einzelner Computer steuert das Ganze.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="netLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du schickst ein Foto mit 3 Megabyte. Wie reist es?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">A</span><span>Am Stück, über eine feste Leitung nur für dich</span></button>
+          <button data-v="b"><span class="k">B</span><span>Zerlegt in tausende Päckchen, die verschiedene Wege nehmen können</span></button>
+          <button data-v="c"><span class="k">C</span><span>Als Kopie an alle Computer, und der richtige behält es</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Dein Foto wird in rund <strong>2000 Päckchen</strong> zu je etwa 1500 Byte zerlegt. Jedes trägt eine Absender- und Zieladresse und eine Nummer. Jeder Router schickt es einfach in die Richtung, die gerade am besten frei ist. Am Ziel werden die Päckchen nach Nummer wieder zusammengesetzt. Probier es aus und <strong>kappe Leitungen</strong> durch Antippen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Das Internet wurde so gebaut, dass es weiter funktioniert, auch wenn Teile kaputtgehen. Fällt eine Leitung aus, suchen die Päckchen sich einfach einen anderen Weg.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="netCv" style="height:300px" aria-label="Netzwerk aus Routern. Antippen einer Leitung kappt sie."></canvas>
+        <div class="locked" id="netLock">Erst vermuten, dann senden</div>
+      </div>
+      <div class="row">
+        <button class="btn" id="netSend" disabled>Nachricht senden</button>
+        <button class="btn ghost" id="netHeal" disabled>Alle Leitungen reparieren</button>
+      </div>
+      <div class="controls">
+        <span class="lbl eyebrow">Beim Ziel zusammengesetzt</span>
+        <div class="slots" id="slots"></div>
+        <span class="arrival" id="arrival">Ankunftsreihenfolge erscheint hier.</span>
+      </div>
+      <p class="status" id="netStatus">Tipp: Tippe auf eine Leitung, um sie zu kappen. Dann sende nochmals.</p>
+    </div>
+  </section>
+
+  <!-- 3: DNS -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Adressen <span class="chip solved-chip">gelöst</span></span>
+      <h2>Woher weiss dein Computer, wohin?</h2>
+      <p>Jedes Gerät im Internet hat eine Nummer, die <strong>IP-Adresse</strong>, zum Beispiel <span class="ip">203.0.113.42</span>. Router verstehen nur Nummern. Du tippst aber Namen.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="dnsLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du tippst «srf.ch». Wie findet dein Computer die richtige Nummer?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">A</span><span>Der Name selbst ist schon die Adresse</span></button>
+          <button data-v="b"><span class="k">B</span><span>Er fragt zuerst eine Art Telefonbuch des Internets</span></button>
+          <button data-v="c"><span class="k">C</span><span>Google kennt alle Adressen und leitet weiter</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Das Telefonbuch heisst <strong>DNS</strong> (Domain Name System). Es gibt nicht eine grosse Liste, sondern eine Kette: Jeder Server kennt nur einen Teil und schickt dich weiter. Für Adressen auf .ch ist die Schweizer Stiftung <strong>SWITCH</strong> zuständig. Wähle rechts eine Adresse und frag zweimal nach.</p>
+        </div>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="controls">
+        <span class="eyebrow">Adresse wählen</span>
+        <div class="domains" id="domains">
+          <button data-d="srf.ch" disabled>srf.ch</button>
+          <button data-d="wikipedia.org" disabled>wikipedia.org</button>
+          <button data-d="sbb.ch" disabled>sbb.ch</button>
+        </div>
+        <ol class="dns-steps" id="dnsSteps"></ol>
+        <p class="status" id="dnsStatus">Erst vermuten, dann nachschlagen.</p>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Erste Anfrage</span><span class="val" id="dFirst">–</span><span class="formula">mehrere Server gefragt</span></div>
+        <div><span class="lbl">Zweite Anfrage</span><span class="val" id="dSecond">–</span><span class="formula">aus dem Zwischenspeicher</span></div>
+        <div><span class="lbl">Hinweis</span><span class="val">Beispiel-IPs</span><span class="formula">echte Adressen ändern sich</span></div>
+      </div>
+      <div class="locked" id="dnsLock" hidden></div>
+    </div>
+  </section>
+
+  <!-- 4: Selber denken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <h2>Kommt dein Serien-Video jedes Mal aus Amerika?</h2>
+      <p>Millionen Menschen in Europa schauen gleichzeitig dieselbe Serie eines amerikanischen Anbieters. Trotzdem startet das Video sofort und ruckelt nicht.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1. Was kostet ein langer Weg, und wie viel passt durch ein einziges Kabel?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <label class="eyebrow" for="thinkTxt">Deine Erklärung, in eigenen Worten</label>
+        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, das Video kommt …"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
+          <button class="btn" id="ansBtn" disabled>Auflösung vergleichen</button>
+        </div>
+        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
+        <div class="hint" id="hint" hidden>
+          <span class="eyebrow">Hinweis</span>
+          <p>Was wäre, wenn man beliebte Videos nicht jedes Mal neu über den Ozean schickt? Wo könnte man sie stattdessen hinlegen?</p>
+        </div>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Nein. Beliebte Videos werden <strong>vorab kopiert</strong> und in Rechenzentren in deiner Nähe gespeichert, oft in Zürich oder sogar direkt bei deinem Internetanbieter. Das nennt man ein <strong>Content Delivery Network</strong>. Die Serie reist einmal über den Atlantik, danach holen sie sich alle aus der Nähe. Das spart Wartezeit und entlastet die Seekabel.</p>
+          <p><strong>Vergleich ehrlich:</strong> Hattest du den Kern? Wenn nicht, ist das gut. Genau dieser Moment bleibt im Kopf.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Das Internet ist Licht in Kabeln, zerlegt in Päckchen.</h2>
+    <ul class="learned">
+      <li><b>Kabel statt Wolke</b><span>Fast alle Daten zwischen Kontinenten reisen als Lichtpulse durch Glasfaser am Meeresgrund.</span></li>
+      <li><b>Päckchen finden ihren Weg</b><span>Daten werden zerlegt, nummeriert und über viele mögliche Wege geschickt. Fällt eine Leitung aus, geht es trotzdem.</span></li>
+      <li><b>Namen werden Nummern</b><span>Das DNS übersetzt Namen wie srf.ch in IP-Adressen, über eine Kette von Servern, die sich die Antwort merken.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="ki.html">Weiter: Was ist KI? →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow · Selber denken. Dann verstehen.</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/internet.js"></script>
+</body>
+</html>
