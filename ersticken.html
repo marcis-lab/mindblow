@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Atemreiz · mindblow</title>
+<meta name="description" content="Nicht der fehlende Sauerstoff zwingt dich zum Luftholen, sondern das Kohlendioxid. Wie dein Atemzentrum misst, regelt und warum Hyperventilieren vor dem Tauchen gefährlich ist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Körper &amp; Gesundheit</span>
+    <h1>Warum musst du <em>atmen</em>?</h1>
+    <p class="intro">Halte mal die Luft an. Nach einer Weile wird der Drang zu atmen immer stärker, bis du nachgeben musst. Das fühlt sich an wie Sauerstoffmangel. Ist es aber kaum. Finde heraus, was dich wirklich zum Luftholen zwingt.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Luft anhalten -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Luft anhalten <span class="chip solved-chip">gelöst</span></span>
+      <h2>Der Wecker im Blut</h2>
+      <p>Deine Zellen verbrauchen ständig Sauerstoff und stellen dabei <strong>Kohlendioxid</strong> her, kurz CO₂. Beim Atmen holst du Sauerstoff herein und bringst CO₂ hinaus. Hältst du die Luft an, stoppt beides. Der Sauerstoff im Blut nimmt ab, das CO₂ nimmt zu.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="holdLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Nach etwa einer Minute Luftanhalten wird der Drang zu atmen fast unerträglich. Was löst ihn vor allem aus?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Der Sauerstoff im Blut geht aus</span></button>
+          <button data-v="b"><span class="k">b</span><span>Das CO₂ im Blut steigt an</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Lunge spürt, dass die Luft in ihr verbraucht ist</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Der Hauptauslöser ist das <strong>steigende CO₂</strong>. Nach einer Minute ist dein Blut noch fast voll mit Sauerstoff: Die Sättigung sinkt anfangs kaum, weil der rote Blutfarbstoff Hämoglobin den Sauerstoff sehr fest hält. Das CO₂ dagegen steigt vom ersten Moment an stetig.</p>
+          <p>CO₂ bildet mit Wasser <strong>Kohlensäure</strong>. Das Blut wird darum ein wenig saurer, der pH-Wert sinkt. Genau das spürt dein Körper als Atemdrang. Fehlender Sauerstoff verstärkt den Drang erst spät und eher schwach (vereinfacht). Halte die Luft im Modell an und schau beiden Kurven zu.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Wenn du nach dem Luftanhalten nach Luft schnappst, ist dein Blut meist noch zu über 90 % mit Sauerstoff gesättigt. Dein Körper schlägt also Alarm, lange bevor wirklich Not herrscht. Der Wecker reagiert auf das Abgas, nicht auf den leeren Tank.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="holdCv" style="height:360px" aria-label="Zwei Kurven über die Zeit beim Luftanhalten: Sauerstoff-Sättigung sinkt erst kaum, CO₂ steigt stetig. Daneben ein Balken für den Atemdrang"></canvas>
+        <div class="locked" id="holdLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="tHold">Luft angehalten</label><input type="range" id="tHold" min="0" max="150" step="1" value="0" disabled><output id="tHoldOut">0 s</output></div>
+        <div class="row">
+          <button class="btn" id="holdBtn" disabled>Luft anhalten</button>
+          <button class="btn ghost" id="breathBtn" disabled>Ausatmen</button>
+        </div>
+        <span class="status" id="holdStatus">Halte die Luft an. Im Modell läuft die Zeit fünfmal schneller.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Sauerstoff-Sättigung</span><span class="val" id="hSat">97 %</span><span class="formula">Anteil beladenes Hämoglobin</span></div>
+        <div><span class="lbl">CO₂ im Blut</span><span class="val" id="hCo2">40 mmHg</span><span class="formula" id="hPh">pH 7,40</span></div>
+        <div><span class="lbl">Atemdrang</span><span class="val" id="hUrge">0 %</span><span class="formula">vereinfachtes Modell</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Atemzentrum -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Das Atemzentrum <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Regler im Hirnstamm</h2>
+      <p>Ganz unten im Gehirn, im <strong>Hirnstamm</strong>, sitzt das Atemzentrum. Es arbeitet ohne dich: im Schlaf, beim Lesen, jetzt gerade. Sensoren melden ihm laufend, wie viel CO₂ im Blut ist und wie sauer es ist. Daraus macht es den Takt für Zwerchfell und Atemmuskeln.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="ctrlLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Im Labor atmet jemand Luft mit 5 % CO₂. Sauerstoff ist genug darin, so viel wie in normaler Luft. Was passiert mit der Atmung?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Nichts. Sauerstoff ist ja genug da.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Sie wird deutlich schneller und tiefer</span></button>
+          <button data-v="c"><span class="k">c</span><span>Sie wird langsamer, weil die Luft schlechter ist</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Atmung wird <strong>schneller und tiefer</strong>, die Person atmet ein Mehrfaches an Luft pro Minute. Normale Luft enthält nur etwa 0,04 % CO₂. Mit 5 % in der Einatemluft kann das Blut sein CO₂ schlechter loswerden. Der Wert steigt ein wenig, und das Atemzentrum dreht sofort auf.</p>
+          <p>Das ist ein <strong>Regelkreis</strong> wie bei einer Heizung mit Thermostat: messen, vergleichen, nachregeln. Nur dass dein Atemzentrum das CO₂ regelt statt der Temperatur. Spiel mit beiden Reglern. Wie stark reagiert die Atmung auf weniger Sauerstoff?</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Für Sauerstoff hast du eigene Sensoren, kleine Knötchen an den Halsschlagadern. Sie schlagen aber erst bei deutlichem Mangel richtig Alarm. Darum merkt man in grosser Höhe den Sauerstoffmangel oft schlecht und wird stattdessen müde, unkonzentriert oder bekommt Kopfweh.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="ctrlCv" style="height:400px" aria-label="Regelkreis: Lunge, Blut, Atemzentrum und Zwerchfell. Darunter eine Atemkurve, die schneller und tiefer wird, wenn mehr CO₂ in der Luft ist"></canvas>
+        <div class="locked" id="ctrlLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="co2In">CO₂ in der Einatemluft</label><input type="range" id="co2In" min="0" max="6" step="0.1" value="0" disabled><output id="co2Out">0,04 %</output></div>
+        <div class="ctrl"><label for="o2In">O₂ in der Einatemluft</label><input type="range" id="o2In" min="10" max="21" step="0.5" value="21" disabled><output id="o2Out">21 %</output></div>
+        <div class="row">
+          <button class="btn ghost" id="cNorm" disabled>Normale Luft</button>
+          <button class="btn ghost" id="cCo2" disabled>5 % CO₂</button>
+          <button class="btn ghost" id="cLowO2" disabled>Wenig O₂</button>
+        </div>
+        <span class="status" id="ctrlStatus">Normale Luft: ruhiger Atem, rund 14 Züge pro Minute.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">CO₂ im Blut</span><span class="val" id="cBlood">40 mmHg</span><span class="formula" id="cSat">Sättigung 97 %</span></div>
+        <div><span class="lbl">Atemfrequenz</span><span class="val" id="cRate">14 / min</span><span class="formula" id="cDepth">0,5 l pro Atemzug</span></div>
+        <div><span class="lbl">Luft pro Minute</span><span class="val" id="cVent">7,0 l</span><span class="formula">vereinfachte Werte</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Hyperventilieren und Tauchen -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Gefährlicher Trick <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wenn der Wecker zu spät klingelt</h2>
+      <p>Manche atmen vor dem Tauchen eine Weile sehr schnell und tief. Sie wollen so länger unter Wasser bleiben. Das klappt tatsächlich, aber aus einem anderen Grund, als viele denken. Und genau darin liegt eine Gefahr.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="diveLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was bewirkt dieses schnelle, tiefe Atmen vor dem Tauchen vor allem?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Es füllt das Blut mit viel mehr Sauerstoff</span></button>
+          <button data-v="b"><span class="k">b</span><span>Es senkt das CO₂. Der Atemdrang kommt später, mehr Sauerstoff bringt es kaum.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Gar nichts. Im Blut ändert sich dabei nichts.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Das Blut ist schon bei normalem Atmen fast voll mit Sauerstoff. Mehr passt kaum hinein. Was sich stark ändert, ist das <strong>CO₂: Es wird abgeatmet und sinkt</strong>. Beim Tauchen muss es dann erst von einem tiefen Wert aus ansteigen, bis der Atemdrang kommt. Der Wecker klingelt also später.</p>
+          <p>Der Sauerstoff wird aber gleich schnell verbraucht wie immer. So kann er knapp werden, <strong>bevor</strong> der Drang zum Auftauchen kommt. Dann wird man ohne Vorwarnung bewusstlos. Man nennt das <strong>Schwimmbad-Blackout</strong> oder Flachwasser-Blackout, und es endet unter Wasser oft tödlich. Darum gilt: <strong>nie vor dem Tauchen hyperventilieren, nie allein tauchen</strong>. Vergleiche im Modell.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Auch Kohlenmonoxid (CO) überlistet den Wecker. Das Gas entsteht, wenn etwas schlecht verbrennt, etwa in Öfen oder Heizungen. Es bindet viel fester an das Hämoglobin als Sauerstoff und blockiert es. Weil dabei kein CO₂ ansteigt, spürst du keine Atemnot. Darum gibt es Rauch- und CO-Melder: Sie merken, was dein Körper nicht merkt.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="diveCv" style="height:400px" aria-label="Vergleich beim Tauchen: wann der Atemdrang kommt und wann der Sauerstoff kritisch wird, normal und nach Hyperventilieren"></canvas>
+        <div class="locked" id="diveLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="hypIn">Vorher hyper&shy;ventiliert</label><input type="range" id="hypIn" min="0" max="100" step="1" value="0" disabled><output id="hypOut">0 %</output></div>
+        <div class="legend" id="actSel">
+          <span class="eyebrow">Unter Wasser:</span>
+          <button data-a="1" class="active" disabled>Ruhig treiben</button>
+          <button data-a="2" disabled>Schwimmen</button>
+        </div>
+        <span class="status" id="diveStatus">Normal: Der Atemdrang kommt lange, bevor der Sauerstoff knapp wird.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Atemdrang nach</span><span class="val" id="dUrge">100 s</span><span class="formula">CO₂ erreicht die Schwelle</span></div>
+        <div><span class="lbl">O₂ kritisch nach</span><span class="val" id="dCrit">210 s</span><span class="formula">Gefahr der Bewusstlosigkeit</span></div>
+        <div><span class="lbl">Vorwarnzeit</span><span class="val" id="dGap">110 s</span><span class="formula">vereinfacht, je nach Mensch</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Kannst du dich durch Luftanhalten ersticken?</h2>
+      <p>Du kannst deine Atmung bewusst stoppen, zum Beispiel beim Tauchen oder beim Sprechen. Stell dir vor, jemand wäre fest entschlossen und würde die Luft an Land einfach nicht mehr loslassen. Was würde passieren?</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Wer steuert deine Atmung, wenn du nicht daran denkst?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Nein, an Land gelingt das nicht. Dein Wille kann das Atemzentrum nur eine Zeit lang überstimmen. Meistens gibst du lange vorher auf, weil der CO₂-Drang zu stark wird. Und selbst wenn nicht: Wird der Sauerstoff knapp, verlierst du das Bewusstsein. Damit fällt auch dein Wille weg. Das <strong>Atemzentrum im Hirnstamm</strong> arbeitet aber weiter, wie im Schlaf, und du beginnst automatisch wieder zu atmen (vereinfacht).</p>
+          <p>Ausprobieren solltest du das trotzdem nicht: Wer umkippt, kann sich beim Sturz verletzen. Und <strong>unter Wasser</strong> wird genau dieser Mechanismus gefährlich: Der erste automatische Atemzug holt Wasser statt Luft. Das ist der Grund für die Regeln aus Teil 3.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Dein Körper misst das <em>Abgas</em>.</h2>
+    <ul class="learned">
+      <li><b>CO₂ ist der Wecker</b><span>Beim Luftanhalten steigt das CO₂ stetig und das Blut wird saurer. Das löst den Drang aus, nicht der Sauerstoff.</span></li>
+      <li><b>Ein Regelkreis</b><span>Das Atemzentrum im Hirnstamm misst CO₂ und pH und passt Tempo und Tiefe der Atmung laufend an.</span></li>
+      <li><b>Den Wecker nicht austricksen</b><span>Hyperventilieren senkt das CO₂, aber nicht den Sauerstoffverbrauch. Der Drang kommt zu spät. Nie allein tauchen.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/ersticken.js"></script>
+</body>
+</html>

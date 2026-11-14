@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Geschmack · mindblow</title>
+<meta name="description" content="Fünf Grundgeschmäcke, eine falsche Zungenkarte und eine Nase, die beim Essen mitschmeckt: warum Essen mit Schnupfen fade ist und warum Chili gar kein Geschmack ist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Körper &amp; Gesundheit</span>
+    <h1>Warum schmeckt Essen mit Schnupfen <em>nach nichts</em>?</h1>
+    <p class="intro">Deine Zunge kann viel weniger, als du denkst. Finde heraus, was sie wirklich schmeckt, was deine Nase beim Essen leistet und warum Chili gar kein Geschmack ist.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Zunge -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Die Zunge <span class="chip solved-chip">gelöst</span></span>
+      <h2>Fünf Geschmäcke, mehr nicht</h2>
+      <p>Auf deiner Zunge sitzen einige Tausend <strong>Geschmacksknospen</strong>. Jede ist ein kleines Bündel aus Sinneszellen. Sie erkennen genau fünf Grundgeschmäcke: <strong>süss, sauer, salzig, bitter</strong> und <strong>umami</strong>. Umami ist japanisch und heisst etwa «köstlich, herzhaft». So schmecken Bouillon, Parmesan oder reife Tomaten.</p>
+      <p>In vielen Schulbüchern war früher eine Zungenkarte abgebildet: süss an der Spitze, salzig und sauer an den Seiten, bitter hinten.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="tongueLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wo auf der Zunge schmeckst du Süsses?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Nur an der Zungenspitze, wie auf der Zungenkarte</span></button>
+          <button data-v="b"><span class="k">b</span><span>Überall, wo Geschmacksknospen sitzen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Nur hinten, wo die grossen Knospen sind</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Zungenkarte ist <strong>falsch</strong>. In fast jeder Geschmacksknospe stecken Sinneszellen für alle fünf Grundgeschmäcke. Darum schmeckst du überall auf der Zunge süss, sauer, salzig, bitter und umami. Es gibt nur kleine Unterschiede, wie empfindlich eine Stelle ist. Sogar am Gaumen und im Rachen sitzen Geschmacksknospen.</p>
+          <p>Jeder Geschmack meldet etwas Nützliches (vereinfacht): <strong>Süss</strong> heisst Energie, <strong>salzig</strong> Mineralstoffe, <strong>umami</strong> Eiweiss. <strong>Sauer</strong> warnt vor Unreifem oder Verdorbenem, <strong>bitter</strong> vor möglichen Giften. Wähle unten etwas zum Essen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Die Zungenkarte stammt aus einem Missverständnis. Ein deutscher Forscher mass um 1900 nur winzige Unterschiede in der Empfindlichkeit. Später wurde daraus in Lehrbüchern eine Karte mit festen Zonen. Sie hielt sich fast hundert Jahre. Dabei kannst du sie selbst widerlegen: Etwas Salz auf die Zungenspitze genügt.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="tongueCv" style="height:360px" aria-label="Eine Zunge mit vielen Geschmacksknospen. Je nach Lebensmittel leuchten Knospen überall auf der Zunge in den Farben der Grundgeschmäcke. Daneben eine vergrösserte Knospe mit Zellen für alle fünf Geschmäcke."></canvas>
+        <div class="locked" id="tongueLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="foodSel">
+          <span class="eyebrow">Essen:</span>
+          <button data-f="honig" class="active" disabled>Honig</button>
+          <button data-f="zitrone" disabled>Zitrone</button>
+          <button data-f="brezel" disabled>Salzbrezel</button>
+          <button data-f="kaffee" disabled>Kaffee</button>
+          <button data-f="parmesan" disabled>Parmesan</button>
+          <button data-f="tomate" disabled>Tomate</button>
+        </div>
+        <div class="ctrl"><label for="concIn">Wie stark</label><input type="range" id="concIn" min="5" max="100" step="1" value="60" disabled><output id="concOut">60 %</output></div>
+        <div class="row">
+          <button class="btn ghost" id="mapBtn" disabled>Alte Zungenkarte zeigen</button>
+        </div>
+        <span class="status" id="tongueStatus">Honig: süss. Für den Körper heisst das: Hier gibt es Energie.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Stärkster Geschmack</span><span class="val" id="tStrong" style="font-size:15px">süss</span><span class="formula">was die Zellen melden</span></div>
+        <div><span class="lbl">Aktive Knospen</span><span class="val" id="tBuds">–</span><span class="formula">je stärker, desto mehr</span></div>
+        <div><span class="lbl">Vorne / hinten</span><span class="val" id="tWhere">–</span><span class="formula">Anteil der aktiven Knospen</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Nase -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Die Nase isst mit <span class="chip solved-chip">gelöst</span></span>
+      <h2>Erdbeere schmeckst du mit der Nase</h2>
+      <p>Fünf Grundgeschmäcke reichen nicht, um Erdbeere von Himbeere zu unterscheiden. Beide sind süss und etwas sauer. Trotzdem merkst du sofort, was du im Mund hast. Ein kleiner Versuch zeigt, wer hier wirklich arbeitet.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="noseLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du hältst dir die Nase zu, schliesst die Augen und isst ein Stück Apfel und ein Stück rohe Zwiebel. Was passiert?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Du erkennst beides sofort. Die Zunge reicht dafür.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Beides schmeckt ähnlich: knackig, etwas süss. Du verwechselst sie leicht.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Du schmeckst gar nichts mehr, nicht einmal süss.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Mit zugehaltener Nase werden Apfel und Zwiebel sich erstaunlich ähnlich. Die Zunge meldet weiter <strong>süss</strong> oder <strong>sauer</strong>, das bleibt. Was fehlt, ist das <strong>Aroma</strong>. Beim Kauen steigen Duftstoffe aus dem Essen hinten im Rachen hoch in die Nase. Dort sitzen die Riechzellen. Fachleute nennen das <strong>retronasales Riechen</strong>, Riechen von hinten.</p>
+          <p>Bei Schnupfen ist deine Zunge also völlig gesund. Die Nasenschleimhaut ist aber geschwollen, und Schleim hält die Duftstoffe von den Riechzellen fern. Übrig bleiben die fünf Grundgeschmäcke. Wie gross der Anteil der Nase ist, lässt sich schwer messen. Oft liest man «80 Prozent», das ist aber keine genaue Zahl. Klar ist: Es ist sehr viel.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Dein Gehirn schwindelt dich an. Es verlegt den Geruch, der von hinten in die Nase kommt, in deinen Mund. Darum fühlt es sich so an, als würdest du die Erdbeere mit der Zunge schmecken. In Wirklichkeit riechst du sie.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="noseCv" style="height:400px" aria-label="Schema von Mund, Rachen und Nase von der Seite. Beim Kauen steigen Duftstoffe hinten im Rachen hoch zu den Riechzellen. Bei zugehaltener Nase oder Schnupfen kommen sie nicht an."></canvas>
+        <div class="locked" id="noseLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="aromaSel">
+          <span class="eyebrow">Im Mund:</span>
+          <button data-f="erdbeere" class="active" disabled>Erdbeere</button>
+          <button data-f="vanille" disabled>Vanillepudding</button>
+          <button data-f="zimt" disabled>Zimt</button>
+          <button data-f="apfel" disabled>Apfel</button>
+          <button data-f="zwiebel" disabled>Zwiebel</button>
+        </div>
+        <div class="ctrl"><label for="noseIn">Luft durch die Nase</label><input type="range" id="noseIn" min="0" max="100" step="1" value="100" disabled><output id="noseOut">100 %</output></div>
+        <div class="row">
+          <button class="btn ghost" id="nOpen" disabled>Nase frei</button>
+          <button class="btn ghost" id="nPinch" disabled>Nase zuhalten</button>
+          <button class="btn ghost" id="nCold" disabled>Schnupfen</button>
+        </div>
+        <span class="status" id="noseStatus">Nase frei: Die Duftstoffe erreichen die Riechzellen. Du erkennst die Erdbeere sofort.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Die Zunge meldet</span><span class="val" id="nTongue" style="font-size:15px">süss, leicht sauer</span><span class="formula">5 Grundgeschmäcke</span></div>
+        <div><span class="lbl">Die Nase meldet</span><span class="val" id="nNose" style="font-size:15px">Erdbeere</span><span class="formula">Tausende Düfte</span></div>
+        <div><span class="lbl">Du erkennst</span><span class="val" id="nKnow" style="font-size:15px">Erdbeere</span><span class="formula">Zunge und Nase zusammen</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Scharf -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Scharf und kühl <span class="chip solved-chip">gelöst</span></span>
+      <h2>Chili lügt deinem Gehirn etwas vor</h2>
+      <p>Ein Biss in eine Chili, und dein Mund brennt. Das Gesicht wird rot, die Augen tränen. Dabei ist die Chili nicht heiss: Sie hat Zimmertemperatur. Die Schärfe kommt von einem Stoff namens <strong>Capsaicin</strong>.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="chiliLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was für ein Geschmack ist «scharf»?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Ein sechster Grundgeschmack, wie süss oder salzig</span></button>
+          <button data-v="b"><span class="k">b</span><span>Gar kein Geschmack: Capsaicin reizt die Sensoren für Hitze und Schmerz</span></button>
+          <button data-v="c"><span class="k">c</span><span>Eine besonders starke Form von sauer</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Scharf ist <strong>kein Geschmack</strong>. In deinem Mund, aber auch auf der Haut, sitzen Nervenenden mit einem Wärmesensor namens <strong>TRPV1</strong>. Normalerweise schlägt er erst ab rund 43 °C Alarm, also bei Hitze, die dich verbrennen könnte. Capsaicin öffnet diesen Sensor aber schon bei Körpertemperatur. Dein Gehirn bekommt die Meldung «heiss!», obwohl nichts heiss ist.</p>
+          <p>Mit <strong>Minze</strong> geht es umgekehrt. Menthol öffnet einen Kältesensor (<strong>TRPM8</strong>), der sonst auf Kühle reagiert. Darum fühlt sich ein Pfefferminzbonbon kühl an. Gemessen wird die Schärfe in <strong>Scoville</strong>: Wie oft muss man eine Chili verdünnen, bis man nichts mehr spürt? Stell unten eine Chili ein.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Vögel spüren Capsaicin nicht, ihr Wärmesensor reagiert nicht darauf. Sie fressen auch die schärfsten Chilis ohne Probleme und verbreiten so die Samen. Säugetiere dagegen lassen die Früchte lieber liegen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="chiliCv" style="height:420px" aria-label="Oben eine Scoville-Skala mit Chilis von Paprika bis Carolina Reaper. Darunter ein Nervenende mit Wärme- und Kältesensoren, die sich öffnen, und zwei Anzeigen: echte Temperatur im Mund und was die Nerven melden."></canvas>
+        <div class="locked" id="chiliLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="shuIn">Schärfe</label><input type="range" id="shuIn" min="0" max="100" step="1" value="59" disabled><output id="shuOut">5'000</output></div>
+        <div class="row">
+          <button class="btn ghost" id="mintBtn" disabled>Minze dazu</button>
+          <button class="btn ghost" id="milkBtn" disabled>Milch trinken</button>
+          <button class="btn ghost" id="waterBtn" disabled>Wasser trinken</button>
+        </div>
+        <span class="status" id="chiliStatus">Die Temperatur im Mund bleibt immer gleich. Nur die Meldung der Nerven ändert sich.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Scoville</span><span class="val" id="sShu">5'000</span><span class="formula">gerundet, Früchte schwanken stark</span></div>
+        <div><span class="lbl">Etwa wie</span><span class="val" id="sEx" style="font-size:15px">Jalapeño</span><span class="formula">typischer Wert</span></div>
+        <div><span class="lbl">Gefühl</span><span class="val" id="sFeel" style="font-size:15px">scharf</span><span class="formula">echte Temperatur: 37 °C</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum mögen Kinder oft kein Bitteres?</h2>
+      <p>Viele Kinder verziehen bei Rosenkohl, Chicorée oder dunkler Schokolade das Gesicht. Dieselben Menschen trinken als Erwachsene freiwillig schwarzen Kaffee oder bitteres Tonic. Hat sich die Zunge verändert, oder etwas anderes?</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1. Wovor warnt der bittere Geschmack in der Natur?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Viele giftige Pflanzen schmecken bitter. Die Abneigung gegen Bitteres ist darum <strong>angeboren</strong>: Schon Neugeborene verziehen bei Bitterem das Gesicht, bei Süssem nicht. Für ein kleines Kind, das noch nicht weiss, was essbar ist, ist das ein guter Schutz. Kinder reagieren oft auch stärker auf Bitteres als Erwachsene, und sie mögen Süsses besonders gern (vereinfacht, es gibt grosse Unterschiede).</p>
+          <p>Später kommt das <strong>Lernen</strong> dazu. Wer etwas Bitteres oft probiert und merkt, dass es nicht schadet, gewöhnt sich daran. Beim Kaffee hilft das Koffein: Das Gehirn verknüpft den bitteren Geschmack mit der wachen, angenehmen Wirkung. Die Zunge selbst ändert sich dabei kaum, eher was das Gehirn aus dem Signal macht. Und manche Menschen schmecken bestimmte Bitterstoffe wegen ihrer Gene viel stärker als andere.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Die Zunge schmeckt, die <em>Nase</em> erkennt.</h2>
+    <ul class="learned">
+      <li><b>Fünf Grundgeschmäcke</b><span>Süss, sauer, salzig, bitter, umami. Und zwar überall auf der Zunge: Die Zungenkarte ist ein Irrtum.</span></li>
+      <li><b>Riechen von hinten</b><span>Beim Kauen steigen Duftstoffe in die Nase. Ohne sie schmeckt eine Erdbeere nur noch süss und sauer.</span></li>
+      <li><b>Scharf ist Schmerz</b><span>Capsaicin öffnet den Hitzesensor, Menthol den Kältesensor. Beides sind Gefühle, keine Geschmäcke.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/geschmack.js"></script>
+</body>
+</html>

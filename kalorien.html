@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kalorien · mindblow</title>
+<meta name="description" content="Eine Kalorie ist kein Stoff, sondern Energie. Wie man sie misst, warum du 37 °C warm bist und wohin das Fett beim Abnehmen verschwindet: grösstenteils in die Luft.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Körper &amp; Gesundheit</span>
+    <h1>Was ist eine <em>Kalorie</em>?</h1>
+    <p class="intro">Auf jeder Packung stehen Kalorien. Aber was ist das eigentlich? Finde heraus, wie viel Energie in einem Apfel steckt, warum du ohne Flamme Essen verbrennst und wohin das Fett beim Abnehmen verschwindet.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Energie messen -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Energie messen <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Apfel voller Energie</h2>
+      <p>Ein Apfel hat rund <strong>80 Kalorien</strong>, eine Tafel Schokolade über 500. Das Wort kennst du. Aber man kann eine Kalorie nicht anfassen, nicht wiegen und nicht aus dem Essen herauslösen.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="foodLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was ist eine Kalorie eigentlich?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Ein Stoff im Essen, der dick macht</span></button>
+          <button data-v="b"><span class="k">b</span><span>Eine Masseinheit für Energie, wie Meter für Länge</span></button>
+          <button data-v="c"><span class="k">c</span><span>Ein anderes Wort für das Fett im Essen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Eine Kalorie ist eine <strong>Masseinheit für Energie</strong>. Auf Packungen steht eigentlich die <strong>Kilokalorie (kcal)</strong>. Eine Kilokalorie ist die Energie, die 1 Liter Wasser um etwa <strong>1 °C</strong> erwärmt. Heute rechnet man meist in Kilojoule: 1 kcal ≈ 4,2 kJ.</p>
+          <p>Früher hat man Essen in einem <strong>Bombenkalorimeter</strong> gemessen: ein dichter Stahlbehälter mit reinem Sauerstoff, der im Wasserbad steht. Das Essen wird darin verbrannt, und man misst, wie stark das Wasser warm wird. Heute rechnet man die Werte meist aus den Nährstoffen aus: Kohlenhydrate und Eiweiss bringen rund 4 kcal pro Gramm, Fett rund 9 (vereinfacht). Wähl unten etwas zu essen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Wenn auf der Packung «Kalorien» steht, sind fast immer Kilokalorien gemeint. Ein Apfel hat also nicht 80, sondern eigentlich rund 80'000 Kalorien im ursprünglichen Sinn.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="foodCv" style="height:340px" aria-label="Die Energie eines Lebensmittels erwärmt Literflaschen Wasser von 20 auf 100 °C oder hebt ein Gewicht von 70 kg in die Höhe"></canvas>
+        <div class="locked" id="foodLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="foodSel">
+          <span class="eyebrow">Essen:</span>
+          <button data-f="apfel" class="active" disabled>Apfel</button>
+          <button data-f="brot" disabled>Brot</button>
+          <button data-f="schoko" disabled>Schokolade</button>
+          <button data-f="nuss" disabled>Nüsse</button>
+        </div>
+        <div class="ctrl"><label for="portIn">Portionen</label><input type="range" id="portIn" min="1" max="5" step="1" value="1" disabled><output id="portOut">1</output></div>
+        <div class="row">
+          <button class="btn ghost" id="modeBtn" disabled>Stattdessen 70 kg heben</button>
+        </div>
+        <span class="status" id="foodStatus">Ein Apfel (150 g) hat rund 80 kcal.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Energie</span><span class="val" id="fKcal">80 kcal</span><span class="formula" id="fKj">≈ 335 kJ</span></div>
+        <div><span class="lbl">Wasser 20 → 100 °C</span><span class="val" id="fWater">1,0 l</span><span class="formula">80 kcal pro Liter</span></div>
+        <div><span class="lbl">70 kg heben</span><span class="val" id="fLift">490 m</span><span class="formula">ohne jeden Verlust</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Verbrennen ohne Flamme -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Verbrennen ohne Flamme <span class="chip solved-chip">gelöst</span></span>
+      <h2>Du bist eine warme Lampe</h2>
+      <p>Dein Körper ist innen fast immer etwa <strong>37 °C</strong> warm. Auch wenn es draussen kalt ist, auch im Schlaf. Diese Wärme muss ständig nachkommen, denn du gibst laufend Wärme an die Umgebung ab.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="powerLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Woher kommt die Wärme, die dich auf 37 °C hält?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Vom Blut, das sich durch die Reibung in den Adern erwärmt</span></button>
+          <button data-v="b"><span class="k">b</span><span>Aus dem Essen, das deine Zellen langsam «verbrennen»</span></button>
+          <button data-v="c"><span class="k">c</span><span>Von Sonne und Kleidung. Der Körper speichert die Wärme nur.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Deine Zellen bauen Zucker und Fett mit <strong>Sauerstoff</strong> ab. Am Ende entstehen <strong>CO₂ und Wasser</strong>, genau wie bei einem Feuer. Nur geschieht es nicht auf einmal, sondern in vielen kleinen Schritten. Darum gibt es keine Flamme. Einen Teil der Energie packen die Zellen in einen kleinen Energieträger namens ATP. Damit arbeiten Muskeln, Nerven und Organe.</p>
+          <p>Fast die ganze Energie landet am Ende als <strong>Wärme</strong> im Körper. Darum bist du 37 °C warm. Ein Mensch in Ruhe gibt rund <strong>80 bis 100 Watt</strong> ab, so viel wie eine alte Glühbirne. Stell unten ein, was du gerade tust.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Ein voller Hörsaal mit 100 Leuten heizt mit rund 10 Kilowatt. Das ist so viel wie mehrere elektrische Heizöfen. Darum wird es im Kino oder Klassenzimmer schnell stickig und warm.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="powerCv" style="height:340px" aria-label="Balkenvergleich der Leistung von Glühbirne, LED-Lampe und Mensch, mit Wärmewellen um eine Figur"></canvas>
+        <div class="locked" id="powerLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="actIn">Aktivität</label><input type="range" id="actIn" min="0" max="5" step="1" value="1" disabled><output id="actOut">Sitzen</output></div>
+        <div class="row">
+          <button class="btn ghost" id="aSleep" disabled>Schlafen</button>
+          <button class="btn ghost" id="aBike" disabled>Velofahren</button>
+          <button class="btn ghost" id="aRun" disabled>Joggen</button>
+        </div>
+        <span class="status" id="powerStatus">Ruhig sitzen: rund 100 Watt, fast alles wird zu Wärme.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Leistung</span><span class="val" id="aW">100 W</span><span class="formula">für 70 kg, vereinfacht</span></div>
+        <div><span class="lbl">Pro Stunde</span><span class="val" id="aKcal">86 kcal</span><span class="formula">1 W ≈ 0,86 kcal/h</span></div>
+        <div><span class="lbl">Wie viele Glühbirnen</span><span class="val" id="aBulb">1,7</span><span class="formula">à 60 W</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Wohin geht das Fett? -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Wohin geht das Fett? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Fett löst sich in Luft auf</h2>
+      <p>Wer abnimmt, wird leichter. Die Masse muss also irgendwo hin. Fett besteht vor allem aus drei Sorten Atomen: <strong>Kohlenstoff, Wasserstoff und Sauerstoff</strong>. Atome gehen nicht verloren. Sie verlassen den Körper nur in anderer Form.</p>
+      <div class="quiz" data-q="q3" data-correct="c" data-unlock="fatLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Jemand baut 10 kg Fett ab. Wo landet der grösste Teil dieser Masse?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Er wird in Energie und Wärme umgewandelt und ist einfach weg</span></button>
+          <button data-v="b"><span class="k">b</span><span>Er wird über den Darm ausgeschieden</span></button>
+          <button data-v="c"><span class="k">c</span><span>Er wird ausgeatmet, als Kohlendioxid (CO₂)</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Energie aus dem Fett wird zu Wärme und Bewegung. Die <strong>Atome</strong> aber bleiben. Beim Abbau verbinden sie sich mit eingeatmetem Sauerstoff zu <strong>CO₂ und Wasser</strong>. Das CO₂ atmest du aus. Das Wasser verlässt dich über Urin, Schweiss und Atem.</p>
+          <p>Die Forscher Ruben Meerman und Andrew Brown haben 2014 nachgerechnet: Von 10 kg Fett verlassen rund <strong>8,4 kg über die Lunge</strong>, nur etwa 1,6 kg als Wasser. Gut 80 % des Fetts atmest du also aus (vereinfacht, für ein typisches Fett gerechnet). Über den Darm geht kaum etwas davon: Was dort herauskommt, ist vor allem Unverdautes. Probier es unten aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Und Energie? Laut Einstein hat auch sie eine winzige Masse. Die ganze Energie in 1 kg Fett wiegt aber nur rund ein halbes Mikrogramm. Das wäre ein Staubkörnchen. Fast alles, was du verlierst, sind echte Atome, die du ausatmest.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="fatCv" style="height:360px" aria-label="Ein Fettblock zerfällt in Teilchen. Die meisten fliegen als CO₂ zum Mund hinaus, ein kleiner Teil fliesst als Wasser ab"></canvas>
+        <div class="locked" id="fatLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="kgIn">Abgebautes Fett</label><input type="range" id="kgIn" min="1" max="20" step="1" value="2" disabled><output id="kgOut">1,0 kg</output></div>
+        <div class="row">
+          <button class="btn" id="burnBtn" disabled>Fett abbauen</button>
+          <button class="btn ghost" id="oxyBtn" disabled>Sauerstoff mitzählen</button>
+        </div>
+        <span class="status" id="fatStatus">Jeder Punkt ist ein Stück Fett. Schau, wohin die Atome gehen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Ausgeatmet</span><span class="val" id="fCo2">0,84 kg</span><span class="formula" id="fCo2f">Fett-Atome im CO₂</span></div>
+        <div><span class="lbl">Als Wasser</span><span class="val" id="fH2o">0,16 kg</span><span class="formula" id="fH2of">Fett-Atome im Wasser</span></div>
+        <div><span class="lbl">Ruhige Atemzüge</span><span class="val" id="fBreath">85'000</span><span class="formula" id="fBreathf">rund 5 Tage lang</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum zeigt der Kalorienzähler beim Sport oft zu viel an?</h2>
+      <p>Nach einer halben Stunde Joggen zeigt die Sportuhr: 350 kcal verbrannt. Das klingt nach einer ganzen Mahlzeit. Doch so viel zusätzliche Energie war es meistens nicht.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Was hätte dein Körper in derselben halben Stunde auf dem Sofa verbraucht?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Dein Körper verbraucht immer Energie, auch ohne Sport: für Herz, Gehirn, Atmung und die Wärme. Das ist der <strong>Grundumsatz</strong>, beim Sitzen rund 100 Watt. Viele Anzeigen zählen diese Energie mit, obwohl sie ohnehin angefallen wäre. Das Training hat also nur den <strong>Unterschied</strong> zusätzlich gekostet.</p>
+          <p>Dazu kommt: Die Uhr misst keine Kalorien. Sie <strong>schätzt</strong> aus Puls, Bewegung, Gewicht und Alter. Jeder Körper ist aber anders. Solche Schätzungen können deutlich danebenliegen, nach oben wie nach unten. Die Zahl ist ein grober Anhaltspunkt, keine Messung.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Essen ist <em>Energie</em>, Fett geht in die Luft.</h2>
+    <ul class="learned">
+      <li><b>Kalorie = Energie</b><span>Kein Stoff im Essen, sondern ein Mass. 1 kcal erwärmt 1 Liter Wasser um etwa 1 °C.</span></li>
+      <li><b>Feuer ohne Flamme</b><span>Deine Zellen bauen Nahrung mit Sauerstoff Schritt für Schritt ab. Das meiste wird zu Wärme: rund 100 Watt in Ruhe.</span></li>
+      <li><b>Ausgeatmetes Fett</b><span>Abgebautes Fett verlässt dich grösstenteils als CO₂ über die Lunge, der Rest als Wasser.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/kalorien.js"></script>
+</body>
+</html>

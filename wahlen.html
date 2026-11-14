@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Abstimmen · mindblow</title>
+<meta name="description" content="Relative Mehrheit, Stichwahl oder Punkte: dieselben Stimmen, drei verschiedene Sieger. Dazu das Condorcet-Paradox und das doppelte Mehr von Volk und Ständen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Geld &amp; Gesellschaft</span>
+    <h1>Ist die Mehrheit immer <em>fair</em>?</h1>
+    <p class="intro">Abstimmen klingt einfach: Wer am meisten Stimmen hat, gewinnt. Doch sobald es mehr als zwei Möglichkeiten gibt, wird es knifflig. Eine Schulklasse wählt ihr Reiseziel, und du entdeckst, dass die Zählweise mitentscheidet, wer gewinnt.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Drei Verfahren -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Drei Zählweisen <span class="chip solved-chip">gelöst</span></span>
+      <h2>Drei Verfahren, drei Sieger</h2>
+      <p>Die Klasse 3b darf ihr Reiseziel wählen: <strong>Berg</strong>, <strong>See</strong> oder <strong>Stadt</strong>. Alle 20 Kinder ordnen die drei Ziele nach ihrem Geschmack. Es bilden sich drei Gruppen:</p>
+      <p><strong>8 Kinder:</strong> Berg vor See vor Stadt.<br><strong>7 Kinder:</strong> Stadt vor See vor Berg.<br><strong>5 Kinder:</strong> See vor Stadt vor Berg.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="voteLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Zählt man nur die ersten Plätze, liegt Berg mit 8 Stimmen vorne. Was will die Klasse also?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Berg, ganz klar: Es hat die meisten Stimmen</span></button>
+          <button data-v="b"><span class="k">b</span><span>Das ist nicht eindeutig: Je nach Zählweise gewinnt Berg, Stadt oder See</span></button>
+          <button data-v="c"><span class="k">c</span><span>Unklar, aber nur weil die Klasse so klein ist. Bei vielen Menschen gibt es immer einen klaren Sieger.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Es gibt nicht <strong>den einen</strong> Willen der Klasse. Mit <strong>relativer Mehrheit</strong> (nur Platz 1 zählt) gewinnt Berg mit 8 Stimmen. Dabei haben 12 von 20 Kindern Berg auf den letzten Platz gesetzt.</p>
+          <p>Bei einer <strong>Stichwahl</strong> fliegt zuerst See raus, es hat am wenigsten erste Plätze. Diese 5 Kinder mögen Stadt lieber als Berg. Also gewinnt Stadt das Finale mit 12 zu 8. Beim <strong>Punkteverfahren</strong> (nach Borda) bringt Platz 1 zwei Punkte und Platz 2 einen. See ist bei niemandem Letzter und holt 25 Punkte, Stadt 19, Berg 16. See gewinnt.</p>
+          <p>Jede Zählweise ist für sich vernünftig. Und mit mehr Menschen verschwindet das Problem nicht. Verändere die Gruppen und schau, wann sich die Verfahren einig sind.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Ein Punkteverfahren kennst du vielleicht vom Eurovision Song Contest: Jedes Land verteilt Punkte nach seiner Rangliste, 12 für den Favoriten, 10 für den zweiten und so weiter. Würde man nur die Lieblingslieder zählen, käme oft ein anderer Sieger heraus.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="voteCv" style="height:340px" aria-label="Drei Gruppen mit ihren Ranglisten für Berg, See und Stadt, darunter die Ergebnisse nach relativer Mehrheit, Stichwahl und Punkteverfahren"></canvas>
+        <div class="locked" id="voteLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="g1In">Gruppe 1</label><input type="range" id="g1In" min="0" max="20" step="1" value="8" disabled><output id="g1Out">8 Kinder</output></div>
+        <div class="ctrl"><label for="g2In">Gruppe 2</label><input type="range" id="g2In" min="0" max="20" step="1" value="7" disabled><output id="g2Out">7 Kinder</output></div>
+        <div class="ctrl"><label for="g3In">Gruppe 3</label><input type="range" id="g3In" min="0" max="20" step="1" value="5" disabled><output id="g3Out">5 Kinder</output></div>
+        <div class="legend" id="permSel">
+          <span class="eyebrow">Rangliste tauschen:</span>
+          <button data-g="0" disabled>Gruppe 1</button>
+          <button data-g="1" disabled>Gruppe 2</button>
+          <button data-g="2" disabled>Gruppe 3</button>
+        </div>
+        <div class="row">
+          <button class="btn ghost" id="voteReset" disabled>Klasse 3b</button>
+        </div>
+        <span class="status" id="voteStatus">Drei Zählweisen, drei verschiedene Sieger.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Relative Mehrheit</span><span class="val" id="wPlur">Berg</span><span class="formula">nur Platz 1 zählt</span></div>
+        <div><span class="lbl">Stichwahl</span><span class="val" id="wRun">Stadt</span><span class="formula">die zwei Besten ins Finale</span></div>
+        <div><span class="lbl">Punkteverfahren</span><span class="val" id="wBorda">See</span><span class="formula">Platz 1: 2 Pkt., Platz 2: 1 Pkt.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Condorcet-Paradox -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Das Condorcet-Paradox <span class="chip solved-chip">gelöst</span></span>
+      <h2>Schere, Stein, Papier an der Urne</h2>
+      <p>Ein Jahr später wählt die Klasse 3a. Sie lässt die Ziele <strong>paarweise</strong> gegeneinander antreten, wie in einem Turnier. Wer die meisten Duelle gewinnt, hat gewonnen. Wieder gibt es drei etwa gleich grosse Gruppen:</p>
+      <p><strong>Gruppe 1:</strong> Berg vor See vor Stadt.<br><strong>Gruppe 2:</strong> See vor Stadt vor Berg.<br><strong>Gruppe 3:</strong> Stadt vor Berg vor See.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="duelLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Berg schlägt See (Gruppen 1 und 3 sind dafür). See schlägt Stadt (Gruppen 1 und 2). Wer gewinnt das Duell Berg gegen Stadt?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Berg, logisch: Wer den Sieger eines Duells schlägt, schlägt auch den Verlierer</span></button>
+          <button data-v="b"><span class="k">b</span><span>Stadt: Die Mehrheiten drehen sich im Kreis</span></button>
+          <button data-v="c"><span class="k">c</span><span>Unentschieden: Bei drei Gruppen geht es immer unentschieden aus</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Gruppe 2 und Gruppe 3 setzen Stadt vor Berg. Also gewinnt <strong>Stadt</strong>. Zusammen heisst das: Berg schlägt See, See schlägt Stadt, Stadt schlägt Berg. Wie bei Schere, Stein, Papier. Kein Ziel gewinnt alle Duelle.</p>
+          <p>Jedes einzelne Kind hat eine klare Rangliste ohne Widerspruch. Erst die Mehrheit aller zusammen läuft im Kreis. Das heisst <strong>Condorcet-Paradox</strong>, nach dem französischen Mathematiker Marquis de Condorcet, der es im 18. Jahrhundert beschrieb. Verändere die Gruppen und probier aus, in welcher Reihenfolge die Duelle stattfinden.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>1951 bewies der Ökonom Kenneth Arrow (vereinfacht): Sobald es drei oder mehr Möglichkeiten gibt, kann <strong>kein Verfahren</strong>, das Ranglisten auswertet, alle vernünftigen Fairness-Wünsche gleichzeitig erfüllen. Zum Beispiel: Wenn alle A vor B setzen, darf B nicht gewinnen. Und keine einzelne Person darf allein bestimmen. Irgendein Wunsch bleibt immer auf der Strecke.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="duelCv" style="height:380px" aria-label="Berg, See und Stadt als Kreise in einem Dreieck. Pfeile zeigen, wer welches Duell gewinnt. Die Pfeile bilden einen Kreis"></canvas>
+        <div class="locked" id="duelLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="h1In">Gruppe 1</label><input type="range" id="h1In" min="1" max="20" step="1" value="7" disabled><output id="h1Out">7 Kinder</output></div>
+        <div class="ctrl"><label for="h2In">Gruppe 2</label><input type="range" id="h2In" min="1" max="20" step="1" value="7" disabled><output id="h2Out">7 Kinder</output></div>
+        <div class="ctrl"><label for="h3In">Gruppe 3</label><input type="range" id="h3In" min="1" max="20" step="1" value="6" disabled><output id="h3Out">6 Kinder</output></div>
+        <div class="legend" id="agendaSel">
+          <span class="eyebrow">Erstes Duell:</span>
+          <button data-a="0" disabled>Berg gegen See</button>
+          <button data-a="1" disabled>See gegen Stadt</button>
+          <button data-a="2" disabled>Stadt gegen Berg</button>
+        </div>
+        <span class="status" id="duelStatus">Wähle ein erstes Duell. Der Sieger trifft danach auf das dritte Ziel.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Berg gegen See</span><span class="val" id="dBS">13 : 7</span><span class="formula">Stimmen im Duell</span></div>
+        <div><span class="lbl">See gegen Stadt</span><span class="val" id="dST">14 : 6</span><span class="formula">Stimmen im Duell</span></div>
+        <div><span class="lbl">Stadt gegen Berg</span><span class="val" id="dTB">13 : 7</span><span class="formula">Stimmen im Duell</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Doppeltes Mehr -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Volk und Stände <span class="chip solved-chip">gelöst</span></span>
+      <h2>Zwei Mehrheiten auf einmal</h2>
+      <p>In der Schweiz stimmst du mehrmals pro Jahr direkt über Sachfragen ab. Jede Änderung der <strong>Bundesverfassung</strong> kommt automatisch vors Volk. Dabei spielt eine Rolle, dass die Schweiz ein Bundesstaat aus 26 Kantonen ist, grossen und kleinen.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="cantLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Über eine Änderung der Bundesverfassung wird abgestimmt. 54 Prozent der Stimmenden sagen Ja. Ist die Änderung angenommen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Ja: Mehr als die Hälfte hat Ja gesagt</span></button>
+          <button data-v="b"><span class="k">b</span><span>Nicht unbedingt: Auch die Mehrheit der Kantone muss Ja sagen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Nein: Eine Verfassungsänderung braucht zwei Drittel der Stimmen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Eine Verfassungsänderung braucht das <strong>doppelte Mehr</strong>: das <strong>Volksmehr</strong> (mehr Ja als Nein im ganzen Land) und das <strong>Ständemehr</strong> (die Mehrheit der Kantone). Jeder Kanton zählt dabei als eine Standesstimme, egal wie viele Menschen dort wohnen. Sechs Kantone haben aus historischen Gründen nur eine halbe. So gibt es 23 Standesstimmen, und es braucht mindestens 12 für ein Ja. Die Idee dahinter: Kleine Kantone sollen nicht einfach von den grossen überstimmt werden.</p>
+          <p>Bei gewöhnlichen Gesetzen zählt nur das Volksmehr. Volksmehr und Ständemehr sind sich fast immer einig. Doch es kam schon mehrmals vor, dass sie auseinanderfielen. Probier es aus, mit fünf erfundenen Kantonen (stark vereinfacht).</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Im Kanton Zürich leben rund hundertmal mehr Menschen als in Appenzell Innerrhoden. Beim Ständemehr zählt Zürich trotzdem nur doppelt so viel: eine ganze Standesstimme statt einer halben.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="cantCv" style="height:360px" aria-label="Fünf erfundene Kantone als Kreise, gross oder klein je nach Anzahl Stimmender, blau für Ja und orange für Nein. Darunter Volksmehr und Ständemehr"></canvas>
+        <div class="locked" id="cantLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="k0In">Seestadt</label><input type="range" id="k0In" min="10000" max="1000000" step="10000" value="600000" disabled><output id="k0Out">600'000</output></div>
+        <div class="ctrl"><label for="k1In">Bergli</label><input type="range" id="k1In" min="10000" max="1000000" step="10000" value="80000" disabled><output id="k1Out">80'000</output></div>
+        <div class="ctrl"><label for="k2In">Waldegg</label><input type="range" id="k2In" min="10000" max="1000000" step="10000" value="120000" disabled><output id="k2Out">120'000</output></div>
+        <div class="ctrl"><label for="k3In">Hügelau</label><input type="range" id="k3In" min="10000" max="1000000" step="10000" value="100000" disabled><output id="k3Out">100'000</output></div>
+        <div class="ctrl"><label for="k4In">Moosbach</label><input type="range" id="k4In" min="10000" max="1000000" step="10000" value="100000" disabled><output id="k4Out">100'000</output></div>
+        <div class="ctrl"><label for="moodIn">Stimmung überall</label><input type="range" id="moodIn" min="-10" max="10" step="1" value="0" disabled><output id="moodOut">±0 Pkt.</output></div>
+        <span class="status" id="cantStatus">Die Regler stellen die Zahl der Stimmenden je Kanton ein (fiktive Zahlen).</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Volksmehr</span><span class="val" id="kVolk">54,0 % Ja</span><span class="formula">alle Stimmen zusammen</span></div>
+        <div><span class="lbl">Ständemehr</span><span class="val" id="kStand">1 : 4</span><span class="formula">Kantone Ja : Nein</span></div>
+        <div><span class="lbl">Ergebnis</span><span class="val" id="kRes">Abgelehnt</span><span class="formula">beide Mehrheiten nötig</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum stimmen wir trotzdem ab?</h2>
+      <p>Du hast gesehen: Bei mehr als zwei Möglichkeiten kann jede Zählweise einen anderen Sieger hervorbringen. Manchmal läuft die Mehrheit sogar im Kreis. Und kein Verfahren erfüllt alle Fairness-Wünsche gleichzeitig. Warum vertrauen Gesellschaften trotzdem auf Wahlen und Abstimmungen?</p>
+      <p><strong>Tipp:</strong> Denk an die Klasse. Wann würden die Kinder ein Ergebnis akzeptieren, auch wenn ihr Lieblingsziel verliert?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Es geht weniger um das perfekte Verfahren als darum, dass alle die <strong>Regeln vorher kennen</strong>. Wird die Zählweise festgelegt, bevor jemand das Ergebnis kennt, kann niemand nachträglich die Methode wählen, die ihm gerade passt. Wer verliert, weiss: Die Regeln waren für alle gleich, und bei der nächsten Abstimmung gibt es eine neue Chance. Das schafft <strong>Akzeptanz</strong>. Und bei nur zwei Möglichkeiten, wie Ja oder Nein, ist die einfache Mehrheit ein sehr faires Verfahren (vereinfacht).</p>
+          <p>Dazu kommt der <strong>Schutz von Minderheiten</strong>: Grundrechte, die für alle gelten, auch für die, die verloren haben. Unabhängige Gerichte. Oder Regeln wie das doppelte Mehr. Welches Verfahren am besten passt, ist eine Abwägung, und darüber kann man verschiedener Meinung sein. Wichtig ist, dass die Regeln offen, nachvollziehbar und für alle gleich sind.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Die Mehrheit hängt von der <em>Regel</em> ab.</h2>
+    <ul class="learned">
+      <li><b>Drei Zählweisen</b><span>Relative Mehrheit, Stichwahl und Punkte können aus denselben Ranglisten drei verschiedene Sieger machen.</span></li>
+      <li><b>Mehrheit im Kreis</b><span>Berg schlägt See, See schlägt Stadt, Stadt schlägt Berg. Dann bestimmt die Reihenfolge der Duelle den Sieger.</span></li>
+      <li><b>Doppeltes Mehr</b><span>Verfassungsänderungen brauchen Volk und Stände. Die beiden Mehrheiten können sich widersprechen.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/wahlen.js"></script>
+</body>
+</html>

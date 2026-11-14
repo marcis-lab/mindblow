@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Schwarze Löcher · mindblow</title>
+<meta name="description" content="Fluchtgeschwindigkeit, Ereignishorizont und Spaghettifizierung: warum aus einem Schwarzen Loch nicht einmal Licht herauskommt, warum es trotzdem nichts einsaugt und was mit einer Astronautin passiert, die hineinfällt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Erde &amp; Weltall</span>
+    <h1>Was passiert in einem <em>Schwarzen Loch</em>?</h1>
+    <p class="intro">Ein Ort, aus dem nicht einmal Licht herauskommt. Klingt nach Science-Fiction, ist aber gemessen und sogar fotografiert. Finde heraus, wie so etwas entsteht, ob es wirklich alles einsaugt und was mit einer Astronautin passiert, die hineinfällt.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Fluchtgeschwindigkeit -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Zu dicht für Licht <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wie schnell muss man sein, um wegzukommen?</h2>
+      <p>Wirfst du einen Ball hoch, fällt er zurück. Je schneller du wirfst, desto höher fliegt er. Ab einem bestimmten Tempo kommt er nie mehr zurück: Das ist die <strong>Fluchtgeschwindigkeit</strong>. Auf der Erde sind es rund <strong>11,2 km pro Sekunde</strong>, ohne Luftwiderstand gerechnet.</p>
+      <p>Drückst du dieselbe Masse auf eine kleinere Kugel zusammen, steigt die Fluchtgeschwindigkeit. Denn an der Oberfläche bist du dann näher an der ganzen Masse.</p>
+      <div class="quiz" data-q="q1" data-correct="c" data-unlock="escLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie klein müsstest du die ganze Erde zusammendrücken, damit nicht einmal Licht mehr wegkommt?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Etwa so gross wie ein Haus</span></button>
+          <button data-v="b"><span class="k">b</span><span>Etwa so gross wie ein Fussball</span></button>
+          <button data-v="c"><span class="k">c</span><span>Etwa so gross wie eine Murmel</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Erde müsste mit all ihrer Masse auf eine Kugel von knapp <strong>2 cm Durchmesser</strong> schrumpfen. Dann wäre die Fluchtgeschwindigkeit grösser als die Lichtgeschwindigkeit von rund 300'000 km/s. Nichts kommt mehr heraus, auch kein Licht: ein <strong>Schwarzes Loch</strong>.</p>
+          <p>Diese Grenze heisst <strong>Schwarzschild-Radius</strong>: r = 2GM/c². Er hängt nur von der Masse M ab. Bei der Erde sind es rund 9 mm, bei der Sonne rund 3 km. Die Rechnung mit der Fluchtgeschwindigkeit ist vereinfacht. Einsteins Relativitätstheorie liefert aber genau denselben Radius. Drück unten selbst zusammen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Schon 1783 rechnete der englische Naturforscher John Michell genau so: Ein Stern, der schwer und dicht genug ist, müsste unsichtbar sein. Er nannte solche Sterne «dunkle Sterne». Den Namen «Schwarzes Loch» gibt es erst seit den 1960er-Jahren.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="escCv" style="height:340px" aria-label="Ein Himmelskörper wird zusammengedrückt. Ein Balken zeigt seine Fluchtgeschwindigkeit bis zur Lichtgeschwindigkeit"></canvas>
+        <div class="locked" id="escLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="bodySel">
+          <span class="eyebrow">Masse:</span>
+          <button data-b="mond" disabled>Mond</button>
+          <button data-b="erde" class="active" disabled>Erde</button>
+          <button data-b="jupiter" disabled>Jupiter</button>
+          <button data-b="sonne" disabled>Sonne</button>
+        </div>
+        <div class="ctrl"><label for="sqIn">Zusammendrücken</label><input type="range" id="sqIn" min="0" max="1000" step="1" value="0" disabled><output id="sqOut">×1</output></div>
+        <div class="row">
+          <button class="btn" id="goBtn" disabled>Bis zum Schwarzen Loch</button>
+          <button class="btn ghost" id="origBtn" disabled>Originalgrösse</button>
+        </div>
+        <span class="status" id="escStatus">Wähle einen Himmelskörper und drück ihn mit dem Regler zusammen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Radius</span><span class="val" id="eR" style="font-size:15px">6'371 km</span><span class="formula">gleiche Masse</span></div>
+        <div><span class="lbl">Fluchtgeschwindigkeit</span><span class="val" id="eV" style="font-size:15px">11,2 km/s</span><span class="formula">√(2GM/r)</span></div>
+        <div><span class="lbl">Schwarzschild-Radius</span><span class="val" id="eS" style="font-size:15px">8,9 mm</span><span class="formula">2GM/c²</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Sonne als Schwarzes Loch -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Kein Staubsauger <span class="chip solved-chip">gelöst</span></span>
+      <h2>Was, wenn die Sonne ein Schwarzes Loch würde?</h2>
+      <p>Keine Sorge: Die Sonne ist dafür viel zu leicht und wird nie zu einem Schwarzen Loch. Aber stell dir vor, jemand würde sie über Nacht auf rund 3 km Radius zusammendrücken. Ihre Masse bliebe genau gleich.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="orbLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was passiert dann mit der Erde?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Sie wird ins Schwarze Loch gesaugt wie von einem Staubsauger</span></button>
+          <button data-v="b"><span class="k">b</span><span>Sie kreist weiter auf derselben Bahn</span></button>
+          <button data-v="c"><span class="k">c</span><span>Sie fliegt davon, weil die Sonne nicht mehr zieht</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Von der Anziehung her merkt die Erde <strong>nichts</strong>. Wie stark etwas zieht, hängt nur von der Masse und vom Abstand ab. Beides bleibt gleich. Darum bleibt auch die Bahn gleich, und ein Jahr dauert weiterhin rund 365 Tage.</p>
+          <p>Schwarze Löcher <strong>saugen nicht</strong>. Aus der Ferne ziehen sie genau wie jeder andere Körper mit derselben Masse. Extrem wird es nur ganz nahe, dort, wo vorher das Innere der Sonne war. Aber es würde <strong>dunkel und kalt</strong>: Ohne Sonnenlicht wäre es auf der Erde schon nach wenigen Wochen eisig (vereinfacht). Schalte unten um.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Sonnenlicht ist gut 8 Minuten zu uns unterwegs. Würde die Sonne plötzlich verschwinden, sähen wir sie noch 8 Minuten lang. Und die Erde würde auch erst dann aus der Bahn fliegen: Auch Änderungen der Schwerkraft breiten sich mit Lichtgeschwindigkeit aus.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="orbCv" style="height:360px" aria-label="Die Erde kreist um die Sonne. Per Knopf wird die Sonne zu einem Schwarzen Loch mit gleicher Masse"></canvas>
+        <div class="locked" id="orbLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="row">
+          <button class="btn" id="bhBtn" disabled>Sonne zum Schwarzen Loch machen</button>
+          <button class="btn ghost" id="orbReset" disabled>Bahn zurücksetzen</button>
+        </div>
+        <div class="ctrl"><label for="mIn">Masse in der Mitte</label><input type="range" id="mIn" min="80" max="150" step="1" value="100" disabled><output id="mOut">×1,00</output></div>
+        <span class="status" id="orbStatus">Schau zu: Ein Jahr dauert hier etwa 8 Sekunden.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Umlaufzeit</span><span class="val" id="oT" style="font-size:15px">365 Tage</span><span class="formula">ein Jahr</span></div>
+        <div><span class="lbl">Abstand zur Mitte</span><span class="val" id="oD" style="font-size:15px">150 Mio. km</span><span class="formula">gerade jetzt</span></div>
+        <div><span class="lbl">Auf der Erde</span><span class="val" id="oL" style="font-size:15px">hell, warm</span><span class="formula">Sonnenlicht</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Spaghettifizierung und Zeit -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Gestreckt und gebremst <span class="chip solved-chip">gelöst</span></span>
+      <h2>Spaghetti am Rand</h2>
+      <p>Die Grenze, hinter der nichts mehr zurückkommt, heisst <strong>Ereignishorizont</strong>. Stell dir eine Astronautin vor, die mit den Füssen voran auf ein Schwarzes Loch zufällt. Ihre Füsse sind dem Loch ein bisschen näher als ihr Kopf. Darum werden sie etwas stärker angezogen.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="fallLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Bei welchem Schwarzen Loch wird sie schon vor dem Ereignishorizont in die Länge gezogen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Bei einem riesigen mit Millionen Sonnenmassen. Es zieht ja viel stärker.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Bei einem kleinen mit 10 Sonnenmassen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Bei beiden gleich, genau am Ereignishorizont</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Es streckt nicht die Anziehung selbst, sondern der <strong>Unterschied</strong> zwischen Füssen und Kopf. Das nennt man Gezeitenkraft. Bei einem kleinen Schwarzen Loch hat der Ereignishorizont nur rund 30 km Radius. Man kommt der Masse sehr nahe, und der Unterschied wird riesig. Die Astronautin wird schon Tausende Kilometer davor lang und dünn gezogen: <strong>Spaghettifizierung</strong>.</p>
+          <p>Bei einem riesigen Loch liegt der Horizont Millionen Kilometer weit draussen. Dort ist der Unterschied noch klein. Sie überquert ihn heil und merkt nichts Besonderes. Gestreckt wird sie erst weiter drinnen (vereinfacht). Und die Zeit: Von weit weg gesehen läuft ihre Uhr nahe am Horizont immer langsamer. Für alle draussen scheint sie am Rand fast stehenzubleiben und zu verblassen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>2019 gab es das erste Bild eines Schwarzen Lochs: M87* in der Galaxie M87, rund 55 Millionen Lichtjahre entfernt und etwa 6,5 Milliarden Sonnen schwer. 2022 folgte Sagittarius A* im Zentrum unserer Milchstrasse, rund 4 Millionen Sonnen schwer. Zu sehen ist ein leuchtender Ring aus heissem Gas um einen dunklen Schatten. Dafür wurden Radioteleskope rund um die Erde zusammengeschaltet.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="fallCv" style="height:360px" aria-label="Eine Astronautin fällt auf ein Schwarzes Loch zu und wird je nach Masse des Lochs in die Länge gezogen. Zwei Uhren vergleichen die Zeit"></canvas>
+        <div class="locked" id="fallLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="bhSel">
+          <span class="eyebrow">Loch:</span>
+          <button data-m="100" class="active" disabled>Klein (10 Sonnen)</button>
+          <button data-m="663" disabled>Sagittarius A*</button>
+          <button data-m="981" disabled>M87*</button>
+        </div>
+        <div class="ctrl"><label for="bmIn">Masse (Sonnen)</label><input type="range" id="bmIn" min="50" max="1000" step="1" value="100" disabled><output id="bmOut">10</output></div>
+        <div class="ctrl"><label for="abIn">Weg nach innen</label><input type="range" id="abIn" min="0" max="1000" step="1" value="0" disabled><output id="abOut">0 %</output></div>
+        <div class="row">
+          <button class="btn" id="fallBtn" disabled>Fallen lassen</button>
+        </div>
+        <span class="status" id="fallStatus">Lass die Astronautin fallen und vergleiche kleine und riesige Löcher.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Ereignishorizont</span><span class="val" id="hR" style="font-size:15px">30 km</span><span class="formula">Radius 2GM/c²</span></div>
+        <div><span class="lbl">Gestreckt ab</span><span class="val" id="hT" style="font-size:15px">3'700 km</span><span class="formula" id="hT2">vor dem Horizont</span></div>
+        <div><span class="lbl">Ihre Uhr läuft</span><span class="val" id="hC" style="font-size:15px">100 %</span><span class="formula">von weit weg gesehen</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Kann ein Schwarzes Loch die Erde verschlucken?</h2>
+      <p>In Filmen tauchen Schwarze Löcher gerne plötzlich auf und verschlingen ganze Planeten. Müssen wir uns Sorgen machen?</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Wovon hängt ab, wie stark ein Schwarzes Loch aus der Ferne zieht?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Nur wenn es der Erde <strong>sehr nahe</strong> käme. Aus der Ferne zieht ein Schwarzes Loch wie ein Stern mit derselben Masse. Es müsste also etwa so nahe kommen, wie ein fremder Stern kommen müsste, um unser Sonnensystem durcheinanderzubringen. Und selbst dann würde es die Erde eher aus ihrer Bahn werfen als verschlucken.</p>
+          <p>Die nächsten bekannten Schwarzen Löcher sind weit über tausend Lichtjahre entfernt. Im All ist so viel leerer Raum, dass eine solche Begegnung extrem unwahrscheinlich ist, auch über sehr lange Zeit. Ganz ausschliessen kann man unentdeckte Einzelgänger nicht. Aber es gibt keinen Hinweis auf eines in unserer Nähe (vereinfacht).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Schwarz heisst: <em>zu dicht</em> für Licht.</h2>
+    <ul class="learned">
+      <li><b>Fluchtgeschwindigkeit</b><span>Drückt man Masse genug zusammen, kommt nicht einmal Licht mehr weg. Die Erde müsste dafür auf rund 9 mm Radius schrumpfen.</span></li>
+      <li><b>Kein Staubsauger</b><span>Aus der Ferne zieht ein Schwarzes Loch wie jede andere gleich schwere Masse. Die Erde würde einfach weiter kreisen, nur im Dunkeln.</span></li>
+      <li><b>Gezeiten und Zeit</b><span>Nahe kleiner Löcher wird man in die Länge gezogen. Und von aussen gesehen läuft die Zeit am Horizont fast nicht mehr.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/schwarzeloecher.js"></script>
+</body>
+</html>
