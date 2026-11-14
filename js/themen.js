@@ -79,7 +79,7 @@ window.MB_THEMEN = {
     { slug: 'dna', b: 'leben', g: 'zellen', short: 'DNA', title: 'Wie passt ein Bauplan in eine <em>Zelle?</em>', teaser: 'Zwei Meter DNA in jeder deiner Zellen, schön aufgewickelt.', tags: 'dna gene zelle erbgut vererbung', added: '2026-11-14' },
     { slug: 'zelle', b: 'leben', g: 'zellen', soon: true, short: 'Zellen', title: 'Woraus besteht <em>Leben?</em>', teaser: 'Du bist ein Volk aus rund 30 Billionen Zellen.', tags: 'zelle zellen mikroskop bakterien' },
     { slug: 'evolution', b: 'leben', g: 'evolution', short: 'Evolution', title: 'Wie funktioniert <em>Evolution?</em>', teaser: 'Niemand plant, und trotzdem entstehen perfekte Tarnungen. Wie geht das?', tags: 'evolution darwin selektion mutation tarnung arten', added: '2026-11-13' },
-    { slug: 'zugvoegel', b: 'leben', g: 'tiere', soon: true, short: 'Zugvögel', title: 'Woher wissen Zugvögel den <em>Weg?</em>', teaser: 'Ohne Karte und GPS über tausende Kilometer.', tags: 'vögel zugvögel magnetfeld navigation tiere' },
+    { slug: 'zugvoegel', b: 'leben', g: 'tiere', short: 'Zugvögel', title: 'Woher wissen Zugvögel den <em>Weg?</em>', teaser: 'Ohne Karte und GPS über tausende Kilometer.', tags: 'vögel zugvögel magnetfeld navigation tiere', added: '2026-11-14' },
     { slug: 'bienen', b: 'leben', g: 'tiere', short: 'Bienen', title: 'Wie sprechen <em>Bienen</em> miteinander?', teaser: 'Eine Biene tanzt, und ihre Schwestern wissen, wo die Blumen blühen.', tags: 'bienen biene honig bestäubung schwänzeltanz insekten wabe imker tiere', added: '2026-11-14' },
     { slug: 'nahrungsnetz', b: 'leben', g: 'oekologie', short: 'Nahrungsnetz', title: 'Was passiert, wenn die <em>Wölfe</em> zurückkommen?', teaser: 'Ein Tier verändert eine ganze Landschaft.', tags: 'ökosystem nahrungskette wolf natur', added: '2026-11-14' },
 
@@ -100,7 +100,7 @@ window.MB_THEMEN = {
     { slug: 'gewitter', b: 'erde', g: 'klima', soon: true, short: 'Gewitter', title: 'Wie entsteht ein <em>Blitz?</em>', teaser: 'Eiskristalle reiben sich, und plötzlich fliessen 30\'000 Ampere.', tags: 'gewitter blitz donner wetter' },
     { slug: 'universum', b: 'erde', g: 'weltall', short: 'Universum', title: 'Wie gross ist das <em>Universum?</em>', teaser: 'Von der Ameise bis zur nächsten Galaxie: eine Reise durch dreissig Zehnerpotenzen.', tags: 'universum weltall galaxie sterne lichtjahr grösse', added: '2026-11-13' },
     { slug: 'schwarzeloecher', b: 'erde', g: 'weltall', soon: true, short: 'Schwarze Löcher', title: 'Was passiert in einem <em>Schwarzen Loch?</em>', teaser: 'Nicht einmal Licht kommt heraus.', tags: 'schwarzes loch weltall gravitation' },
-    { slug: 'vulkane', b: 'erde', g: 'planet', soon: true, short: 'Vulkane', title: 'Warum spuckt die Erde <em>Feuer?</em>', teaser: 'Unter deinen Füssen schwimmen Kontinente.', tags: 'vulkan erdbeben platten lava' },
+    { slug: 'vulkane', b: 'erde', g: 'planet', short: 'Vulkane', title: 'Warum spuckt die Erde <em>Feuer?</em>', teaser: 'Unter deinen Füssen schwimmen Kontinente.', tags: 'vulkan erdbeben platten lava', added: '2026-11-14' },
 
     /* ---------- Technik ---------- */
     { slug: 'strom', b: 'technik', g: 'energie', short: 'Strom', title: 'Wie funktioniert <em>Strom?</em>', teaser: 'Warum geht das Licht sofort an, obwohl die Elektronen langsamer kriechen als eine Schnecke?', tags: 'strom elektrizität elektronen spannung volt ampere', added: '2026-11-12' },

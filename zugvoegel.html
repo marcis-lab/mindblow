@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zugvögel · mindblow</title>
+<meta name="description" content="Eine Rauchschwalbe wiegt rund 20 Gramm und fliegt bis nach Afrika und zurück. Wie Zugvögel mit Sonne, Sternen und Magnetfeld ihren Weg finden, ganz ohne Karte.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Pflanzen, Tiere &amp; Evolution</span>
+    <h1>Woher wissen Zugvögel den <em>Weg</em>?</h1>
+    <p class="intro">Ein Vogel, leichter als ein Brief, fliegt im Herbst bis nach Afrika und kommt im Frühling ans gleiche Dach zurück. Ohne Karte, ohne GPS. Finde heraus, warum er überhaupt geht und welche Kompasse er im Kopf hat.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Warum ziehen? -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Warum überhaupt ziehen? <span class="chip solved-chip">gelöst</span></span>
+      <h2>20 Gramm bis nach Afrika</h2>
+      <p>Die <strong>Rauchschwalbe</strong> brütet in Ställen und Scheunen, auch in der Schweiz. Sie wiegt rund 20 Gramm. Im September verschwindet sie und fliegt bis in den Süden Afrikas, über Mittelmeer und Sahara. Im April ist sie zurück.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="mapLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum nimmt die Schwalbe diese riesige Reise auf sich?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Sie flieht vor der Kälte. Bei Frost würde sie erfrieren.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Im Winter gibt es hier kaum noch fliegende Insekten zu fressen.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Sie fliegt nach Afrika, um dort ihre Jungen aufzuziehen.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Es geht vor allem ums <strong>Futter</strong>. Die Schwalbe fängt Insekten im Flug. Im Winter gibt es in der Schweiz fast keine. Kälte allein wäre kein Problem: Ein Vogel mit dichtem Gefieder hält Frost aus, solange er genug frisst. Meisen und Amseln bleiben darum den ganzen Winter hier, sie finden Samen, Beeren und überwinternde Insekten.</p>
+          <p>Gebrütet wird in Europa. Hier sind im Sommer die Tage lang und die Insekten zahlreich, ideal, um viele hungrige Junge zu füttern. Schieb den Monat und schau, wann die Schwalbe wo ist.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Rekordhalter ist die Küstenseeschwalbe. Sie brütet in der Arktis und überwintert in der Antarktis. Mit allen Umwegen fliegt sie rund 70'000 km pro Jahr. In einem langen Leben kommt so ein Mehrfaches der Strecke zum Mond zusammen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="mapCv" style="height:520px" aria-label="Vereinfachte Karte von Europa und Afrika mit der Zugroute einer Rauchschwalbe von der Schweiz ins südliche Afrika, darunter ein Balken mit dem Insektenangebot pro Monat"></canvas>
+        <div class="locked" id="mapLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="monIn">Monat</label><input type="range" id="monIn" min="0" max="11.75" step="0.25" value="6" disabled><output id="monOut">Anf. Jul</output></div>
+        <div class="row">
+          <button class="btn" id="yearBtn" disabled>Ein Jahr abspielen</button>
+          <button class="btn ghost" id="autBtn" disabled>Herbst</button>
+          <button class="btn ghost" id="sprBtn" disabled>Frühling</button>
+        </div>
+        <span class="status" id="mapStatus">Sommer: Brutzeit in der Schweiz. Die Luft ist voller Insekten.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Die Schwalbe ist</span><span class="val" id="mWhere" style="font-size:15px">in der Schweiz</span><span class="formula" id="mDoing">brütet</span></div>
+        <div><span class="lbl">Weg ab Schweiz</span><span class="val" id="mDist">0 km</span><span class="formula">entlang der Route</span></div>
+        <div><span class="lbl">Tagesetappe</span><span class="val" id="mDay">–</span><span class="formula">Mittel inkl. Rasttage</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Kompasse -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Kompasse im Kopf <span class="chip solved-chip">gelöst</span></span>
+      <h2>Sonne, Sterne, Magnetfeld</h2>
+      <p>Zugvögel haben nicht einen Kompass, sondern mehrere. Wer am Tag zieht, nutzt die <strong>Sonne</strong>. Viele kleine Singvögel ziehen aber nachts. Sie orientieren sich an den <strong>Sternen</strong>. Und dazu spüren sie das <strong>Magnetfeld</strong> der Erde.</p>
+      <div class="quiz" data-q="q2" data-correct="c" data-unlock="skyLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Junge Nachtzieher lernen den Sternenhimmel, bevor sie losfliegen. Was merken sie sich?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Den hellsten Stern. Nach ihm richten sie sich.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Die Form der Sternbilder, die im Herbst im Süden stehen.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Den Punkt, um den sich der ganze Himmel dreht.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Der Himmel dreht sich in der Nacht scheinbar um <strong>einen Punkt</strong>. Bei uns liegt er ganz nahe beim Polarstern und zeigt immer nach <strong>Norden</strong>. Junge Vögel beobachten die Drehung und merken sich, wo die Mitte ist. Einzelne Sterne oder Sternbilder lernen sie dafür nicht auswendig.</p>
+          <p>Der <strong>Sonnenkompass</strong> ist schwieriger. Die Sonne wandert pro Stunde um rund 15°. Darum braucht der Vogel eine <strong>innere Uhr</strong>, um zu wissen, wo Süden ist. Verstellt man bei Brieftauben die innere Uhr um 6 Stunden, fliegen sie um rund 90° daneben. Schau dir unten den Sternenhimmel an, als ob du auf dem Rücken liegst.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>In den 1960er-Jahren zog der Forscher Stephen Emlen junge Indigofinken unter einem Planetariumshimmel auf. Er liess den Kunsthimmel um den Stern Beteigeuze drehen statt um den Polarstern. Im Herbst flogen die Vögel genau von Beteigeuze weg. Für sie war dort Norden.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="skyCv" style="height:420px" aria-label="Sternenhimmel über der Schweiz, von unten gesehen. Die Sterne drehen sich um den Polarstern, in der Mitte zeigt ein Vogel seine Zugrichtung"></canvas>
+        <div class="locked" id="skyLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="hourIn">Uhrzeit</label><input type="range" id="hourIn" min="0" max="8" step="0.05" value="0" disabled><output id="hourOut">21:00</output></div>
+        <div class="row">
+          <button class="btn" id="nightBtn" disabled>Nacht abspielen</button>
+          <button class="btn ghost" id="trailBtn" disabled>Sternspuren an</button>
+          <button class="btn ghost" id="planBtn" disabled>Planetariums-Trick</button>
+        </div>
+        <span class="status" id="skyStatus">Lass die Nacht laufen. Welcher Stern bleibt fast stehen?</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Himmel gedreht</span><span class="val" id="sRot">0°</span><span class="formula">rund 15° pro Stunde</span></div>
+        <div><span class="lbl">Drehpunkt</span><span class="val" id="sPivot" style="font-size:15px">noch unklar</span><span class="formula">bewegt sich nicht</span></div>
+        <div><span class="lbl">Vogel zieht nach</span><span class="val" id="sDir" style="font-size:15px">–</span><span class="formula">weg vom Drehpunkt</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Magnetsinn -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Der Magnetsinn <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wie steil die Feldlinien sind</h2>
+      <p>Die Erde ist ein riesiger, schwacher Magnet. Seine <strong>Feldlinien</strong> treten auf der Südhalbkugel aus der Erde aus, laufen um sie herum und tauchen auf der Nordhalbkugel wieder ein. Bei Wolken, wenn weder Sonne noch Sterne helfen, bleibt dem Vogel dieses Feld.</p>
+      <div class="quiz" data-q="q3" data-correct="a" data-unlock="magLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was spürt ein Rotkehlchen vom Magnetfeld?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Wie steil die Feldlinien in den Boden zeigen</span></button>
+          <button data-v="b"><span class="k">b</span><span>Wohin der magnetische Nordpol zeigt, genau wie eine Kompassnadel</span></button>
+          <button data-v="c"><span class="k">c</span><span>Nichts. Das Feld ist viel zu schwach für ein Tier.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Rotkehlchen haben einen <strong>Neigungskompass</strong> (Fachwort: Inklinationskompass). Sie spüren, wie steil die Feldlinien zum Boden stehen. Wo sie steiler nach unten zeigen, liegt der Pol. Wo sie flacher werden, liegt der Äquator. Das zeigten Wolfgang und Roswitha Wiltschko in Frankfurt um 1970.</p>
+          <p>Ob der Feldpfeil nach Norden oder Süden zeigt, ist dem Vogel dagegen egal. Polt man das Feld im Experiment um, dreht eine Kompassnadel um. Der Vogel fliegt weiter in die gleiche Richtung. Probier es aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Wo genau der Magnetsinn sitzt, ist noch nicht ganz geklärt. Viel spricht dafür, dass er mit Licht im Auge zu tun hat: Bestimmte Eiweisse in der Netzhaut reagieren je nach Lage im Magnetfeld etwas anders. Vielleicht sieht der Vogel das Feld sogar als Muster über seinem Bild.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="magCv" style="height:440px" aria-label="Die Erde im Schnitt mit den Feldlinien ihres Magnetfelds. Ein Vogel steht auf einem einstellbaren Breitengrad, daneben eine Vergrösserung mit dem Neigungswinkel der Feldlinien"></canvas>
+        <div class="locked" id="magLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="latIn">Breitengrad</label><input type="range" id="latIn" min="-90" max="90" step="1" value="47" disabled><output id="latOut">47° N</output></div>
+        <div class="row">
+          <button class="btn ghost" id="gCH" disabled>Schweiz</button>
+          <button class="btn ghost" id="gSah" disabled>Sahara</button>
+          <button class="btn ghost" id="gEq" disabled>Äquator</button>
+          <button class="btn ghost" id="gSA" disabled>Südafrika</button>
+          <button class="btn" id="flipBtn" disabled>Feld umpolen</button>
+        </div>
+        <span class="status" id="magStatus">Schweiz: Die Feldlinien tauchen steil in den Boden. Gemessen sind es rund 63°.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Neigung</span><span class="val" id="gInc">65°</span><span class="formula" id="gInc2">nach unten</span></div>
+        <div><span class="lbl">Polwärts liegt</span><span class="val" id="gPole" style="font-size:15px">Norden</span><span class="formula">wo es steiler wird</span></div>
+        <div><span class="lbl">Herbstzug heisst</span><span class="val" id="gAut" style="font-size:15px">Süden</span><span class="formula">Richtung Äquator</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wer zeigt dem jungen Kuckuck den Weg?</h2>
+      <p>Der Kuckuck legt seine Eier in fremde Nester. Ein Teichrohrsänger brütet das Ei aus und füttert das Junge. Die echten Eltern sind da längst wieder nach Afrika aufgebrochen. Trotzdem fliegt der junge Kuckuck im Spätsommer allein los und findet sein Winterquartier in Afrika. Wie kann das gehen?</p>
+      <p><strong>Tipp:</strong> Die Kompasse aus Teil 2 und 3 zeigen nur Richtungen. Was braucht der Vogel noch, um anzukommen?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Der Weg ist ihm <strong>angeboren</strong>. Junge Zugvögel tragen ein Zugprogramm in den Genen: <strong>in welche Richtung</strong> sie fliegen und <strong>wie lange</strong>. Im Käfig werden sie im Herbst unruhig und flattern in die Zugrichtung, etwa so viele Wochen, wie ihre Reise dauern würde. Kreuzt man Mönchsgrasmücken, deren Eltern in verschiedene Richtungen ziehen, wählen die Jungen eine Richtung dazwischen.</p>
+          <p>Mit Kompass, Richtung und Dauer kommt der Jungvogel ungefähr ins richtige Gebiet (vereinfacht). Eine Karte hat er aber noch nicht. Bei einem berühmten Versuch brachte man junge Stare aus Holland in die Schweiz. Sie flogen in ihrer angeborenen Richtung weiter und landeten in Südfrankreich und Spanien statt in Nordfrankreich und England. Die erfahrenen Alten dagegen korrigierten den Kurs. Den genauen Ort lernen Vögel erst auf ihrer ersten Reise.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Drei Kompasse und ein <em>Plan</em>.</h2>
+    <ul class="learned">
+      <li><b>Futter statt Kälte</b><span>Zugvögel ziehen, weil ihr Futter im Winter fehlt. Gebrütet wird im Norden, wo der Sommer lang und reich ist.</span></li>
+      <li><b>Sonne und Sterne</b><span>Die Sonne zeigt die Richtung nur zusammen mit der inneren Uhr. Nachts zeigt der Drehpunkt des Himmels nach Norden.</span></li>
+      <li><b>Neigung statt Nadel</b><span>Vögel spüren, wie steil die Feldlinien stehen. Dazu kommt ein angeborenes Programm: Richtung und Dauer.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/zugvoegel.js"></script>
+</body>
+</html>
