@@ -1,4 +1,5 @@
-/* Lexikon-Verbund: verbindet mindblow, timewarp (Weltgeschichte), Periodensystem, Bibel verstehen, soundcheck (Musik) und wordtrip (Sprachen & Schriften).
+/* Lexikon-Verbund: verbindet mindblow, timewarp (Weltgeschichte), Periodensystem, Bibel verstehen, soundcheck (Musik), wordtrip (Sprachen & Schriften),
+   bodyscan (Körper), worldview (Weltatlas) und stargaze (Sternenhimmel).
    Einbinden auf jeder Seite (vor </body>):
      <script src="https://mindblow.thinklabs.workers.dev/lexikon/lexikon.js" data-site="weltgeschichte" defer></script>
    - data-site: welche Seite das ist (id aus SITES).
@@ -17,6 +18,7 @@
     { id: 'sprachen-schriften', name: 'wordtrip', desc: 'Sprachen, Schriften und Zeichen', url: 'https://sprachen-schriften.thinklabs.workers.dev', c: '#E8336F' },
     { id: 'koerper-atlas', name: 'bodyscan', desc: 'Der Mensch von innen, in 3D', url: 'https://koerper-atlas.thinklabs.workers.dev', c: '#F59E0B' },
     { id: 'weltatlas', name: 'worldview', desc: 'Die Erde als 3D-Globus', url: 'https://weltatlas.thinklabs.workers.dev', c: '#10B981' },
+    { id: 'sternenhimmel', name: 'stargaze', desc: 'Der Himmel über Zug: Sterne, Planeten, Mond', url: 'https://sternenhimmel.thinklabs.workers.dev', c: '#4364F0' },
   ];
   const cur = (me && me.dataset.site) || (SITES.find(s => location.origin === s.url) || {}).id;
   // Seiten, die (noch) nicht zum Lexikon gehören, zeigen keinen Knopf
