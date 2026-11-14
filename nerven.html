@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nerven · mindblow</title>
+<meta name="description" content="Teste deine Reaktionszeit, lass zwei Nervenfasern um die Wette laufen und sieh, warum ein Reflex schneller ist als jeder Gedanke.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Körper &amp; Gesundheit</span>
+    <h1>Wie schnell ist ein <em>Gedanke</em>?</h1>
+    <p class="intro">Du siehst etwas, und schon bewegt sich deine Hand. Dazwischen laufen elektrische Signale durch deine Nerven. Miss, wie schnell du bist, und finde heraus, warum manche Signale gar nicht erst bis zum Gehirn gehen.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Reaktionszeit -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Deine Reaktionszeit <span class="chip solved-chip">gelöst</span></span>
+      <h2>Sehen, denken, klicken</h2>
+      <p>Deine Nerven sind Kabel aus lebenden Zellen. Sie tragen Signale von den Augen zum Gehirn und vom Gehirn zu den Muskeln. Diese Signale sind elektrisch. Heisst das, sie sind auch so schnell wie Strom?</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="rtLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie schnell läuft ein Signal durch deine Nerven?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Fast so schnell wie Licht. Es ist ja Strom, wie im Kabel.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Je nach Faser etwa 1 bis 100 Meter pro Sekunde</span></button>
+          <button data-v="c"><span class="k">c</span><span>Etwa im Schritttempo, rund 1 Meter pro Minute</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Im Kupferkabel breitet sich das Signal fast mit Lichtgeschwindigkeit aus. Im Nerv fliesst aber kein Strom durch einen Draht. Das Signal ist eine <strong>Kettenreaktion</strong>: An der Hülle der Nervenzelle strömen geladene Teilchen hinein und heraus, Stelle für Stelle. Das dauert. Die schnellsten Fasern schaffen rund <strong>100 m/s</strong>, die langsamsten nur etwa <strong>1 m/s</strong> (vereinfacht).</p>
+          <p>Deine Reaktionszeit ist trotzdem nicht vor allem Leitungszeit. Den grössten Teil braucht das Gehirn, um zu sehen, zu erkennen und zu entscheiden. Typisch sind rund <strong>200 bis 300 Millisekunden</strong>. Teste dich selbst.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Die schnellsten Nervenfasern leiten mit rund 100 m/s, das sind etwa 360 km/h. So schnell fährt ein Hochgeschwindigkeitszug. Ein Signal im Kupferkabel ist trotzdem noch über eine Million Mal schneller.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="rtCv" tabindex="0" style="height:320px;cursor:pointer;touch-action:manipulation" aria-label="Reaktionstest: Die Fläche wird nach einer zufälligen Wartezeit grün. Klicke dann so schnell wie möglich. Unten ein Diagramm deiner Versuche."></canvas>
+        <div class="locked" id="rtLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="row">
+          <button class="btn" id="rtStart" disabled>Test starten</button>
+          <button class="btn ghost" id="rtClear" disabled>Neue Serie</button>
+        </div>
+        <span class="status" id="rtStatus" aria-live="polite">Fünf Versuche. Klicke in die Fläche, sobald sie grün wird. Nicht vorher!</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Letzter Versuch</span><span class="val" id="rtLast">–</span><span class="formula">vom Grün bis zum Klick</span></div>
+        <div><span class="lbl">Durchschnitt</span><span class="val" id="rtAvg">–</span><span class="formula" id="rtN">0 von 5 Versuchen</span></div>
+        <div><span class="lbl">So weit käme ein Signal</span><span class="val" id="rtDist">–</span><span class="formula">in dieser Zeit, bei 100 m/s</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Myelin -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Wie ein Signal läuft <span class="chip solved-chip">gelöst</span></span>
+      <h2>Springen statt kriechen</h2>
+      <p>Ein Nervensignal heisst <strong>Aktionspotenzial</strong>. Für einen kurzen Moment kippt die elektrische Spannung an der Hülle der Faser. Diese Störung löst gleich daneben die nächste aus, wie eine Reihe fallender Dominosteine. Manche Fasern sind dabei zehnmal oder hundertmal schneller als andere.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="raceLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum leiten manche Nervenfasern viel schneller als andere?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>In ihnen fliesst ein stärkerer Strom, der das Signal anschiebt</span></button>
+          <button data-v="b"><span class="k">b</span><span>Eine fettreiche Hülle isoliert sie, und das Signal springt von Lücke zu Lücke</span></button>
+          <button data-v="c"><span class="k">c</span><span>Das Gehirn treibt wichtige Signale extra an</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Viele Fasern sind in eine Hülle aus <strong>Myelin</strong> gewickelt, eine fettreiche Schicht von Hilfszellen. Sie isoliert wie der Kunststoff um ein Kabel. In kurzen Abständen, meist unter zwei Millimetern, bleibt eine winzige Lücke frei, ein <strong>Schnürring</strong>. Nur dort wird das Signal neu erzeugt. Dazwischen breitet es sich fast ohne Verzögerung aus. Das Signal <strong>springt</strong> also von Schnürring zu Schnürring. Fachleute sagen: saltatorisch, nach dem lateinischen Wort für springen.</p>
+          <p>Ohne Myelin muss das Signal jede Stelle der Faser einzeln umschalten. Das ist langsam. Auch die Dicke hilft: In einer dicken Faser fliesst die Ladung leichter voran. Lass zwei Fasern um die Wette laufen (vereinfachte Faustregeln).</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Tintenfische haben kein Myelin. Für schnelle Flucht haben sie darum Riesenfasern gebaut, rund einen halben Millimeter dick. Trotzdem leiten diese nur mit etwa 25 m/s. Eine menschliche Faser mit Myelin ist viel dünner und mehrfach schneller.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="raceCv" style="height:320px" aria-label="Wettrennen zweier Nervenfasern über einen Meter: oben mit Myelinhülle, wo das Signal von Schnürring zu Schnürring springt, unten ohne Myelin, wo es langsam vorankriecht"></canvas>
+        <div class="locked" id="raceLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="dIn">Faserdicke</label><input type="range" id="dIn" min="1" max="20" step="1" value="10" disabled><output id="dOut">10 µm</output></div>
+        <div class="row">
+          <button class="btn" id="raceBtn" disabled>Rennen starten</button>
+        </div>
+        <span class="status" id="raceStatus">Beide Fasern sind gleich dick. Nur eine hat eine Myelinhülle.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Mit Myelin</span><span class="val" id="vM">60 m/s</span><span class="formula" id="tM">1 m in 17 ms</span></div>
+        <div><span class="lbl">Ohne Myelin</span><span class="val" id="vU">4,7 m/s</span><span class="formula" id="tU">1 m in 211 ms</span></div>
+        <div><span class="lbl">Myelin ist schneller um</span><span class="val" id="vRatio">×13</span><span class="formula">bei gleicher Dicke</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Reflexe -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Reflexe sind Abkürzungen <span class="chip solved-chip">gelöst</span></span>
+      <h2>Die Hand ist weg, bevor es wehtut</h2>
+      <p>Die meisten Nerven aus Armen und Beinen laufen ins <strong>Rückenmark</strong>. Das ist ein dicker Nervenstrang in deiner Wirbelsäule. Von dort führen Bahnen hinauf ins Gehirn. Für ein paar Dinge ist dieser Weg aber zu lang.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="reflexLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du fasst aus Versehen auf eine heisse Herdplatte. Wer zieht deine Hand zurück?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Das Gehirn: Es spürt den Schmerz und gibt dann den Befehl</span></button>
+          <button data-v="b"><span class="k">b</span><span>Das Rückenmark, noch bevor du den Schmerz bewusst spürst</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Hand selbst, ganz ohne Nerven</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Das ist ein <strong>Reflex</strong>. Das Signal aus der Haut läuft ins Rückenmark. Dort wird es direkt auf Nerven umgeschaltet, die den Armmuskel anspannen. Das Gehirn muss nicht gefragt werden. Der Weg ist kürzer, und das langsame Nachdenken fällt weg.</p>
+          <p>Das Signal geht trotzdem auch ins Gehirn. Dort kommt es etwa dann an, wenn die Hand schon zuckt. Bis du den Schmerz bewusst spürst und darüber nachdenken könntest, vergeht noch mehr Zeit. Darum merkst du oft erst hinterher, dass du schon zurückgezuckt bist. Vergleiche die Wege unten. Die Zeiten sind gerundet und vereinfacht: Strecke geteilt durch Tempo, plus Umschalten.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Beim Kniesehnenreflex bittet die Ärztin dich manchmal, die Finger ineinander zu haken und kräftig auseinanderzuziehen. Das lenkt dich ab und macht den Reflex stärker. Dein Gehirn bremst Reflexe nämlich ein wenig, wenn es sich auf das Bein konzentriert.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="reflexCv" style="height:440px" aria-label="Schema mit Gehirn, Rückenmark und Arm oder Bein. Zwei Signale laufen gleichzeitig los: der Reflex über das Rückenmark und die bewusste Reaktion über das Gehirn. Darunter eine Zeitleiste."></canvas>
+        <div class="locked" id="reflexLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="rfSel">
+          <span class="eyebrow">Fall:</span>
+          <button data-c="hand" class="active" disabled>Heisse Herdplatte</button>
+          <button data-c="knee" disabled>Hammer aufs Knie</button>
+        </div>
+        <div class="ctrl"><label for="rfT">Zeit seit Reiz</label><input type="range" id="rfT" min="0" max="240" step="1" value="0" disabled><output id="rfOut">0 ms</output></div>
+        <div class="row">
+          <button class="btn" id="rfPlay" disabled>Zeitlupe abspielen</button>
+        </div>
+        <span class="status" id="rfStatus">Die Zeitlupe läuft rund 20-mal langsamer als in echt.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Reflex: Muskel zieht an</span><span class="val" id="rfRef">–</span><span class="formula">via Rückenmark</span></div>
+        <div><span class="lbl">Signal erreicht das Gehirn</span><span class="val" id="rfBrain">–</span><span class="formula">gespürt wird noch später</span></div>
+        <div><span class="lbl">Bewusste Reaktion</span><span class="val" id="rfCon">–</span><span class="formula">via Gehirn</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Erst der Stoss, dann der Schmerz?</h2>
+      <p>Du stösst dir barfuss den Zeh am Tischbein. Zuerst spürst du nur den Stoss. Einen Moment später kommt eine Welle von dumpfem, pochendem Schmerz. Dabei ist beides im selben Augenblick passiert.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Sind alle Nervenfasern gleich gebaut?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Berührung und Schmerz reisen auf <strong>verschiedenen Fasern</strong>. Druck und Berührung melden dicke Fasern mit Myelin. Sie leiten mit rund 50 m/s. Vom Zeh bis ins Gehirn sind es knapp 2 Meter, das schaffen sie in etwa 30 bis 40 Millisekunden.</p>
+          <p>Der dumpfe, brennende Schmerz läuft über dünne Fasern <strong>ohne Myelin</strong>, mit nur etwa 1 m/s. Für dieselbe Strecke brauchen sie gut eine Sekunde oder länger. Dazwischen gibt es noch mittelschnelle Fasern für den ersten, hellen Schmerz (vereinfacht). Darum kommt der Schmerz in Wellen: erst der Stoss, dann das Pochen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Schnell, aber kein <em>Blitz</em>.</h2>
+    <ul class="learned">
+      <li><b>Kettenreaktion statt Kabelstrom</b><span>Nervensignale laufen je nach Faser mit rund 1 bis 100 m/s. Deine Reaktionszeit von etwa 0,2 bis 0,3 s steckt vor allem im Gehirn.</span></li>
+      <li><b>Myelin macht Tempo</b><span>Eine isolierende Hülle lässt das Signal von Schnürring zu Schnürring springen. Dicke Fasern leiten zusätzlich schneller.</span></li>
+      <li><b>Reflexe nehmen die Abkürzung</b><span>Das Rückenmark schaltet direkt auf den Muskel um. Bewusst merkst du es erst, wenn du schon reagiert hast.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/nerven.js"></script>
+</body>
+</html>

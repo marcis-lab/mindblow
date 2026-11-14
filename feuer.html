@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Feuer · mindblow</title>
+<meta name="description" content="Nicht der Docht brennt, sondern Wachsdampf. Warum ein Feuer drei Dinge braucht, warum die Flamme gelb leuchtet, nach oben zeigt und im All zur blauen Kugel wird.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Physik &amp; Chemie</span>
+    <h1>Was ist eigentlich eine <em>Flamme?</em></h1>
+    <p class="intro">Du hast schon tausende Flammen gesehen. Aber was brennt da eigentlich? Warum leuchtet sie gelb, und warum zeigt ihre Spitze immer nach oben? Zünde eine Kerze an, lösch ein Feuer und schalte die Schwerkraft ab.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Die Kerze -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Die Kerze <span class="chip solved-chip">gelöst</span></span>
+      <h2>Was brennt da eigentlich?</h2>
+      <p>Eine Kerze besteht aus Wachs und einem Docht aus Baumwollfäden. Zündest du sie an, brennt sie stundenlang. Der Docht wird dabei aber kaum kürzer, und das Wachs verschwindet trotzdem.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="candleLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was brennt bei einer Kerze eigentlich?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Der Docht. Das Wachs sorgt nur dafür, dass er langsam abbrennt.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Wachs, das zu Gas verdampft ist</span></button>
+          <button data-v="c"><span class="k">c</span><span>Das flüssige Wachs direkt am Docht</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Es brennt <strong>Wachsdampf</strong>. Die Hitze der Flamme schmilzt oben das Wachs zu einem kleinen See. Der Docht saugt das flüssige Wachs hoch wie ein Schwamm. Oben wird es so heiss, dass es <strong>verdampft</strong>. Erst dieses Gas mischt sich mit Luft und brennt.</p>
+          <p>Der Docht ist also eher eine Pumpe als ein Brennstoff. Weil er ständig mit Wachs getränkt ist, verkohlt nur seine Spitze langsam. Den Beweis kannst du selbst sehen: Blas die Kerze aus und halte ein Streichholz in den weissen Rauch. Der Rauch ist Wachsdampf, der in der kühleren Luft zu winzigen Tröpfchen wird, und er brennt noch.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Schon 1848 hielt der Forscher Michael Faraday in London Vorlesungen für Kinder, nur über eine einzige Kerze. Sein Fazit: Fast alles, was man über Chemie wissen muss, steckt schon in ihrer Flamme.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="candleCv" style="height:440px" aria-label="Querschnitt einer brennenden Kerze mit festem Wachs, flüssigem Wachssee, Docht und den Zonen der Flamme. Die Kerze lässt sich ausblasen und über den Rauch wieder anzünden"></canvas>
+        <div class="locked" id="candleLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="mHIn">Streichholz über dem Docht</label><input type="range" id="mHIn" min="1" max="8" step="0.5" value="3" disabled><output id="mHOut">3 cm</output></div>
+        <div class="row">
+          <button class="btn" id="blowBtn" disabled>Ausblasen</button>
+          <button class="btn ghost" id="smokeBtn" disabled>Rauch anzünden</button>
+          <button class="btn ghost" id="zoneBtn" disabled>Zonen ausblenden</button>
+        </div>
+        <span class="status" id="candleStatus">Folge den Punkten: Wachs schmilzt, steigt im Docht hoch und verdampft.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Flamme</span><span class="val" id="cState" style="font-size:15px">brennt</span><span class="formula" id="cState2">Wachsdampf verbrennt</span></div>
+        <div><span class="lbl">Wachsdampf im Rauch</span><span class="val" id="cSmoke">0 %</span><span class="formula">vereinfacht</span></div>
+        <div><span class="lbl">Streichholz</span><span class="val" id="cMatch">3 cm</span><span class="formula">über dem Docht</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Feuerdreieck -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Das Feuerdreieck <span class="chip solved-chip">gelöst</span></span>
+      <h2>Drei Dinge, sonst geht es aus</h2>
+      <p>Ein Feuer braucht drei Dinge gleichzeitig: <strong>Brennstoff</strong>, <strong>Sauerstoff</strong> aus der Luft und genug <strong>Hitze</strong>. Fehlt eines davon, geht es aus. Darum heisst das Feuerdreieck. Jede Löschmethode nimmt eine Seite weg.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="triLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">In einer Pfanne brennt heisses Öl. Was passiert, wenn du ein Glas Wasser darüber leerst?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Das Feuer geht aus. Wasser löscht jedes Feuer.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Es gibt eine riesige Stichflamme</span></button>
+          <button data-v="c"><span class="k">c</span><span>Nichts. Das Wasser sinkt einfach unter das Öl.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Brennendes Öl ist viel heisser als 100 °C. Das Wasser sinkt zwar unter das Öl, verdampft dort aber <strong>schlagartig</strong>. Aus einem Liter Wasser werden dabei rund 1'700 Liter Dampf. Der Dampf reisst feine Öltröpfchen mit in die Luft. Die haben plötzlich viel Kontakt mit Sauerstoff und verbrennen fast auf einmal: eine Stichflamme, oft bis zur Decke.</p>
+          <p><strong>Darum bei einem Fettbrand nie mit Wasser löschen.</strong> Richtig ist: Herd ausschalten und einen passenden Deckel oder eine Löschdecke darüberlegen. Das nimmt dem Feuer den Sauerstoff. Bei Holz oder Papier dagegen hilft Wasser gut: Es kühlt und nimmt dem Feuer die Hitze. Probier unten alle drei Seiten aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Fachleute sprechen heute oft von einem Feuer-Tetraeder mit vier Seiten. Die vierte ist die Kettenreaktion: Beim Brennen entstehen sehr reaktive Molekül-Bruchstücke, die die nächsten Moleküle anstossen. Löschpulver unterbricht genau diese Kette (vereinfacht).</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="triCv" style="height:360px" aria-label="Ein Feuer auf Holzscheiten, daneben das Feuerdreieck mit den Seiten Brennstoff, Sauerstoff und Hitze. Fehlt eine Seite, geht das Feuer aus"></canvas>
+        <div class="locked" id="triLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="fFuel">Brennstoff</label><input type="range" id="fFuel" min="0" max="100" step="1" value="70" disabled><output id="fFuelOut">70 %</output></div>
+        <div class="ctrl"><label for="fOxy">Sauerstoff in der Luft</label><input type="range" id="fOxy" min="0" max="21" step="0.5" value="21" disabled><output id="fOxyOut">21 %</output></div>
+        <div class="ctrl"><label for="fHeat">Hitze</label><input type="range" id="fHeat" min="0" max="100" step="1" value="80" disabled><output id="fHeatOut">80 %</output></div>
+        <div class="row">
+          <button class="btn ghost" id="lidBtn" disabled>Deckel drauf</button>
+          <button class="btn ghost" id="waterBtn" disabled>Wasser</button>
+          <button class="btn ghost" id="woodBtn" disabled>Holz weg</button>
+          <button class="btn" id="relightBtn" disabled>Neu anzünden</button>
+        </div>
+        <span class="status" id="triStatus">Zieh einen Regler nach links und schau, wann das Feuer ausgeht.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Feuer</span><span class="val" id="tFire" style="font-size:15px">brennt stark</span><span class="formula">vereinfachtes Modell</span></div>
+        <div><span class="lbl">Es fehlt</span><span class="val" id="tMiss" style="font-size:15px">nichts</span><span class="formula">die schwächste Seite</span></div>
+        <div><span class="lbl">Sauerstoff</span><span class="val" id="tOxy">21 %</span><span class="formula">unter rund 15 % meist aus</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Farbe und Form -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Gelb und nach oben <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum leuchtet sie so?</h2>
+      <p>Unten am Docht ist eine Kerzenflamme blau, darüber leuchtet sie hell gelb. Das Gelb kommt von winzigen <strong>Russteilchen</strong>. Sie entstehen, wenn Wachsdampf in der Hitze zerfällt, bevor genug Sauerstoff da ist. Die Teilchen werden rund 1'000 °C und mehr heiss und <strong>glühen</strong>, wie die Platte eines Elektroherds. Weiter aussen verbrennen sie fast alle. Wo genug Sauerstoff da ist und der Brennstoff vollständig verbrennt, bleibt die Flamme <strong>blau</strong>, wie beim Gasherd.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="gravLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Astronauten zünden im All eine Kerze an, in der Schwerelosigkeit. Wie sieht die Flamme aus?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Genau gleich wie auf der Erde, mit der Spitze nach oben</span></button>
+          <button data-v="b"><span class="k">b</span><span>Rund wie eine Kugel und eher blau</span></button>
+          <button data-v="c"><span class="k">c</span><span>Es gibt keine Flamme, denn ohne Schwerkraft kann nichts brennen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Flamme zeigt auf der Erde nur wegen der <strong>Schwerkraft</strong> nach oben. Heisse Gase sind leichter als die kühlere Luft rundherum und steigen auf, wie ein Heissluftballon. Von unten strömt frische Luft mit Sauerstoff nach. So wird die Flamme lang gezogen.</p>
+          <p>In der Schwerelosigkeit gibt es kein Oben und keinen Auftrieb. Sauerstoff kommt nur langsam von allen Seiten herangekrochen. Die Flamme wird <strong>kugelrund</strong>, kleiner, kühler und bildet kaum Russ. Darum leuchtet sie vor allem schwach <strong>blau</strong>. Das haben Experimente im All gezeigt, zum Beispiel auf der Raumstation ISS. Dreh unten an der Schwerkraft.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Den Russ kannst du einfangen: Hältst du einen kalten Löffel kurz in die gelbe Zone, wird er schwarz. Genau diese Teilchen haben eben noch geleuchtet. In der blauen Zone bleibt der Löffel sauber.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="gravCv" style="height:380px" aria-label="Eine Kerzenflamme, deren Form sich mit der Schwerkraft ändert: lang und gelb auf der Erde, rund und blau in der Schwerelosigkeit. Pfeile zeigen aufsteigende heisse Gase und nachströmende Luft"></canvas>
+        <div class="locked" id="gravLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="gIn">Schwerkraft</label><input type="range" id="gIn" min="0" max="200" step="1" value="100" disabled><output id="gOut">1,00 g</output></div>
+        <div class="row">
+          <button class="btn ghost" id="gEarth" disabled>Erde</button>
+          <button class="btn ghost" id="gMoon" disabled>Mond</button>
+          <button class="btn ghost" id="gSpace" disabled>Raumstation</button>
+          <button class="btn ghost" id="sootBtn" disabled>Russ zeigen</button>
+        </div>
+        <span class="status" id="gravStatus">Auf der Erde: Heisse Gase steigen auf, frische Luft strömt von unten nach.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Schwerkraft</span><span class="val" id="gVal">1,00 g</span><span class="formula" id="gWhere">wie auf der Erde</span></div>
+        <div><span class="lbl">Form</span><span class="val" id="gShape" style="font-size:15px">Tropfen</span><span class="formula">durch Auftrieb</span></div>
+        <div><span class="lbl">Farbe</span><span class="val" id="gColor" style="font-size:15px">gelb, unten blau</span><span class="formula">vereinfacht</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ist eine Flamme fest, flüssig oder gasförmig?</h2>
+      <p>Eis ist fest, Wasser flüssig, Dampf gasförmig. Aber eine Flamme? Du kannst sie nicht anfassen und nicht in eine Flasche füllen. Trotzdem siehst du sie deutlich, mit einer scharfen Form.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1 und Teil 3. Was brennt da, und was leuchtet?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Eine Flamme ist kein eigener Zustand und kein Ding, sondern ein <strong>Vorgang</strong>: der Ort, an dem gerade eine chemische Reaktion abläuft. Sie besteht vor allem aus <strong>heissem Gas</strong>: Wachsdampf, Sauerstoff und dem, was beim Verbrennen entsteht, also Wasserdampf und Kohlendioxid. Darin schweben winzige <strong>feste</strong> Russteilchen, die glühen. Die Antwort ist also: hauptsächlich gasförmig, mit etwas Festem darin.</p>
+          <p>Manchmal hört man, Feuer sei ein Plasma. Das stimmt nur zu einem winzigen Teil. In einem Plasma sind sehr viele Teilchen elektrisch geladen, wie in einem Blitz oder in der Sonne. In einer Kerzenflamme ist nur ein sehr kleiner Bruchteil geladen (vereinfacht). Ihre scharfe Form hat sie, weil sie nur dort leuchtet, wo Brennstoff und Sauerstoff gerade aufeinandertreffen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Gas, das <em>leuchtet</em>.</h2>
+    <ul class="learned">
+      <li><b>Wachsdampf brennt</b><span>Der Docht pumpt flüssiges Wachs nach oben. Dort verdampft es, und erst das Gas brennt.</span></li>
+      <li><b>Feuerdreieck</b><span>Brennstoff, Sauerstoff und Hitze. Nimm eines weg, und das Feuer geht aus. Fettbrand nie mit Wasser löschen.</span></li>
+      <li><b>Russ und Auftrieb</b><span>Gelb leuchten glühende Russteilchen. Nach oben zeigt die Flamme nur, weil heisse Gase aufsteigen.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/feuer.js"></script>
+</body>
+</html>
