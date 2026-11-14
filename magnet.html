@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Magnete · mindblow</title>
+<meta name="description" content="Wie zieht ein Magnet durch die Luft? Feldlinien, Pole, Eisen, zerbrochene Magnete, Elektromagnete und der Kompass interaktiv erklärt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema · Physik &amp; Kräfte</span>
+    <h1>Wie zieht ein Magnet durch die <em class="copper">Luft</em>?</h1>
+    <p class="intro">Halte einen Magneten über eine Büroklammer. Sie springt hoch, ohne dass irgendetwas sie berührt. Kein Faden, kein Stoss, nicht einmal Luft ist nötig. Wie geht das?</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Feld -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Das unsichtbare Feld <span class="chip solved-chip">gelöst</span></span>
+      <h2>Kraft ohne Berührung</h2>
+      <p>Ein Magnet hat zwei Enden, die <strong>Pole</strong>: Nord und Süd. Gleiche Pole stossen sich ab, verschiedene ziehen sich an. Das spürst du schon, bevor sich die Magnete berühren.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="fieldLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie wirkt ein Magnet auf eine Büroklammer, die er gar nicht berührt?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Er saugt die Luft an, und die Luft zieht die Klammer mit</span></button>
+          <button data-v="b"><span class="k">b</span><span>Er ist von einem Magnetfeld umgeben, das auch ohne Luft wirkt</span></button>
+          <button data-v="c"><span class="k">c</span><span>Er lädt die Klammer elektrisch auf, wie ein geriebener Ballon</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Um jeden Magneten liegt ein <strong>Magnetfeld</strong>. Es füllt den Raum und braucht keine Luft, es wirkt auch im Weltall. Sichtbar machen kannst du es mit Kompassnadeln oder Eisenspänen: Sie richten sich entlang von <strong>Feldlinien</strong> aus. Die Linien laufen ausserhalb des Magneten vom Nord- zum Südpol. Wo sie dicht liegen, ist das Feld stark. Zieh die Magnete herum und schau, wie sich die Nadeln drehen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Das Feld wird mit dem Abstand sehr schnell schwächer. Weit weg vom Magneten gilt: doppelt so weit weg, nur noch ein Achtel so stark. Darum spürst du einen Kühlschrankmagneten schon auf wenige Zentimeter kaum mehr.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="fieldCv" style="height:360px;touch-action:none" aria-label="Ein oder zwei Magnete, die man verschieben kann. Ringsum zeigen kleine Kompassnadeln die Richtung des Feldes."></canvas>
+        <div class="locked" id="fieldLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="srcBtns">
+          <span class="eyebrow">Magnet 1:</span>
+          <button data-src="bar" class="active" disabled>Stabmagnet</button>
+          <button data-src="coil" disabled>Elektromagnet</button>
+        </div>
+        <div class="ctrl"><label for="strIn" id="strLbl">Stärke</label><input type="range" id="strIn" min="0" max="100" step="5" value="70" disabled><output id="strOut">70 %</output></div>
+        <div class="row">
+          <button class="btn" id="flipBtn" disabled>Umdrehen</button>
+          <button class="btn ghost" id="twoBtn" disabled>Zweiter Magnet</button>
+          <button class="btn ghost" id="linesBtn" disabled>Feldlinien aus</button>
+        </div>
+        <span class="status" id="fieldStatus">Zieh die Magnete mit der Maus oder dem Finger.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Feld hier</span><span class="val" id="fB">–</span><span class="formula">relativ, beim Zeiger</span></div>
+        <div><span class="lbl">Abstand zum Pol</span><span class="val" id="fD">–</span><span class="formula">nächster Pol</span></div>
+        <div><span class="lbl">Die zwei Magnete</span><span class="val" id="fF" style="font-size:15px">–</span><span class="formula">Kraft zwischen ihnen</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Domänen -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Warum Eisen? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Was im Eisen passiert</h2>
+      <p>Ein Magnet hält an der Kühlschranktür. An einer Getränkedose aus Aluminium fällt er einfach herunter. Beides ist Metall, beides leitet Strom.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="domLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum zieht ein Magnet Eisen an, Aluminium aber nicht?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Aluminium ist zu leicht, der Magnet findet keinen Halt</span></button>
+          <button data-v="b"><span class="k">b</span><span>Eisen besteht aus winzigen Magnetbereichen, die sich im Feld ausrichten. Aluminium hat keine.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Eisen ist immer schon ein schwacher Magnet, Aluminium nicht</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Eisen ist voller winziger Bereiche, den <strong>Domänen</strong> oder Weissschen Bezirken. Jeder ist ein kleiner Magnet. Normalerweise zeigen sie kreuz und quer und heben sich auf, darum ist ein Nagel nicht magnetisch. Kommt ein Magnet in die Nähe, drehen sich die Bereiche in seine Richtung. Jetzt ist der Nagel selbst ein Magnet, und zwar so, dass er angezogen wird. Aluminium hat keine solchen Bereiche. Es reagiert nur sehr schwach, so wenig, dass du es nicht merkst. Im Versuch sind die Bereiche riesig gezeichnet, echt sind sie oft kleiner als ein Haar dick.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Erhitzt du Eisen über 770 °C, verliert es seinen Magnetismus. Die Wärme rüttelt die Bereiche so stark durcheinander, dass sie sich nicht mehr ausrichten. Nur Eisen, Nickel, Kobalt und einige Legierungen verhalten sich so stark magnetisch.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="domCv" style="height:300px" aria-label="Ein Magnet nähert sich einem Metallstück. Im Metall drehen sich kleine Pfeile, die Magnetbereiche, in Feldrichtung."></canvas>
+        <div class="locked" id="domLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="matBtns">
+          <span class="eyebrow">Material:</span>
+          <button data-mat="soft" class="active" disabled>Weicheisen</button>
+          <button data-mat="steel" disabled>Stahl</button>
+          <button data-mat="alu" disabled>Aluminium</button>
+        </div>
+        <div class="ctrl"><label for="nearIn">Magnet nähern</label><input type="range" id="nearIn" min="0" max="100" step="1" value="0" disabled><output id="nearOut">weit weg</output></div>
+        <div class="row">
+          <button class="btn ghost" id="awayBtn" disabled>Magnet wegnehmen</button>
+          <button class="btn ghost" id="shuffleBtn" disabled>Neues Stück</button>
+        </div>
+        <span class="status" id="domStatus">Jeder Pfeil ist ein Magnetbereich im Metall.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Ausgerichtet</span><span class="val" id="dAl">–</span><span class="formula">Bereiche in Feldrichtung</span></div>
+        <div><span class="lbl">Magnetisierung</span><span class="val" id="dM">–</span><span class="formula">Summe aller Pfeile</span></div>
+        <div><span class="lbl">Hält Büroklammern</span><span class="val" id="dClips">–</span><span class="formula">grob geschätzt</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Zerbrechen -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Zerbrochene Magnete <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Nordpol allein?</h2>
+      <p>Auf einem Stabmagneten steht vorne N und hinten S. Es sieht aus, als wäre der Norden in der einen Hälfte und der Süden in der anderen.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="breakLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du brichst einen Stabmagneten in der Mitte durch. Was hast du dann?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Ein Stück, das nur Nordpol ist, und eines, das nur Südpol ist</span></button>
+          <button data-v="b"><span class="k">b</span><span>Zwei kleinere, vollständige Magnete, jeder mit Nord- und Südpol</span></button>
+          <button data-v="c"><span class="k">c</span><span>Zwei Stücke, die gar nicht mehr magnetisch sind</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Jedes Stück hat wieder einen <strong>Nord- und einen Südpol</strong>. Denn der Magnet ist durch und durch aus ausgerichteten Bereichen aufgebaut, wie in Teil 2. Die Pole sind nur die Enden dieser langen Reihe. Wo du ihn brichst, entstehen zwei neue Enden: ein neuer Süd- und ein neuer Nordpol. Ein einzelner Pol für sich, ein «Monopol», wurde noch nie gefunden. Brich den Magneten im Versuch in immer mehr Stücke.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Teilst du immer weiter, landest du am Schluss bei einzelnen Atomen und schliesslich bei Elektronen. Auch jedes Elektron ist ein winziger Magnet mit zwei Polen. Ein Elektromagnet macht dasselbe mit Strom: Elektronen, die im Kreis durch eine Spule fliessen, erzeugen ein Feld wie ein Stabmagnet.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="breakCv" style="height:300px" aria-label="Ein Stabmagnet, der in mehrere Stücke zerbrochen wird. Jedes Stück hat einen Nord- und einen Südpol."></canvas>
+        <div class="locked" id="breakLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="piecesIn">Stücke</label><input type="range" id="piecesIn" min="1" max="6" step="1" value="1" disabled><output id="piecesOut">1</output></div>
+        <div class="ctrl"><label for="gapIn">Auseinander</label><input type="range" id="gapIn" min="0" max="40" step="1" value="16" disabled><output id="gapOut">16 mm</output></div>
+        <div class="legend" id="innerBtns">
+          <span class="eyebrow">Innen zeigen:</span>
+          <button data-in="1" class="active" disabled>Ja</button>
+          <button data-in="0" disabled>Nein</button>
+        </div>
+        <span class="status" id="breakStatus">Ein ganzer Stabmagnet.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Magnete</span><span class="val" id="bN">1</span><span class="formula">Stücke</span></div>
+        <div><span class="lbl">Nordpole</span><span class="val" id="bNo">1</span><span class="formula">Anzahl</span></div>
+        <div><span class="lbl">Südpole</span><span class="val" id="bSo">1</span><span class="formula">Anzahl</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Was liegt eigentlich am Nordpol?</h2>
+      <p>Eine Kompassnadel ist ein kleiner Stabmagnet. Ihr Nordpol zeigt Richtung Norden, darum heisst er so. Die Erde selbst ist ein riesiger Magnet.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1. Welche Pole ziehen sich an? Was für ein Magnetpol muss dann in der Arktis liegen?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Verschiedene Pole ziehen sich an. Wenn der <strong>Nordpol</strong> der Nadel nach Norden gezogen wird, liegt dort physikalisch ein magnetischer <strong>Südpol</strong>. Man nennt ihn trotzdem «magnetischer Nordpol», weil er im Norden liegt. Er liegt auch nicht genau am geografischen Nordpol, sondern einige hundert Kilometer daneben, und er wandert jedes Jahr um Dutzende Kilometer.</p>
+          <p>Das Erdfeld entsteht tief unten im flüssigen Eisen des äusseren Erdkerns. Das strömende, elektrisch leitende Eisen wirkt wie ein riesiger Elektromagnet. Etwa alle paar hunderttausend Jahre polt sich das Feld sogar um. Dann zeigt die Kompassnadel nach Süden.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Ein Magnet zieht mit einem <em>Feld</em>, nicht mit der Luft.</h2>
+    <ul class="learned">
+      <li><b>Feld statt Berührung</b><span>Ein Magnetfeld füllt den Raum um den Magneten, auch im Vakuum. Feldlinien zeigen seine Richtung und Stärke.</span></li>
+      <li><b>Eisen macht mit</b><span>Im Eisen richten sich winzige Magnetbereiche im Feld aus. So wird es selbst zum Magneten und wird angezogen.</span></li>
+      <li><b>Immer zwei Pole</b><span>Jedes Bruchstück eines Magneten hat wieder Nord und Süd. Auch Strom in einer Spule macht ein solches Feld.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Weiter →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/magnet.js"></script>
+</body>
+</html>

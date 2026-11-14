@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Blutzucker · mindblow</title>
+<meta name="description" content="Was macht Insulin? Wie der Körper den Zucker im Blut in einem engen Bereich hält, warum Süssgetränke eine Spitze machen und was bei Diabetes Typ 1 und Typ 2 anders ist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Körper &amp; Leben</span>
+    <h1>Was macht <em class="copper">Insulin</em>?</h1>
+    <p class="intro">In deinem Blut schwimmt immer ein bisschen Zucker, insgesamt nur etwa ein Teelöffel. Ist es viel weniger, wird dir schwindlig. Ist es lange zu viel, nehmen Augen, Nieren und Nerven Schaden. Ein kleines Hormon hält alles im Gleichgewicht.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Insulin als Schlüssel -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Der Schlüssel <span class="chip solved-chip">gelöst</span></span>
+      <h2>Zucker vor verschlossenen Türen</h2>
+      <p>Wenn du isst, zerlegt der Darm Brot, Nudeln oder Süsses in <strong>Glukose</strong>, also Traubenzucker. Die Glukose wandert ins Blut. Deine Zellen brauchen sie als Brennstoff, vor allem Muskeln und Gehirn.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="cellLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Nach dem Essen schüttet die Bauchspeicheldrüse Insulin aus. Was macht es?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Es verbrennt den überschüssigen Zucker direkt im Blut</span></button>
+          <button data-v="b"><span class="k">b</span><span>Es gibt den Zellen ein Signal, ihre Türen für den Zucker zu öffnen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Es ist selbst ein Brennstoff und gibt dem Körper Energie</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Insulin ist ein <strong>Botenstoff</strong>, kein Brennstoff. Es dockt an Muskel- und Fettzellen an. Diese bauen darauf Transporter in ihre Wand ein, eine Art Türen für Glukose. Erst dann strömt der Zucker aus dem Blut in die Zellen. Darum sinkt der Blutzucker. Ausserdem sagt Insulin der Leber: Zucker speichern statt abgeben. Vereinfacht: Das Gehirn braucht für seine Zuckertüren kein Insulin. Probier es aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>In deinen gut fünf Litern Blut stecken nur rund 4 bis 5 Gramm Zucker. Eine Dose Süssgetränk enthält etwa 35 Gramm, also siebenmal so viel.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="cellCv" style="height:340px" aria-label="Ein Blutgefäss voller Zuckerteilchen zwischen Muskelzellen, deren Türen sich mit Insulin öffnen"></canvas>
+        <div class="locked" id="cellLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="insIn">Insulin</label><input type="range" id="insIn" min="0" max="100" step="5" value="0" disabled><output id="insOut">0 %</output></div>
+        <div class="row">
+          <button class="btn" id="mealBtn" disabled>Mahlzeit essen</button>
+          <button class="btn ghost" id="cellReset" disabled>Neu</button>
+        </div>
+        <span class="status" id="cellStatus">Jedes Sechseck steht für eine Portion Glukose.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Blutzucker</span><span class="val" id="cG">5,0 mmol/L</span><span class="formula">normal: 4 bis 6</span></div>
+        <div><span class="lbl">Türen offen</span><span class="val" id="cDoor">0 %</span><span class="formula">Transporter in der Wand</span></div>
+        <div><span class="lbl">In den Zellen</span><span class="val" id="cIn">0</span><span class="formula">Portionen, werden verbrannt</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Regelkreis -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Der Regelkreis <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Thermostat für Zucker</h2>
+      <p>Mal isst du ein ganzes Menü, mal nichts bis zum Abend, mal rennst du eine Stunde. Trotzdem bleibt dein Blutzucker erstaunlich stabil, meist zwischen <strong>4 und 8 mmol/L</strong>.</p>
+      <div class="quiz" data-q="q2" data-correct="c" data-unlock="loopLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Ein gesunder Mensch trinkt ein Süssgetränk mit 50 g Zucker. Was macht sein Blutzucker?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Er verdoppelt sich und bleibt für viele Stunden hoch</span></button>
+          <button data-v="b"><span class="k">b</span><span>Er bleibt genau gleich, der Körper merkt gar nichts</span></button>
+          <button data-v="c"><span class="k">c</span><span>Er steigt etwas an und ist nach etwa zwei Stunden wieder normal</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Bauchspeicheldrüse <strong>misst</strong> laufend den Zucker. Steigt er, schüttet sie mehr Insulin aus, und die Zellen nehmen mehr auf. Sinkt er unter etwa 4,5 mmol/L, schüttet sie <strong>Glukagon</strong> aus. Das ist der Gegenspieler: Es lässt die Leber gespeicherten Zucker ins Blut abgeben. So eine Schleife aus Messen und Gegensteuern heisst <strong>Regelkreis</strong>, wie bei einem Thermostat. Schalte die Regelung im Modell aus und vergleiche.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Die Leber speichert rund 100 Gramm Zucker als Glykogen. Das reicht, um dein Gehirn eine Nacht lang ohne Essen zu versorgen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="loopCv" style="height:340px" aria-label="Verlauf des Blutzuckers über sechs Stunden mit Anzeigen für Insulin und Glukagon"></canvas>
+        <div class="locked" id="loopLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="regBtns">
+          <span class="eyebrow">Regelung:</span>
+          <button data-reg="1" class="active" disabled>Ein</button>
+          <button data-reg="0" disabled>Aus</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="drinkBtn" disabled>Süssgetränk</button>
+          <button class="btn ghost" id="sportBtn" disabled>Eine Stunde Sport</button>
+          <button class="btn ghost" id="loopReset" disabled>Neu</button>
+        </div>
+        <span class="status" id="loopStatus">Zeitraffer: 1 Sekunde sind 6 Minuten. Drück auf Süssgetränk oder Sport.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Blutzucker</span><span class="val" id="lG">5,0 mmol/L</span><span class="formula">Zielbereich 4 bis 8</span></div>
+        <div><span class="lbl">Insulin</span><span class="val" id="lI">10 %</span><span class="formula">senkt den Zucker</span></div>
+        <div><span class="lbl">Glukagon</span><span class="val" id="lGn">0 %</span><span class="formula">hebt den Zucker</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Schnell und langsam, Diabetes -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Schnell, langsam, krank <span class="chip solved-chip">gelöst</span></span>
+      <h2>Spitze oder sanfter Hügel</h2>
+      <p>Ein grosses Glas Apfelsaft und zwei Scheiben Vollkornbrot liefern etwa gleich viele Kohlenhydrate, rund <strong>50 Gramm</strong>. Am Schluss landet beides als Glukose im Blut.</p>
+      <div class="quiz" data-q="q3" data-correct="a" data-unlock="carbLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was ist der Unterschied für deinen Blutzucker?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Gleich viel Zucker, aber der Saft kommt schnell als Spitze, das Brot langsam als Hügel</span></button>
+          <button data-v="b"><span class="k">b</span><span>Der Saft liefert viel mehr Zucker ins Blut als das Brot</span></button>
+          <button data-v="c"><span class="k">c</span><span>Kein Unterschied, Zucker ist Zucker</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Im Saft ist der Zucker schon gelöst und geht in Minuten ins Blut. Im Vollkornbrot steckt <strong>Stärke</strong>, lange Ketten aus Glukose, eingepackt in Fasern. Der Darm muss sie erst zerlegen, der Zucker tröpfelt über eine Stunde und länger ins Blut. Die Menge ist fast gleich, das <strong>Tempo</strong> nicht. Bei Diabetes wird das Tempo wichtig: Bei <strong>Typ 1</strong> zerstört das eigene Immunsystem die Insulin-Zellen, es fehlt Insulin ganz. Bei <strong>Typ 2</strong> reagieren die Zellen schlecht auf Insulin, der Schlüssel klemmt. Vergleiche die Kurven.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>In der Schweiz leben rund eine halbe Million Menschen mit Diabetes. Etwa neun von zehn haben Typ 2, viele wissen es nicht.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="carbCv" style="height:340px" aria-label="Blutzuckerkurven nach Süssgetränk oder Vollkornbrot, für gesunde Menschen und bei Diabetes Typ 1 und Typ 2"></canvas>
+        <div class="locked" id="carbLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="foodBtns">
+          <span class="eyebrow">Essen:</span>
+          <button data-food="fast" class="active" disabled>Süssgetränk</button>
+          <button data-food="slow" disabled>Vollkornbrot</button>
+        </div>
+        <div class="legend" id="bodyBtns">
+          <span class="eyebrow">Körper:</span>
+          <button data-body="gesund" class="active" disabled>Gesund</button>
+          <button data-body="typ1" disabled>Typ 1</button>
+          <button data-body="typ2" disabled>Typ 2</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="eatBtn" disabled>Essen und messen</button>
+          <button class="btn ghost" id="injBtn" disabled>Insulin spritzen</button>
+          <button class="btn ghost" id="carbClear" disabled>Kurven löschen</button>
+        </div>
+        <span class="status" id="carbStatus">Wähle Essen und Körper. Jede Messung bleibt als Kurve stehen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Spitze</span><span class="val" id="kPeak">–</span><span class="formula">höchster Wert</span></div>
+        <div><span class="lbl">Zeit bis Spitze</span><span class="val" id="kTp">–</span><span class="formula">nach dem Essen</span></div>
+        <div><span class="lbl">Über 10 mmol/L</span><span class="val" id="kHigh">–</span><span class="formula">Minuten, schädlich auf Dauer</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum macht Bewegung Typ 2 besser?</h2>
+      <p>Bei Diabetes Typ 2 ist meist genug Insulin da, oft sogar mehr als bei Gesunden. Trotzdem bleibt der Zucker zu hoch. Ärztinnen raten dann zuerst: mehr bewegen, etwas abnehmen. Erst danach kommen Medikamente.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1 und an den Sport-Knopf in Teil 2. Wer öffnet die Zuckertüren der Muskeln? Nur das Insulin?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Arbeitende Muskeln öffnen ihre Zuckertüren <strong>auch ohne Insulin</strong>. Die Muskelarbeit selbst lässt die Transporter in die Zellwand wandern. Darum senkt Sport den Blutzucker sogar dann, wenn der Insulin-Schlüssel klemmt.</p>
+          <p>Und regelmässige Bewegung wirkt nachhaltig: Die Muskeln werden wieder <strong>empfindlicher</strong> für Insulin, oft noch ein bis zwei Tage nach dem Training. Weniger Bauchfett hilft zusätzlich, weil Fett in Leber und Bauch die Insulinwirkung stört. Bei Typ 1 dagegen fehlt das Insulin wirklich. Da hilft Sport auch, ersetzt aber das Spritzen nie.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Insulin ist ein <em>Schlüssel</em>, kein Brennstoff.</h2>
+    <ul class="learned">
+      <li><b>Türen öffnen</b><span>Insulin sagt Muskel- und Fettzellen, sie sollen Zuckertüren einbauen. Dann wandert Glukose aus dem Blut in die Zellen.</span></li>
+      <li><b>Ein Regelkreis</b><span>Insulin senkt, Glukagon hebt. Die Bauchspeicheldrüse misst laufend und hält den Zucker so meist zwischen 4 und 8 mmol/L.</span></li>
+      <li><b>Tempo zählt</b><span>Gelöster Zucker macht eine Spitze, Vollkorn einen sanften Hügel. Bei Typ 1 fehlt Insulin, bei Typ 2 wirkt es schlecht.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Weiter →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/blutzucker.js"></script>
+</body>
+</html>

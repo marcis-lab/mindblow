@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Touchscreen · mindblow</title>
+<meta name="description" content="Woher weiss der Bildschirm, wo dein Finger ist? Elektrisches Feld, Elektrodengitter, Rechentricks und Multitouch, interaktiv erklärt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema · Technik</span>
+    <h1>Woher weiss der Bildschirm, wo dein <em class="copper">Finger</em> ist?</h1>
+    <p class="intro">Du tippst, wischst und zoomst mit zwei Fingern, und dein Handy weiss jedes Mal genau, wo du bist. Dabei drückst du kaum. Unter dem Glas liegt ein unsichtbares Gitter, das deinen Finger «spürt», ohne ihn zu fühlen.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Feld -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Das Feld unter dem Glas <span class="chip solved-chip">gelöst</span></span>
+      <h2>Berühren ohne Druck</h2>
+      <p>Ein Handy-Bildschirm reagiert schon auf eine ganz leichte Berührung. Mit dem Fingernagel oder einem Plastikstift dagegen passiert nichts, auch wenn du fest drückst.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="fieldLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie merkt ein Handy-Bildschirm, dass du ihn berührst?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Er spürt den Druck des Fingers auf dem Glas</span></button>
+          <button data-v="b"><span class="k">b</span><span>Dein Finger verändert ein elektrisches Feld unter dem Glas</span></button>
+          <button data-v="c"><span class="k">c</span><span>Der Finger unterbricht unsichtbare Lichtstrahlen über dem Glas</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Unter dem Glas liegen hauchdünne, durchsichtige <strong>Elektroden</strong>. Zwischen einer Sende- und einer Empfangselektrode spannt sich ein elektrisches Feld, das ein Stück weit durch das Glas nach oben reicht. Dein Finger leitet Strom, denn er besteht zum grössten Teil aus Salzwasser, und er hängt an deinem grossen Körper. Kommt er nah, <strong>zieht er einen Teil des Feldes ab</strong>. Beim Empfänger kommt weniger an. Diese Fähigkeit, Ladung zu speichern, heisst <strong>Kapazität</strong>. Darum heissen solche Bildschirme kapazitiv. Druck spielt keine Rolle. Bildschirme mit Lichtschranken gibt es auch, aber kaum in Handys.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Vor einigen Jahren ging aus Südkorea ein Wintertrick um die Welt: Mit einem Würstchen lässt sich das Handy auch mit Handschuhen bedienen. Es ist salzig und feucht, also leitend. Probier das Wienerli im Modell.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="fieldCv" style="height:300px" aria-label="Querschnitt durch einen Touchscreen: Feldlinien zwischen zwei Elektroden unter dem Glas, darüber ein Finger"></canvas>
+        <div class="locked" id="fieldLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="toolBtns">
+          <span class="eyebrow">Damit:</span>
+          <button data-t="finger" class="active" disabled>Finger</button>
+          <button data-t="wool" disabled>Wollhandschuh</button>
+          <button data-t="tglove" disabled>Touch-Handschuh</button>
+          <button data-t="pen" disabled>Plastikstift</button>
+          <button data-t="sausage" disabled>Wienerli</button>
+        </div>
+        <div class="ctrl"><label for="gapIn">Abstand zum Glas</label><input type="range" id="gapIn" min="0" max="5" step="0.1" value="3" disabled><output id="gapOut">3,0 mm</output></div>
+        <span class="status" id="fieldStatus">Senk den Finger langsam auf das Glas.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Signal weniger</span><span class="val" id="fSig">–</span><span class="formula">beim Empfänger</span></div>
+        <div><span class="lbl">Schwelle</span><span class="val">20 %</span><span class="formula">ab hier gilt es als Berührung</span></div>
+        <div><span class="lbl">Berührung</span><span class="val" id="fHit">nein</span><span class="formula">erkannt?</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Interpolation -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Genauer als das Gitter <span class="chip solved-chip">gelöst</span></span>
+      <h2>Zwischen den Drähten rechnen</h2>
+      <p>Die Elektroden liegen als Streifen nebeneinander, etwa alle <strong>5 mm</strong> einer. Ein Steuerchip misst sie der Reihe nach durch, oft über hundertmal pro Sekunde. Trotzdem kannst du einen Buchstaben zwischen zwei anderen genau treffen.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="interpLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Die Elektroden liegen 5 mm auseinander. Wie genau kann das Handy deinen Finger orten?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Nur auf etwa 5 mm genau, so grob wie das Gitter</span></button>
+          <button data-v="b"><span class="k">b</span><span>Viel genauer, weil es aus mehreren Nachbarn einen Mittelwert rechnet</span></button>
+          <button data-v="c"><span class="k">c</span><span>Gar nicht genau, darum sind die Tasten so gross</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Viel genauer. Dein Finger ist breiter als ein Streifen, er beeinflusst immer zwei, drei Elektroden zugleich. Die nächste spürt ihn stark, die Nachbarn schwächer. Der Chip berechnet daraus einen <strong>gewichteten Mittelwert</strong>, den Schwerpunkt. So landet er meist auf rund einen Millimeter genau oder besser. Das nennt man <strong>Interpolation</strong>. Schalte sie im Modell aus und vergleiche. Elektrische Störungen, etwa von einem billigen Ladegerät, machen die Messung zappelig.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Gut zu wissen</span>
+        <p>Die Elektroden bestehen meist aus <strong>Indiumzinnoxid</strong>. Das leitet Strom und ist trotzdem fast durchsichtig. Darum siehst du das Gitter nicht, obwohl es direkt über dem Bild liegt.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="interpCv" style="height:300px" aria-label="Sieben Elektrodenstreifen mit Balken für ihr Signal und der berechneten Fingerposition"></canvas>
+        <div class="locked" id="interpLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="posIn">Fingerposition</label><input type="range" id="posIn" min="5" max="25" step="0.1" value="12.2" disabled><output id="posOut">12,2 mm</output></div>
+        <div class="ctrl"><label for="noiseIn">Störungen</label><input type="range" id="noiseIn" min="0" max="100" step="1" value="5" disabled><output id="noiseOut">5 %</output></div>
+        <div class="legend" id="modeBtns">
+          <span class="eyebrow">Ortung:</span>
+          <button data-m="max" disabled>Stärkste Elektrode</button>
+          <button data-m="avg" class="active" disabled>Schwerpunkt</button>
+        </div>
+        <span class="status" id="interpStatus">Verschieb den Finger und schau, wie die Balken sich verteilen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Finger wirklich</span><span class="val" id="iTrue">12,2 mm</span><span class="formula">vom linken Rand</span></div>
+        <div><span class="lbl">Gemessen</span><span class="val" id="iMeas">–</span><span class="formula">vom Chip berechnet</span></div>
+        <div><span class="lbl">Fehler</span><span class="val" id="iErr">–</span><span class="formula">Abweichung</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Multitouch -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Mehrere Finger <span class="chip solved-chip">gelöst</span></span>
+      <h2>Die Geisterpunkte</h2>
+      <p>Das Gitter hat <strong>Zeilen</strong> und <strong>Spalten</strong>. Die einfachste Art zu messen: Jede Zeile und jede Spalte einzeln fragen, ob sie etwas spürt. Bei einem Finger reicht das: Eine Zeile und eine Spalte melden sich, ihr Kreuzungspunkt ist der Finger.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="multiLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Jetzt berühren zwei Finger das Glas, schräg versetzt. Zwei Zeilen und zwei Spalten melden sich. Was ist das Problem?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Kein Problem, die Kreuzungen ergeben eindeutig die zwei Finger</span></button>
+          <button data-v="b"><span class="k">b</span><span>Es gibt vier mögliche Kreuzungen, zwei davon sind falsche Geisterpunkte</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die beiden Finger löschen sich gegenseitig aus</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Zwei Zeilen mal zwei Spalten ergeben <strong>vier Kreuzungen</strong>. Welche zwei echt sind, verrät diese Messung nicht. Moderne Handys messen darum <strong>jede Kreuzung einzeln</strong>: Eine Zeile sendet, und jede Spalte hört zu, wie viel bei ihr ankommt. Dann kommt die nächste Zeile dran. Das sind viel mehr Messungen, aber jeder Finger ergibt seinen eigenen Fleck. So erkennt ein Handy zehn Finger gleichzeitig. Tippe im Modell Finger aufs Gitter und wechsle die Messart.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Ein Handy-Bildschirm hat einige hundert solche Kreuzungen. Der Chip misst jede davon oft über hundertmal pro Sekunde. Das sind Zehntausende Messungen pro Sekunde, nur damit du wischen kannst.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="multiCv" style="height:330px;touch-action:manipulation;cursor:crosshair" aria-label="Ein Elektrodengitter, auf das du Finger tippen kannst, mit den erkannten Punkten"></canvas>
+        <div class="locked" id="multiLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="scanBtns">
+          <span class="eyebrow">Messart:</span>
+          <button data-s="self" class="active" disabled>Zeilen und Spalten</button>
+          <button data-s="mutual" disabled>Jede Kreuzung</button>
+        </div>
+        <div class="row">
+          <button class="btn ghost" id="clearBtn" disabled>Alle Finger weg</button>
+        </div>
+        <span class="status" id="multiStatus">Tippe aufs Gitter, um Finger hinzuzufügen oder wegzunehmen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Finger</span><span class="val" id="mN">2</span><span class="formula">wirklich auf dem Glas</span></div>
+        <div><span class="lbl">Erkannt</span><span class="val" id="mDet">–</span><span class="formula">mögliche Punkte</span></div>
+        <div><span class="lbl">Messungen</span><span class="val" id="mMeas">14</span><span class="formula">pro Durchgang</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum spinnt das Handy im Regen?</h2>
+      <p>Mit nassen Fingern oder ein paar Regentropfen auf dem Glas reagiert das Handy oft seltsam. Es öffnet Apps von selbst oder ignoriert dich. Und unter Wasser lässt es sich kaum bedienen. Warum?</p>
+      <p><strong>Tipp:</strong> Was hat ein Wassertropfen mit deinem Finger gemeinsam? Und was ist anders?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Wasser leitet ein bisschen, genau wie dein Finger. Ein Tropfen verändert darum das Feld an den Kreuzungen darunter und sieht für den Chip ähnlich aus wie eine Berührung. Ein nasser Finger zieht ausserdem eine leitende Spur hinter sich her, das Signal verschmiert über viele Kreuzungen.</p>
+          <p>Der Unterschied: Ein Tropfen ist nicht mit deinem Körper verbunden. Gute Steuerchips nutzen das und filtern viele Tropfen heraus. Unter Wasser aber ist das ganze Glas bedeckt. Alle Kreuzungen melden gleichzeitig eine Veränderung, und ein einzelner Finger hebt sich nicht mehr davon ab.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Dein Finger ist ein <em>Leiter</em>, der Felder stört.</h2>
+    <ul class="learned">
+      <li><b>Feld statt Druck</b><span>Unter dem Glas liegen Elektroden mit einem elektrischen Feld. Ein leitender Finger zieht einen Teil davon ab, Wolle und Plastik nicht.</span></li>
+      <li><b>Schwerpunkt</b><span>Der Finger beeinflusst mehrere Elektroden. Aus ihren Signalen rechnet der Chip die Position viel genauer als das Gitter.</span></li>
+      <li><b>Jede Kreuzung zählt</b><span>Wer nur Zeilen und Spalten misst, sieht Geisterpunkte. Wer jede Kreuzung misst, erkennt viele Finger zugleich.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Weiter →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/touchscreen.js"></script>
+</body>
+</html>

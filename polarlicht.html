@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Polarlicht · mindblow</title>
+<meta name="description" content="Was leuchtet im Polarlicht? Teilchen von der Sonne, das Magnetfeld der Erde und leuchtender Sauerstoff. Und warum man es bei starken Stürmen sogar in der Schweiz sieht.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Natur &amp; Universum</span>
+    <h1>Was leuchtet im <em class="copper">Polarlicht</em>?</h1>
+    <p class="intro">Grüne Vorhänge, die über den Himmel wehen, manchmal rot oder violett gesäumt. Im Norden Skandinaviens sieht man sie oft. Im Mai 2024 leuchtete der Himmel sogar über der Schweiz rot und pink. Woher kommt dieses Licht?</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Sonnenwind und Magnetfeld -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Wind von der Sonne <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Schutzschild aus Magnetismus</h2>
+      <p>Die Sonne leuchtet nicht nur. Sie bläst auch ständig einen dünnen Strom aus <strong>geladenen Teilchen</strong> ins All, vor allem Elektronen und Protonen. Dieser <strong>Sonnenwind</strong> ist mit 400 bis 800 Kilometern pro Sekunde unterwegs.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="windLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Woher kommt das Licht des Polarlichts?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Sonnenlicht, das vom Eis an den Polen an den Himmel gespiegelt wird</span></button>
+          <button data-v="b"><span class="k">b</span><span>Teilchen von der Sonne prallen hoch oben auf die Luft und bringen sie zum Leuchten</span></button>
+          <button data-v="c"><span class="k">c</span><span>Kleine Meteoriten, die in der Atmosphäre verglühen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Es leuchtet die <strong>Luft selbst</strong>, in 100 bis 400 km Höhe. Aber warum vor allem an den Polen? Die Erde ist ein riesiger Magnet. Ihr Magnetfeld lenkt geladene Teilchen ab, die meisten fliegen an der Erde vorbei. Teilchen, die doch hineingelangen, können nur entlang der Feldlinien wandern, in Spiralen. Und die Feldlinien führen in Ringen rund um die Pole in die Atmosphäre. Vereinfacht: In Wirklichkeit gelangen die Teilchen vor allem über den langen Magnet-Schweif auf der Nachtseite hinein und werden dort noch beschleunigt.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Ohne Magnetfeld würde der Sonnenwind unsere Luft langsam wegblasen. Dem Mars ist das passiert. Er hat sein globales Magnetfeld vor Milliarden Jahren verloren und heute nur noch eine hauchdünne Atmosphäre.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="windCv" style="height:360px" aria-label="Sonnenwind strömt von links auf die Erde zu. Das Magnetfeld lenkt die Teilchen ab und führt einige zu den Polen."></canvas>
+        <div class="locked" id="windLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="fieldBtns">
+          <span class="eyebrow">Magnetfeld:</span>
+          <button data-field="1" class="active" disabled>Ein</button>
+          <button data-field="0" disabled>Aus</button>
+        </div>
+        <div class="ctrl"><label for="windIn">Sonnenwind</label><input type="range" id="windIn" min="1" max="5" step="1" value="2" disabled><output id="windOut">ruhig</output></div>
+        <div class="row">
+          <button class="btn" id="cmeBtn" disabled>Sonnensturm auslösen</button>
+        </div>
+        <span class="status" id="windStatus">Die Grössen sind nicht massstäblich. Die Sonne ist in Wirklichkeit 150 Millionen km entfernt.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Abgelenkt</span><span class="val" id="wDef">0</span><span class="formula">fliegen vorbei</span></div>
+        <div><span class="lbl">Zu den Polen</span><span class="val" id="wPole">0</span><span class="formula">machen Polarlicht</span></div>
+        <div><span class="lbl">Treffen Tagseite</span><span class="val" id="wDay">0</span><span class="formula">ohne Schutz</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Farben -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Die Farben <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum meistens grün?</h2>
+      <p>Unsere Luft besteht hoch oben vor allem aus <strong>Sauerstoff</strong> und <strong>Stickstoff</strong>. Trifft ein schnelles Elektron ein Gasteilchen, gibt es ihm Energie ab. Das Teilchen ist dann kurz angeregt und wird die Energie als Licht wieder los.</p>
+      <div class="quiz" data-q="q2" data-correct="c" data-unlock="colLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum ist das Polarlicht meistens grün?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Teilchen von der Sonne sind selbst grün</span></button>
+          <button data-v="b"><span class="k">b</span><span>Die Luft streut grünes Licht besonders stark, so wie sie den Himmel blau macht</span></button>
+          <button data-v="c"><span class="k">c</span><span>Sauerstoff in rund 100 bis 200 km Höhe leuchtet grün, wenn er angeregt wird</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Jedes Gas leuchtet in seinen <strong>eigenen Farben</strong>, wie ein Fingerabdruck. <strong>Sauerstoff</strong> leuchtet grün, bei 558 Nanometern. Ganz oben, über etwa 200 km, leuchtet er rot. Dort ist die Luft so dünn, dass ein angeregtes Sauerstoffatom fast zwei Minuten lang ungestört bleibt, bis es rotes Licht abgibt. Weiter unten stösst es vorher mit anderen Teilchen zusammen und verliert die Energie ohne Licht. <strong>Stickstoff</strong> leuchtet blau und violett, vor allem am unteren Rand, wo nur sehr schnelle Elektronen hinkommen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Die Kamera im Handy sieht oft mehr Farbe als dein Auge. Bei schwachem Licht sieht das Auge kaum Farben, die Kamera sammelt dagegen mehrere Sekunden lang Licht.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="colCv" style="height:360px" aria-label="Höhenprofil der Atmosphäre von 60 bis 400 km. Elektronen dringen ein und lassen die Gase in verschiedenen Farben leuchten."></canvas>
+        <div class="locked" id="colLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="enIn">Energie der Elektronen</label><input type="range" id="enIn" min="0" max="100" step="1" value="55" disabled><output id="enOut">3 keV</output></div>
+        <div class="row">
+          <button class="btn" id="shootBtn" disabled>Elektronen schicken</button>
+          <button class="btn ghost" id="colClear" disabled>Himmel löschen</button>
+        </div>
+        <span class="status" id="colStatus">Schnellere Elektronen dringen tiefer in die Luft ein.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Stoppen bei</span><span class="val" id="cStop">–</span><span class="formula">Höhe über Boden</span></div>
+        <div><span class="lbl">Hauptfarbe</span><span class="val" id="cMain" style="font-size:15px">–</span><span class="formula">am meisten Licht</span></div>
+        <div><span class="lbl">Leuchtet</span><span class="val" id="cGas" style="font-size:15px">–</span><span class="formula">welches Gas</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Bis in die Schweiz -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Bis in die Schweiz <span class="chip solved-chip">gelöst</span></span>
+      <h2>Der Ring wird grösser</h2>
+      <p>Von oben gesehen leuchtet das Polarlicht in einem Ring um den magnetischen Pol, dem <strong>Polarlicht-Oval</strong>. Es liegt meist über Nordnorwegen, Island, Kanada und Alaska. Die Schweiz ist weit davon entfernt.</p>
+      <div class="quiz" data-q="q3" data-correct="a" data-unlock="ovalLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wann kann man Polarlicht in der Schweiz sehen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Bei sehr starken Sonnenstürmen, dann wird das Oval grösser und rückt nach Süden</span></button>
+          <button data-v="b"><span class="k">b</span><span>Nur im tiefsten Winter, weil es dann besonders kalt ist</span></button>
+          <button data-v="c"><span class="k">c</span><span>Nie, die Schweiz liegt dafür zu weit im Süden</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Schleudert die Sonne eine riesige Wolke aus Teilchen ins All, wird das Magnetfeld der Erde stark durchgeschüttelt. Das Oval dehnt sich dann weit nach Süden aus. Gemessen wird das mit dem <strong>Kp-Index</strong> von 0 bis 9. Ab etwa Kp 7 kann man es in der Schweiz am Nordhorizont sehen, meist als <strong>rotes</strong> Leuchten. Das rote Licht entsteht ganz oben, in 200 bis 400 km Höhe, und ist darum von weit her über den Horizont sichtbar. Die Kälte spielt keine Rolle, nur die dunklen Nächte helfen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Beim grössten bekannten Sonnensturm 1859 sah man Polarlicht bis in die Karibik. Telegrafenleitungen sprühten Funken, und manche Telegrafen funktionierten sogar ohne Batterie.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="ovalCv" style="height:340px" aria-label="Schnitt durch die gekrümmte Erde von Süden nach Norden. Je stärker der Sturm, desto weiter südlich steht der Polarlichtvorhang. Eine Sichtlinie zeigt, ob man ihn von der Schweiz aus sieht."></canvas>
+        <div class="locked" id="ovalLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="kpIn">Sturm (Kp)</label><input type="range" id="kpIn" min="0" max="9" step="1" value="3" disabled><output id="kpOut">Kp 3</output></div>
+        <div class="legend" id="placeBtns">
+          <span class="eyebrow">Du bist in:</span>
+          <button data-lat="48" class="active" disabled>Schweiz</button>
+          <button data-lat="54" disabled>Hamburg</button>
+          <button data-lat="67" disabled>Tromsø</button>
+        </div>
+        <span class="status" id="ovalStatus">Die Höhe der Lichter ist massstäblich. Breiten sind magnetische Breiten, vereinfacht.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Oval-Südrand</span><span class="val" id="oLat">–</span><span class="formula">magnetische Breite</span></div>
+        <div><span class="lbl">Entfernung</span><span class="val" id="oDist">–</span><span class="formula">von dir nach Norden</span></div>
+        <div><span class="lbl">Für dich</span><span class="val" id="oSee" style="font-size:14px">–</span><span class="formula">Höhe über Horizont</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Gibt es Polarlicht auch anderswo?</h2>
+      <p>Raumsonden und das Weltraumteleskop Hubble haben Polarlichter auf anderen Planeten fotografiert. Auf dem Mars dagegen sieht es ganz anders aus: Dort leuchtet es manchmal fleckig und sogar über den ganzen Himmel verteilt, nicht in einem Ring.</p>
+      <p><strong>Tipp:</strong> Was braucht es für ein Polarlicht in einem Ring um die Pole? Denk an die drei Zutaten aus dieser Lektion. Welche davon fehlt dem Mars?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Es braucht drei Zutaten: <strong>geladene Teilchen</strong>, eine <strong>Atmosphäre</strong>, die leuchten kann, und ein <strong>Magnetfeld</strong>, das die Teilchen zu den Polen lenkt. Jupiter und Saturn haben riesige Magnetfelder und dichte Gashüllen. Ihre Polarlichter sind grösser als die ganze Erde und leuchten vor allem im Ultraviolett.</p>
+          <p>Dem Mars fehlt das globale Magnetfeld. Nur in einzelnen Gegenden steckt noch Magnetismus im alten Gestein. Darum regnen die Teilchen fast überall auf die dünne Atmosphäre und erzeugen fleckiges Leuchten statt eines Rings. Das zeigt im Umkehrschluss: Der Ring auf der Erde ist ein Abdruck unseres Magnetfelds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Die Luft <em>leuchtet</em>, weil die Sonne sie trifft.</h2>
+    <ul class="learned">
+      <li><b>Magnetischer Trichter</b><span>Das Magnetfeld lenkt den Sonnenwind meist vorbei. Teilchen, die hineingelangen, wandern entlang der Feldlinien zu den Polen.</span></li>
+      <li><b>Gase als Farbe</b><span>Sauerstoff leuchtet grün und ganz oben rot, Stickstoff blau und violett am unteren Rand.</span></li>
+      <li><b>Sturm macht den Ring weit</b><span>Bei starken Sonnenstürmen rückt das Oval nach Süden. Dann sieht man von der Schweiz aus das hohe rote Licht am Nordhorizont.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Weiter →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/polarlicht.js"></script>
+</body>
+</html>

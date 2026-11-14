@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Schwimmen · mindblow</title>
+<meta name="description" content="Warum schwimmt ein Schiff aus Stahl, ein Nagel aber nicht? Auftrieb, Dichte, Ladelinie und U-Boote, interaktiv erklärt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema · Physik</span>
+    <h1>Warum schwimmt ein Schiff aus <em class="copper">Stahl</em>?</h1>
+    <p class="intro">Ein Nagel geht sofort unter. Ein Containerschiff aus Zehntausenden Tonnen Stahl dagegen fährt über die Ozeane. Wie passt das zusammen? Die Antwort hat ein Grieche vor über 2'200 Jahren in der Badewanne gefunden.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Auftrieb -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Der Auftrieb <span class="chip solved-chip">gelöst</span></span>
+      <h2>Das Wasser drückt zurück</h2>
+      <p>Was du ins Wasser tauchst, schiebt Wasser zur Seite. Das Wasser drückt von allen Seiten zurück, von unten aber stärker als von oben. Diese Kraft nach oben heisst <strong>Auftrieb</strong>.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="tankLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Ein grosser Holzbalken schwimmt, ein kleiner Stahlnagel geht unter. Warum?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Leichte Dinge schwimmen, schwere gehen unter</span></button>
+          <button data-v="b"><span class="k">b</span><span>Es kommt darauf an, ob ein Ding schwerer ist als gleich viel Wasser</span></button>
+          <button data-v="c"><span class="k">c</span><span>Im Holz steckt Luft, und Luft zieht nach oben</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Der Balken ist viel schwerer als der Nagel. Es zählt die <strong>Dichte</strong>: wie schwer ein Liter vom Stoff ist. Ein Liter Wasser wiegt 1 kg, ein Liter Holz etwa 0,6 kg, ein Liter Stahl fast 8 kg. Das Gesetz von <strong>Archimedes</strong>: Der Auftrieb ist so gross wie das Gewicht des Wassers, das ein Ding zur Seite schiebt. Holz taucht nur so weit ein, bis es sein eigenes Gewicht an Wasser verdrängt hat. Stahl schafft das nicht einmal ganz untergetaucht. Probier verschiedene Stoffe und Grössen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Luft zieht nicht nach oben. Ein Ballon steigt aus demselben Grund wie Holz im Wasser: Er verdrängt Luft, die schwerer ist als er selbst. Auch du hast in der Luft einen winzigen Auftrieb, etwa so viel wie das Gewicht einer Tafel Schokolade.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="tankCv" style="height:340px" aria-label="Ein Wasserbecken, in das ein Würfel aus wählbarem Stoff fällt, mit Pfeilen für Gewicht und Auftrieb"></canvas>
+        <div class="locked" id="tankLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="matBtns">
+          <span class="eyebrow">Stoff:</span>
+          <button data-rho="240" disabled>Kork</button>
+          <button data-rho="600" class="active" disabled>Holz</button>
+          <button data-rho="920" disabled>Eis</button>
+          <button data-rho="7850" disabled>Stahl</button>
+        </div>
+        <div class="ctrl"><label for="sizeIn">Kantenlänge</label><input type="range" id="sizeIn" min="4" max="20" step="1" value="12" disabled><output id="sizeOut">12 cm</output></div>
+        <div class="row">
+          <button class="btn" id="dropBtn" disabled>Ins Wasser</button>
+        </div>
+        <span class="status" id="tankStatus">Wähle einen Stoff und lass den Würfel ins Wasser fallen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Gewicht</span><span class="val" id="tW">–</span><span class="formula">Würfel</span></div>
+        <div><span class="lbl">Auftrieb</span><span class="val" id="tB">–</span><span class="formula">jetzt</span></div>
+        <div><span class="lbl">Verdrängt</span><span class="val" id="tV">–</span><span class="formula">Liter Wasser</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Schiff -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Die Form macht's <span class="chip solved-chip">gelöst</span></span>
+      <h2>2'000 Tonnen Stahl</h2>
+      <p>Stahl ist fast achtmal dichter als Wasser. Ein Klotz aus Stahl sinkt also immer. Trotzdem sind Schiffe aus Stahl gebaut, und sie tragen dazu noch riesige Ladungen.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="shipLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum geht ein Schiff aus Stahl nicht unter?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Es ist innen voller Luft, und die Luft hebt es hoch</span></button>
+          <button data-v="b"><span class="k">b</span><span>Seine hohle Form schiebt so viel Wasser weg, wie das ganze Schiff wiegt</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Fahrt und die Motoren halten es oben</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Es ist die <strong>Form</strong>. Derselbe Stahl, zu einer grossen Schale gebogen, schiebt viel mehr Wasser zur Seite als ein kompakter Klotz. Ein Schiff sinkt so tief ein, bis das verdrängte Wasser <strong>genau so viel wiegt</strong> wie Schiff und Ladung zusammen. Die Luft im Rumpf hebt nichts, sie wiegt nur fast nichts. Darum ist das Schiff im Mittel weniger dicht als Wasser. Dazu kommt: Salzwasser ist dichter als Süsswasser, darum liegt ein Schiff im Meer etwas höher. Das Modell rechnet mit einem einfachen Kastenrumpf (vereinfacht).</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Gut zu wissen</span>
+        <p>Jedes Handelsschiff trägt aussen eine Marke: die <strong>Ladelinie</strong>. Steht das Wasser darüber, ist das Schiff überladen. Durchgesetzt hat sie Samuel Plimsoll im 19. Jahrhundert, nachdem viele überladene Schiffe gesunken waren.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="shipCv" style="height:320px" aria-label="Seitenansicht eines Stahlschiffs im Wasser, dessen Form und Ladung du verändern kannst"></canvas>
+        <div class="locked" id="shipLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="formIn">Form des Stahls</label><input type="range" id="formIn" min="0" max="100" step="1" value="0" disabled><output id="formOut">Klotz</output></div>
+        <div class="ctrl"><label for="loadIn">Ladung</label><input type="range" id="loadIn" min="0" max="30000" step="500" value="0" disabled><output id="loadOut">0 t</output></div>
+        <div class="legend" id="waterBtns">
+          <span class="eyebrow">Wasser:</span>
+          <button data-rho="1000" disabled>Süsswasser</button>
+          <button data-rho="1025" class="active" disabled>Meer</button>
+        </div>
+        <span class="status" id="shipStatus">2'000 t Stahl als kompakter Klotz.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Gewicht</span><span class="val" id="sMass">2'000 t</span><span class="formula">Stahl und Ladung</span></div>
+        <div><span class="lbl">Verdrängt</span><span class="val" id="sDisp">–</span><span class="formula">Tonnen Wasser</span></div>
+        <div><span class="lbl">Tiefgang</span><span class="val" id="sDraft">–</span><span class="formula">unter der Wasserlinie</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: U-Boot -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Auf und ab <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wie taucht ein U-Boot?</h2>
+      <p>Ein U-Boot schwimmt an der Oberfläche wie ein Schiff. Dann taucht es ab, schwebt in 200 m Tiefe und kommt später wieder hoch. Seine Form bleibt dabei immer gleich.</p>
+      <div class="quiz" data-q="q3" data-correct="a" data-unlock="subLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was macht ein U-Boot, um abzutauchen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Es lässt Meerwasser in Tanks laufen und wird so schwerer, bei gleicher Grösse</span></button>
+          <button data-v="b"><span class="k">b</span><span>Es presst sich zusammen und wird dadurch kleiner</span></button>
+          <button data-v="c"><span class="k">c</span><span>Es drückt sich nur mit den Propellern nach unten</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ein U-Boot hat <strong>Ballasttanks</strong>. Werden sie geflutet, wird das Boot schwerer, ohne grösser zu werden. Seine mittlere Dichte steigt über die von Meerwasser, und es sinkt. Zum Auftauchen bläst Druckluft das Wasser wieder hinaus. Zum Schweben stellt die Besatzung die Tanks so ein, dass das Boot genau so dicht ist wie das Wasser rundherum. Feinarbeit machen dann die Tiefenruder während der Fahrt. Im Modell ist der Rumpf starr (vereinfacht).</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Viele Fische machen es ähnlich: Sie füllen ihre <strong>Schwimmblase</strong> mehr oder weniger mit Gas. So schweben sie ohne Anstrengung in der gewünschten Tiefe.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="subCv" style="height:340px" aria-label="Ein U-Boot im Meer mit Ballasttanks, daneben eine Tiefenskala"></canvas>
+        <div class="locked" id="subLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="tankIn">Ballasttanks gefüllt</label><input type="range" id="tankIn" min="0" max="100" step="1" value="0" disabled><output id="tankOut">0 %</output></div>
+        <div class="row">
+          <button class="btn" id="floodBtn" disabled>Fluten</button>
+          <button class="btn ghost" id="blowBtn" disabled>Anblasen</button>
+        </div>
+        <span class="status" id="subStatus">Tanks leer: Das U-Boot schwimmt an der Oberfläche.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Mittlere Dichte</span><span class="val" id="uRho">–</span><span class="formula">Meerwasser: 1'025 kg/m³</span></div>
+        <div><span class="lbl">Kraft</span><span class="val" id="uF">–</span><span class="formula">Auftrieb minus Gewicht</span></div>
+        <div><span class="lbl">Tiefe</span><span class="val" id="uZ">0 m</span><span class="formula">Oberkante Rumpf</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Läuft das Glas über?</h2>
+      <p>In einem Glas schwimmt ein grosser Eiswürfel. Du füllst Wasser nach, bis das Glas randvoll ist. Ein Stück Eis ragt oben noch heraus. Dann wartest du, bis das Eis ganz geschmolzen ist. Läuft das Glas über?</p>
+      <p><strong>Tipp:</strong> Wie viel Wasser verdrängt der schwimmende Eiswürfel? Und wie viel Wasser entsteht, wenn er schmilzt?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Nein, der Wasserstand bleibt <strong>gleich</strong>. Der schwimmende Würfel verdrängt genau so viel Wasser, wie er wiegt. Wenn er schmilzt, wird er zu genau dieser Menge Wasser. Sie passt exakt in die Lücke, die er vorher ins Wasser gedrückt hat. Das Stück, das herausragt, ist der Platz, den Eis mehr braucht als Wasser.</p>
+          <p>Das gilt auch im Grossen: Schmilzt schwimmendes Meereis, steigt der Meeresspiegel kaum. Schmilzt aber Eis, das auf Land liegt, wie in Grönland oder der Antarktis, fliesst neues Wasser ins Meer. Dann steigt er.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Nicht das Gewicht zählt, sondern das <em>verdrängte Wasser</em>.</h2>
+    <ul class="learned">
+      <li><b>Archimedes</b><span>Der Auftrieb ist so gross wie das Gewicht des verdrängten Wassers. Was weniger dicht ist als Wasser, schwimmt.</span></li>
+      <li><b>Form schlägt Stoff</b><span>Ein hohler Rumpf verdrängt viel Wasser. So schwimmt sogar Stahl, solange er nicht über die Ladelinie beladen wird.</span></li>
+      <li><b>Dichte steuern</b><span>Das U-Boot flutet Tanks, um schwerer zu werden, und bläst sie aus, um wieder aufzusteigen.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Weiter →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/schiff.js"></script>
+</body>
+</html>

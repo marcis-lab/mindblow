@@ -7,12 +7,12 @@ Jede Lektion: vermuten → ausprobieren → verstehen.
 
 Alle Themen stehen im Register `js/themen.js` (Bereich → Gebiet → Thema). Startseite, Menü, Übersichten, Suche und «Weiter»-Links werden daraus erzeugt.
 
-- **Körper & Gesundheit:** herz, blut, lunge, ersticken, bewegung, muskelkater, immunsystem, fieber, verdauung, kalorien, farben, gehoer, geschmack, gedaechtnis, schlaf, nerven
-- **Pflanzen, Tiere & Evolution:** fotosynthese, herbst, dna, zelle, evolution, zugvoegel, bienen, nahrungsnetz
-- **Physik & Chemie:** fallen, hebel, himmel, regenbogen, waerme, feuer, atome
-- **Erde & Weltall:** jahreszeiten, gezeiten, mondphasen, treibhaus, gewitter, universum, schwarzeloecher, vulkane
-- **Technik:** strom, kuehlschrank, akku, internet, ki, verschluesselung, computer, gps, flugzeug
-- **Geld & Gesellschaft:** geld, zinseszins, inflation, lotto, stau, wahlen
+- **Körper & Gesundheit:** herz, blut, lunge, ersticken, bewegung, muskelkater, immunsystem, fieber, sonnenbrand, verdauung, kalorien, blutzucker, auge, farben, gehoer, geschmack, gedaechtnis, schlaf, nerven
+- **Pflanzen, Tiere & Evolution:** fotosynthese, baumwasser, herbst, dna, zelle, evolution, resistenz, zugvoegel, bienen, ameisen, nahrungsnetz
+- **Physik & Chemie:** fallen, hebel, magnet, schiff, himmel, regenbogen, spiegel, waerme, feuer, eis, atome
+- **Erde & Weltall:** jahreszeiten, gezeiten, mondphasen, zeitzonen, treibhaus, gewitter, wolken, universum, schwarzeloecher, sterne, polarlicht, vulkane
+- **Technik:** strom, kuehlschrank, akku, solar, mikrowelle, internet, ki, verschluesselung, computer, touchscreen, gps, flugzeug
+- **Geld & Gesellschaft:** geld, zinseszins, inflation, lotto, versicherung, korrelation, stau, kooperation, wahlen
 
 ## Lokal starten
 

@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mikrowelle · mindblow</title>
+<meta name="description" content="Die Mikrowelle dreht Wassermoleküle Milliarden Mal pro Sekunde hin und her. Warum sie nicht von innen heizt, wozu der Drehteller da ist und wie du mit Schokolade die Lichtgeschwindigkeit misst.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Technik</span>
+    <h1>Wie macht die Mikrowelle Essen <em class="copper">warm?</em></h1>
+    <p class="intro">Ein Knopfdruck, ein Summen, und nach zwei Minuten dampft die Suppe. Der Teller bleibt dabei oft kühl, und die gefrorene Lasagne ist am Rand kochend heiss und in der Mitte noch Eis. Was passiert da drin?</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Dipole -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Moleküle im Takt <span class="chip solved-chip">gelöst</span></span>
+      <h2>Milliarden Mal pro Sekunde umgepolt</h2>
+      <p>Mikrowellen sind elektromagnetische Wellen, wie Licht und Radiowellen, nur mit einer Wellenlänge von rund 12 cm. Das Gerät erzeugt sie in einer Röhre, dem <strong>Magnetron</strong>, und leitet sie in den Garraum.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="fieldLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie wird das Essen in der Mikrowelle warm?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Heisse Luft im Garraum wärmt es auf, wie in einem kleinen Backofen</span></button>
+          <button data-v="b"><span class="k">b</span><span>Ein schnell wechselndes elektrisches Feld dreht die Wassermoleküle hin und her, das erzeugt Wärme</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Strahlen machen das Essen leicht radioaktiv, und dabei entsteht Wärme</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ein Wassermolekül hat ein Plus-Ende und ein Minus-Ende, es ist ein <strong>Dipol</strong>. Ein elektrisches Feld dreht es wie eine Kompassnadel in seine Richtung. Die Mikrowelle polt ihr Feld 2,45 Milliarden Mal pro Sekunde hin und her. Die Moleküle wollen jedes Mal mitdrehen, stossen dabei an ihre Nachbarn, und diese Unruhe ist Wärme. Radioaktiv wird nichts, dafür ist die Energie viel zu klein. Und die Luft im Garraum bleibt kühl. Probier verschiedene Stoffe aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Erfunden hat die Mikrowelle ein Zufall. 1945 stand der Ingenieur Percy Spencer vor einem Radargerät und merkte, dass der Schokoriegel in seiner Tasche geschmolzen war.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="fieldCv" style="height:340px" aria-label="Moleküle zwischen zwei Platten, deren elektrisches Feld ständig umpolt, mit einem Thermometer daneben"></canvas>
+        <div class="locked" id="fieldLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="subBtns">
+          <span class="eyebrow">Im Gefäss:</span>
+          <button data-sub="water" class="active" disabled>Wasser</button>
+          <button data-sub="oil" disabled>Öl</button>
+          <button data-sub="ice" disabled>Eis</button>
+        </div>
+        <div class="ctrl"><label for="powIn">Leistung</label><input type="range" id="powIn" min="100" max="1000" step="50" value="800" disabled><output id="powOut">800 W</output></div>
+        <div class="row">
+          <button class="btn" id="mwBtn" disabled>Einschalten</button>
+          <button class="btn ghost" id="mwReset" disabled>Neu füllen</button>
+        </div>
+        <span class="status" id="fieldStatus">100 g Wasser im Becher. Das Feld ist in Zeitlupe gezeigt.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Temperatur</span><span class="val" id="mwT">–</span><span class="formula">100 g im Becher</span></div>
+        <div><span class="lbl">Erwärmung</span><span class="val" id="mwRate">–</span><span class="formula">Grad pro Minute</span></div>
+        <div><span class="lbl">Zeit</span><span class="val" id="mwTime">–</span><span class="formula">seit dem Einschalten</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Von aussen -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Aussen heiss, innen kalt <span class="chip solved-chip">gelöst</span></span>
+      <h2>Heizt sie von innen?</h2>
+      <p>Man hört oft, die Mikrowelle koche das Essen «von innen heraus». Schliesslich ist eine Schüssel Suppe aussen manchmal kühler als in der Mitte.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="roastLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du wärmst ein dickes Stück Braten in der Mikrowelle. Wo erwärmen die Mikrowellen das Fleisch direkt?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Vor allem im Kern, die Mikrowelle heizt von innen nach aussen</span></button>
+          <button data-v="b"><span class="k">b</span><span>Vor allem in den äusseren paar Zentimetern. Nach innen kommt die Wärme nur langsam durch Wärmeleitung</span></button>
+          <button data-v="c"><span class="k">c</span><span>Überall genau gleich stark, die Wellen gehen ja durch alles hindurch</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Mikrowellen dringen nur <strong>wenige Zentimeter</strong> tief ein. Auf dem Weg nach innen geben sie ihre Energie ab, also werden sie immer schwächer. In wasserreichem Essen ist nach etwa 1 bis 2 cm schon der grösste Teil verbraucht. Tiefer liegende Teile werden nur durch <strong>Wärmeleitung</strong> warm, und die ist in Essen sehr langsam. Dass eine Suppe aussen kühler wirkt, liegt an der kühlen Schüssel und am Dampf, der an der Oberfläche Wärme mitnimmt. Im Modell hier ist das weggelassen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Tipp</span>
+        <p>Darum steht auf Fertiggerichten oft: «Nach der halben Zeit umrühren» oder «eine Minute ruhen lassen». In der Pause wandert die Wärme vom heissen Rand in den kalten Kern.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="roastCv" style="height:330px" aria-label="Querschnitt durch ein rundes Stück Essen, eingefärbt nach Temperatur, daneben ein Temperaturprofil vom Rand durch den Kern"></canvas>
+        <div class="locked" id="roastLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="diaIn">Durchmesser</label><input type="range" id="diaIn" min="2" max="20" step="1" value="12" disabled><output id="diaOut">12 cm</output></div>
+        <div class="ctrl"><label for="pow2In">Leistung</label><input type="range" id="pow2In" min="200" max="1000" step="50" value="800" disabled><output id="pow2Out">800 W</output></div>
+        <div class="row">
+          <button class="btn" id="heatBtn" disabled>Erhitzen</button>
+          <button class="btn ghost" id="roastReset" disabled>Aus dem Kühlschrank</button>
+        </div>
+        <span class="status" id="roastStatus">Eine Kugel aus Fleisch, frisch aus dem Kühlschrank, 5 °C. Zeitraffer: 10 Sekunden pro Sekunde.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Am Rand</span><span class="val" id="rEdge">–</span><span class="formula">äusserster Zentimeter</span></div>
+        <div><span class="lbl">Im Kern</span><span class="val" id="rCore">–</span><span class="formula">genau in der Mitte</span></div>
+        <div><span class="lbl">Zeit</span><span class="val" id="rTime">–</span><span class="formula">Minuten:Sekunden</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Stehende Wellen -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Heisse und kalte Flecken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wozu dreht sich der Teller?</h2>
+      <p>Die Wände der Mikrowelle sind aus Metall. Die Wellen prallen daran ab, laufen hin und her und überlagern sich. Dabei entsteht ein festes Muster.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="chocoLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum dreht sich in den meisten Mikrowellen ein Teller?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Wellen kommen nur von einer Seite, der Teller dreht das Essen ihnen von allen Seiten zu</span></button>
+          <button data-v="b"><span class="k">b</span><span>Im Garraum gibt es feste heisse und kalte Stellen. Der Teller schiebt das Essen durch sie hindurch</span></button>
+          <button data-v="c"><span class="k">c</span><span>Damit man durch das Fenster sieht, wie das Essen von allen Seiten aussieht</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Wellen werden an den Metallwänden immer wieder zurückgeworfen und füllen den ganzen Garraum. Sie überlagern sich zu <strong>stehenden Wellen</strong>. An manchen Stellen verstärken sie sich, dort ist es heiss. Dazwischen löschen sie sich fast aus, dort bleibt es kalt. Die heissen Stellen liegen etwa eine halbe Wellenlänge auseinander, rund 6 cm. Der Drehteller schickt jedes Stück Essen durch heisse und kalte Zonen. Probier es aus: Lege eine Tafel Schokolade hinein, einmal mit und einmal ohne Drehen. Das Muster hier ist vereinfacht, in echt ist es unregelmässiger.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Mit der Schokolade misst du die <strong>Lichtgeschwindigkeit</strong>. Der Abstand zweier geschmolzener Flecken ist eine halbe Wellenlänge. Doppelt so lang mal die Frequenz von 2,45 GHz, die auf dem Typenschild steht, ergibt rund 300'000 km/s. Das klappt mit einer echten Mikrowelle ohne Drehteller ziemlich gut.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="chocoCv" style="height:360px" aria-label="Eine Schokoladentafel im Garraum von oben, die an den heissen Stellen der stehenden Welle schmilzt"></canvas>
+        <div class="locked" id="chocoLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="turnBtns">
+          <span class="eyebrow">Drehteller:</span>
+          <button data-turn="0" class="active" disabled>Aus</button>
+          <button data-turn="1" disabled>An</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="choBtn" disabled>Einschalten</button>
+          <button class="btn ghost" id="choReset" disabled>Neue Schokolade</button>
+          <button class="btn ghost" id="mapBtn" disabled>Wellenmuster zeigen</button>
+        </div>
+        <span class="status" id="chocoStatus">Eine flache Schokoladentafel, 26 cm breit. Kurz einschalten genügt.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Zeit</span><span class="val" id="cTime">–</span><span class="formula">eingeschaltet</span></div>
+        <div><span class="lbl">Geschmolzen</span><span class="val" id="cMelt">–</span><span class="formula">Anteil der Tafel</span></div>
+        <div><span class="lbl">Lichtgeschwindigkeit</span><span class="val" id="cLight" style="font-size:15px">–</span><span class="formula">2 × Abstand × 2,45 GHz</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Funken und ein Gitter</h2>
+      <p>Legst du eine Gabel in die Mikrowelle, kann es an den Zinken knistern und Funken sprühen. Die Tür dagegen hat ein Fenster mit einem dünnen <strong>Metallgitter</strong> voller Löcher. Durch die Löcher siehst du hinein, aber die Mikrowellen kommen nicht heraus.</p>
+      <p><strong>Tipp:</strong> Die Wellen sind rund 12 cm lang. Wie gross sind die Löcher im Gitter? Und was macht Metall mit einem elektrischen Feld, besonders an einer Spitze?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>In Metall können sich Elektronen frei bewegen. Das wechselnde Feld schiebt sie hin und her, und an <strong>Spitzen und Kanten</strong> drängen sich die Ladungen zusammen. Dort wird das Feld so stark, dass die Luft durchschlägt: ein Funke, wie ein kleiner Blitz. Glatte, dicke Metallteile ohne Spitzen funken meist nicht, sie werfen die Wellen aber zurück. Darum wird Essen in einer Metalldose nicht warm.</p>
+          <p>Das Gitter in der Tür hat Löcher von etwa einem Millimeter. Für Licht mit einer Wellenlänge von weniger als einem Tausendstelmillimeter sind das riesige Tore. Für Mikrowellen mit 12 cm Wellenlänge sind sie viel zu klein, um hindurchzukommen. Für sie ist das Gitter eine geschlossene Metallwand.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Die Mikrowelle schüttelt <em>Wasser</em>.</h2>
+    <ul class="learned">
+      <li><b>Drehende Dipole</b><span>Das Feld polt Milliarden Mal pro Sekunde um. Wassermoleküle drehen mit, stossen an und erzeugen Wärme. Eis und Öl erwärmen sich viel schlechter.</span></li>
+      <li><b>Von aussen nach innen</b><span>Die Wellen dringen nur wenige Zentimeter ein. Den Kern erreicht die Wärme durch Leitung, darum hilft Ruhenlassen.</span></li>
+      <li><b>Stehende Wellen</b><span>Im Garraum gibt es heisse und kalte Stellen im Abstand von rund 6 cm. Der Drehteller verteilt sie.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Weiter →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/mikrowelle.js"></script>
+</body>
+</html>

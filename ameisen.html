@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ameisen · mindblow</title>
+<meta name="description" content="Keine Ameise kennt den Plan, und doch findet die Ameisenstrasse den kürzesten Weg. Wie Duftspuren, Verdunsten und Rückkopplung zusammenspielen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Natur &amp; Leben</span>
+    <h1>Wie findet eine Ameisenstrasse den <em class="copper">kürzesten</em> Weg?</h1>
+    <p class="intro">Tausende Ameisen laufen in einer sauberen Linie zum Futter, meist auf dem kürzesten Weg. Dabei hat keine einzige von ihnen eine Karte, einen Plan oder einen Überblick. Wie geht das?</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Doppelbrücke -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Zwei Wege zum Futter <span class="chip solved-chip">gelöst</span></span>
+      <h2>Kurz oder lang?</h2>
+      <p>Forschende haben Ameisen vor eine Wahl gestellt: Zwischen Nest und Futter führen zwei Brücken, eine kurze und eine lange. Nach wenigen Minuten läuft fast die ganze Kolonie über die <strong>kurze</strong>.</p>
+      <div class="quiz" data-q="q1" data-correct="c" data-unlock="bridgeLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie findet die Ameisenstrasse den kürzeren der beiden Wege?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Späherinnen laufen beide Wege ab und melden der Kolonie, welcher kürzer ist</span></button>
+          <button data-v="b"><span class="k">b</span><span>Die Königin gibt die Richtung vor</span></button>
+          <button data-v="c"><span class="k">c</span><span>Niemand findet ihn bewusst: Wer kurz läuft, ist früher zurück und verstärkt dort die Duftspur</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Ameisen hinterlassen beim Laufen einen Duftstoff, ein <strong>Pheromon</strong>. Am Abzweig nehmen sie eher den Weg, der stärker riecht. Am Anfang wählen sie zufällig. Doch wer den kurzen Weg nimmt, ist früher wieder da und markiert ihn ein zweites Mal, während die anderen noch unterwegs sind. Mehr Duft lockt mehr Ameisen, die noch mehr Duft legen. Das nennt man <strong>positive Rückkopplung</strong>. Die Simulation ist stark vereinfacht: Jede Ameise kennt nur die Regel «eher dorthin, wo es stärker riecht».</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>In einer Ameisenkolonie gibt niemand Befehle. Auch die Königin nicht, sie legt nur Eier. Die Ordnung entsteht aus vielen einfachen Regeln. Das nennt man Schwarmintelligenz.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="bridgeCv" style="height:360px" aria-label="Ein Nest und eine Futterquelle, verbunden durch einen kurzen und einen langen Weg. Punkte sind Ameisen, die leuchtende Spur ist der Duftstoff."></canvas>
+        <div class="locked" id="bridgeLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="ratioIn">Langer Weg</label><input type="range" id="ratioIn" min="1" max="1.8" step="0.1" value="1.6" disabled><output id="ratioOut">1,6 × so lang</output></div>
+        <div class="ctrl"><label for="antsIn">Ameisen</label><input type="range" id="antsIn" min="10" max="120" step="10" value="60" disabled><output id="antsOut">60</output></div>
+        <div class="row">
+          <button class="btn" id="bridgeBtn" disabled>Ameisen loslassen</button>
+        </div>
+        <span class="status" id="bridgeStatus">Am Anfang gibt es noch keine Duftspur. Jede Ameise wählt zufällig.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Auf dem kurzen Weg</span><span class="val" id="bShare">–</span><span class="formula">Anteil der Ameisen</span></div>
+        <div><span class="lbl">Duft kurz : lang</span><span class="val" id="bTau">–</span><span class="formula">Stärke der Spuren</span></div>
+        <div><span class="lbl">Futter heimgebracht</span><span class="val" id="bTrips">0</span><span class="formula">Krümel im Nest</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Verdunsten -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Vergessen ist nützlich <span class="chip solved-chip">gelöst</span></span>
+      <h2>Was, wenn der Weg versperrt ist?</h2>
+      <p>Der Duftstoff hält nicht ewig, er <strong>verdunstet</strong>. Eine Spur, die niemand mehr benutzt, ist nach einiger Zeit weg. Das klingt nach einer Schwäche.</p>
+      <div class="quiz" data-q="q2" data-correct="a" data-unlock="blockLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Ein Stein versperrt plötzlich den kurzen Weg. Wofür ist das Verdunsten der Duftspur jetzt gut?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Ohne Verdunsten würden die Ameisen noch lange in die Sackgasse laufen</span></button>
+          <button data-v="b"><span class="k">b</span><span>Für nichts. Eine Spur, die ewig hält, wäre besser</span></button>
+          <button data-v="c"><span class="k">c</span><span>Es spart den Ameisen Duftstoff, sonst nichts</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Eine Spur, die nie verschwindet, ist ein Gedächtnis, das nie vergisst. Die alte Entscheidung bleibt dann bestehen, auch wenn sie nicht mehr passt. Weil der Duft <strong>verdunstet</strong>, bleiben nur Wege markiert, die immer wieder benutzt werden. So kann sich die Kolonie umstellen. Leg den Stein hin und dreh an der Verdunstung. Vereinfacht: Wer umkehren muss, legt hier keine Spur.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>In einem Versuch öffneten Forschende eine Abkürzung erst, als die Ameisen schon eine halbe Stunde auf einem langen Weg liefen. Die Argentinischen Ameisen nahmen die Abkürzung kaum. Die meisten blieben auf ihrer alten, gut markierten Strasse.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="blockCv" style="height:360px" aria-label="Die Ameisenstrasse läuft über den kurzen Weg. Ein Stein kann ihn versperren."></canvas>
+        <div class="locked" id="blockLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="evapIn">Verdunstung</label><input type="range" id="evapIn" min="0" max="0.4" step="0.01" value="0.05" disabled><output id="evapOut">14 s</output></div>
+        <div class="row">
+          <button class="btn" id="blockStart" disabled>Ameisen loslassen</button>
+          <button class="btn ghost" id="stoneBtn" disabled>Stein hinlegen</button>
+        </div>
+        <span class="status" id="blockStatus">Die Strasse läuft schon über den kurzen Weg. Die Zahl rechts beim Regler ist die Halbwertszeit: So lange dauert es, bis die Hälfte des Dufts weg ist.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Futter pro Minute</span><span class="val" id="kRate">–</span><span class="formula">ins Nest gebracht</span></div>
+        <div><span class="lbl">Auf dem kurzen Weg</span><span class="val" id="kShare">–</span><span class="formula">Anteil der Ameisen</span></div>
+        <div><span class="lbl">Duft kurz : lang</span><span class="val" id="kTau">–</span><span class="formula">Stärke der Spuren</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Ameisen-Algorithmus -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Ameisen im Computer <span class="chip solved-chip">gelöst</span></span>
+      <h2>Die beste Rundreise</h2>
+      <p>Ein Lieferwagen startet im Depot, soll <strong>20 Orte</strong> besuchen und wieder zurückkommen. Welche Reihenfolge ist am kürzesten? Ein Computer könnte doch einfach alle durchprobieren.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="tspLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie viele verschiedene Reihenfolgen gibt es für 20 Orte?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Rund 400, also 20 mal 20</span></button>
+          <button data-v="b"><span class="k">b</span><span>Mehr als 2 Trillionen, eine Zahl mit 19 Stellen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Rund 20'000</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Für den ersten Ort gibt es 20 Möglichkeiten, für den zweiten 19, dann 18 und so weiter: 20 · 19 · 18 · … · 1, rund <strong>2,4 Trillionen</strong>. Ein Computer, der jede Sekunde eine Milliarde Reihenfolgen prüft, bräuchte dafür etwa 77 Jahre. Darum suchen Programme oft eine sehr gute statt der garantiert besten Route. Eine Idee dafür stammt von den Ameisen: Virtuelle Ameisen laufen Rundreisen ab, kurze Routen bekommen mehr Duft, der Duft verdunstet. Nach vielen Runden bleibt eine kurze Route übrig. Das ist der <strong>Ameisen-Algorithmus</strong>.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Den Ameisen-Algorithmus beschrieb Marco Dorigo 1992 in seiner Doktorarbeit. Ähnliche Verfahren helfen heute, Touren, Stundenpläne und Wege in Datennetzen zu planen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="tspCv" style="height:380px" aria-label="Eine Karte mit Orten. Virtuelle Ameisen legen Duftspuren zwischen den Orten, die beste gefundene Rundreise ist hervorgehoben."></canvas>
+        <div class="locked" id="tspLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="cityIn">Orte</label><input type="range" id="cityIn" min="5" max="30" step="1" value="14" disabled><output id="cityOut">14</output></div>
+        <div class="ctrl"><label for="rhoIn">Verdunstung</label><input type="range" id="rhoIn" min="0.02" max="0.6" step="0.02" value="0.2" disabled><output id="rhoOut">20 %</output></div>
+        <div class="row">
+          <button class="btn" id="tspBtn" disabled>Ameisen losschicken</button>
+          <button class="btn ghost" id="tspNew" disabled>Neue Orte</button>
+        </div>
+        <span class="status" id="tspStatus">Tipp: Tippe in die Karte, um einen Ort hinzuzufügen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Mögliche Rundreisen</span><span class="val" id="tCount" style="font-size:16px">–</span><span class="formula">(n − 1)! ÷ 2</span></div>
+        <div><span class="lbl">Beste Route der Ameisen</span><span class="val" id="tBest">–</span><span class="formula">nach <span id="tIter">0</span> Runden</span></div>
+        <div><span class="lbl">Gierige Route</span><span class="val" id="tGreedy">–</span><span class="formula">immer zum nächsten Ort</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Die Ameisenmühle</h2>
+      <p>Manchmal verlieren Wanderameisen die Spur und folgen einander im Kreis. Jede folgt dem Duft der Ameise vor ihr. Der Kreis kann sich stundenlang drehen, bis viele Tiere erschöpft sterben. Man nennt das <strong>Ameisenmühle</strong>.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1 und 2. Was passiert mit einer Regel, die sich selbst verstärkt, wenn nichts von aussen dazwischenkommt?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Wie passt die Ameisenmühle zur «Schwarmintelligenz»? Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Die Regel «folge der Spur» ist nicht klug. Sie ist nur meistens nützlich. Im Kreis verstärkt jede Runde die Spur noch mehr: <strong>positive Rückkopplung ohne Bremse</strong>. Es fehlt die Rückmeldung von aussen. Auf der Ameisenstrasse liefern Futter und Nest diese Rückmeldung, und die Verdunstung räumt alte Spuren weg. Im Kreis gibt es weder Futter noch ein Ende.</p>
+          <p>Die Intelligenz steckt also nicht in den einzelnen Tieren, sondern im <strong>Zusammenspiel</strong> von einfacher Regel und Umwelt. Bei Menschen kennst du Ähnliches: Trends, Hamsterkäufe oder ein Stau, den niemand verursacht haben will.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Eine kluge Strasse aus <em>einfachen</em> Ameisen.</h2>
+    <ul class="learned">
+      <li><b>Duft verstärkt sich</b><span>Wer kurz läuft, kommt öfter vorbei und legt mehr Duft. Mehr Duft lockt mehr Ameisen. So gewinnt der kurze Weg, ohne dass jemand plant.</span></li>
+      <li><b>Vergessen hilft</b><span>Weil der Duft verdunstet, kann sich die Kolonie umstellen, wenn ein Weg versperrt ist.</span></li>
+      <li><b>Vorbild für Computer</b><span>Ameisen-Algorithmen finden sehr gute Routen, wo Ausprobieren aller Möglichkeiten viel zu lange dauern würde.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Weiter →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/ameisen.js"></script>
+</body>
+</html>

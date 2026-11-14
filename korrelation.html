@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Korrelation · mindblow</title>
+<meta name="description" content="Macht Glace Haiangriffe? Warum zwei Dinge zusammen steigen können, ohne dass eines das andere verursacht. Störfaktoren, Zufallsfunde und das Experiment mit Los.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Geld &amp; Gesellschaft</span>
+    <h1>Macht Glace <em class="copper">Haiangriffe</em>?</h1>
+    <p class="intro">In Wochen, in denen am Strand viel Glace verkauft wird, gibt es mehr Haiangriffe. Das zeigen die Zahlen klar. Sollte man also das Glace verbieten? Natürlich nicht. Aber warum eigentlich?</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Störfaktor -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Der versteckte Dritte <span class="chip solved-chip">gelöst</span></span>
+      <h2>Zusammen heisst nicht deswegen</h2>
+      <p>Wenn zwei Grössen gemeinsam steigen und fallen, nennt man das eine <strong>Korrelation</strong>. Ihre Stärke misst die Zahl <strong>r</strong>: 1 heisst perfekt gemeinsam, 0 heisst kein Zusammenhang, −1 heisst perfekt gegenläufig.</p>
+      <div class="quiz" data-q="q1" data-correct="c" data-unlock="sharkLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Glaceverkauf und Haiangriffe hängen deutlich zusammen. Was steckt dahinter?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Wer Glace gegessen hat, ist im Wasser langsamer und eine leichtere Beute</span></button>
+          <button data-v="b"><span class="k">b</span><span>Nichts, das ist reiner Zufall</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Hitze: Im Sommer gibt es mehr Glace und mehr Leute im Meer</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Beides hängt an einem dritten Ding: dem <strong>Wetter</strong>. Ist es heiss, kaufen viele Glace, und viele gehen baden. Mehr Menschen im Wasser bedeutet mehr Begegnungen mit Haien. So ein versteckter Dritter heisst <strong>Störfaktor</strong>. Der Trick, ihn zu entlarven: Vergleiche nur Wochen, die gleich warm sind. Bleibt dann noch ein Zusammenhang? Die Daten hier sind erfunden, das Muster ist echt.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Kinder mit grösseren Füssen können besser lesen. Das stimmt wirklich. Der Störfaktor: das Alter. Ältere Kinder haben grössere Füsse und mehr Übung im Lesen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="sharkCv" style="height:340px" aria-label="Streudiagramm: Glaceverkauf gegen Haiangriffe pro Woche, drei Jahre lang. Wochen lassen sich nach Temperatur auswählen."></canvas>
+        <div class="locked" id="sharkLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="viewBtns">
+          <span class="eyebrow">Zeige:</span>
+          <button data-view="all" class="active" disabled>Alle Wochen</button>
+          <button data-view="win" disabled>Nur gleich warme</button>
+        </div>
+        <div class="ctrl"><label for="tWin">Temperatur</label><input type="range" id="tWin" min="10" max="26" step="1" value="18" disabled><output id="tWinOut">16–20 °C</output></div>
+        <div class="row">
+          <button class="btn ghost" id="sharkNew" disabled>Neue Daten</button>
+        </div>
+        <span class="status" id="sharkStatus">Jeder Punkt ist eine Woche an einer Küste. Die Farbe zeigt, wie warm es war.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">r, alle Wochen</span><span class="val" id="rAll">–</span><span class="formula">Glace und Haie</span></div>
+        <div><span class="lbl">r, gleich warm</span><span class="val" id="rWin">–</span><span class="formula">im Temperaturfenster</span></div>
+        <div><span class="lbl">Wochen im Fenster</span><span class="val" id="nWin">–</span><span class="formula">von 156</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Zufallsfunde -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Zufall auf der Jagd <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wer lange sucht, der findet</h2>
+      <p>Statistikämter, Firmen und Apps sammeln heute tausende Zahlenreihen: Käsekonsum, Kinobesuche, Regentage, Velounfälle. Wer sie alle miteinander vergleicht, stösst auf verblüffende Paare.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="huntLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du würfelst 12 Zahlenreihen mit je 8 Werten völlig zufällig aus und vergleichst jede mit jeder. Findest du starke Zusammenhänge?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Nein, Zufallszahlen haben keine Zusammenhänge</span></button>
+          <button data-v="b"><span class="k">b</span><span>Ja, bei 66 Vergleichen ist fast sicher ein starker dabei, rein zufällig</span></button>
+          <button data-v="c"><span class="k">c</span><span>Nur wenn jede Reihe sehr viele Werte hat</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Zwölf Reihen ergeben <strong>66 Paare</strong>. Bei nur 8 Werten pro Reihe ist es gar nicht selten, dass zwei zufällig fast gleich verlaufen. Wer viele Paare durchsucht und nur den besten Treffer zeigt, findet immer etwas. Noch leichter geht es, wenn beide Reihen einfach mit der Zeit wachsen: Dann korreliert fast alles mit allem. Mit <strong>mehr Werten</strong> pro Reihe werden Zufallstreffer seltener. Probier es aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Über viele Jahre stiegen in der Schweiz die Zahl der Handys und die Lebenserwartung gleichzeitig. Ein Zusammenhang wie aus dem Bilderbuch, und doch hat das eine mit dem anderen kaum etwas zu tun.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="huntCv" style="height:340px" aria-label="Die zwei zufälligen Zahlenreihen mit der stärksten Korrelation als Linien, darunter alle 66 Korrelationen als Punkte"></canvas>
+        <div class="locked" id="huntLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="trendBtns">
+          <span class="eyebrow">Zufall:</span>
+          <button data-trend="0" class="active" disabled>Ohne Trend</button>
+          <button data-trend="1" disabled>Mit Trend</button>
+        </div>
+        <div class="ctrl"><label for="nIn">Werte pro Reihe</label><input type="range" id="nIn" min="5" max="40" step="1" value="8" disabled><output id="nOut">8 Jahre</output></div>
+        <div class="row">
+          <button class="btn" id="huntBtn" disabled>Neu würfeln</button>
+        </div>
+        <span class="status" id="huntStatus">Alle Zahlen sind ausgewürfelt. Kein Paar hat irgendetwas miteinander zu tun.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Bestes Paar</span><span class="val" id="hBest">–</span><span class="formula">stärkstes r</span></div>
+        <div><span class="lbl">Paare mit |r| über 0,7</span><span class="val" id="hStrong">–</span><span class="formula">von 66</span></div>
+        <div><span class="lbl">Würfe mit Treffer</span><span class="val" id="hRuns">–</span><span class="formula">mindestens ein |r| über 0,8</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Experiment -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Die Lösung: das Los <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wirkt die Pille?</h2>
+      <p>Eine Umfrage zeigt: Wer jeden Tag eine Vitaminpille schluckt, ist im Schnitt gesünder. Die Herstellerin jubelt. Aber wer schluckt freiwillig jeden Tag Vitamine? Oft Menschen, die auch sonst auf ihre Gesundheit achten.</p>
+      <div class="quiz" data-q="q3" data-correct="a" data-unlock="rctLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie findest du am sichersten heraus, ob die Pille wirklich wirkt?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Per Los bestimmen, wer die Pille bekommt und wer eine Attrappe</span></button>
+          <button data-v="b"><span class="k">b</span><span>Noch viel mehr Leute befragen, dann wird das Ergebnis sicher</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Leute fragen, ob sie sich mit der Pille besser fühlen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Wenn das <strong>Los</strong> entscheidet, landen Gesundheitsbewusste und Sorglose in beiden Gruppen ungefähr gleich oft. Jeder Störfaktor ist dann gleich verteilt, auch die, an die niemand gedacht hat. Bleibt ein Unterschied, kommt er von der Pille. Das heisst <strong>randomisiertes Experiment</strong>. Mehr Befragte helfen dagegen nicht: Sie machen den falschen Unterschied nur genauer. Und die Gruppe ohne Pille bekommt eine Attrappe, ein <strong>Placebo</strong>, damit niemand weiss, in welcher Gruppe er ist.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Viele Beobachtungsstudien fanden, dass Frauen mit Hormonersatz-Therapie weniger Herzinfarkte hatten. Dann kam ein grosses Experiment mit Los. Es zeigte eher das Gegenteil.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="rctCv" style="height:340px" aria-label="200 Menschen in zwei Gruppen, mit und ohne Pille, nach Gesundheit geordnet. Durchschnitte als Linien."></canvas>
+        <div class="locked" id="rctLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="modeBtns">
+          <span class="eyebrow">Wer bekommt die Pille?</span>
+          <button data-mode="obs" class="active" disabled>Wer will</button>
+          <button data-mode="rand" disabled>Das Los</button>
+        </div>
+        <div class="ctrl"><label for="effIn">Wahre Wirkung</label><input type="range" id="effIn" min="0" max="10" step="1" value="0" disabled><output id="effOut">0 Punkte</output></div>
+        <div class="row">
+          <button class="btn ghost" id="hideBtn" disabled>Verstecktes zeigen</button>
+          <button class="btn ghost" id="rctNew" disabled>Neue Leute</button>
+        </div>
+        <span class="status" id="rctStatus">Stell zuerst die wahre Wirkung ein. Am Anfang wirkt die Pille gar nicht.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Gemessen</span><span class="val" id="mDiff">–</span><span class="formula">Pille minus ohne</span></div>
+        <div><span class="lbl">Wahrheit</span><span class="val" id="mTrue">0 Punkte</span><span class="formula">echte Wirkung</span></div>
+        <div><span class="lbl">Fehler</span><span class="val" id="mErr">–</span><span class="formula">vom Störfaktor</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Macht Diät-Cola dick?</h2>
+      <p>Mehrere Studien haben gefunden: Wer regelmässig Light-Getränke trinkt, ist im Schnitt schwerer als jemand, der das nicht tut. Ein Zeitungstitel daraus wäre schnell geschrieben: «Diät-Cola macht dick!»</p>
+      <p><strong>Tipp:</strong> In Teil 1 steckte ein Dritter dahinter. Es gibt aber noch eine andere Falle: Was, wenn die Ursache genau andersherum läuft? Wer greift überhaupt zu Light-Getränken?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Gut möglich ist <strong>umgekehrte Kausalität</strong>: Nicht das Getränk macht schwer, sondern wer schwerer ist und abnehmen will, wechselt eher zu Light-Getränken. Die Ursache zeigt also in die andere Richtung. Dazu kommen mögliche Störfaktoren wie Essgewohnheiten oder Bewegung.</p>
+          <p>Aus Beobachtungen allein lässt sich das kaum trennen. Klarheit bringt wieder ein Experiment mit Los: Eine Gruppe trinkt Light-Getränke, eine andere Wasser, und man misst nach Monaten das Gewicht. Solche Studien gibt es. Ihr Ergebnis ist bisher kein Beweis, dass Light-Getränke dick machen. Merke dir die drei Fragen bei jeder Schlagzeile: Gibt es einen Dritten? Könnte es umgekehrt sein? Oder ist es Zufall?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Gemeinsam ist nicht <em>deswegen</em>.</h2>
+    <ul class="learned">
+      <li><b>Der versteckte Dritte</b><span>Oft treibt ein Störfaktor beide Grössen an, wie die Hitze Glace und Badende. Vergleiche Gleiches mit Gleichem, dann verschwindet der Zusammenhang.</span></li>
+      <li><b>Zufall und Trend</b><span>Wer viele Reihen vergleicht, findet immer starke Paare. Und was beides mit der Zeit wächst, korreliert fast immer.</span></li>
+      <li><b>Das Los entscheidet</b><span>Erst ein Experiment mit zufälliger Zuteilung zeigt Ursache und Wirkung. Es verteilt auch Störfaktoren gleich, die niemand kennt.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Weiter →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/korrelation.js"></script>
+</body>
+</html>

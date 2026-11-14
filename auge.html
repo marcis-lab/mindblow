@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sehen · mindblow</title>
+<meta name="description" content="Wie stellt dein Auge scharf? Linse, Netzhaut, Kurz- und Weitsichtigkeit, Brillen und der blinde Fleck, interaktiv erklärt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema · Körper &amp; Sinne</span>
+    <h1>Wie stellt dein Auge <em class="copper">scharf</em>?</h1>
+    <p class="intro">Schau aus dem Fenster, dann auf dein Handy. Beides ist sofort scharf, ohne dass du etwas tust. In deinem Auge arbeitet dabei eine kleine, weiche Linse, die ständig ihre Form ändert.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Linse -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Die Linse <span class="chip solved-chip">gelöst</span></span>
+      <h2>Nah und fern scharf</h2>
+      <p>Licht von einem Punkt fällt durch die <strong>Pupille</strong> ins Auge. Hornhaut und Linse knicken die Strahlen so, dass sie sich hinten auf der <strong>Netzhaut</strong> wieder in einem Punkt treffen. Nur dann ist das Bild scharf.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="lensLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du schaust vom Fenster auf dein Handy. Was macht dein Auge, damit das Handy scharf wird?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Linse rutscht nach vorne, wie bei einer Kamera</span></button>
+          <button data-v="b"><span class="k">b</span><span>Die Linse wird runder und knickt das Licht stärker</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Pupille wird kleiner, das macht das Bild scharf</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Linse wird <strong>runder</strong>. Ein Ringmuskel um die Linse zieht sich zusammen, die elastische Linse wölbt sich und knickt das Licht stärker. Das heisst <strong>Akkommodation</strong>. Eine Kamera verschiebt dagegen ihr Objektiv. Licht von nahen Dingen läuft stärker auseinander, darum braucht es mehr Knick. Die Pupille hilft ein wenig mit, scharf stellt sie aber nicht. Übrigens leistet die gewölbte <strong>Hornhaut</strong> vorne etwa zwei Drittel der ganzen Brechkraft. Im Modell rechts sind Hornhaut und Linse zu einer Linse zusammengefasst (vereinfacht).</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Das Bild auf deiner Netzhaut steht auf dem Kopf und ist seitenverkehrt. Schau im Modell auf den kleinen Pfeil hinten im Auge. Dein Gehirn deutet das Bild einfach richtig herum, du merkst nichts davon.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="lensCv" style="height:330px" aria-label="Querschnitt durch ein Auge: Lichtstrahlen von einem Gegenstand werden von der Linse gebrochen und treffen die Netzhaut"></canvas>
+        <div class="locked" id="lensLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="distIn">Abstand des Gegenstands</label><input type="range" id="distIn" min="0" max="100" step="1" value="100" disabled><output id="distOut">20 m</output></div>
+        <div class="ctrl"><label for="accIn">Linse wölben</label><input type="range" id="accIn" min="0" max="10" step="0.1" value="0" disabled><output id="accOut">0,0 dpt</output></div>
+        <div class="row">
+          <button class="btn" id="focusBtn" disabled>Scharf stellen</button>
+        </div>
+        <span class="status" id="lensStatus">Der Gegenstand ist weit weg. Die Linse ist entspannt und flach.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Abstand</span><span class="val" id="eDist">20 m</span><span class="formula">Gegenstand bis Auge</span></div>
+        <div><span class="lbl">Brechkraft</span><span class="val" id="ePow">58,8 dpt</span><span class="formula">Hornhaut und Linse</span></div>
+        <div><span class="lbl">Bild</span><span class="val" id="eSharp">scharf</span><span class="formula">auf der Netzhaut</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Fehlsichtig -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Kurz- und weitsichtig <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wenn der Punkt danebenliegt</h2>
+      <p>Wer <strong>kurzsichtig</strong> ist, sieht nah scharf und in der Ferne verschwommen. Wer <strong>weitsichtig</strong> ist, hat es umgekehrt schwer mit der Nähe. Weltweit ist etwa jeder dritte Mensch kurzsichtig, Tendenz steigend.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="glassLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Woran liegt Kurzsichtigkeit meistens?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Linse ist zu schwach und knickt das Licht zu wenig</span></button>
+          <button data-v="b"><span class="k">b</span><span>Der Augapfel ist ein kleines bisschen zu lang</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Netzhaut ist an der Stelle des schärfsten Sehens beschädigt</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Meist ist der <strong>Augapfel zu lang</strong>. Schon ein Millimeter zu viel genügt: Das Licht aus der Ferne trifft sich dann <strong>vor</strong> der Netzhaut und ist hinten schon wieder auseinandergelaufen. Die Linse kann sich nur runder machen, nicht flacher. Darum hilft sie in der Ferne nicht. Beim Weitsichtigen ist der Augapfel zu kurz, der Treffpunkt liegt hinter der Netzhaut. Eine Brille mit <strong>Zerstreuungslinse</strong> (minus) oder <strong>Sammellinse</strong> (plus) schiebt den Treffpunkt zurück auf die Netzhaut. Stell im Modell die passende Brille ein.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Gut zu wissen</span>
+        <p>Ab etwa 45 Jahren wird die Linse steifer und kann sich kaum mehr runden. Fast alle brauchen dann eine Lesebrille, auch wer vorher perfekt gesehen hat. Das heisst Alterssichtigkeit.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="glassCv" style="height:330px" aria-label="Auge mit wählbarer Länge und einem Brillenglas davor, Lichtstrahlen treffen vor, auf oder hinter der Netzhaut zusammen"></canvas>
+        <div class="locked" id="glassLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="eyeBtns">
+          <span class="eyebrow">Auge:</span>
+          <button data-l="17" class="active" disabled>Normal</button>
+          <button data-l="18" disabled>Kurzsichtig</button>
+          <button data-l="16" disabled>Weitsichtig</button>
+        </div>
+        <div class="legend" id="objBtns">
+          <span class="eyebrow">Blick:</span>
+          <button data-g="far" class="active" disabled>Ferne</button>
+          <button data-g="near" disabled>Lesen (30 cm)</button>
+        </div>
+        <div class="ctrl"><label for="glassIn">Brillenglas</label><input type="range" id="glassIn" min="-5" max="5" step="0.25" value="0" disabled><output id="glassOut">keine</output></div>
+        <span class="status" id="glassStatus">Ein normales Auge: Der Treffpunkt liegt genau auf der Netzhaut.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Augenlänge</span><span class="val" id="gLen">17 mm</span><span class="formula">Linse bis Netzhaut (Modell)</span></div>
+        <div><span class="lbl">Brille nötig</span><span class="val" id="gNeed">keine</span><span class="formula">für die Ferne</span></div>
+        <div><span class="lbl">Ergebnis</span><span class="val" id="gRes" style="font-size:14px">–</span><span class="formula">Ferne · Nähe</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Blinder Fleck -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Der blinde Fleck <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Loch, das du nie siehst</h2>
+      <p>Die Netzhaut ist mit rund 120 Millionen Lichtsinneszellen gepflastert. An einer Stelle aber bündeln sich alle Nervenfasern und verlassen das Auge als <strong>Sehnerv</strong>. Dort hat es keine einzige Sinneszelle.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="spotLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum siehst du an dieser Stelle kein schwarzes Loch?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Stelle ist so winzig, dass sie nicht auffällt</span></button>
+          <button data-v="b"><span class="k">b</span><span>Dein Gehirn füllt die Lücke mit dem auf, was rundherum zu sehen ist</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Sinneszellen daneben übernehmen die Arbeit</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Das <strong>Gehirn ergänzt</strong> die Lücke. Und klein ist sie nicht: Der blinde Fleck ist etwa 5 Grad breit, so breit wie rund zehn Vollmonde nebeneinander. Mit beiden Augen offen deckt ausserdem das andere Auge die Stelle ab. Mit einem Auge kannst du ihn aber finden. Mach den Test rechts. Wenn der Punkt verschwindet, siehst du nicht etwa Schwarz, sondern einfach Hintergrund. Was du siehst, ist also zum Teil erfunden.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Bei dir liegen die Sinneszellen ganz hinten in der Netzhaut. Das Licht muss erst durch Nervenfasern und Blutgefässe. Beim Tintenfisch ist es umgekehrt verkabelt: Er hat keinen blinden Fleck.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="spotCv" style="height:280px" aria-label="Test für den blinden Fleck: ein Kreuz links und ein Punkt rechts"></canvas>
+        <div class="locked" id="spotLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="spotBtns">
+          <span class="eyebrow">Test:</span>
+          <button data-m="dot" class="active" disabled>Punkt</button>
+          <button data-m="line" disabled>Linie</button>
+          <button data-m="stripes" disabled>Muster</button>
+          <button data-m="top" disabled>Auge von oben</button>
+        </div>
+        <div class="ctrl"><label for="sepIn">Abstand Kreuz zu Punkt</label><input type="range" id="sepIn" min="40" max="100" step="1" value="80" disabled><output id="sepOut">80 %</output></div>
+        <span class="status" id="spotStatus">Linkes Auge zu. Schau mit dem rechten Auge nur auf das Kreuz. Geh langsam näher an den Bildschirm oder weiter weg.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Zeichen-Abstand</span><span class="val" id="sSep">–</span><span class="formula">ungefähr, je nach Bildschirm</span></div>
+        <div><span class="lbl">Probier etwa</span><span class="val" id="sDist">–</span><span class="formula">Auge bis Bildschirm</span></div>
+        <div><span class="lbl">Blinder Fleck</span><span class="val">15°</span><span class="formula">neben der Blickrichtung</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum ist unter Wasser alles verschwommen?</h2>
+      <p>Mach im Schwimmbad unter Wasser die Augen auf. Alles ist unscharf, egal wie sehr du dich anstrengst. Mit Taucherbrille ist plötzlich alles klar. Dabei ist die Taucherbrille nur ein flaches Glas, keine Linse. Wie kann das sein?</p>
+      <p><strong>Tipp:</strong> Licht knickt ab, wenn es von einem Stoff in einen anderen übergeht. Je verschiedener die Stoffe, desto stärker. Woraus besteht deine Hornhaut zum grössten Teil?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Die Hornhaut besteht vor allem aus Wasser. An Luft knickt sie das Licht kräftig, weil Luft und Hornhaut sehr verschieden sind. Unter Wasser liegt Wasser an Wasser: Der Knick an der Hornhaut fällt fast ganz weg. Damit fehlen rund <strong>zwei Drittel der Brechkraft</strong>. Dein Auge wird stark weitsichtig, viel stärker, als die Linse ausgleichen kann.</p>
+          <p>Die Taucherbrille hält eine Schicht <strong>Luft</strong> vor deinen Augen. Dann knickt die Hornhaut wieder wie gewohnt. Fische lösen es anders: Sie haben eine fast kugelrunde, sehr starke Linse, die die ganze Arbeit allein macht.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Scharf sehen ist <em>Teamarbeit</em> von Auge und Gehirn.</h2>
+    <ul class="learned">
+      <li><b>Runder für nah</b><span>Hornhaut und Linse bündeln das Licht auf der Netzhaut. Für Nahes wölbt sich die Linse und knickt stärker.</span></li>
+      <li><b>Länge entscheidet</b><span>Ist der Augapfel zu lang, wirst du kurzsichtig, ist er zu kurz, weitsichtig. Die Brille verschiebt den Treffpunkt zurück.</span></li>
+      <li><b>Das Gehirn ergänzt</b><span>Das Bild steht kopf und hat ein Loch beim Sehnerv. Dein Gehirn dreht es um und füllt die Lücke auf.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Weiter →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/auge.js"></script>
+</body>
+</html>

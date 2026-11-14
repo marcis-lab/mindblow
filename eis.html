@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eis · mindblow</title>
+<meta name="description" content="Fast jeder Stoff wird fest schwerer. Wasser nicht: Eis schwimmt. Warum das so ist und warum Fische deshalb den Winter überleben.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Natur &amp; Universum</span>
+    <h1>Warum schwimmt <em class="copper">Eis?</em></h1>
+    <p class="intro">Wirf einen Eiswürfel ins Glas, er schwimmt. Das ist so normal, dass es niemand bemerkt. Dabei ist es ziemlich seltsam: Fast jeder andere Stoff sinkt in seiner eigenen Flüssigkeit, sobald er fest wird. Wasser macht es umgekehrt, und davon hängt das Leben in jedem See ab.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Moleküle -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Ein Gitter mit Löchern <span class="chip solved-chip">gelöst</span></span>
+      <h2>Fest und trotzdem leichter</h2>
+      <p>Kerzenwachs, Butter, flüssiges Metall: Wird so ein Stoff fest, rücken die Teilchen enger zusammen. Der feste Brocken ist dichter als die Flüssigkeit und sinkt darin unter.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="molLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum schwimmt ein Eiswürfel im Wasser?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Weil im Eis viele kleine Luftbläschen eingeschlossen sind</span></button>
+          <button data-v="b"><span class="k">b</span><span>Weil sich die Wassermoleküle im Eis zu einem lockeren Gitter mit viel Leerraum ordnen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Weil Kaltes immer nach oben steigt</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Auch ganz klares Eis ohne Bläschen schwimmt. Der Grund liegt in den Molekülen. Ein Wassermolekül ist geknickt wie ein V und hat zwei Arme. Die Arme haften an den Nachbarn, das sind die <strong>Wasserstoffbrücken</strong>. Beim Gefrieren ordnen sich alle Moleküle zu einem Gitter aus Sechsecken. Darin hat jedes Molekül feste Abstände, und in der Mitte jedes Sechsecks bleibt Platz frei. Eis braucht darum rund <strong>9 Prozent mehr Platz</strong> als dasselbe Wasser. Und Kaltes steigt nicht immer auf: Kalte Luft zum Beispiel sinkt. Schieb die Temperatur hin und her.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Wasser ist bei <strong>4 °C</strong> am dichtesten, nicht bei 0 °C. Kühlst du es unter 4 °C ab, bilden sich schon kleine, eisartige Grüppchen, und es dehnt sich wieder leicht aus. Schalte im Diagramm die Lupe ein.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="molCv" style="height:340px" aria-label="Wassermoleküle als Eisgitter mit Sechsecken oder als dicht gedrängte Flüssigkeit, daneben die Dichte von Wasser je nach Temperatur"></canvas>
+        <div class="locked" id="molLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="tempIn">Temperatur</label><input type="range" id="tempIn" min="-20" max="40" step="1" value="20" disabled><output id="tempOut">20 °C</output></div>
+        <div class="row">
+          <button class="btn ghost" id="zoomBtn" disabled>Lupe: 0 bis 12 °C</button>
+        </div>
+        <span class="status" id="molStatus">Die Moleküle sind stark vereinfacht und flach gezeichnet.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Zustand</span><span class="val" id="mState">–</span><span class="formula">bei Normaldruck</span></div>
+        <div><span class="lbl">Dichte</span><span class="val" id="mRho">–</span><span class="formula">Gramm pro cm³</span></div>
+        <div><span class="lbl">1 kg braucht</span><span class="val" id="mVol">–</span><span class="formula">Volumen in Liter</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Eisberg -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Die Spitze des Eisbergs <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wie tief taucht es ein?</h2>
+      <p>Ein Körper schwimmt, wenn er so viel Wasser zur Seite drückt, wie er selbst wiegt. Das hat schon <strong>Archimedes</strong> erkannt. Je leichter er im Vergleich zum Wasser ist, desto mehr ragt heraus.</p>
+      <div class="quiz" data-q="q2" data-correct="c" data-unlock="floatLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie viel eines Eisbergs liegt unter der Wasseroberfläche?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Ungefähr die Hälfte</span></button>
+          <button data-v="b"><span class="k">b</span><span>Ungefähr ein Zehntel, der Rest schaut heraus</span></button>
+          <button data-v="c"><span class="k">c</span><span>Ungefähr neun Zehntel</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Rund <strong>neun Zehntel</strong> liegen unter Wasser. Eis hat eine Dichte von 0,917 g/cm³, Meerwasser etwa 1,025 g/cm³. Der Anteil unter Wasser ist einfach das Verhältnis der beiden: 0,917 durch 1,025 ergibt knapp 90 Prozent. Was du vom Eisberg siehst, ist wirklich nur die Spitze. Probier andere Stoffe und andere Flüssigkeiten aus. Eine Überraschung wartet im Alkohol.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>In einem Glas Schnaps mit viel Alkohol sinkt ein Eiswürfel. Alkohol ist leichter als Wasser, rund 0,79 g/cm³. Daran hat schon mancher Barkeeper gemerkt, wie stark ein Getränk ist.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="floatCv" style="height:320px" aria-label="Ein Klotz schwimmt in einem Becken. Je nach Stoff und Flüssigkeit taucht er tiefer oder weniger tief ein"></canvas>
+        <div class="locked" id="floatLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="objBtns">
+          <span class="eyebrow">Klotz:</span>
+          <button data-rho="0.24" disabled>Kork</button>
+          <button data-rho="0.5" disabled>Holz</button>
+          <button data-rho="0.917" class="active" disabled>Eis</button>
+          <button data-rho="2.6" disabled>Stein</button>
+        </div>
+        <div class="legend" id="liqBtns">
+          <span class="eyebrow">Becken:</span>
+          <button data-rho="1" disabled>Süsswasser</button>
+          <button data-rho="1.025" class="active" disabled>Meerwasser</button>
+          <button data-rho="0.79" disabled>Alkohol</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="dropIn" disabled>Neu einwerfen</button>
+        </div>
+        <span class="status" id="floatStatus">Ein Eisklotz im Meer.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Unter der Oberfläche</span><span class="val" id="fUnder">–</span><span class="formula">Dichte Klotz ÷ Dichte Flüssigkeit</span></div>
+        <div><span class="lbl">Schaut heraus</span><span class="val" id="fAbove">–</span><span class="formula">der Rest</span></div>
+        <div><span class="lbl">Dichten</span><span class="val" id="fRho" style="font-size:15px">–</span><span class="formula">Klotz · Flüssigkeit</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: See im Winter -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Der See im Winter <span class="chip solved-chip">gelöst</span></span>
+      <h2>Was die Fische rettet</h2>
+      <p>Im Herbst kühlt die Luft einen See von oben ab. Kälteres, dichteres Wasser sinkt nach unten, wärmeres steigt auf. Der See wird kräftig durchmischt, Wochen lang.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="lakeLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Ein tiefer See ist zugefroren, draussen ist es −10 °C. Wie kalt ist das Wasser ganz unten am Grund?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>0 °C, gleich kalt wie direkt unter dem Eis</span></button>
+          <button data-v="b"><span class="k">b</span><span>Etwa 4 °C</span></button>
+          <button data-v="c"><span class="k">c</span><span>Unter 0 °C, es ist ja tief unten und dunkel</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Am Grund bleibt es bei rund <strong>4 °C</strong>. Solange der See abkühlt, sinkt das kälteste und dichteste Wasser ab. Das geht aber nur bis 4 °C. Wird das Wasser oben noch kälter, ist es wieder leichter und bleibt oben liegen. Dort gefriert es zuerst. Die Eisdecke schwimmt und isoliert wie ein Deckel. Unten bleibt flüssiges Wasser, und die Fische überwintern darin. Vergleiche mit einer Welt, in der Wasser sich verhält wie die meisten Stoffe.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Würde Eis sinken, würden Seen und Meere von unten her zufrieren. Im Sommer taut nur die Oberfläche, denn das Wasser darüber schützt das Eis am Grund. Viele Gewässer wären Jahr für Jahr fast durchgefroren.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="lakeCv" style="height:360px" aria-label="Querschnitt durch einen 20 m tiefen See mit Temperaturschichten, Eisdecke und einem Fisch am Grund"></canvas>
+        <div class="locked" id="lakeLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="lakeModeBtns">
+          <span class="eyebrow">Wasser:</span>
+          <button data-mode="real" class="active" disabled>Echtes Wasser</button>
+          <button data-mode="fake" disabled>Wie andere Stoffe</button>
+        </div>
+        <div class="ctrl"><label for="airIn">Lufttemperatur</label><input type="range" id="airIn" min="-20" max="25" step="1" value="-8" disabled><output id="airOut">−8 °C</output></div>
+        <div class="row">
+          <button class="btn" id="lakeBtn" disabled>Winter starten</button>
+          <button class="btn ghost" id="lakeReset" disabled>Zurück in den Herbst</button>
+        </div>
+        <span class="status" id="lakeStatus">Ein 20 m tiefer See im Herbst. Ein Tag dauert hier eine Viertelsekunde.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Oben</span><span class="val" id="lTop">–</span><span class="formula">Wasser an der Oberfläche</span></div>
+        <div><span class="lbl">Am Grund</span><span class="val" id="lBot">–</span><span class="formula">in 20 m Tiefe</span></div>
+        <div><span class="lbl">Eis</span><span class="val" id="lIce">–</span><span class="formula" id="lIceWhere">Dicke</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Die Flasche im Tiefkühler</h2>
+      <p>Du legst eine volle, verschlossene Glasflasche Wasser in den Tiefkühler, um sie schnell zu kühlen. Dann vergisst du sie. Am nächsten Morgen ist sie zersprungen. Im Gebirge passiert dasselbe mit ganzen Felsen, und im Winter mit Wasserleitungen.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1. Wie viel mehr Platz braucht Eis? Und was, wenn dieser Platz fehlt?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Beim Gefrieren will das Wasser rund <strong>9 Prozent</strong> mehr Platz. In einer vollen Flasche gibt es diesen Platz nicht. Das Eisgitter drückt dann mit gewaltiger Kraft gegen die Wand, eingesperrtes Eis schafft Drücke von über tausend bar. Das hält kein Glas und kein Wasserrohr aus. Darum entleert man im Winter Gartenleitungen.</p>
+          <p>In den Alpen dringt Wasser in Felsritzen, gefriert und weitet sie, Nacht für Nacht ein bisschen. Irgendwann bricht der Fels. Das heisst <strong>Frostsprengung</strong>. Die Geröllhalden unter vielen Felswänden sind so entstanden. Und auch Schlaglöcher in Strassen entstehen oft auf diese Weise.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Wasser macht es <em>umgekehrt</em>.</h2>
+    <ul class="learned">
+      <li><b>Lockeres Gitter</b><span>Im Eis ordnen sich die Moleküle zu Sechsecken mit Leerraum. Eis braucht rund 9 Prozent mehr Platz und schwimmt darum.</span></li>
+      <li><b>Neun Zehntel unten</b><span>Ein schwimmender Körper taucht im Verhältnis seiner Dichte zur Flüssigkeit ein. Beim Eisberg im Meer sind das rund 90 Prozent.</span></li>
+      <li><b>Dichtester Punkt bei 4 °C</b><span>Seen frieren darum von oben zu. Unten bleibt Wasser von etwa 4 °C, und die Fische überleben.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Weiter →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/eis.js"></script>
+</body>
+</html>

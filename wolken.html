@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wolken · mindblow</title>
+<meta name="description" content="Eine Wolke wiegt hunderte Tonnen und fällt trotzdem nicht herunter. Tröpfchen, Aufwind, Taupunkt und Regen interaktiv erklärt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema · Natur &amp; Wetter</span>
+    <h1>Warum fallen Wolken nicht <em class="copper">herunter</em>?</h1>
+    <p class="intro">Wolken sehen aus wie Watte, die über den Himmel schwebt. Dabei bestehen sie aus Wasser, und Wasser ist schwer. Eine einzige Schönwetterwolke wiegt so viel wie ein Güterzug. Warum bleibt sie oben?</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Gewicht -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Wie schwer ist eine Wolke? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Watte mit Gewicht</h2>
+      <p>Eine Wolke ist kein Dampf. Wasserdampf ist ein unsichtbares Gas. Was du siehst, sind Milliarden winziger <strong>Wassertröpfchen</strong>, in kalten Wolken auch Eiskristalle.</p>
+      <div class="quiz" data-q="q1" data-correct="c" data-unlock="massLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Eine Schönwetterwolke ist etwa 1 km breit, 1 km lang und 1 km hoch. Wie viel wiegt das Wasser darin?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Fast nichts, ein paar Kilo</span></button>
+          <button data-v="b"><span class="k">b</span><span>Etwa eine Tonne</span></button>
+          <button data-v="c"><span class="k">c</span><span>Rund 500 Tonnen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>In einem Kubikmeter Wolke steckt ungefähr <strong>ein halbes Gramm</strong> Wasser. Das ist wenig. Aber ein Kubikkilometer hat eine Milliarde Kubikmeter. Zusammen gibt das rund <strong>500 Tonnen</strong>, etwa so viel wie 80 Elefanten. Eine grosse Gewitterwolke trägt sogar Hunderttausende Tonnen. Spiel mit Grösse und Wassergehalt.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Die Luft im selben Würfel wiegt noch viel mehr: rund eine Million Tonnen. Das Wasser macht nur etwa ein Zweitausendstel davon aus. Die Wolke ist also vor allem Luft, mit einem Hauch Wasser darin.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="massCv" style="height:300px" aria-label="Eine Wolke über einer Landschaft. Darunter Elefanten-Symbole, die zeigen, wie viel das Wasser in der Wolke wiegt."></canvas>
+        <div class="locked" id="massLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="sizeIn">Kantenlänge</label><input type="range" id="sizeIn" min="0.2" max="5" step="0.1" value="1" disabled><output id="sizeOut">1,0 km</output></div>
+        <div class="ctrl"><label for="lwcIn">Wasser pro m³</label><input type="range" id="lwcIn" min="0.1" max="3" step="0.1" value="0.5" disabled><output id="lwcOut">0,5 g</output></div>
+        <div class="legend" id="cloudBtns">
+          <span class="eyebrow">Wolkenart:</span>
+          <button data-s="1" data-l="0.5" class="active" disabled>Schönwetterwolke</button>
+          <button data-s="0.5" data-l="0.2" disabled>Nebelfetzen</button>
+          <button data-s="5" data-l="2" disabled>Gewitterwolke</button>
+        </div>
+        <span class="status" id="massStatus">Eine Schönwetterwolke, auch Cumulus genannt.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Volumen</span><span class="val" id="mV">1 km³</span><span class="formula">Würfel, vereinfacht</span></div>
+        <div><span class="lbl">Wasser darin</span><span class="val" id="mW">500 t</span><span class="formula">Volumen · Wassergehalt</span></div>
+        <div><span class="lbl">So schwer wie</span><span class="val" id="mE">83</span><span class="formula">Elefanten zu 6 t</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Fallgeschwindigkeit -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Winzig und langsam <span class="chip solved-chip">gelöst</span></span>
+      <h2>Tröpfchen im Aufwind</h2>
+      <p>Ein Wolkentröpfchen ist etwa <strong>0,02 mm</strong> gross, mehrmals dünner als ein Haar. Ein Regentropfen ist hundertmal grösser. Beide sind aus Wasser, beide werden von der Erde angezogen.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="dropLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie schnell fällt ein Wolkentröpfchen von 0,02 mm in ruhiger Luft?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Etwa so schnell wie ein Regentropfen, rund 30 km/h</span></button>
+          <button data-v="b"><span class="k">b</span><span>Etwa 1 cm pro Sekunde</span></button>
+          <button data-v="c"><span class="k">c</span><span>Gar nicht, es ist leichter als Luft</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Es fällt, aber nur etwa <strong>1 cm pro Sekunde</strong>. Für einen Kilometer bräuchte es fast einen ganzen Tag. Bei winzigen Dingen ist der <strong>Luftwiderstand</strong> riesig im Vergleich zum Gewicht. Halbierst du den Durchmesser, sinkt das Gewicht auf ein Achtel, der Widerstand bei gleichem Tempo aber nur auf die Hälfte. Darum reicht schon ein schwacher <strong>Aufwind</strong>, um die Tröpfchen oben zu halten. Und wenn sie doch absinken, geraten sie in trockenere Luft und verdunsten. Stell Tropfengrösse und Aufwind ein.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>In einer Gewitterwolke blasen Aufwinde mit über 100 km/h nach oben. Sie tragen sogar Hagelkörner, bis diese so schwer sind, dass sie herausfallen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="dropCv" style="height:340px" aria-label="Ein Luftschacht mit Tropfen, die je nach Grösse und Aufwind steigen, schweben oder fallen."></canvas>
+        <div class="locked" id="dropLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="dIn">Tropfengrösse</label><input type="range" id="dIn" min="0" max="100" step="1" value="24" disabled><output id="dOut">0,02 mm</output></div>
+        <div class="ctrl"><label for="upIn">Aufwind</label><input type="range" id="upIn" min="0" max="5" step="0.05" value="0.3" disabled><output id="upOut">0,30 m/s</output></div>
+        <div class="legend" id="dropBtns">
+          <span class="eyebrow">Tropfen:</span>
+          <button data-d="0.02" class="active" disabled>Wolke</button>
+          <button data-d="0.2" disabled>Niesel</button>
+          <button data-d="2" disabled>Regen</button>
+        </div>
+        <span class="status" id="dropStatus">Der Schacht ist 10 m hoch. Die Bewegung läuft in Echtzeit.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Fällt in ruhiger Luft</span><span class="val" id="rV">–</span><span class="formula">Endgeschwindigkeit</span></div>
+        <div><span class="lbl">Mit Aufwind</span><span class="val" id="rNet" style="font-size:15px">–</span><span class="formula">Aufwind − Fallen</span></div>
+        <div><span class="lbl">Für 1 km fallen</span><span class="val" id="rT">–</span><span class="formula">in ruhiger Luft</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Taupunkt -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Wo die Wolke beginnt <span class="chip solved-chip">gelöst</span></span>
+      <h2>Die flache Unterseite</h2>
+      <p>Schau dir an einem Sommertag die Quellwolken an. Sie sind oben bauschig, aber unten fast alle wie mit dem Lineal abgeschnitten, und zwar alle auf derselben Höhe.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="liftLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum haben diese Wolken eine flache Unterseite, alle auf gleicher Höhe?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Sie schwimmen auf einer dichteren Luftschicht, wie Holz auf Wasser</span></button>
+          <button data-v="b"><span class="k">b</span><span>Aufsteigende Luft kühlt ab. Auf der Höhe, wo sie den Taupunkt erreicht, wird aus Dampf Wasser.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Darunter weht der Wind stärker und reisst die Unterseite glatt</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Warme Luft steigt auf. Oben ist der Luftdruck tiefer, sie dehnt sich aus und <strong>kühlt ab</strong>, rund 1 °C pro 100 m. Kalte Luft kann weniger Wasserdampf halten. Bei einer bestimmten Temperatur, dem <strong>Taupunkt</strong>, ist sie gesättigt. Dann kondensiert der Dampf an winzigen Staub- und Salzkörnchen zu Tröpfchen. Weil die Luft am Boden überall ähnlich warm und feucht ist, passiert das überall auf derselben Höhe. Faustregel: Wolkenbasis ≈ 125 m mal (Temperatur − Taupunkt).</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Beim Kondensieren gibt der Dampf Wärme ab, dieselbe, die beim Verdunsten nötig war. Diese Wärme lässt die Luft in der Wolke weiter steigen. So wächst eine Quellwolke manchmal bis zu einer Gewitterwolke von 10 km Höhe.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="liftCv" style="height:340px" aria-label="Ein Luftpaket steigt auf und kühlt ab. Wo seine Temperatur den Taupunkt erreicht, entsteht eine Wolke. Daneben ein Diagramm."></canvas>
+        <div class="locked" id="liftLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="tIn">Temperatur am Boden</label><input type="range" id="tIn" min="5" max="35" step="1" value="24" disabled><output id="tOut">24 °C</output></div>
+        <div class="ctrl"><label for="rhIn">Luftfeuchte</label><input type="range" id="rhIn" min="25" max="98" step="1" value="55" disabled><output id="rhOut">55 %</output></div>
+        <div class="row">
+          <button class="btn" id="liftBtn" disabled>Luft aufsteigen lassen</button>
+        </div>
+        <span class="status" id="liftStatus">Ein Paket warmer Luft startet am Boden.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Taupunkt am Boden</span><span class="val" id="lTd">–</span><span class="formula">aus Temperatur und Feuchte</span></div>
+        <div><span class="lbl">Wolkenbasis</span><span class="val" id="lBase">–</span><span class="formula">über Boden</span></div>
+        <div><span class="lbl">Luftpaket jetzt</span><span class="val" id="lNow" style="font-size:15px">–</span><span class="formula">Höhe · Temperatur</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wie wird aus einer Wolke Regen?</h2>
+      <p>Ein Regentropfen von 2 mm ist hundertmal so breit wie ein Wolkentröpfchen. Weil das Volumen mit der dritten Potenz wächst, steckt darin das Wasser von rund <strong>einer Million</strong> Wolkentröpfchen. Wie finden so viele Tröpfchen zusammen?</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Was passiert, wenn ein Tröpfchen etwas grösser ist als seine Nachbarn? Und was ändert sich, wenn die Wolke so hoch reicht, dass es dort unter null Grad ist?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Es gibt zwei Wege. Erstens <strong>Zusammenstossen</strong>: Ein etwas grösseres Tröpfchen fällt etwas schneller als die anderen. Dabei prallt es auf kleinere und verschluckt sie. Je grösser es wird, desto schneller fällt es und desto mehr sammelt es ein. Eine Lawine im Kleinen.</p>
+          <p>Zweitens über <strong>Eis</strong>: In den oberen, kalten Teilen der Wolke gibt es unterkühlte Tröpfchen und Eiskristalle nebeneinander. Die Kristalle wachsen auf Kosten der Tröpfchen, werden zu Schneeflocken und fallen. Auf dem Weg nach unten schmelzen sie zu Regen. In der Schweiz beginnt der meiste Regen tatsächlich als Schnee, auch im Hochsommer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Wolken fallen, nur <em>extrem</em> langsam.</h2>
+    <ul class="learned">
+      <li><b>Schwer, aber verteilt</b><span>Eine Schönwetterwolke trägt rund 500 Tonnen Wasser, verteilt auf Milliarden winziger Tröpfchen.</span></li>
+      <li><b>Klein fällt langsam</b><span>Ein Wolkentröpfchen sinkt nur etwa 1 cm pro Sekunde. Schon ein leichter Aufwind hält es oben.</span></li>
+      <li><b>Abkühlen schafft Wolken</b><span>Steigende Luft kühlt ab, bis sie den Taupunkt erreicht. Dort kondensiert der Dampf: Die Wolkenbasis entsteht.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Weiter →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/wolken.js"></script>
+</body>
+</html>

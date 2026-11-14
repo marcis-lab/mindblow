@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Antibiotika-Resistenz · mindblow</title>
+<meta name="description" content="Bakterien gewöhnen sich nicht an Antibiotika. Zufällige Mutationen und Auswahl machen sie resistent. Warum zu frühes Aufhören schadet und warum Antibiotika gegen Viren nichts nützen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Körper &amp; Gesundheit</span>
+    <h1>Warum wirken Antibiotika <em class="copper">nicht mehr</em>?</h1>
+    <p class="intro">Antibiotika haben seit 1940 Millionen Leben gerettet. Doch immer mehr Bakterien überleben sie. Haben sich die Bakterien daran gewöhnt? Nein. Was wirklich passiert, ist Evolution, live und im Zeitraffer.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Petrischale -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Zufall und Auswahl <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wer überlebt?</h2>
+      <p>Bakterien vermehren sich, indem sie sich teilen. Unter guten Bedingungen schaffen manche das alle <strong>20 Minuten</strong>. Aus einem einzigen Bakterium werden so in 10 Stunden über eine Milliarde.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="dishLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie werden Bakterien resistent gegen ein Antibiotikum?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Sie gewöhnen sich langsam daran, so wie ein Körper an Training</span></button>
+          <button data-v="b"><span class="k">b</span><span>Einzelne tragen schon vorher zufällig eine passende Veränderung, das Antibiotikum tötet nur die anderen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Das Antibiotikum verändert ihr Erbgut so, dass sie es aushalten</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Vor jeder Teilung kopiert ein Bakterium sein Erbgut. Dabei passieren selten zufällige Fehler, <strong>Mutationen</strong>. Ganz selten macht eine davon das Bakterium unempfindlich gegen ein Antibiotikum. Ohne Antibiotikum bringt das nichts. Kommt das Mittel, sterben die empfindlichen, und die wenigen resistenten haben plötzlich alles für sich. Das ist <strong>Selektion</strong>: Evolution im Zeitraffer. In echt ist eine passende Mutation viel seltener, oft weniger als 1 in 10 Millionen Teilungen. Doch in einer Infektion leben Milliarden Bakterien. Hier sind es nur ein paar Hundert, darum ist die Mutation häufiger eingestellt.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Alexander Fleming entdeckte das Penicillin. Schon 1945 warnte er in seiner Nobelpreisrede: Wer zu wenig davon nimmt, züchtet resistente Bakterien.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="dishCv" style="height:340px" aria-label="Eine Petrischale mit Bakterien. Die meisten sind empfindlich, wenige resistent. Mit Antibiotikum überleben nur die resistenten."></canvas>
+        <div class="locked" id="dishLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="mutIn">Mutation</label><input type="range" id="mutIn" min="0" max="4" step="1" value="1" disabled><output id="mutOut">1 von 300</output></div>
+        <div class="row">
+          <button class="btn" id="growBtn" disabled>Wachsen lassen</button>
+          <button class="btn ghost" id="drugBtn" disabled>Antibiotikum geben</button>
+        </div>
+        <span class="status" id="dishStatus">Ein paar Bakterien in frischer Nährlösung. Lass sie wachsen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Bakterien</span><span class="val" id="dN">–</span><span class="formula">in der Schale</span></div>
+        <div><span class="lbl">Davon resistent</span><span class="val" id="dR">–</span><span class="formula">durch Zufall entstanden</span></div>
+        <div><span class="lbl">Zeit</span><span class="val" id="dT">0 min</span><span class="formula">20 min pro Generation</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Zu früh aufhören -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Die Zähsten zuletzt <span class="chip solved-chip">gelöst</span></span>
+      <h2>Einfach früher aufhören?</h2>
+      <p>Du hast eine Infektion mit Bakterien und nimmst ein Antibiotikum. Nach zwei Tagen geht es dir viel besser, das Fieber ist weg.</p>
+      <div class="quiz" data-q="q2" data-correct="c" data-unlock="cureLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was kann passieren, wenn du das Antibiotikum jetzt auf eigene Faust absetzt?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Nichts. Wenn es dir gut geht, sind die Bakterien weg</span></button>
+          <button data-v="b"><span class="k">b</span><span>Die Bakterien werden durch das Absetzen sofort resistent</span></button>
+          <button data-v="c"><span class="k">c</span><span>Es sind noch Bakterien übrig, und zwar ausgerechnet die zähsten</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Du fühlst dich gesund, wenn nur noch wenige Bakterien da sind, nicht erst bei null. Auch eine Infektion ist bunt gemischt: Zuerst sterben die empfindlichen, die <strong>zäheren</strong> halten länger durch. Hörst du zu früh auf, wachsen genau sie wieder nach, und das nächste Mal wirkt das Mittel schlechter. Die Zahlen hier sind ein vereinfachtes Modell. Wie lange eine Behandlung wirklich dauern muss, hängt von Krankheit und Medikament ab, heute oft kürzer als früher. Darum gilt: so einnehmen, wie die Ärztin es verordnet, nicht nach Gefühl.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Das Antibiotikum muss nicht jedes einzelne Bakterium töten. Es senkt ihre Zahl so weit, dass dein Immunsystem den Rest wegräumen kann.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="cureCv" style="height:340px" aria-label="Diagramm: Zahl der Bakterien im Körper über 14 Tage und daneben, wie zäh die überlebenden Bakterien sind"></canvas>
+        <div class="locked" id="cureLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="daysIn">Einnahme</label><input type="range" id="daysIn" min="1" max="10" step="1" value="3" disabled><output id="daysOut">3 Tage</output></div>
+        <div class="row">
+          <button class="btn" id="cureBtn" disabled>Behandlung starten</button>
+        </div>
+        <span class="status" id="cureStatus">Wähle, wie viele Tage du das Antibiotikum nimmst.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Bakterien im Körper</span><span class="val" id="cN">–</span><span class="formula">Tag <span id="cDay">0</span></span></div>
+        <div><span class="lbl">Mittlere Zähigkeit</span><span class="val" id="cTol">–</span><span class="formula">0 empfindlich · 5 sehr zäh</span></div>
+        <div><span class="lbl">Ergebnis</span><span class="val" id="cRes" style="font-size:15px">–</span><span class="formula">nach 14 Tagen</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Viren -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Bakterien sind keine Viren <span class="chip solved-chip">gelöst</span></span>
+      <h2>Hilft das gegen Grippe?</h2>
+      <p>Jeden Winter verlangen viele Leute Antibiotika gegen Erkältung oder Grippe. Beide werden fast immer von <strong>Viren</strong> ausgelöst.</p>
+      <div class="quiz" data-q="q3" data-correct="a" data-unlock="targetLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Helfen Antibiotika gegen eine Grippe?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Nein. Antibiotika greifen Bauteile von Bakterien an, die Viren gar nicht haben</span></button>
+          <button data-v="b"><span class="k">b</span><span>Ja, Antibiotika töten alle Krankheitserreger</span></button>
+          <button data-v="c"><span class="k">c</span><span>Ja, wenn man genug davon nimmt</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Antibiotika zielen auf Bauteile, die nur Bakterien haben: die <strong>Zellwand</strong>, die bakteriellen <strong>Ribosomen</strong> (ihre Eiweissfabriken) oder Enzyme, die ihr Erbgut entwirren. Ein Virus hat nichts davon. Es ist kaum mehr als Erbgut in einer Hülle und lässt sich von deinen Zellen nachbauen. Deine eigenen Zellen haben keine Zellwand und andere Ribosomen, darum verschont das Mittel sie weitgehend. Gegen Viren hilft ein Antibiotikum also nicht. Es trifft aber die nützlichen Bakterien in deinem Darm und fördert dort Resistenzen. Wähle einen Wirkstoff und probier es aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>In deinem Darm leben ungefähr so viele Bakterien, wie du Körperzellen hast: rund 38 Billionen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="targetCv" style="height:320px" aria-label="Ein Bakterium, ein Virus und eine menschliche Zelle. Wirkstoff-Teilchen docken nur dort an, wo sie ein Ziel finden."></canvas>
+        <div class="locked" id="targetLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="abBtns">
+          <span class="eyebrow">Wirkstoff:</span>
+          <button data-ab="pen" class="active" disabled>Penicillin</button>
+          <button data-ab="tet" disabled>Tetracyclin</button>
+          <button data-ab="cip" disabled>Ciprofloxacin</button>
+        </div>
+        <div class="legend" id="resBtns">
+          <span class="eyebrow">Bakterium:</span>
+          <button data-res="0" class="active" disabled>empfindlich</button>
+          <button data-res="1" disabled>resistent</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="doseBtn" disabled>Wirkstoff zugeben</button>
+        </div>
+        <span class="status" id="targetStatus">Penicillin stört den Bau der Zellwand.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Bakterium</span><span class="val" id="hB" style="font-size:15px">–</span><span class="formula" id="hBf">Ziel: Zellwand</span></div>
+        <div><span class="lbl">Virus</span><span class="val" id="hV" style="font-size:15px">–</span><span class="formula">hat kein Ziel</span></div>
+        <div><span class="lbl">Körperzelle</span><span class="val" id="hH" style="font-size:15px">–</span><span class="formula">kaum ein Ziel</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum geht das alle etwas an?</h2>
+      <p>Du nimmst ein Antibiotikum. Danach leben in deinem Körper vielleicht ein paar resistente Bakterien mehr. Warum betrifft das auch Menschen, die nie ein Antibiotikum genommen haben?</p>
+      <p><strong>Tipp:</strong> Bakterien bleiben nicht für immer bei dir. Und sie können mehr, als sich nur zu teilen.</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Resistente Bakterien <strong>verbreiten sich</strong>: über Hände, Essen, Wasser, Spitäler und Tiere. Ausserdem können Bakterien kleine Ringe aus Erbgut, sogenannte <strong>Plasmide</strong>, an andere Bakterien weitergeben, sogar an andere Arten. Ein Resistenz-Gen kann so von einem harmlosen Darmbakterium zu einem gefährlichen Erreger springen. Jede unnötige Einnahme, bei Menschen und in der Tierhaltung, hilft den resistenten Bakterien irgendwo. Heute sterben weltweit jedes Jahr über eine Million Menschen direkt an Infektionen mit resistenten Bakterien.</p>
+          <p>Was hilft: Antibiotika nur nehmen, wenn eine Ärztin sie verordnet, nie gegen Viren, keine Reste aufbewahren oder weitergeben, übrige Tabletten in der Apotheke zurückgeben, Hände waschen und impfen. Jede Infektion, die gar nicht erst entsteht, braucht kein Antibiotikum.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Antibiotika erzeugen keine Resistenz. Sie <em>wählen aus</em>.</h2>
+    <ul class="learned">
+      <li><b>Zufall plus Auswahl</b><span>Resistente Bakterien entstehen zufällig durch Mutationen. Das Antibiotikum tötet die anderen und schafft ihnen Platz.</span></li>
+      <li><b>Die Zähsten zuletzt</b><span>Gesund fühlen heisst nicht bakterienfrei. Wer zu früh aufhört, lässt genau die zähsten übrig.</span></li>
+      <li><b>Nur gegen Bakterien</b><span>Antibiotika treffen Zellwand, Ribosomen und Enzyme von Bakterien. Viren haben nichts davon.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Weiter →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/resistenz.js"></script>
+</body>
+</html>

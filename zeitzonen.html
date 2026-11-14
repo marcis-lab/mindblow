@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zeitzonen · mindblow</title>
+<meta name="description" content="Wenn du zu Mittag isst, geht in Tokio schon der Abend zu Ende. Wie Erddrehung, Zeitzonen und Datumsgrenze zusammenhängen und warum Mittag nicht überall gleich Mittag ist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Natur &amp; Universum</span>
+    <h1>Warum ist es in Tokio schon <em class="copper">morgen?</em></h1>
+    <p class="intro">Du rufst um 17 Uhr eine Freundin in Tokio an. Bei ihr ist es 1 Uhr nachts, sie lebt schon im nächsten Tag. Wer hat das so festgelegt? Ein bisschen die Menschen, aber vor allem die Erde, die sich dreht.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Erde von oben -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Die Erde dreht sich <span class="chip solved-chip">gelöst</span></span>
+      <h2>Mittag wandert um die Welt</h2>
+      <p>Die Sonne steht still, die Erde dreht sich, einmal in 24 Stunden. Immer ist eine Hälfte beleuchtet. Wo die Sonne gerade am höchsten steht, ist <strong>Mittag</strong>. Wo sie genau gegenüber ist, ist Mitternacht.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="earthLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Bei uns ist Mittag, in Tokio schon 20 Uhr. Warum ist Tokio voraus?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Japan hat irgendwann beschlossen, die Uhren 8 Stunden vorzustellen</span></button>
+          <button data-v="b"><span class="k">b</span><span>Die Erde dreht sich nach Osten. Tokio liegt östlich von uns und dreht sich früher in die Sonne</span></button>
+          <button data-v="c"><span class="k">c</span><span>Tokio liegt näher an der Sonne und bekommt das Licht zuerst</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Erde dreht sich von West nach Osten. Darum geht die Sonne im Osten auf. Tokio liegt rund 130 Längengrade östlich von uns. Es dreht sich also früher in die Sonne hinein und früher wieder hinaus. 360 Grad in 24 Stunden heisst: <strong>15 Grad pro Stunde</strong>. 130 Grad sind fast 9 Stunden. Die Uhrzeit in Japan ist zwar von Menschen festgelegt, aber sie folgt der Sonne. Dreh die Erde selbst, mit dem Regler oder direkt mit dem Finger.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Am Äquator saust der Boden mit rund 1'670 km/h nach Osten. In der Schweiz sind es immer noch etwa 1'150 km/h. Du spürst nichts davon, weil alles um dich herum mitfliegt, auch die Luft.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="earthCv" style="height:380px; touch-action:none" aria-label="Die Erde von oben über dem Nordpol gesehen, mit Tag- und Nachtseite und fünf Städten mit ihrer Uhrzeit"></canvas>
+        <div class="locked" id="earthLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="utcIn">Uhrzeit Schweiz</label><input type="range" id="utcIn" min="0" max="24" step="0.25" value="12" disabled><output id="utcOut">12:00</output></div>
+        <div class="row">
+          <button class="btn" id="spinBtn" disabled>Erde drehen</button>
+        </div>
+        <span class="status" id="earthStatus">Blick von oben auf den Nordpol. Die Sonne scheint von oben ins Bild.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Zürich</span><span class="val" id="tZh">–</span><span class="formula">Weltzeit + 1 h</span></div>
+        <div><span class="lbl">Tokio</span><span class="val" id="tTk">–</span><span class="formula">Weltzeit + 9 h</span></div>
+        <div><span class="lbl">New York</span><span class="val" id="tNy">–</span><span class="formula">Weltzeit − 5 h</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Datumsgrenze -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Die Datumsgrenze <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Flug zurück in die Vergangenheit</h2>
+      <p>Die Erde ist in rund 24 <strong>Zeitzonen</strong> geteilt, jede etwa 15 Grad breit. Gehst du eine Zone nach Osten, stellst du die Uhr eine Stunde vor. Aber irgendwo muss der Tag ja wechseln. Das passiert an der <strong>Datumsgrenze</strong> mitten im Pazifik.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="lineLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du fliegst am Dienstag um 17 Uhr in Tokio ab, nach Los Angeles. Der Flug dauert 10 Stunden. Wann landest du, nach Ortszeit?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Am Mittwoch um 3 Uhr früh</span></button>
+          <button data-v="b"><span class="k">b</span><span>Am Dienstag um 10 Uhr morgens, also 7 Stunden «vor» dem Abflug</span></button>
+          <button data-v="c"><span class="k">c</span><span>Am Mittwoch um 10 Uhr morgens</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Du landest am <strong>Dienstag um 10 Uhr</strong>, nach Ortszeit sieben Stunden bevor du abgeflogen bist. Unterwegs überquerst du die Datumsgrenze. Westlich davon ist schon «morgen», östlich davon noch «heute». Wer von West nach Ost darüber fliegt, darf einen Tag zurückblättern. Die Zeit läuft dabei ganz normal, nur die Kalender auf beiden Seiten zeigen etwas anderes. Spiel den Flug nach. Die Zeitzonen hier sind idealisiert, echte Grenzen folgen oft Ländergrenzen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Als Magellans Mannschaft 1522 nach der ersten Weltumsegelung heimkam, fehlte ihr im Logbuch ein Tag. Sie hatten jeden Tag sauber notiert. Aber weil sie immer nach Westen gesegelt waren, hatten sie einen Sonnenaufgang weniger erlebt als die Menschen zu Hause.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="lineCv" style="height:320px" aria-label="Ein Band rund um die Erde mit 24 Zeitzonen, eingefärbt nach Wochentag, mit Datumsgrenze und einem Flugzeug von Tokio nach Los Angeles"></canvas>
+        <div class="locked" id="lineLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="utc2In">Weltzeit</label><input type="range" id="utc2In" min="0" max="24" step="0.25" value="8" disabled><output id="utc2Out">Di 08:00</output></div>
+        <div class="row">
+          <button class="btn" id="flyBtn" disabled>Flug Tokio → Los Angeles</button>
+        </div>
+        <span class="status" id="lineStatus">Jede Spalte ist eine Zeitzone. Die Farbe zeigt, welcher Tag dort gerade ist.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Ortszeit beim Flugzeug</span><span class="val" id="pLocal">–</span><span class="formula">nach der Zone darunter</span></div>
+        <div><span class="lbl">Schon geflogen</span><span class="val" id="pFlown">–</span><span class="formula">von 10 Stunden</span></div>
+        <div><span class="lbl">Weltzeit</span><span class="val" id="pUtc">–</span><span class="formula">läuft für alle gleich</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Sonnenmittag -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Mittag ist nicht Mittag <span class="chip solved-chip">gelöst</span></span>
+      <h2>Genf gegen St. Gallen</h2>
+      <p>Eine Zeitzone ist breit, die ganze Schweiz hat dieselbe Uhrzeit. Die Sonne aber hält sich nicht an Zonen. Sie steht dann am höchsten, wenn sie genau im <strong>Süden</strong> ist. Das ist der wahre Mittag.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="noonLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Steht die Sonne in Genf und in St. Gallen gleichzeitig am höchsten?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Ja, gleiche Zeitzone heisst gleicher Mittag</span></button>
+          <button data-v="b"><span class="k">b</span><span>Nein, in St. Gallen rund 13 Minuten früher</span></button>
+          <button data-v="c"><span class="k">c</span><span>Nein, in Genf rund eine Stunde früher</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>St. Gallen liegt gut 3 Längengrade östlich von Genf. Pro Grad braucht die Erde 4 Minuten. Darum ist in St. Gallen rund <strong>13 Minuten früher</strong> Mittag. Und keine der beiden Städte hat ihn um 12 Uhr: Unsere Zone ist nach dem 15. Längengrad ausgerichtet, der bei Görlitz an der deutsch-polnischen Grenze verläuft. Die Schweiz liegt westlich davon. Der wahre Mittag kommt hier also erst nach 12:20 Uhr, mit Sommerzeit nach 13:20 Uhr. Vergleiche verschiedene Orte. Gerechnet ist ohne die kleinen Schwankungen übers Jahr, die bis 16 Minuten ausmachen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Früher richtete jede Stadt ihre Uhren nach ihrem eigenen Sonnenmittag. Bern ging der Genfer Uhr gut 5 Minuten voraus. Erst Eisenbahn und Telegraf verlangten eine gemeinsame Zeit. Seit 1894 gilt in der Schweiz die Mitteleuropäische Zeit.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="noonCv" style="height:340px" aria-label="Der Bogen der Sonne über dem Südhorizont an einem gewählten Ort, mit Uhrzeiten und dem Zeitpunkt des höchsten Sonnenstands"></canvas>
+        <div class="locked" id="noonLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="placeBtns">
+          <span class="eyebrow">Ort:</span>
+          <button data-lon="-8.72" data-lat="42.24" disabled>Vigo (E)</button>
+          <button data-lon="6.14" data-lat="46.2" class="active" disabled>Genf</button>
+          <button data-lon="7.45" data-lat="46.95" disabled>Bern</button>
+          <button data-lon="9.37" data-lat="47.42" disabled>St. Gallen</button>
+          <button data-lon="21.01" data-lat="52.23" disabled>Warschau</button>
+        </div>
+        <div class="ctrl"><label for="clockIn">Uhrzeit</label><input type="range" id="clockIn" min="5" max="21" step="0.05" value="12" disabled><output id="clockOut">12:00</output></div>
+        <div class="row">
+          <button class="btn ghost" id="dstBtn" disabled>Sommerzeit: aus</button>
+        </div>
+        <span class="status" id="noonStatus">Blick nach Süden. Links ist Osten, rechts Westen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Sonne am höchsten</span><span class="val" id="nNoon">–</span><span class="formula">wahrer Mittag, Uhrzeit</span></div>
+        <div><span class="lbl">Abstand zu 12:00</span><span class="val" id="nDiff">–</span><span class="formula">4 Minuten pro Längengrad</span></div>
+        <div><span class="lbl">Sonnenhöhe jetzt</span><span class="val" id="nAlt">–</span><span class="formula">über dem Horizont</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum ist Jetlag nach Osten schlimmer?</h2>
+      <p>Viele Reisende merken: Nach einem Flug von Zürich nach New York (nach Westen) sind sie nach zwei, drei Tagen wieder fit. Nach dem Rückflug (nach Osten) hängen sie oft fast eine Woche durch, obwohl der Zeitunterschied gleich gross ist.</p>
+      <p><strong>Tipp:</strong> Deine innere Uhr läuft nicht genau 24 Stunden. Ist ein Tag für sie eher etwas zu kurz oder etwas zu lang? Und wird der Tag beim Flug nach Osten länger oder kürzer?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Deine <strong>innere Uhr</strong> im Gehirn läuft bei den meisten Menschen etwas langsamer als die Erde, ein innerer Tag dauert im Schnitt rund 24 Stunden und 10 Minuten. Jeden Morgen stellt das Tageslicht sie ein kleines Stück nach. Den Tag zu verlängern fällt ihr darum leicht.</p>
+          <p>Fliegst du nach <strong>Westen</strong>, wird dein Reisetag länger: Du darfst einfach später schlafen gehen. Das passt zur trägen inneren Uhr. Fliegst du nach <strong>Osten</strong>, wird der Tag kürzer. Du sollst schlafen, wenn dein Körper noch Nachmittag hat. Die innere Uhr muss vorgestellt werden, und das schafft sie nur langsam. Faustregel: Pro Zeitzone braucht der Körper etwa einen Tag. Hilfreich ist helles Tageslicht am Morgen am Zielort.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Die Uhren folgen der <em>Sonne</em>, ungefähr.</h2>
+    <ul class="learned">
+      <li><b>15 Grad pro Stunde</b><span>Die Erde dreht sich nach Osten. Je weiter östlich ein Ort liegt, desto früher hat er Mittag.</span></li>
+      <li><b>Die Datumsgrenze</b><span>Im Pazifik wechselt das Datum. Fliegst du nach Osten darüber, erlebst du einen Tag zweimal.</span></li>
+      <li><b>Zonenzeit ist ein Kompromiss</b><span>Innerhalb einer Zone hat jeder Ort seinen eigenen wahren Mittag. In St. Gallen kommt er rund 13 Minuten früher als in Genf.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Weiter →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/zeitzonen.js"></script>
+</body>
+</html>

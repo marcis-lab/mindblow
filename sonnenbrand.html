@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sonnenbrand · mindblow</title>
+<meta name="description" content="Hinter dem Fenster wirst du nicht rot. Warum? UV-Licht, Photonen, DNA, Melanin, Sonnencreme und der UV-Index interaktiv erklärt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Thema · Körper &amp; Licht</span>
+    <h1>Warum bekommst du hinter dem Fenster keinen <em class="copper">Sonnenbrand</em>?</h1>
+    <p class="intro">Im Zug scheint dir die Sonne stundenlang ins Gesicht. Es wird warm und hell. Rot wirst du trotzdem nicht. Am Strand reicht dafür eine halbe Stunde. Was fehlt hinter dem Glas?</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Photonen und Glas -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Licht ist nicht gleich Licht <span class="chip solved-chip">gelöst</span></span>
+      <h2>Was hält das Fenster zurück?</h2>
+      <p>Sonnenlicht ist ein Gemisch aus vielen <strong>Wellenlängen</strong>. Unsere Augen sehen nur einen Teil davon, von Violett (rund 400 Nanometer) bis Rot (rund 700 nm). Kürzer als Violett liegt das <strong>Ultraviolett</strong>, kurz UV.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="photonLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum wirst du hinter einer Fensterscheibe nicht rot?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Das Glas hält die Wärme der Sonne ab, und die Wärme verbrennt die Haut</span></button>
+          <button data-v="b"><span class="k">b</span><span>Das Glas schluckt den kurzwelligen UVB-Teil, das sichtbare Licht kommt durch</span></button>
+          <button data-v="c"><span class="k">c</span><span>Das Glas macht das Licht insgesamt so viel schwächer, dass es nicht mehr reicht</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Licht kommt in kleinen Paketen, den <strong>Photonen</strong>. Je kürzer die Wellenlänge, desto mehr Energie trägt jedes einzelne Photon. Ein UVB-Photon hat fast doppelt so viel Energie wie ein rotes. Das reicht, um in deinen Hautzellen die <strong>DNA</strong> zu verändern. Der Körper reagiert mit einer Entzündung: Das ist der Sonnenbrand. Gewöhnliches Fensterglas schluckt fast alles unter etwa 310 nm. Sichtbares Licht und Wärme kommen fast ungehindert durch. Probier es aus: Mach rotes Licht so hell du willst.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Auf die Zahl der Photonen kommt es nicht an, sondern auf die Energie jedes einzelnen. Eine Million roter Photonen schaffen nicht, was ein einziges UVB-Photon kann. Das hat Albert Einstein 1905 am Fotoeffekt erklärt. Dafür bekam er den Nobelpreis, nicht für die Relativitätstheorie.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="photonCv" style="height:330px" aria-label="Photonen fliegen von der Sonne durch eine Glasscheibe zur Haut. Je nach Wellenlänge schädigen sie die DNA oder nicht."></canvas>
+        <div class="locked" id="photonLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="wlIn">Wellenlänge</label><input type="range" id="wlIn" min="280" max="700" step="5" value="300" disabled><output id="wlOut">300 nm</output></div>
+        <div class="ctrl"><label for="intIn">Helligkeit</label><input type="range" id="intIn" min="1" max="10" step="1" value="3" disabled><output id="intOut">3</output></div>
+        <div class="legend" id="glassBtns">
+          <span class="eyebrow">Dazwischen:</span>
+          <button data-glass="0" class="active" disabled>Nichts</button>
+          <button data-glass="1" disabled>Fensterglas</button>
+        </div>
+        <span class="status" id="photonStatus">Jeder Punkt ist ein Photon. Ein Blitz an der DNA heisst: Schaden.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Energie pro Photon</span><span class="val" id="pE">–</span><span class="formula">E = 1240 / λ</span></div>
+        <div><span class="lbl">Kommt durchs Glas</span><span class="val" id="pT">–</span><span class="formula">Anteil der Photonen</span></div>
+        <div><span class="lbl">DNA-Treffer</span><span class="val" id="pHits">0</span><span class="formula">seit der letzten Änderung</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Haut und Sonnencreme -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Melanin und Sonnencreme <span class="chip solved-chip">gelöst</span></span>
+      <h2>Was macht die Zahl auf der Tube?</h2>
+      <p>Deine Haut hat einen eigenen Schutz: das braune Farbstoff-Pigment <strong>Melanin</strong>. Es schluckt UV, bevor es tief in die Zellen dringt. Helle Haut hat wenig davon, dunkle Haut viel. Dazu kommt Sonnencreme mit ihrem <strong>Lichtschutzfaktor</strong> (LSF).</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="skinLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie viel der sonnenbrand-wirksamen Strahlung lässt eine Creme mit LSF 30 noch durch?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>30 Prozent</span></button>
+          <button data-v="b"><span class="k">b</span><span>Etwa 3 Prozent, also ein Dreissigstel</span></button>
+          <button data-v="c"><span class="k">c</span><span>Gar nichts, sie blockiert alles</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>LSF 30 heisst: Nur noch <strong>ein Dreissigstel</strong> der wirksamen Strahlung kommt durch, rund 3 Prozent. Du kannst also theoretisch 30-mal länger in der Sonne bleiben. LSF 50 lässt 2 Prozent durch, der Unterschied zu 30 ist kleiner, als die Zahl vermuten lässt. Der Haken: Der Wert gilt nur für eine <strong>dicke Schicht</strong> von 2 mg pro cm². Die meisten Leute tragen viel weniger auf. Dann sinkt der Schutz stark. Im Versuch ist das vereinfacht gerechnet.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Bräune ist ein Notfallprogramm. Die Haut bildet mehr Melanin, weil ihre DNA schon getroffen wurde. Eine Sonnenbräune schützt nur wenig, etwa wie LSF 2 bis 4.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="skinCv" style="height:300px" aria-label="Ein Hautstück in der Sonne. Die Rötung wächst mit der Zeit, je nach Hauttyp und Sonnencreme."></canvas>
+        <div class="locked" id="skinLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="typeIn">Hauttyp</label><input type="range" id="typeIn" min="1" max="6" step="1" value="2" disabled><output id="typeOut">II</output></div>
+        <div class="ctrl"><label for="spfIn">Lichtschutz</label><input type="range" id="spfIn" min="0" max="4" step="1" value="0" disabled><output id="spfOut">keiner</output></div>
+        <div class="legend" id="amountBtns">
+          <span class="eyebrow">Eingecremt:</span>
+          <button data-amt="1" class="active" disabled>Dick, wie vorgeschrieben</button>
+          <button data-amt="0.5" disabled>Halb so viel</button>
+        </div>
+        <div class="row">
+          <button class="btn" id="sunBtn" disabled>Ab in die Sonne</button>
+        </div>
+        <span class="status" id="skinStatus">UV-Index 8, ein Sommermittag im Flachland.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Sonnenbrand nach</span><span class="val" id="sBurn">–</span><span class="formula">bei UV-Index 8</span></div>
+        <div><span class="lbl">Kommt durch die Creme</span><span class="val" id="sThru">100 %</span><span class="formula">1 / LSF</span></div>
+        <div><span class="lbl">In der Sonne</span><span class="val" id="sTime">0 min</span><span class="formula">Zeitraffer</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: UV-Index -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Berge und Schnee <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wo brennt die Sonne am stärksten?</h2>
+      <p>Der <strong>UV-Index</strong> sagt, wie stark die sonnenbrand-wirksame Strahlung gerade ist. Ab 3 brauchst du Schutz, ab 8 ist sie sehr hoch. Er hängt davon ab, wie hoch die Sonne steht, wie viel Luft darüber liegt und was um dich herum ist.</p>
+      <div class="quiz" data-q="q3" data-correct="c" data-unlock="uviLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du stehst auf 3'000 m auf einem verschneiten Gletscher. Wie viel UV bekommst du, verglichen mit einer Wiese am See, bei gleicher Sonne?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Weniger, weil es oben kalt ist</span></button>
+          <button data-v="b"><span class="k">b</span><span>Ungefähr gleich viel, die Sonne ist ja dieselbe</span></button>
+          <button data-v="c"><span class="k">c</span><span>Deutlich mehr, oft fast doppelt so viel</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Kälte hat mit UV nichts zu tun. Oben liegt <strong>weniger Luft</strong> über dir, die UV streuen und schlucken kann. Pro 1'000 Höhenmeter steigt die UV-Strahlung um rund 10 Prozent. Dazu wirft frischer <strong>Schnee</strong> bis zu 80 Prozent der Strahlung zurück, auch von unten unter Kinn und Nase. Gras wirft nur etwa 2 Prozent zurück. Am Modell siehst du das vereinfacht, es rechnet mit wolkenlosem Himmel.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Bei leichter Bewölkung kommt oft noch der grösste Teil der UV-Strahlung durch, während sich die Luft kühler anfühlt. Viele schwere Sonnenbrände holt man sich an Tagen, an denen es gar nicht heiss ist.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="uviCv" style="height:320px" aria-label="Landschaft mit Sonne, Lufthülle und Boden. Der UV-Index ändert sich mit Sonnenhöhe, Höhe über Meer und Untergrund."></canvas>
+        <div class="locked" id="uviLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="elevIn">Sonnenhöhe</label><input type="range" id="elevIn" min="10" max="70" step="1" value="60" disabled><output id="elevOut">60°</output></div>
+        <div class="ctrl"><label for="altIn">Höhe über Meer</label><input type="range" id="altIn" min="0" max="4500" step="100" value="400" disabled><output id="altOut">400 m</output></div>
+        <div class="legend" id="groundBtns">
+          <span class="eyebrow">Boden:</span>
+          <button data-alb="0.02" class="active" disabled>Wiese</button>
+          <button data-alb="0.1" disabled>Wasser</button>
+          <button data-alb="0.15" disabled>Sand</button>
+          <button data-alb="0.8" disabled>Neuschnee</button>
+        </div>
+        <span class="status" id="uviStatus">Mittag im Juni in der Schweiz: Die Sonne steht rund 65° hoch.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">UV-Index</span><span class="val" id="uUvi">–</span><span class="formula" id="uCat">–</span></div>
+        <div><span class="lbl">Sonnenbrand nach</span><span class="val" id="uBurn">–</span><span class="formula">Hauttyp II, ohne Schutz</span></div>
+        <div><span class="lbl">Vom Boden zurück</span><span class="val" id="uRefl">–</span><span class="formula">Anteil, der reflektiert wird</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Das halbe Gesicht des Lastwagenfahrers</h2>
+      <p>Ein Lastwagenfahrer in den USA fuhr 28 Jahre lang Waren aus. Seine linke Gesichtshälfte, die zum Seitenfenster zeigte, war danach viel faltiger und älter als die rechte. Einen Sonnenbrand hatte er dort kaum je. Wie passt das zusammen?</p>
+      <p><strong>Tipp:</strong> Schau dir im Versuch von Teil 1 an, welche Wellenlängen das Fensterglas noch durchlässt.</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Fensterglas schluckt das <strong>UVB</strong>, das den Sonnenbrand macht. Einen grossen Teil des <strong>UVA</strong> zwischen 320 und 400 nm lässt es aber durch. UVA-Photonen haben weniger Energie und machen kaum rot. Dafür dringen sie tiefer in die Haut ein, bis in die Lederhaut. Dort schädigen sie über Jahre das Bindegewebe, das die Haut straff hält. Die Haut altert schneller, und auch das Risiko für Hautkrebs steigt.</p>
+          <p>Moderne Windschutzscheiben bestehen aus Verbundglas mit einer Kunststofffolie, die auch fast alles UVA schluckt. Seitenscheiben sind oft einfaches Glas. Kein Sonnenbrand heisst also nicht: kein Schaden.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Nicht die Wärme verbrennt dich, sondern <em>energiereiche</em> Photonen.</h2>
+    <ul class="learned">
+      <li><b>Energie pro Photon</b><span>Kurzwelliges UVB trägt so viel Energie pro Photon, dass es die DNA verändert. Rotes Licht schafft das nie, egal wie hell.</span></li>
+      <li><b>Glas filtert UVB</b><span>Fensterglas schluckt UVB, lässt aber viel UVA durch. Darum kein Sonnenbrand, aber trotzdem Hautalterung.</span></li>
+      <li><b>Schutz rechnet sich</b><span>LSF 30 lässt ein Dreissigstel durch, aber nur dick aufgetragen. Höhe und Schnee können die Strahlung fast verdoppeln.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Weiter →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/sonnenbrand.js"></script>
+</body>
+</html>

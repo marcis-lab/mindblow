@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Solarstrom · mindblow</title>
+<meta name="description" content="Wie macht eine Solarzelle aus Licht Strom? Photonen, Elektronen und der p-n-Übergang, interaktiv erklärt. Dazu: Warum ein Blatt das ganze Modul ausbremst.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Technik &amp; Energie</span>
+    <h1>Wie macht eine Solarzelle aus Licht <em class="copper">Strom</em>?</h1>
+    <p class="intro">Kein Motor, keine Turbine, nichts dreht sich. Eine dünne Scheibe liegt in der Sonne, und aus zwei Drähten kommt Strom. Was passiert da drin?</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Photonen -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Licht trifft Silizium <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Stoss aus Licht</h2>
+      <p>Eine Solarzelle ist eine hauchdünne Scheibe aus <strong>Silizium</strong>. Das ist derselbe Stoff, der auch in Sand steckt. Sie wird nicht heiss gemacht und hat keine beweglichen Teile.</p>
+      <div class="quiz" data-q="q1" data-correct="a" data-unlock="photonLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Woher kommt der Strom in einer Solarzelle?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Licht stösst Elektronen im Silizium frei, und diese fliessen durch den Draht</span></button>
+          <button data-v="b"><span class="k">b</span><span>Die Zelle sammelt die Wärme der Sonne und macht daraus Strom</span></button>
+          <button data-v="c"><span class="k">c</span><span>Sonnenlicht ist selbst schon Strom, die Zelle leitet es nur weiter</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Licht besteht aus winzigen Energiepaketen, den <strong>Photonen</strong>. Trifft ein Photon mit genug Energie auf das Silizium, löst es ein Elektron aus seiner Bindung. Das freie Elektron kann wandern, und daraus wird Strom. Silizium braucht dafür mindestens <strong>1,12 Elektronvolt</strong> (eV). Sichtbares Licht reicht, Infrarot mit längerer Wellenlänge nicht, egal wie hell es ist. Was ein Photon zu viel mitbringt, wird zu Wärme. Und Wärme macht die Zelle sogar schlechter. Vereinfacht: Hier befreit jedes passende Photon genau ein Elektron.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Albert Einstein bekam seinen Nobelpreis nicht für die Relativitätstheorie, sondern für die Erklärung dieses Effekts: Licht kommt in Paketen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="photonCv" style="height:340px" aria-label="Photonen fallen auf eine Siliziumscheibe. Mit genug Energie lösen sie Elektronen. Rechts ein Energiediagramm."></canvas>
+        <div class="locked" id="photonLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="waveIn">Wellenlänge</label><input type="range" id="waveIn" min="300" max="1500" step="10" value="550" disabled><output id="waveOut">550 nm</output></div>
+        <div class="ctrl"><label for="brightIn">Helligkeit</label><input type="range" id="brightIn" min="1" max="10" step="1" value="4" disabled><output id="brightOut">4</output></div>
+        <span class="status" id="photonStatus">Grünes Licht. Jedes Photon bringt etwa 2,25 eV mit.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Energie pro Photon</span><span class="val" id="pE">2,25 eV</span><span class="formula">E = 1240 ÷ Wellenlänge</span></div>
+        <div><span class="lbl">Befreite Elektronen</span><span class="val" id="pN">0</span><span class="formula">seit der letzten Änderung</span></div>
+        <div><span class="lbl">Wird zu Wärme</span><span class="val" id="pH">–</span><span class="formula">Überschuss über 1,12 eV</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: p-n-Übergang -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Das eingebaute Gefälle <span class="chip solved-chip">gelöst</span></span>
+      <h2>Alle in die gleiche Richtung</h2>
+      <p>Ein freies Elektron allein ist noch kein Strom. Für Strom müssen sehr viele Elektronen in die <strong>gleiche Richtung</strong> laufen: aus der Zelle hinaus, durch eine Lampe und wieder zurück.</p>
+      <div class="quiz" data-q="q2" data-correct="c" data-unlock="pnLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was sorgt dafür, dass die befreiten Elektronen alle in dieselbe Richtung wandern?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Das Licht drückt sie von oben nach unten</span></button>
+          <button data-v="b"><span class="k">b</span><span>Gar nichts. Sie laufen hin und her, das ergibt Wechselstrom</span></button>
+          <button data-v="c"><span class="k">c</span><span>Zwei unterschiedlich behandelte Siliziumschichten bilden an ihrer Grenze ein elektrisches Feld</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Die Zelle hat zwei Schichten. In der dünnen oberen, der <strong>n-Schicht</strong>, stecken ein paar Phosphor-Atome mit einem Elektron zu viel. In der unteren, der <strong>p-Schicht</strong>, Bor-Atome, denen eines fehlt. An der Grenze entsteht ein elektrisches Feld, der <strong>p-n-Übergang</strong>. Er wirkt wie ein Gefälle: Befreite Elektronen werden nach oben gezogen, die Lücken, die sie hinterlassen, nach unten. Über den Draht und die Lampe kommt das Elektron unten zurück und füllt eine Lücke. Ohne Feld finden Elektron und Lücke meist schnell wieder zusammen, und die Energie wird bloss zu Wärme. Die Bewegungen hier sind stark vereinfacht und verlangsamt.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Eine einzelne Siliziumzelle liefert nur etwa 0,6 Volt, egal wie gross sie ist. Für mehr Spannung schaltet man viele Zellen hintereinander.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="pnCv" style="height:360px" aria-label="Querschnitt einer Solarzelle mit n-Schicht, p-n-Übergang und p-Schicht. Ein Draht führt über eine Lampe von oben nach unten."></canvas>
+        <div class="locked" id="pnLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="pnBtns">
+          <span class="eyebrow">Zelle:</span>
+          <button data-pn="1" class="active" disabled>mit p-n-Übergang</button>
+          <button data-pn="0" disabled>nur Silizium</button>
+        </div>
+        <div class="ctrl"><label for="lightIn">Licht</label><input type="range" id="lightIn" min="0" max="100" step="5" value="60" disabled><output id="lightOut">60 %</output></div>
+        <span class="status" id="pnStatus">Gefüllter Punkt: Elektron. Leerer Ring: Lücke, die es hinterlässt.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Gesammelt</span><span class="val" id="nCol">–</span><span class="formula">Elektronen, die den Draht erreichen</span></div>
+        <div><span class="lbl">Strom</span><span class="val" id="nI">–</span><span class="formula">Zelle 15,6 × 15,6 cm</span></div>
+        <div><span class="lbl">Spannung</span><span class="val" id="nU">–</span><span class="formula">ohne Last</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Modul -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Die Kette aus Zellen <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ein Blatt auf dem Dach</h2>
+      <p>Ein Solarmodul besteht aus vielen Zellen, oft 60 oder mehr. Sie sind <strong>hintereinander</strong> geschaltet wie Perlen an einer Kette. Ihre Spannungen zählen zusammen, und durch alle fliesst derselbe Strom.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="modLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Ein Blatt bedeckt eine einzige von 60 Zellen. Wie viel Leistung verliert das Modul?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Etwa ein Sechzigstel, also fast nichts</span></button>
+          <button data-v="b"><span class="k">b</span><span>Viel mehr: Die beschattete Zelle bremst den Strom der ganzen Kette</span></button>
+          <button data-v="c"><span class="k">c</span><span>Gar nichts, die anderen Zellen gleichen das aus</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>In einer Kette fliesst durch alle Zellen <strong>derselbe Strom</strong>. Die beschattete Zelle kann kaum Strom liefern und wird zum Nadelöhr. Darum haben Module <strong>Bypass-Dioden</strong>: Umleitungen, die eine Gruppe von Zellen überbrücken, wenn eine davon klemmt. Dann fällt nur diese Gruppe aus, oft ein Drittel des Moduls. Auch der <strong>Winkel</strong> zählt: Fällt das Licht schräg ein, verteilt es sich auf mehr Fläche. Gute Module wandeln heute rund 20 bis 22 Prozent des Lichts in Strom um. Das Modell hier hat nur 12 Zellen in 3 Gruppen und rechnet vereinfacht mit 0,5 V pro Zelle.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Ohne Bypass-Diode drücken die anderen Zellen den Strom durch die beschattete hindurch. Sie kann sich dabei stark erhitzen. Solche «Hot Spots» können ein Modul beschädigen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="modCv" style="height:400px" aria-label="Oben die Sonne und ein Modul im Winkel, unten ein Modul aus 12 Zellen. Tippe auf eine Zelle, um sie zu beschatten."></canvas>
+        <div class="locked" id="modLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="angleIn">Winkel zur Sonne</label><input type="range" id="angleIn" min="0" max="85" step="5" value="0" disabled><output id="angleOut">0°</output></div>
+        <div class="legend" id="bypassBtns">
+          <span class="eyebrow">Bypass-Dioden:</span>
+          <button data-bp="1" class="active" disabled>an</button>
+          <button data-bp="0" disabled>aus</button>
+        </div>
+        <div class="row">
+          <button class="btn ghost" id="clearBtn" disabled>Alle Blätter weg</button>
+        </div>
+        <span class="status" id="modStatus">Tippe auf eine Zelle, um ein Blatt darauf zu legen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Leistung</span><span class="val" id="mP">–</span><span class="formula">Spannung × Strom</span></div>
+        <div><span class="lbl">Strom</span><span class="val" id="mI">–</span><span class="formula">durch die ganze Kette</span></div>
+        <div><span class="lbl">Wirkungsgrad</span><span class="val" id="mEta">–</span><span class="formula">vom Licht auf dem Modul</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Jetzt du -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Solarstrom im Winter</h2>
+      <p>Kälte ist gut für Solarzellen: Je kühler sie sind, desto höher ihre Spannung. Trotzdem liefert eine Anlage im Mittelland im Dezember nur einen Bruchteil von dem, was sie im Juni schafft. Und neue Anlagen werden sogar hoch in den Alpen gebaut.</p>
+      <p><strong>Tipp:</strong> Denk an den Winkel aus Teil 3. Und an Nebel und Schnee.</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Warum liefert die Anlage im Winter so wenig? Und was spricht für die Alpen? Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Im Winter steht die Sonne tief. Ihr Licht trifft ein flaches Dach sehr <strong>schräg</strong> und verteilt sich auf mehr Fläche, genau wie in Teil 3. Es legt ausserdem einen längeren Weg durch die Luft zurück, die Tage sind kurz, und im Mittelland liegt oft wochenlang <strong>Hochnebel</strong>.</p>
+          <p>In den Alpen sieht es anders aus: Man ist über dem Nebel, die Luft ist dünner, und der <strong>Schnee</strong> wirft zusätzliches Licht auf die Module. Steil aufgestellte Module passen zur tiefen Wintersonne, und Schnee rutscht leicht ab. Die Kälte hilft zusätzlich. Darum liefern Anlagen in den Bergen viel Winterstrom, genau dann, wenn die Schweiz am meisten davon braucht.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Licht stösst an, das Feld <em>sortiert</em>.</h2>
+    <ul class="learned">
+      <li><b>Photonen lösen Elektronen</b><span>Ein Photon mit mindestens 1,12 eV befreit im Silizium ein Elektron. Was zu viel ist, wird Wärme.</span></li>
+      <li><b>Das Feld trennt</b><span>Der p-n-Übergang zieht Elektronen nach oben und Lücken nach unten. So entsteht ein Strom in eine Richtung.</span></li>
+      <li><b>Die Kette zählt</b><span>Zellen in Reihe teilen sich den Strom. Eine beschattete Zelle bremst alle, Bypass-Dioden begrenzen den Schaden.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Weiter →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/solar.js"></script>
+</body>
+</html>

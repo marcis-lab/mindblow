@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spiegel · mindblow</title>
+<meta name="description" content="Vertauscht ein Spiegel links und rechts? Nein, er vertauscht vorne und hinten. Reflexionsgesetz, Spiegelbild hinter dem Glas und warum ein halb so grosser Spiegel reicht.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Physik des Alltags</span>
+    <h1>Vertauscht ein Spiegel <em class="copper">links und rechts</em>?</h1>
+    <p class="intro">Heb vor dem Spiegel deine rechte Hand. Dein Spiegelbild hebt scheinbar die linke. Aber oben bleibt oben und unten bleibt unten. Wie weiss der Spiegel, welche Richtung er vertauschen soll?</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Was wird vertauscht? -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Was dreht der Spiegel um? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Das Rätsel von links und rechts</h2>
+      <p>Ein Spiegel ist ein flaches Stück Glas mit einer dünnen Metallschicht. Er kennt kein links und kein rechts, kein oben und kein unten. Und trotzdem sieht dein Spiegelbild aus wie ein Linkshänder.</p>
+      <div class="quiz" data-q="q1" data-correct="c" data-unlock="topLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was vertauscht ein Spiegel an der Wand vor dir wirklich?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Links und rechts, aber nicht oben und unten</span></button>
+          <button data-v="b"><span class="k">b</span><span>Links und rechts, weil unsere Augen nebeneinander liegen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Vorne und hinten, also die Richtung zum Spiegel hin</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Der Spiegel kehrt nur die Richtung um, die <strong>senkrecht</strong> auf ihn zeigt. Bei einem Spiegel vor dir ist das <strong>vorne und hinten</strong>. Deine Nase zeigt nach Norden, die Nase im Bild nach Süden. Deine rechte Hand ist auf der Ostseite, die Hand im Bild auch. «Links und rechts» entsteht erst in deinem Kopf: Du stellst dir vor, du drehst dich um und stehst dort, wo das Bild steht. Beim Umdrehen landet deine rechte Hand im Westen. Das Bild hat sie aber im Osten. Probier den Knopf «Dich hineindrehen».</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Leg dich seitlich vor den Spiegel. Jetzt sind deine Füsse links und dein Kopf rechts. Das Bild hat Kopf und Füsse nicht vertauscht, nur vorne und hinten. Wie immer.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="topCv" style="height:360px" aria-label="Blick von oben: Du stehst vor einem Spiegel, dahinter dein Spiegelbild. Nase und Hände zeigen in Himmelsrichtungen."></canvas>
+        <div class="locked" id="topLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="mirBtns">
+          <span class="eyebrow">Spiegel:</span>
+          <button data-mir="front" class="active" disabled>Vor dir</button>
+          <button data-mir="side" disabled>Rechts neben dir</button>
+        </div>
+        <div class="ctrl"><label for="headIn">Drehung</label><input type="range" id="headIn" min="0" max="345" step="15" value="0" disabled><output id="headOut">0°</output></div>
+        <div class="row">
+          <button class="btn" id="turnBtn" disabled>Dich hineindrehen</button>
+        </div>
+        <span class="status" id="topStatus">Blick von oben. Die kupferne Hand ist deine rechte.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Nase</span><span class="val" id="rNose" style="font-size:15px">–</span><span class="formula">du · Bild</span></div>
+        <div><span class="lbl">Kupferne Hand</span><span class="val" id="rHand" style="font-size:15px">–</span><span class="formula">du · Bild</span></div>
+        <div><span class="lbl">Umgekehrt wird</span><span class="val" id="rAxis" style="font-size:15px">–</span><span class="formula">senkrecht zum Spiegel</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Reflexionsgesetz -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Hinter dem Glas <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wo steht dein Spiegelbild?</h2>
+      <p>Licht prallt vom Spiegel ab wie ein Ball von der Bande: Der Winkel hinein ist gleich dem Winkel hinaus. Das ist das <strong>Reflexionsgesetz</strong>. Dein Auge weiss davon nichts. Es nimmt an, das Licht sei geradeaus gekommen.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="rayLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Eine Kerze steht 1 m vor dem Spiegel. Wo scheint ihr Bild zu sein?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Direkt auf der Spiegelfläche, wie ein Foto</span></button>
+          <button data-v="b"><span class="k">b</span><span>1 m hinter dem Spiegel, egal wo du stehst</span></button>
+          <button data-v="c"><span class="k">c</span><span>Hinter dem Spiegel, aber je nach deinem Standort unterschiedlich tief</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Verlängert dein Gehirn die Lichtstrahlen geradeaus nach hinten, treffen sie sich alle in einem Punkt: genau <strong>so weit hinter dem Spiegel, wie die Kerze davor steht</strong>. Dort scheint die Kerze zu stehen, von überall aus gesehen. Man nennt das ein <strong>virtuelles Bild</strong>: Hinter dem Spiegel kommt in Wirklichkeit kein Licht an. Darum musst du die Augen auch auf die doppelte Entfernung scharf stellen, wenn du dich im Spiegel anschaust.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Ein Fotoapparat, der auf den Spiegel scharf stellt, zeigt dein Gesicht unscharf. Er muss auf die doppelte Entfernung fokussieren.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="rayCv" style="height:340px" aria-label="Strahlengang: Licht von einer Kerze wird am Spiegel reflektiert und trifft dein Auge. Gestrichelt die Verlängerung zum Bild hinter dem Spiegel."></canvas>
+        <div class="locked" id="rayLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="candIn">Abstand Kerze</label><input type="range" id="candIn" min="0.3" max="2.4" step="0.1" value="1" disabled><output id="candOut">1,0 m</output></div>
+        <div class="ctrl"><label for="eyeIn">Dein Platz</label><input type="range" id="eyeIn" min="-1.2" max="1.2" step="0.05" value="0.8" disabled><output id="eyeOut">0,80 m</output></div>
+        <div class="row">
+          <button class="btn ghost" id="fanBtn" disabled>Mehr Strahlen</button>
+        </div>
+        <span class="status" id="rayStatus">Verschieb dich und die Kerze. Beobachte die beiden Winkel.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Einfallswinkel</span><span class="val" id="aIn">–</span><span class="formula">zum Lot</span></div>
+        <div><span class="lbl">Ausfallswinkel</span><span class="val" id="aOut">–</span><span class="formula">zum Lot</span></div>
+        <div><span class="lbl">Bild hinter Spiegel</span><span class="val" id="imgD">–</span><span class="formula">= Abstand davor</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Halber Spiegel -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Ganz drauf <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wie gross muss er sein?</h2>
+      <p>Im Laden willst du dich von Kopf bis Fuss sehen. Du bist 1,70 m gross. Muss der Spiegel dann auch 1,70 m hoch sein? Oder hilft es, einfach weiter zurückzutreten?</p>
+      <div class="quiz" data-q="q3" data-correct="a" data-unlock="fullLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie hoch muss ein Wandspiegel mindestens sein, damit du dich ganz siehst?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Halb so hoch wie du, egal wie weit weg du stehst</span></button>
+          <button data-v="b"><span class="k">b</span><span>Genau so hoch wie du</span></button>
+          <button data-v="c"><span class="k">c</span><span>Je weiter weg du stehst, desto kleiner darf er sein</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Der Strahl von deinen Füssen zu deinem Auge trifft den Spiegel genau auf <strong>halber Höhe</strong> zwischen Füssen und Augen. Der Strahl vom Scheitel trifft ihn auf halber Höhe zwischen Scheitel und Augen. Dazwischen liegt immer genau die <strong>halbe Körpergrösse</strong>. Trittst du zurück, wird das Bild zwar kleiner, aber es rückt auch weiter weg, um genau gleich viel. Das hebt sich auf. Der Abstand spielt keine Rolle.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Umfahre dein Gesicht auf einem beschlagenen Badezimmerspiegel mit dem Finger. Der Umriss ist nur halb so gross wie dein Gesicht, egal wie nah du stehst.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="fullCv" style="height:340px" aria-label="Seitenansicht: Eine Person vor einem Wandspiegel, mit den Lichtstrahlen von Kopf und Füssen zum Auge"></canvas>
+        <div class="locked" id="fullLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="distIn">Abstand</label><input type="range" id="distIn" min="0.4" max="3" step="0.1" value="1.2" disabled><output id="distOut">1,2 m</output></div>
+        <div class="ctrl"><label for="lenIn">Spiegelhöhe</label><input type="range" id="lenIn" min="20" max="180" step="5" value="60" disabled><output id="lenOut">60 cm</output></div>
+        <div class="ctrl"><label for="botIn">Unterkante</label><input type="range" id="botIn" min="0" max="140" step="5" value="90" disabled><output id="botOut">90 cm</output></div>
+        <span class="status" id="fullStatus">Du bist 1,70 m gross, deine Augen sind auf 1,58 m.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Du siehst</span><span class="val" id="fSee">–</span><span class="formula">deiner Körpergrösse</span></div>
+        <div><span class="lbl">Sichtbar</span><span class="val" id="fRange" style="font-size:15px">–</span><span class="formula">ab Boden</span></div>
+        <div><span class="lbl">Nötig für alles</span><span class="val" id="fNeed">85 cm</span><span class="formula">Unterkante 79 cm</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Der Spiegel, der nicht vertauscht</h2>
+      <p>Stell zwei Spiegel im rechten Winkel zusammen, wie eine aufgeschlagene Buchecke. Schau genau in die Ecke. Heb die rechte Hand: Dein Bild hebt auch die rechte. Du siehst dich so, wie andere dich sehen. Und dein vertrautes Spiegelgesicht wirkt plötzlich etwas fremd.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1 und an Teil 2. Wie oft wird das Licht hier reflektiert? Und was passiert, wenn man eine Richtung zweimal umkehrt? Bonus: Wie funktioniert ein Periskop im U-Boot?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Im Eckspiegel wird das Licht <strong>zweimal</strong> reflektiert, einmal an jedem Spiegel. Der erste kehrt die Ost-West-Richtung um, der zweite die Nord-Süd-Richtung. Zweimal umkehren ist dasselbe wie eine halbe Drehung. Das Bild ist also nicht gespiegelt, sondern nur <strong>gedreht</strong>, genau wie ein Mensch, der dir gegenübersteht. Darum hebt es die rechte Hand, wenn du die rechte hebst.</p>
+          <p>Bonus: Ein <strong>Periskop</strong> hat zwei Spiegel, beide schräg im 45-Grad-Winkel und parallel zueinander. Der obere lenkt das Licht nach unten, der untere wieder nach vorne. Auch hier wird zweimal gespiegelt, darum ist das Bild weder auf dem Kopf noch seitenverkehrt. So schaut man aus einem U-Boot oder über eine Menschenmenge.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Der Spiegel dreht <em>vorne</em> und hinten um.</h2>
+    <ul class="learned">
+      <li><b>Nur eine Richtung</b><span>Ein Spiegel kehrt die Richtung senkrecht zu ihm um. Links und rechts sieht nur dein Kopf, weil er sich ins Bild hineindreht.</span></li>
+      <li><b>Winkel rein gleich Winkel raus</b><span>Das Bild steht genau so weit hinter dem Spiegel wie das Ding davor. Es ist virtuell: Dort kommt gar kein Licht hin.</span></li>
+      <li><b>Halbe Grösse reicht</b><span>Um dich ganz zu sehen, braucht es einen Spiegel halb so hoch wie du. Der Abstand ist egal.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Weiter →</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/spiegel.js"></script>
+</body>
+</html>
