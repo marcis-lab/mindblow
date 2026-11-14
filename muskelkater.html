@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Muskelkater · mindblow</title>
+<meta name="description" content="Milchsäure ist es nicht: Muskelkater kommt von winzigen Schäden in den Muskelfasern, vor allem beim Bremsen. Und beim zweiten Mal ist er viel schwächer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Körper &amp; Gesundheit</span>
+    <h1>Woher kommt <em>Muskelkater</em>?</h1>
+    <p class="intro">Am Tag nach der Wanderung tut jede Treppe weh. Fast alle sagen: Das ist die Milchsäure. Finde heraus, warum das nicht stimmen kann, was wirklich in deinen Muskeln passiert und warum es beim zweiten Mal viel weniger weh tut.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Nicht Milchsäure -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Der falsche Verdächtige <span class="chip solved-chip">gelöst</span></span>
+      <h2>Die Milchsäure hat ein Alibi</h2>
+      <p>Wenn ein Muskel sehr hart arbeitet, bildet er mehr <strong>Laktat</strong>, im Alltag oft Milchsäure genannt. Nach einem Sprint steigt der Laktatwert im Blut stark an. Lange hielt man Laktat deshalb für die Ursache von Muskelkater.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="timeLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie lange bleibt der Laktatwert nach einem harten Training erhöht?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Ein bis drei Tage. Genau so lange wie der Muskelkater.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Etwa eine Stunde</span></button>
+          <button data-v="c"><span class="k">c</span><span>Mehrere Wochen, bis der Muskel ausgeheilt ist</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Laktat ist nach rund <strong>einer Stunde</strong> wieder auf dem normalen Wert. Der Körper baut es schnell ab oder verbrennt es sogar als Energie. Muskelkater beginnt aber erst nach etwa <strong>12 bis 24 Stunden</strong> und ist nach <strong>1 bis 3 Tagen</strong> am stärksten.</p>
+          <p>Wenn der Schmerz kommt, ist das Laktat also längst weg. Es kann nicht der Täter sein. Das typische Brennen <em>während</em> einer harten Anstrengung ist etwas anderes als Muskelkater. Fahre auf der Zeitachse selbst durch die Tage nach dem Training.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Laktat ist kein Abfall. Herz, Leber und andere Muskeln nehmen es auf und machen daraus wieder Energie oder Zucker. Ein Teil deines Herzens läuft beim Sport also auf «Milchsäure».</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="timeCv" style="height:320px" aria-label="Zeitachse von 0 bis 5 Tage nach dem Training mit zwei Kurven: Laktat fällt in der ersten Stunde ab, Muskelkater steigt erst nach Stunden an und ist nach 1 bis 3 Tagen am stärksten"></canvas>
+        <div class="locked" id="timeLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="tIn">Zeit nach dem Training</label><input type="range" id="tIn" min="0" max="1000" step="1" value="0" disabled><output id="tOut">0 min</output></div>
+        <div class="row">
+          <button class="btn" id="tPlay" disabled>Zeit laufen lassen</button>
+          <button class="btn ghost" id="tHour" disabled>Nach 1 Stunde</button>
+          <button class="btn ghost" id="tDay2" disabled>Nach 2 Tagen</button>
+        </div>
+        <span class="status" id="timeStatus">Direkt nach dem Training: viel Laktat, aber noch kein Muskelkater.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Zeit seit dem Training</span><span class="val" id="rTime">0 min</span><span class="formula">Zeitachse oben</span></div>
+        <div><span class="lbl">Laktat im Blut</span><span class="val" id="rLac">12,0 mmol/l</span><span class="formula">Ruhewert rund 1 mmol/l</span></div>
+        <div><span class="lbl">Muskelkater</span><span class="val" id="rPain">0 von 10</span><span class="formula">vereinfachter Verlauf</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Kleine Risse -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Winzige Schäden <span class="chip solved-chip">gelöst</span></span>
+      <h2>Bremsen ist härter als Heben</h2>
+      <p>Ein Muskel kann auf zwei Arten arbeiten. Beim <strong>Heben</strong> wird er kürzer und zieht. Beim <strong>Bremsen</strong> hält er gegen eine Last und wird dabei trotzdem länger. Das passiert zum Beispiel, wenn du dich langsam hinsetzt oder eine Treppe hinuntergehst.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="fiberLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Du gehst einen Berg hinauf und auf dem gleichen Weg wieder hinunter. Welcher Teil gibt mehr Muskelkater?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Bergauf, weil es viel anstrengender ist</span></button>
+          <button data-v="b"><span class="k">b</span><span>Bergab</span></button>
+          <button data-v="c"><span class="k">c</span><span>Beide gleich viel, die Höhe ist ja dieselbe</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p><strong>Bergab</strong>. Bei jedem Schritt fängst du dein Körpergewicht ab. Die Oberschenkelmuskeln bremsen und werden dabei gedehnt, während sie arbeiten. Fachleute nennen das <strong>exzentrische</strong> Arbeit.</p>
+          <p>Beim Bremsen tragen weniger Muskelfasern die Last, und einzelne Abschnitte werden ungleich stark auseinandergezogen. So entstehen <strong>winzige Schäden</strong> in den Fasern, vor allem an den Z-Scheiben: Sie halten die kleinsten Bausteine des Muskels zusammen, die Sarkomere. In den Tagen danach repariert der Körper die Stellen. Diese Entzündung und Reparatur macht die Nervenenden empfindlich, und das spürst du als Muskelkater (vereinfacht, ganz geklärt ist es noch nicht). Vergleiche selbst.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Bergab verbrauchst du deutlich weniger Energie als bergauf. Du kommst kaum ausser Atem. Trotzdem tun dir danach die Beine mehr weh. Anstrengend fühlt sich eben nicht immer gleich an wie belastend.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="fiberCv" style="height:360px" aria-label="Eine Muskelfaser aus Sarkomeren zieht über eine Rolle an einem Gewicht. Beim Bremsen entstehen Risse an den Z-Scheiben"></canvas>
+        <div class="locked" id="fiberLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="legend" id="modeSel">
+          <span class="eyebrow">Muskel:</span>
+          <button data-m="up" disabled>Hebt (bergauf)</button>
+          <button data-m="down" class="active" disabled>Bremst (bergab)</button>
+        </div>
+        <div class="ctrl"><label for="loadIn">Last</label><input type="range" id="loadIn" min="10" max="100" step="1" value="60" disabled><output id="loadOut">60 %</output></div>
+        <div class="row">
+          <button class="btn ghost" id="fiberReset" disabled>Neuer Muskel</button>
+        </div>
+        <span class="status" id="fiberStatus">Der Muskel bremst das Gewicht beim Absenken. Achte auf die Z-Scheiben.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Der Muskel gerade</span><span class="val" id="fState" style="font-size:15px">locker</span><span class="formula" id="fState2">wartet</span></div>
+        <div><span class="lbl">Wiederholungen</span><span class="val" id="fReps">0</span><span class="formula">seit «Neuer Muskel»</span></div>
+        <div><span class="lbl">Mikrorisse</span><span class="val" id="fTears">0</span><span class="formula">vereinfachtes Modell</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Wiederholungseffekt -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Der Wiederholungseffekt <span class="chip solved-chip">gelöst</span></span>
+      <h2>Der Muskel lernt dazu</h2>
+      <p>Stell dir vor: Du rennst zum ersten Mal seit Langem einen steilen Weg hinunter. Zwei Tage später kommst du kaum die Treppe hinab. Nach einer Woche ist alles wieder gut.</p>
+      <div class="quiz" data-q="q3" data-correct="c" data-unlock="weekLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Eine Woche später rennst du genau denselben Weg genau gleich hinunter. Was passiert?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Gleich starker Muskelkater wie beim ersten Mal</span></button>
+          <button data-v="b"><span class="k">b</span><span>Noch stärker, weil der Muskel schon angeschlagen war</span></button>
+          <button data-v="c"><span class="k">c</span><span>Viel weniger Muskelkater</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Der Muskelkater ist <strong>viel schwächer</strong>, oft nur noch ein Bruchteil. Das heisst <strong>Wiederholungseffekt</strong>. Der Muskel passt sich schon nach einem einzigen Mal an: Die Fasern werden widerstandsfähiger, die Nerven verteilen die Last besser auf viele Fasern, und das Gewebe drumherum wird stabiler (vereinfacht).</p>
+          <p>Der Schutz hält einige Wochen, dann lässt er langsam nach. Wer monatelang Pause macht, bekommt wieder mehr Muskelkater. Probier unten aus, wie die Länge der Pause wirkt. Die Werte sind ein vereinfachtes Modell.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Muskelkater ist kein Gütesiegel für gutes Training. Wer eine Übung regelmässig macht, hat kaum noch welchen und wird trotzdem stärker. Er geht von selbst wieder weg, und leichte Bewegung fühlt sich dabei oft angenehmer an als stillsitzen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="weekCv" style="height:320px" aria-label="Wochen auf der Zeitachse. Nach jedem Training ein Hügel für den Muskelkater, darüber eine gestrichelte Kurve für den Schutz des Muskels"></canvas>
+        <div class="locked" id="weekLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="gapIn">Pause bis zum nächsten Mal</label><input type="range" id="gapIn" min="1" max="24" step="1" value="1" disabled><output id="gapOut">1 Woche</output></div>
+        <div class="row">
+          <button class="btn" id="wTrain" disabled>Bergablauf machen</button>
+          <button class="btn ghost" id="wReset" disabled>Von vorn</button>
+        </div>
+        <span class="status" id="weekStatus">Das erste Training ist eingetragen. Mach das nächste.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Trainings</span><span class="val" id="wN">1</span><span class="formula">gleicher Weg, gleich schnell</span></div>
+        <div><span class="lbl">Letzter Muskelkater</span><span class="val" id="wLast">10 von 10</span><span class="formula">am stärksten Tag</span></div>
+        <div><span class="lbl">Schutz beim nächsten Mal</span><span class="val" id="wProt">65 %</span><span class="formula">vereinfachtes Modell</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum tun nach dem Skitag die Oberschenkel vorne weh?</h2>
+      <p>Nach dem ersten Skitag der Saison spüren viele vor allem die Vorderseite der Oberschenkel. Dabei musst du auf der Piste gar nicht hinauf: Das macht der Lift für dich.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Was machen die Muskeln vorne am Oberschenkel, wenn du in leichter Hocke den Hang hinunterfährst?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Vorne am Oberschenkel sitzt der <strong>Quadrizeps</strong>, der grosse Muskel, der das Knie streckt. Beim Skifahren stehst du mit gebeugten Knien. Der Quadrizeps hält dich in dieser Hocke und <strong>bremst</strong> jede Bewegung ab, die dich tiefer drücken will: in jeder Kurve, auf jeder Bodenwelle, bei jedem Schwung.</p>
+          <p>Das ist fast den ganzen Tag bremsende Arbeit, genau wie beim Bergabgehen. Und weil du sie nur ein paarmal im Jahr machst, fehlt der Wiederholungseffekt. Darum trifft es am ersten Skitag der Saison vor allem diesen Muskel (vereinfacht).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Nicht Säure, sondern <em>Reparatur</em>.</h2>
+    <ul class="learned">
+      <li><b>Laktat ist unschuldig</b><span>Es ist nach rund einer Stunde abgebaut. Muskelkater kommt erst nach Stunden und ist nach 1 bis 3 Tagen am stärksten.</span></li>
+      <li><b>Bremsen schadet mehr</b><span>Bergab, Treppe runter, langsam absetzen: Bremsende Arbeit macht winzige Schäden in den Fasern. Ihre Reparatur tut weh.</span></li>
+      <li><b>Der Muskel lernt</b><span>Nach einem Mal Muskelkater ist dieselbe Übung beim nächsten Mal viel harmloser. Der Schutz hält einige Wochen.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/muskelkater.js"></script>
+</body>
+</html>
