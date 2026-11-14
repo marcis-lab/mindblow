@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Herbstlaub · mindblow</title>
+<meta name="description" content="Das Gelb war schon den ganzen Sommer im Blatt, das Rot entsteht erst im Herbst: warum Bäume ihr Grün abbauen, woher das Rot kommt und warum sie ihre Blätter überhaupt abwerfen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Pflanzen, Tiere &amp; Evolution</span>
+    <h1>Warum werden Blätter im Herbst <em>bunt</em>?</h1>
+    <p class="intro">Jeden Herbst leuchten die Wälder gelb, orange und rot. Viele denken, die Kälte malt die Blätter an. Doch das Gelb war schon den ganzen Sommer da. Und hinter dem Rot steckt Zucker.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Versteckte Farben -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Versteckte Farben <span class="chip solved-chip">gelöst</span></span>
+      <h2>Das Gelb war schon da</h2>
+      <p>Ein Blatt ist eine kleine Zuckerfabrik. Für die Fotosynthese braucht es den grünen Farbstoff <strong>Chlorophyll</strong>. Im Sommer ist eine Birke oder eine Buche deshalb grün. Im Oktober werden ihre Blätter gelb.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="leafLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Woher kommt das Gelb in den Herbstblättern?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Kälte färbt die Blätter gelb</span></button>
+          <button data-v="b"><span class="k">b</span><span>Das Gelb war den ganzen Sommer im Blatt, nur vom Grün verdeckt</span></button>
+          <button data-v="c"><span class="k">c</span><span>Der Baum bildet im Herbst einen neuen gelben Farbstoff</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Das Gelb und Orange stammen von <strong>Carotinoiden</strong>. Sie sitzen den ganzen Sommer im Blatt und helfen bei der Fotosynthese mit. Vom Chlorophyll gibt es aber viel mehr, und es <strong>überdeckt</strong> sie. Im Herbst baut der Baum das Chlorophyll ab. Die Carotinoide baut er langsamer ab. Darum wird das Gelb sichtbar.</p>
+          <p>Den Anstoss gibt vor allem die <strong>kürzere Tageslänge</strong>, nicht die Kälte. Temperatur und Trockenheit beeinflussen nur, wie schnell es geht (vereinfacht). Und warum der Abbau? Chlorophyll und die Eiweisse rundherum enthalten viel <strong>Stickstoff</strong>. Den holt der Baum in Zweige und Stamm zurück, als Vorrat für den Frühling. Blende unten das Grün aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Carotinoide heissen nach der Karotte. Der gleiche Typ Farbstoff macht Rüebli orange und Eidotter gelb. Ein grünes Sommerblatt trägt also die Farbe eines Rüebli in sich, gut versteckt.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="leafCv" style="height:330px" aria-label="Ein Blatt an einem Zweig. Daneben Balken für Chlorophyll, Carotinoide und den zurückgeholten Stickstoff"></canvas>
+        <div class="locked" id="leafLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="wkIn">Datum</label><input type="range" id="wkIn" min="0" max="13" step="0.1" value="0" disabled><output id="wkOut">1. Sep</output></div>
+        <div class="row">
+          <button class="btn" id="leafPlay" disabled>Herbst abspielen</button>
+          <button class="btn ghost" id="hideBtn" disabled>Grün ausblenden</button>
+        </div>
+        <span class="status" id="leafStatus">Schieb das Datum oder blende im Sommer das Grün aus.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Chlorophyll</span><span class="val" id="lChl">100 %</span><span class="formula">grün, im Vergleich zum Sommer</span></div>
+        <div><span class="lbl">Carotinoide</span><span class="val" id="lCar">100 %</span><span class="formula">gelb-orange</span></div>
+        <div><span class="lbl">Stickstoff zurückgeholt</span><span class="val" id="lN">0 %</span><span class="formula">bis rund die Hälfte</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Das Rot -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Rot ist neu <span class="chip solved-chip">gelöst</span></span>
+      <h2>Ahorn im Abendrot</h2>
+      <p>Birken und Buchen werden gelb. Viele Ahorne, Kirschbäume und der Wilde Wein werden dagegen <strong>leuchtend rot</strong>. Und das gleiche Ahornblatt ist in manchen Jahren knallrot, in anderen eher orange.</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="mapleLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Woher kommt das Rot im Ahornblatt?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Es war auch schon im Sommer versteckt, genau wie das Gelb</span></button>
+          <button data-v="b"><span class="k">b</span><span>Das Blatt bildet den roten Farbstoff im Herbst neu</span></button>
+          <button data-v="c"><span class="k">c</span><span>Das Eisen im Blatt rostet</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Das Rot stammt von <strong>Anthocyanen</strong>. Die meisten Bäume bilden sie erst im Herbst, <strong>neu</strong>, während das Grün verschwindet. Der Rohstoff dafür ist Zucker. Darum hängt das Rot vom Wetter ab: An <strong>sonnigen Tagen</strong> macht das Blatt viel Zucker. In <strong>kühlen Nächten</strong> wird der Zucker langsamer weggebracht und bleibt im Blatt (vereinfacht).</p>
+          <p>Wozu der Aufwand? Eine verbreitete Erklärung: Das Rot wirkt wie eine <strong>Sonnencreme</strong>. Es schützt das Blatt vor zu viel Licht, solange der Baum noch Stickstoff zurückholt. Ganz geklärt ist das nicht, Forschende diskutieren auch andere Ideen. Stell unten das Wetter ein.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Auf der Sonnenseite eines Ahorns sind die Blätter oft röter als innen im Schatten. Manchmal findest du sogar ein rotes Blatt mit einem gelben Fleck: Dort lag ein anderes Blatt darüber und warf Schatten.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="mapleCv" style="height:380px" aria-label="Ein Ahorn im Herbst mit Sonne und Thermometer. Je nach Wetter werden seine Blätter gelb, orange oder rot"></canvas>
+        <div class="locked" id="mapleLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="sunIn">Sonne am Tag</label><input type="range" id="sunIn" min="0" max="10" step="1" value="5" disabled><output id="sunOut">5 h</output></div>
+        <div class="ctrl"><label for="ntIn">Temperatur in der Nacht</label><input type="range" id="ntIn" min="-5" max="16" step="1" value="9" disabled><output id="ntOut">9 °C</output></div>
+        <div class="row">
+          <button class="btn ghost" id="wGold" disabled>Goldener Oktober</button>
+          <button class="btn ghost" id="wGrey" disabled>Grau und mild</button>
+          <button class="btn ghost" id="wFrost" disabled>Früher Frost</button>
+        </div>
+        <span class="status" id="mapleStatus">Wie muss das Wetter sein, damit der Ahorn richtig rot wird?</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Zucker im Blatt</span><span class="val" id="mSug">50 %</span><span class="formula">relativ, vereinfacht</span></div>
+        <div><span class="lbl">Anthocyane</span><span class="val" id="mAnt">30 %</span><span class="formula">roter Farbstoff, relativ</span></div>
+        <div><span class="lbl">Der Ahorn wird</span><span class="val" id="mCol" style="font-size:15px">orange</span><span class="formula">von weitem gesehen</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Blätter abwerfen -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Der Winter <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum überhaupt abwerfen?</h2>
+      <p>Über seine Blätter verliert ein Baum ständig Wasser. Eine grosse Buche verdunstet an einem heissen Sommertag oft weit über hundert Liter. Das Wasser holt sie mit den Wurzeln aus dem Boden. Im Winter ist sie dann kahl, die Fichte daneben bleibt grün.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="yearLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Warum verliert die Buche im Herbst ihre Blätter?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Die Blätter erfrieren und fallen dann einfach herunter</span></button>
+          <button data-v="b"><span class="k">b</span><span>Der Baum trennt sie selbst ab, damit er im Winter nicht verdurstet</span></button>
+          <button data-v="c"><span class="k">c</span><span>Die Blätter sind alt, und der Herbstwind reisst sie ab</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Der Baum wirft die Blätter <strong>aktiv</strong> ab. Am Blattstiel bildet er eine <strong>Trennschicht</strong> aus lockeren Zellen. Dort bricht das Blatt ab, und eine Korkschicht verschliesst die Wunde. Ein leichter Windstoss reicht dann.</p>
+          <p>Der Grund ist der Winter. Ist der Boden <strong>gefroren</strong>, kommen die Wurzeln kaum an Wasser. Breite Blätter würden aber weiter verdunsten, und der Baum würde vertrocknen. Dazu kommt der <strong>Schnee</strong>: Auf breiten Blättern bliebe viel davon liegen, und Äste würden brechen. Nadelbäume haben schmale Nadeln mit einer Wachsschicht. Sie verlieren wenig Wasser, und der Schnee rutscht leichter ab. Spiel das Jahr durch.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Die Lärche ist ein Nadelbaum und wirft trotzdem jeden Herbst alle Nadeln ab. Vorher leuchtet sie goldgelb. Sie ist der einzige einheimische Nadelbaum der Schweiz, der das tut.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="yearCv" style="height:340px" aria-label="Eine Buche, eine Fichte und eine Lärche im Lauf eines Jahres, mit Schnee und gefrorenem Boden im Winter"></canvas>
+        <div class="locked" id="yearLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="moIn">Monat</label><input type="range" id="moIn" min="0" max="11.9" step="0.1" value="6.5" disabled><output id="moOut">Juli</output></div>
+        <div class="row">
+          <button class="btn" id="yearPlay" disabled>Jahr abspielen</button>
+          <button class="btn ghost" id="keepBtn" disabled>Was wäre, wenn die Buche ihre Blätter behält?</button>
+        </div>
+        <span class="status" id="yearStatus">Schau, was die drei Bäume im Lauf des Jahres machen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Boden</span><span class="val" id="yGround" style="font-size:15px">Wasser flüssig</span><span class="formula">Wurzeln kommen an Wasser?</span></div>
+        <div><span class="lbl">Buche</span><span class="val" id="yBeech" style="font-size:15px">grüne Blätter</span><span class="formula">Laubbaum</span></div>
+        <div><span class="lbl">Lärche</span><span class="val" id="yLarch" style="font-size:15px">grüne Nadeln</span><span class="formula">Nadelbaum mit Ausnahme</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum leuchtet Kanada röter?</h2>
+      <p>Jeden Herbst reisen Menschen nach Neuengland im Nordosten der USA oder nach Kanada, nur um die Wälder zu sehen. Dort leuchten ganze Hänge feuerrot. Bei uns sind die Wälder im Herbst eher gelb, orange und braun.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Wovon hängt das Rot ab, und welche Bäume bilden es überhaupt?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Vor allem wachsen dort <strong>mehr Baumarten, die Anthocyane bilden</strong>: Zuckerahorn, Rotahorn, Roteichen und viele andere. In unseren Wäldern stehen dagegen viele Buchen, Birken und Eschen. Sie werden gelb oder braun. Dazu kommt das Wetter: Im Nordosten Amerikas gibt es im Herbst oft klare, sonnige Tage und kalte Nächte. Genau das fördert das Rot.</p>
+          <p>Warum gibt es bei uns weniger solche Arten? Eine Vermutung: In den Eiszeiten versperrten die Alpen und das Mittelmeer vielen Baumarten den Rückzug in den warmen Süden, und manche starben in Europa aus. In Nordamerika verlaufen die Gebirge von Norden nach Süden, die Bäume konnten ausweichen. Ob das die ganze Erklärung ist, ist noch offen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Gelb war schon da, <em>Rot</em> ist neu.</h2>
+    <ul class="learned">
+      <li><b>Versteckte Farbe</b><span>Carotinoide sind den ganzen Sommer im Blatt. Wenn der Baum das Chlorophyll abbaut und den Stickstoff zurückholt, wird das Gelb sichtbar.</span></li>
+      <li><b>Rot aus Zucker</b><span>Anthocyane bildet das Blatt im Herbst neu. Sonnige Tage und kühle Nächte machen es besonders rot.</span></li>
+      <li><b>Kahl gegen Durst</b><span>Der Baum trennt die Blätter selbst ab. So verdunstet er im Winter kaum Wasser, und Schnee bricht weniger Äste.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/herbst.js"></script>
+</body>
+</html>
