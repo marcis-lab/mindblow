@@ -684,8 +684,7 @@ h1 em, h2 em, h3 em, .grad {
   border: 1px solid var(--glass-edge); box-shadow: var(--shadow), inset 0 1px 0 var(--glass-edge);
 }
 .brand { font-family: var(--f-sans); font-weight: 300; font-size: 20px; letter-spacing: .005em; align-items: center; gap: 0; }
-.brand::before { content: ""; width: 26px; height: 26px; border-radius: 9px; background: var(--grad); flex: none; margin-right: 10px;
-  -webkit-mask: radial-gradient(circle at 50% 50%, transparent 4px, #000 4.5px); mask: radial-gradient(circle at 50% 50%, transparent 4px, #000 4.5px); }
+.brand::before { content: ""; width: 28px; height: 28px; border-radius: 9px; background: url(../favicon.svg) center / cover no-repeat; flex: none; margin-right: 10px; }
 .brand b { font-family: var(--f-sans); font-style: normal; font-weight: 600; font-size: 1em; letter-spacing: .005em; margin: 0; font-variation-settings: normal; }
 .brand i { display: none; }
 .top nav { background: none; border: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; padding: 0; gap: 8px; }
