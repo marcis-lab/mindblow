@@ -99,7 +99,7 @@ window.MB_THEMEN = {
     { slug: 'treibhaus', b: 'erde', g: 'klima', short: 'Treibhauseffekt', title: 'Wie wärmt <em>CO₂</em> die Erde?', teaser: 'Ein Gas, das nur 0,04 Prozent der Luft ausmacht. Wie kann das den ganzen Planeten wärmen?', tags: 'treibhauseffekt klima co2 klimawandel erwärmung infrarot', added: '2026-11-14' },
     { slug: 'gewitter', b: 'erde', g: 'klima', short: 'Gewitter', title: 'Wie entsteht ein <em>Blitz?</em>', teaser: 'Eiskristalle reiben sich, und plötzlich fliessen 30\'000 Ampere.', tags: 'gewitter blitz donner wetter', added: '2026-11-14' },
     { slug: 'universum', b: 'erde', g: 'weltall', short: 'Universum', title: 'Wie gross ist das <em>Universum?</em>', teaser: 'Von der Ameise bis zur nächsten Galaxie: eine Reise durch dreissig Zehnerpotenzen.', tags: 'universum weltall galaxie sterne lichtjahr grösse', added: '2026-11-13' },
-    { slug: 'schwarzeloecher', b: 'erde', g: 'weltall', soon: true, short: 'Schwarze Löcher', title: 'Was passiert in einem <em>Schwarzen Loch?</em>', teaser: 'Nicht einmal Licht kommt heraus.', tags: 'schwarzes loch weltall gravitation' },
+    { slug: 'schwarzeloecher', b: 'erde', g: 'weltall', short: 'Schwarze Löcher', title: 'Was passiert in einem <em>Schwarzen Loch?</em>', teaser: 'Nicht einmal Licht kommt heraus.', tags: 'schwarzes loch weltall gravitation', added: '2026-11-14' },
     { slug: 'vulkane', b: 'erde', g: 'planet', short: 'Vulkane', title: 'Warum spuckt die Erde <em>Feuer?</em>', teaser: 'Unter deinen Füssen schwimmen Kontinente.', tags: 'vulkan erdbeben platten lava', added: '2026-11-14' },
 
     /* ---------- Technik ---------- */
