@@ -1,4 +1,4 @@
-/* Lexikon-Verbund: verbindet mindblow, timewarp (Weltgeschichte), Periodensystem und Bibel verstehen.
+/* Lexikon-Verbund: verbindet mindblow, timewarp (Weltgeschichte), Periodensystem, Bibel verstehen, soundcheck (Musik) und wordtrip (Sprachen & Schriften).
    Einbinden auf jeder Seite (vor </body>):
      <script src="https://mindblow.thinklabs.workers.dev/lexikon/lexikon.js" data-site="weltgeschichte" defer></script>
    - data-site: welche Seite das ist (id aus SITES).
@@ -13,6 +13,8 @@
     { id: 'weltgeschichte', name: 'timewarp', desc: 'Menschen und Momente der Weltgeschichte', url: 'https://weltgeschichte.thinklabs.workers.dev', c: '#F07A2A' },
     { id: 'periodensystem', name: 'Periodensystem', desc: 'Alle Elemente zum Drehen und Ausprobieren', url: 'https://periodensystem.thinklabs.workers.dev', c: '#0E9EC4' },
     { id: 'bibel', name: 'Bibel verstehen', desc: 'Die ganze Bibel als geführter Weg', url: 'https://bibelerklaert.ch', c: '#A23FE6' },
+    { id: 'musik-lexikon', name: 'soundcheck', desc: 'Musik und Instrumente', url: 'https://musik-lexikon.thinklabs.workers.dev', c: '#14A874' },
+    { id: 'sprachen-schriften', name: 'wordtrip', desc: 'Sprachen, Schriften und Zeichen', url: 'https://sprachen-schriften.thinklabs.workers.dev', c: '#5072FF' },
   ];
   const cur = (me && me.dataset.site) || (SITES.find(s => location.origin === s.url) || {}).id;
   // Seiten, die (noch) nicht zum Lexikon gehören, zeigen keinen Knopf
@@ -32,7 +34,7 @@
   .lx-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px 6px}
   .lx-head b{font-weight:300;font-size:20px}.lx-head b span{font-weight:600;background:linear-gradient(100deg,#FF3D85 10%,#5072FF 75%);-webkit-background-clip:text;background-clip:text;color:transparent}
   .lx-x{border:1px solid rgba(11,11,15,.1);background:none;border-radius:9px;font:500 12px/1 inherit;padding:6px 9px;color:#6b6b78;cursor:pointer;font-family:inherit}
-  .lx-sites{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:8px 18px 12px}
+  .lx-sites{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:8px 18px 12px}
   .lx-site{display:grid;gap:3px;padding:12px;border-radius:16px;text-decoration:none;color:inherit;border:1px solid rgba(11,11,15,.08);background:#F6F6F9;min-width:0}
   .lx-site:hover{border-color:#5072FF}.lx-site.lx-cur{background:#0B0B0F;color:#fff;border-color:#0B0B0F}
   .lx-site i{width:10px;height:10px;border-radius:3px;display:block}

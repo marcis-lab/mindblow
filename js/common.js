@@ -249,7 +249,7 @@ window.MB = (() => {
     });
   }
 
-  /* ---------- Lexikon-Verbund (mindblow, timewarp, Periodensystem, Bibel) ---------- */
+  /* ---------- Lexikon-Verbund (mindblow, timewarp, Periodensystem, Bibel, soundcheck, wordtrip) ---------- */
   {
     const lx = document.createElement('script');
     lx.src = 'lexikon/lexikon.js'; lx.defer = true; lx.dataset.site = 'mindblow';
