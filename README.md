@@ -7,9 +7,11 @@ Jede Lektion: vermuten → ausprobieren → verstehen.
 
 Alle Themen stehen im Register in `js/common.js` (`TOPICS`). Startseite und Navigation werden daraus erzeugt.
 
-- **Technik:** strom, internet, ki, gps, flugzeug, verschluesselung, kuehlschrank
-- **Natur & Universum:** himmel, jahreszeiten, universum, gezeiten, treibhaus, fallen
-- **Körper & Leben:** gedaechtnis, farben, evolution, immunsystem, gehoer
+- **Körper & Gesundheit:** herz, blut, lunge, bewegung, immunsystem, verdauung, farben, gehoer, gedaechtnis, schlaf
+- **Pflanzen, Tiere & Evolution:** fotosynthese, herbst, dna, evolution, zugvoegel, bienen, nahrungsnetz
+- **Physik & Chemie:** fallen, himmel, regenbogen, waerme, atome
+- **Erde & Weltall:** jahreszeiten, gezeiten, mondphasen, treibhaus, gewitter, universum, vulkane
+- **Technik:** strom, kuehlschrank, akku, internet, ki, verschluesselung, computer, gps, flugzeug
 - **Geld & Gesellschaft:** geld, zinseszins, inflation, lotto, stau
 
 ## Lokal starten
