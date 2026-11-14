@@ -783,3 +783,4 @@ footer { font-family: var(--f-sans); }
   .stat b { font-size: 21px; }
 }
 .topic.soon-t h3 em { background: none; color: inherit; -webkit-text-fill-color: currentColor; }
+.think .think-q { color: var(--muted); font-size: 16px; }

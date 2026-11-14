@@ -177,24 +177,16 @@
   <!-- 4: Jetzt du -->
   <section class="step" data-q="q4">
     <div class="text">
-      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
       <h2>Ist das wirklich meine Stimme?</h2>
       <p>Du hörst eine Sprachnachricht von dir selbst und denkst: So klinge ich doch nicht! Die anderen sagen: Doch, genau so.</p>
       <p><strong>Tipp:</strong> Denk an Teil 1 und Teil 3. Schall braucht etwas, das schubst. Was liegt zwischen deinem Kehlkopf und deiner Schnecke ausser Luft?</p>
     </div>
     <div class="lab">
       <div class="think">
-        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
-        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, die Aufnahme klingt fremd, weil …"></textarea>
-        <div class="row">
-          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
-          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
-        </div>
-        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
-        <div class="hint" id="hint" hidden>
-          <span class="eyebrow">Hinweis</span>
-          <p>Wenn du sprichst, schwingt nicht nur die Luft vor deinem Mund. Auch dein Kopf vibriert. Leg die Hand auf deinen Scheitel und summ tief. Auf welchen Wegen kommt deine Stimme also zur Schnecke? Und auf welchem Weg kommt die Aufnahme?</p>
-        </div>
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
         <div class="answer" id="answer" hidden>
           <span class="eyebrow">Auflösung</span>
           <p>Wenn du sprichst, erreicht deine Stimme die Schnecke auf <strong>zwei Wegen</strong>: durch die Luft ins Ohr und direkt durch die <strong>Schädelknochen</strong>. Das nennt man Knochenleitung. Die Knochen leiten vor allem tiefe Töne gut weiter. Darum klingst du für dich selbst tiefer und voller.</p>

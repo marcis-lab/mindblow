@@ -174,24 +174,16 @@
   <!-- 4: Jetzt du -->
   <section class="step" data-q="q4">
     <div class="text">
-      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
       <h2>Wirst du reicher oder ärmer?</h2>
       <p>Du hast 1'000 Fr. auf einem Sparkonto. Die Bank zahlt dir 0,5 % Zins pro Jahr. Die Teuerung liegt bei 2 % pro Jahr. Nach einem Jahr steht mehr auf deinem Konto. Bist du deshalb reicher?</p>
       <p><strong>Tipp:</strong> Denk an Teil 2. Was zählt: die Zahl auf dem Konto oder was du damit kaufen kannst?</p>
     </div>
     <div class="lab">
       <div class="think">
-        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
-        <textarea id="thinkTxt" data-q="q4" placeholder="Ich werde …, weil …"></textarea>
-        <div class="row">
-          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
-          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
-        </div>
-        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
-        <div class="hint" id="hint" hidden>
-          <span class="eyebrow">Hinweis</span>
-          <p>Rechne zwei Dinge aus: Wie viel steht nach einem Jahr auf dem Konto? Und wie viel kostet dann ein Warenkorb, der heute 1'000 Fr. kostet?</p>
-        </div>
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
         <div class="answer" id="answer" hidden>
           <span class="eyebrow">Auflösung</span>
           <p>Auf dem Konto stehen nach einem Jahr <strong>1'005 Fr.</strong> Die Zahl ist grösser. Aber der Warenkorb, der vorher 1'000 Fr. kostete, kostet jetzt <strong>1'020 Fr.</strong> Du kannst dir also weniger kaufen als vorher. Gemessen an den Preisen von heute sind deine 1'005 Fr. nur noch rund <strong>985 Fr.</strong> wert. Du wirst also <strong>ärmer</strong>, obwohl dein Kontostand wächst.</p>

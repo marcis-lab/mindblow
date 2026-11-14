@@ -174,24 +174,16 @@
   <!-- 4: Jetzt du -->
   <section class="step" data-q="q4">
     <div class="text">
-      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
       <h2>Warum keuchst du nach dem Sprint weiter?</h2>
       <p>Du rennst 100 Meter, so schnell du kannst. Im Ziel bleibst du stehen. Deine Muskeln arbeiten nicht mehr. Trotzdem atmest du noch minutenlang schnell und tief.</p>
       <p><strong>Tipp:</strong> Denk an Teil 3. Was muss nach dem Sprint aus dem Körper hinaus, und was muss nachgeliefert werden?</p>
     </div>
     <div class="lab">
       <div class="think">
-        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
-        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, ich atme weiter schnell, weil …"></textarea>
-        <div class="row">
-          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
-          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
-        </div>
-        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
-        <div class="hint" id="hint" hidden>
-          <span class="eyebrow">Hinweis</span>
-          <p>Ein Sprint ist so schnell, dass die Muskeln nicht warten können, bis genug Sauerstoff ankommt. Sie holen Energie auch ohne Sauerstoff. Das hinterlässt etwas. Und: Woran merkt dein Körper eigentlich, wie stark du atmen musst? Am fehlenden Sauerstoff oder an etwas anderem?</p>
-        </div>
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
         <div class="answer" id="answer" hidden>
           <span class="eyebrow">Auflösung</span>
           <p>Beim Sprint holen deine Muskeln einen Teil der Energie <strong>ohne Sauerstoff</strong>. Das geht schnell, aber es leert Energiespeicher in den Muskeln, und es entsteht Säure. Nach dem Sprint muss der Körper die Speicher wieder auffüllen und die Säure abbauen. Dafür braucht er zusätzlichen Sauerstoff. Man nennt das vereinfacht <strong>Sauerstoffschuld</strong>.</p>

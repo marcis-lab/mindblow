@@ -69,25 +69,16 @@ window.MB = (() => {
       if (prev) answer(quiz, prev, true);
     });
 
-    // Selber denken
-    const txt = $('#thinkTxt');
-    if (txt) {
-      const tKey = txt.dataset.q;
-      if (saved.draft) txt.value = saved.draft;
-      const check = () => {
-        const ok = txt.value.trim().split(/\s+/).filter(Boolean).length >= 4;
-        if (!saved.solved[tKey]) $('#ansBtn').disabled = !ok;
-        $('#thinkStatus').textContent = ok ? 'Bereit. Vergleiche jetzt mit der Auflösung.' : 'Schreib mindestens einen Satz, dann kannst du vergleichen.';
-      };
-      txt.addEventListener('input', () => { saved.draft = txt.value; save(); check(); });
-      $('#hintBtn').addEventListener('click', () => { $('#hint').hidden = false; $('#hintBtn').disabled = true; });
+    // Zum Nachdenken: Frage lesen, dann Antwort aufdecken
+    const ansBtn = $('#ansBtn'), ansBox = $('#answer');
+    if (ansBtn && ansBox) {
+      const aKey = ansBtn.dataset.q || 'q4';
       const show = silent => {
-        $('#answer').hidden = false; $('#ansBtn').disabled = true;
-        if (!silent) { saved.solved[tKey] = 'x'; save(); update(); }
+        ansBox.hidden = false; ansBtn.hidden = true;
+        if (!silent) { saved.solved[aKey] = 'x'; save(); update(); }
       };
-      $('#ansBtn').addEventListener('click', () => show());
-      check();
-      if (saved.solved[tKey]) show(true);
+      ansBtn.addEventListener('click', () => show());
+      if (saved.solved[aKey]) show(true);
     }
 
     $('#resetBtn')?.addEventListener('click', () => { store(key, { solved: {} }); location.reload(); });

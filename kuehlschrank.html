@@ -176,24 +176,16 @@
   <!-- 4: Jetzt du -->
   <section class="step" data-q="q4">
     <div class="text">
-      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
       <h2>Heizen mit kalter Luft</h2>
       <p>Eine Wärmepumpe heizt ein Haus mit Wärme aus kalter Winterluft. Draussen hat es minus 5 °C, drinnen sollen es 21 °C sein. Wie kann das gehen? Kalte Luft ist doch kalt.</p>
       <p><strong>Tipp:</strong> Denk an Teil 2 und Teil 3. Was ist eine Wärmepumpe im Grunde?</p>
     </div>
     <div class="lab">
       <div class="think">
-        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
-        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, die Wärmepumpe …, weil …"></textarea>
-        <div class="row">
-          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
-          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
-        </div>
-        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
-        <div class="hint" id="hint" hidden>
-          <span class="eyebrow">Hinweis</span>
-          <p>Ein Kühlschrank holt Wärme aus einem Raum, der schon kalt ist, und gibt sie an einen wärmeren ab. Was wäre, wenn sein «Innen» die Winterluft ist und sein «Hinten» deine Heizung? Und wie kalt kann das Kältemittel bei tiefem Druck werden?</p>
-        </div>
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
         <div class="answer" id="answer" hidden>
           <span class="eyebrow">Auflösung</span>
           <p>Eine Wärmepumpe ist ein <strong>umgedrehter Kühlschrank</strong>. Draussen steht der Verdampfer. Bei tiefem Druck kocht das Kältemittel dort zum Beispiel bei minus 15 °C. Die Winterluft mit minus 5 °C ist also <strong>wärmer</strong> als das Kältemittel, und Wärme fliesst hinein. Auch kalte Luft enthält viel Wärme. Ganz weg wäre sie erst bei minus 273 °C.</p>

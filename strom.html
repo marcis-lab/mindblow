@@ -188,24 +188,16 @@
   <!-- 4: Selber denken -->
   <section class="step" data-q="q4">
     <div class="text">
-      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
       <h2>Warum überleben Vögel auf der Hochspannungsleitung?</h2>
       <p>Durch die Leitung fliessen Tausende Ampere bei bis zu 380'000 Volt. Trotzdem sitzen Vögel seelenruhig darauf. Du weisst jetzt genug, um das selbst zu erklären.</p>
       <p><strong>Tipp:</strong> Denk an Teil 2. Was braucht es, damit Strom überhaupt fliesst?</p>
     </div>
     <div class="lab">
       <div class="think">
-        <label class="eyebrow" for="thinkTxt">Deine Erklärung, in eigenen Worten</label>
-        <textarea id="thinkTxt" data-q="q4" placeholder="Ich glaube, der Vogel überlebt, weil …"></textarea>
-        <div class="row">
-          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
-          <button class="btn" id="ansBtn" disabled>Auflösung vergleichen</button>
-        </div>
-        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
-        <div class="hint" id="hint" hidden>
-          <span class="eyebrow">Hinweis</span>
-          <p>Strom fliesst nur, wenn es zwischen zwei Punkten einen <strong>Unterschied</strong> in der Spannung gibt. Wo stehen die beiden Füsse des Vogels?</p>
-        </div>
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
         <div class="answer" id="answer" hidden>
           <span class="eyebrow">Auflösung</span>
           <p>Beide Füsse stehen auf demselben Draht, also auf fast derselben Spannung. Zwischen den Füssen gibt es kaum einen Unterschied, also fliesst praktisch kein Strom durch den Vogel. Gefährlich wird es erst, wenn er gleichzeitig zwei Leitungen oder Leitung und Mast berührt. Dann entsteht ein Kreis, und der Strom fliesst durch ihn hindurch.</p>

@@ -175,24 +175,16 @@
   <!-- 4: Jetzt du -->
   <section class="step" data-q="q4">
     <div class="text">
-      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
       <h2>Schloss heisst nicht ehrlich</h2>
       <p>Viele Leute denken: Wenn im Browser ein Schloss neben der Adresse steht, ist die Seite sicher. Warum ist das Schloss kein Beweis, dass du einer Seite vertrauen kannst?</p>
       <p><strong>Tipp:</strong> Denk an Teil 3. Mit wem genau vereinbart dein Browser den geheimen Schlüssel?</p>
     </div>
     <div class="lab">
       <div class="think">
-        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
-        <textarea id="thinkTxt" data-q="q4" placeholder="Das Schloss zeigt nur, dass …, aber nicht, dass …"></textarea>
-        <div class="row">
-          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
-          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
-        </div>
-        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
-        <div class="hint" id="hint" hidden>
-          <span class="eyebrow">Hinweis</span>
-          <p>Stell dir vor, Eva baut eine eigene Seite, die genau wie deine Bank aussieht. Kann sie mit dir auch einen geheimen Schlüssel vereinbaren? Wovor schützt dich dann die Verschlüsselung noch?</p>
-        </div>
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
         <div class="answer" id="answer" hidden>
           <span class="eyebrow">Auflösung</span>
           <p>Das Schloss sagt nur zwei Dinge: Die Verbindung ist <strong>verschlüsselt</strong>, und die Seite hat ein gültiges <strong>Zertifikat für genau diese Adresse</strong>. Niemand unterwegs kann also mitlesen oder sich dazwischenschalten. Ob am anderen Ende jemand Ehrliches sitzt, sagt das Schloss nicht.</p>

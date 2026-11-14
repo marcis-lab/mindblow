@@ -174,24 +174,16 @@
   <!-- 4: Jetzt du -->
   <section class="step" data-q="q4">
     <div class="text">
-      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
       <h2>Siehst du am Nachthimmel die Gegenwart?</h2>
       <p>Du stehst in einer klaren Nacht auf einem Hügel, weit weg von den Lichtern der Stadt. Über dir funkeln Tausende Sterne, und als heller Nebelfleck vielleicht sogar die Andromeda-Galaxie.</p>
       <p><strong>Tipp:</strong> Denk an Teil 2 und daran, wie lange Licht unterwegs ist.</p>
     </div>
     <div class="lab">
       <div class="think">
-        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
-        <textarea id="thinkTxt" data-q="q4" placeholder="Wenn ich in den Nachthimmel schaue, sehe ich …"></textarea>
-        <div class="row">
-          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
-          <button class="btn" id="ansBtn" disabled>Auflösung zeigen</button>
-        </div>
-        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
-        <div class="hint" id="hint" hidden>
-          <span class="eyebrow">Hinweis</span>
-          <p>Sonnenlicht ist 8 Minuten alt, wenn es bei dir ankommt. Wie alt ist dann das Licht von Proxima Centauri, 4,24 Lichtjahre entfernt? Und das Licht der Andromeda-Galaxie, 2,5 Millionen Lichtjahre entfernt?</p>
-        </div>
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
         <div class="answer" id="answer" hidden>
           <span class="eyebrow">Auflösung</span>
           <p>Nein, du siehst die <strong>Vergangenheit</strong>. Den Mond siehst du, wie er vor gut einer Sekunde war, die Sonne vor gut 8 Minuten, den hellen Stern Sirius vor 8,6 Jahren und die Andromeda-Galaxie vor rund <strong>2,5 Millionen Jahren</strong>. Damals gab es noch keine Menschen.</p>

@@ -174,24 +174,16 @@
   <!-- 4: Jetzt du -->
   <section class="step" data-q="q4">
     <div class="text">
-      <span class="eyebrow">Teil 4 · Jetzt du <span class="chip solved-chip">gelöst</span></span>
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
       <h2>Warum ist exponentielles Wachstum für unser Gefühl so schwer einzuschätzen?</h2>
       <p>Bei Fragen wie in Teil 1 bis 3 schätzen die meisten Menschen viel zu tief. Woran liegt das?</p>
       <p><strong>Tipp:</strong> Denk an Teil 1. Wie viel hattest du nach 20 von 30 Tagen?</p>
     </div>
     <div class="lab">
       <div class="think">
-        <label class="eyebrow" for="thinkTxt">Deine Antwort, in eigenen Worten</label>
-        <textarea id="thinkTxt" data-q="q4" placeholder="Es ist schwer einzuschätzen, weil …"></textarea>
-        <div class="row">
-          <button class="btn ghost" id="hintBtn">Hinweis zeigen</button>
-          <button class="btn" id="ansBtn" disabled>Mit der Auflösung vergleichen</button>
-        </div>
-        <span class="status" id="thinkStatus">Schreib mindestens einen Satz, dann kannst du vergleichen.</span>
-        <div class="hint" id="hint" hidden>
-          <span class="eyebrow">Hinweis</span>
-          <p>Wenn du jeden Tag einen Schritt gehst, kommst du jeden Tag gleich weit. Was ist anders, wenn jeder Schritt doppelt so lang ist wie der vorherige?</p>
-        </div>
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
         <div class="answer" id="answer" hidden>
           <span class="eyebrow">Auflösung</span>
           <p>Unser Gefühl rechnet <strong>linear</strong>: jeden Tag gleich viel dazu. Beim exponentiellen Wachstum kommt aber jedes Mal ein <strong>fester Anteil</strong> dazu, und der wird mit dem Betrag immer grösser. Darum passiert lange fast nichts, und dann plötzlich sehr viel.</p>
