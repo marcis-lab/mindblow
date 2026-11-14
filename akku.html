@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Akku · mindblow</title>
+<meta name="description" content="Ein Akku speichert keinen Strom, sondern chemische Energie: Lithium-Ionen pendeln zwischen Graphit und Metalloxid. Wie viel Energie drin ist, warum er altert und warum er in der Kälte schlappmacht.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Technik</span>
+    <h1>Wie speichert ein Akku <em>Strom</em>?</h1>
+    <p class="intro">Du steckst dein Handy jeden Abend ein. Aber was ist eigentlich drin, wenn der Akku «voll» ist? Eigentlich speichert er gar keinen Strom.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Lithium-Ionen pendeln -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Was steckt drin? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Zwei Seiten und dazwischen eine Wand</h2>
+      <p>Ein Lithium-Ionen-Akku hat zwei Seiten. Die <strong>Anode</strong> ist der Minuspol und besteht aus Graphit, also Schichten aus Kohlenstoff. Die <strong>Kathode</strong> ist der Pluspol, meist ein Metalloxid. Dazwischen liegt ein flüssiger <strong>Elektrolyt</strong> mit einer dünnen Folie, dem Separator. Durch ihn kommen Lithium-Ionen, aber keine Elektronen.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="cellLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was ist in einem vollen Akku gespeichert?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Strom. Elektronen warten darin wie Wasser in einem Tank.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Chemische Energie. Lithium wurde an einen Ort geschoben, wo es eigentlich nicht bleiben will.</span></button>
+          <button data-v="c"><span class="k">c</span><span>Wärme, die beim Entladen wieder in Strom verwandelt wird</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Beim <strong>Laden</strong> schiebt das Ladegerät Lithium-Ionen aus der Kathode in den Graphit der Anode. Dort sitzen sie mit viel Energie, ähnlich wie ein gespannter Bogen (vereinfacht). Beim <strong>Entladen</strong> wandern sie durch den Elektrolyt zurück zur Kathode.</p>
+          <p>Ihre Elektronen dürfen nicht durch den Separator. Sie müssen <strong>aussen herum</strong>, durch dein Gerät. Dieser Umweg ist der Strom, der dein Handy betreibt. Probier es aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>Ein voller Akku enthält genau gleich viele Elektronen wie ein leerer. Sie sitzen nur an einem anderen Ort. Schwerer wird er beim Laden übrigens auch, wegen Einsteins E = mc². Aber nur um weniger als ein Milliardstel Gramm.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="cellCv" style="height:310px" aria-label="Querschnitt durch einen Akku: Lithium-Ionen wandern zwischen Anode und Kathode, Elektronen fliessen aussen durch ein Gerät"></canvas>
+        <div class="locked" id="cellLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="row">
+          <button class="btn ghost" id="chgBtn" disabled>Laden</button>
+          <button class="btn ghost" id="disBtn" disabled>Entladen</button>
+        </div>
+        <span class="status" id="cellStatus">Der Akku ist halb voll. Lade ihn oder lass dein Gerät laufen.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Ladezustand</span><span class="val" id="cSoc">50 %</span><span class="formula">Lithium in der Anode</span></div>
+        <div><span class="lbl">Ionen in der Anode</span><span class="val" id="cIons">10 von 20</span><span class="formula">Modell mit 20 Ionen</span></div>
+        <div><span class="lbl">Zellspannung</span><span class="val" id="cVolt">3,8 V</span><span class="formula">eine Zelle, vereinfacht</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Wie viel Energie -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Wie viel passt hinein? <span class="chip solved-chip">gelöst</span></span>
+      <h2>Volt mal Amperestunden</h2>
+      <p>Wie viel Energie ein Akku fasst, misst man in <strong>Wattstunden (Wh)</strong>. Die Rechnung ist einfach: <strong>Spannung mal Ladung</strong>. Ein Handy-Akku hat rund 3,8 Volt und etwa 4 bis 5 Amperestunden (auf der Packung oft 4'000 bis 5'000 mAh). Das ergibt rund <strong>15 bis 20 Wh</strong>.</p>
+      <div class="quiz" data-q="q2" data-correct="c" data-unlock="energyLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Ein E-Auto-Akku fasst rund 60 kWh. Wie vielen Handy-Akkus entspricht das?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Etwa 30</span></button>
+          <button data-v="b"><span class="k">b</span><span>Etwa 300</span></button>
+          <button data-v="c"><span class="k">c</span><span>Mehrere tausend</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>60 kWh sind <strong>60'000 Wh</strong>. Geteilt durch rund 17 Wh pro Handy-Akku ergibt das etwa <strong>3'500 Handy-Akkus</strong>. Je nach Auto sind es rund 50 bis 80 kWh. Kein Wunder, wiegt so ein Akku mehrere hundert Kilo.</p>
+          <p>Stell unten selbst ein, wie gross die Akkus sind, und schau, wie lange eine Lampe damit leuchtet.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Ein Haushalt in der Schweiz braucht grob 10 bis 15 kWh Strom pro Tag. Ein voller E-Auto-Akku könnte eine Wohnung also rund 4 bis 6 Tage lang versorgen.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="energyCv" style="height:320px" aria-label="Ein E-Auto-Akku als Raster aus vielen kleinen Handy-Akkus, darunter eine Lampe mit Leuchtdauer"></canvas>
+        <div class="locked" id="energyLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="mahIn">Handy-Akku</label><input type="range" id="mahIn" min="3000" max="6000" step="100" value="4500" disabled><output id="mahOut">4'500 mAh</output></div>
+        <div class="ctrl"><label for="kwhIn">E-Auto-Akku</label><input type="range" id="kwhIn" min="40" max="100" step="5" value="60" disabled><output id="kwhOut">60 kWh</output></div>
+        <div class="legend" id="lampSel">
+          <span class="eyebrow">Lampe:</span>
+          <button data-l="led" class="active" disabled>LED (rund 8 W)</button>
+          <button data-l="bulb" disabled>Glühbirne (60 W)</button>
+        </div>
+        <span class="status" id="energyStatus">Beide Lampen sind etwa gleich hell.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Handy-Akku</span><span class="val" id="eWh">17,1 Wh</span><span class="formula" id="eWhF">3,8 V × 4,5 Ah</span></div>
+        <div><span class="lbl">E-Auto-Akku entspricht</span><span class="val" id="eN">3'509</span><span class="formula">Handy-Akkus</span></div>
+        <div><span class="lbl">Lampe mit E-Auto-Akku</span><span class="val" id="eT">10 Monate</span><span class="formula" id="eTF">60'000 Wh ÷ 8 W</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Alterung -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Warum Akkus altern <span class="chip solved-chip">gelöst</span></span>
+      <h2>Jedes Mal ein bisschen weniger</h2>
+      <p>Nach ein paar Jahren hält dein Handy kaum noch einen Tag durch. Der Grund: Bei jedem Ladezyklus gehen ein paar Lithium-Ionen verloren. Sie bleiben zum Beispiel in einer dünnen Schicht an der Anode hängen (vereinfacht). Beim Hin und Her fehlen sie dann, und die <strong>Kapazität</strong> sinkt.</p>
+      <div class="quiz" data-q="q3" data-correct="b" data-unlock="ageLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Was setzt einem Lithium-Akku besonders zu?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Ihn zu laden, bevor er leer ist. Er «merkt» sich das und wird kleiner.</span></button>
+          <button data-v="b"><span class="k">b</span><span>Hitze und lange Zeit ganz voll bei 100 %</span></button>
+          <button data-v="c"><span class="k">c</span><span>Nichts. Er altert nur mit den Jahren, egal wie man ihn benutzt.</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Den «Memory-Effekt» gab es bei alten Nickel-Cadmium-Akkus. Lithium-Akkus haben ihn praktisch nicht. Zwischendurch nachladen ist kein Problem.</p>
+          <p>Was sie stresst, sind <strong>Hitze</strong> und <strong>lange Zeit ganz voll</strong> (und auch ganz leer). Darum laden viele Geräte gern im mittleren Bereich, etwa zwischen 20 und 80 %, oder bieten an, nur bis 80 % zu laden. Wie viel das bringt, hängt vom Akku ab. Spiel mit dem Modell.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Ein Akku altert auch, wenn du ihn gar nicht benutzt. Am schnellsten, wenn er voll und warm in der Schublade liegt. Zum Lagern ist er halb voll und kühl am besten aufgehoben.</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="ageCv" style="height:310px" aria-label="Diagramm: Kapazität des Akkus über viele Ladezyklen, abhängig von Temperatur und Ladebereich"></canvas>
+        <div class="locked" id="ageLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="tempIn">Temperatur</label><input type="range" id="tempIn" min="10" max="45" step="1" value="25" disabled><output id="tempOut">25 °C</output></div>
+        <div class="legend" id="rangeSel">
+          <span class="eyebrow">Ladebereich:</span>
+          <button data-r="0" class="active" disabled>0 bis 100 %</button>
+          <button data-r="1" disabled>10 bis 90 %</button>
+          <button data-r="2" disabled>20 bis 80 %</button>
+        </div>
+        <span class="status" id="ageStatus">Modell, stark vereinfacht. Echte Akkus unterscheiden sich stark.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Nach 500 Zyklen</span><span class="val" id="aAfter">83 %</span><span class="formula">Kapazität übrig</span></div>
+        <div><span class="lbl">80 % erreicht nach</span><span class="val" id="a80">600 Zyklen</span><span class="formula">im Modell</span></div>
+        <div><span class="lbl">Lebensdauer</span><span class="val" id="aCmp">× 1,0</span><span class="formula">gegenüber 0 bis 100 %, 25 °C</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum wird dein Handy-Akku in der Kälte so schnell leer?</h2>
+      <p>Ein Wintertag auf der Skipiste. Eben zeigte dein Handy noch 40 %, dann geht es plötzlich aus. Später, in der warmen Hütte, startet es wieder und zeigt rund 30 %. Wo war die Energie?</p>
+      <p><strong>Tipp:</strong> Denk an Teil 1. Was muss im Akku wandern, damit Strom fliesst?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>In der Kälte läuft die <strong>Chemie langsamer</strong>. Der Elektrolyt wird zäher, die Lithium-Ionen kommen schlechter voran, und der Widerstand im Akku steigt. Will das Handy Strom ziehen, <strong>sinkt die Spannung</strong> stark. Fällt sie unter eine Grenze, schaltet sich das Handy zum Schutz ab, obwohl noch Lithium in der Anode sitzt.</p>
+          <p>Die Energie ist also meist nicht weg. Sie kommt nur nicht schnell genug heraus. Wird der Akku wieder warm, ist die Ladung meist wieder da. Darum hilft es, das Handy in einer Innentasche nah am Körper zu tragen. Und einen eiskalten Akku lädst du besser erst, wenn er wieder warm ist (vereinfacht).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Kein Tank, sondern ein <em>Hin und Her</em>.</h2>
+    <ul class="learned">
+      <li><b>Lithium pendelt</b><span>Beim Laden wandern Lithium-Ionen in den Graphit, beim Entladen zurück. Ihre Elektronen nehmen den Weg aussen durch dein Gerät.</span></li>
+      <li><b>Wh = V × Ah</b><span>Ein Handy-Akku hat rund 15 bis 20 Wh. Ein E-Auto-Akku entspricht mehreren tausend davon.</span></li>
+      <li><b>Kühl und mittig</b><span>Hitze und lange Zeit bei 100 % lassen einen Akku schneller altern. In der Kälte ist die Energie meist nur blockiert, nicht weg.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/akku.js"></script>
+</body>
+</html>

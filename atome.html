@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Atome · mindblow</title>
+<meta name="description" content="Rund 30 Mal halbieren bis zum Atom, ein Kern wie eine Erbse im Stadion und Trilliarden Atome in einem Wassertropfen: wie klein Atome sind und warum sie fast leer sind.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">mind<b>blow</b><i></i></a>
+    <nav></nav>
+  </header>
+</div>
+
+<main class="wrap">
+  <section class="lesson-head">
+    <a class="back" href="index.html">← Alle Themen</a>
+    <span class="eyebrow">Physik &amp; Chemie</span>
+    <h1>Wie klein ist ein <em>Atom</em>?</h1>
+    <p class="intro">Alles um dich herum besteht aus Atomen: die Luft, dein Stuhl, du selbst. Finde heraus, wie winzig sie sind, warum sie fast nur aus Leere bestehen und wie viele davon in einem einzigen Wassertropfen stecken.</p>
+    <div class="progress"><div class="bar"><div id="progBar"></div></div><span class="mono" id="progText">0 von 4 Denkaufgaben gelöst</span></div>
+  </section>
+
+  <!-- 1: Halbieren -->
+  <section class="step" data-q="q1">
+    <div class="text">
+      <span class="eyebrow">Teil 1 · Immer wieder halbieren <span class="chip solved-chip">gelöst</span></span>
+      <h2>Wie oft kann man halbieren?</h2>
+      <p>Nimm einen Streifen Alufolie, <strong>10 Zentimeter</strong> lang. Schneide ihn in der Mitte durch. Nimm eine Hälfte und schneide wieder. Und wieder. Irgendwann bleibt nur noch ein einzelnes Aluminium-Atom übrig. Kleiner geht es nicht, ohne dass es kein Aluminium mehr ist.</p>
+      <div class="quiz" data-q="q1" data-correct="b" data-unlock="cutLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie oft musst du den Streifen halbieren, bis nur noch ein Atom übrig ist?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Rund 10 Mal</span></button>
+          <button data-v="b"><span class="k">b</span><span>Rund 30 Mal</span></button>
+          <button data-v="c"><span class="k">c</span><span>Rund eine Million Mal</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Nur <strong>rund 30 Mal</strong>. Ein Aluminium-Atom ist etwa <strong>0,3 Nanometer</strong> breit. Das sind 0,0000003 Millimeter. Jedes Halbieren macht das Stück halb so lang. Nach 10 Schnitten ist es schon über 1'000 Mal kürzer (2¹⁰ = 1'024), nach 20 Schnitten über eine Million Mal, nach 30 über eine Milliarde Mal.</p>
+          <p>Die Rechnung: 10 cm geteilt durch 0,3 nm ergibt rund 330 Millionen. So oft passt ein Atom in den Streifen. Und 2²⁸ ist etwa 270 Millionen, 2²⁹ etwa 540 Millionen. Also sind es etwa <strong>28 bis 29 Schnitte</strong>. Mit einer Schere schaffst du allerdings nur etwa 7 oder 8. Probier es unten aus.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Ein Haar ist rund 0,07 mm dick. Legst du Atome nebeneinander, brauchst du etwa 300'000 Stück, um die Breite eines einzigen Haars zu überbrücken (vereinfacht, Haare sind verschieden dick).</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="cutCv" style="height:340px" aria-label="Ein Streifen Alufolie wird immer wieder halbiert. Darunter eine Skala von 10 Zentimetern bis zum Atom mit Haar, Bakterium, Virus und Molekül"></canvas>
+        <div class="locked" id="cutLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="row">
+          <button class="btn" id="cutBtn" disabled>Halbieren</button>
+          <button class="btn ghost" id="undoBtn" disabled>Zurück</button>
+          <button class="btn ghost" id="cutReset" disabled>Neuer Streifen</button>
+        </div>
+        <span class="status" id="cutStatus">Ein Klick ist ein Schnitt. Die Skala unten zeigt, wo du gerade bist.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Schnitte</span><span class="val" id="cN">0</span><span class="formula">jedes Mal die Hälfte</span></div>
+        <div><span class="lbl">Länge des Stücks</span><span class="val" id="cLen">10 cm</span><span class="formula">10 cm ÷ 2 hoch Schnitte</span></div>
+        <div><span class="lbl">Etwa so gross wie</span><span class="val" id="cLike" style="font-size:15px">ein Finger</span><span class="formula">Vergleich, gerundet</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: Fast nur Leere -->
+  <section class="step" data-q="q2">
+    <div class="text">
+      <span class="eyebrow">Teil 2 · Fast nur Leere <span class="chip solved-chip">gelöst</span></span>
+      <h2>Eine Erbse im Stadion</h2>
+      <p>Jedes Atom hat in der Mitte einen <strong>Kern</strong> aus Protonen und Neutronen. Darum herum sind die <strong>Elektronen</strong>. Der Kern trägt fast die ganze Masse. Aber wie viel Platz nimmt er ein?</p>
+      <div class="quiz" data-q="q2" data-correct="b" data-unlock="zoomLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Stell dir ein Atom so gross wie ein Fussballstadion vor. Wie gross wäre dann sein Kern?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>So gross wie das Spielfeld in der Mitte</span></button>
+          <button data-v="b"><span class="k">b</span><span>So gross wie eine Erbse</span></button>
+          <button data-v="c"><span class="k">c</span><span>So gross wie ein Fussball</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Eine <strong>Erbse</strong>. Der Kern ist je nach Atom rund <strong>20'000 bis 100'000 Mal kleiner</strong> als das ganze Atom. Beim Wasserstoff sind es etwa 60'000. Dazwischen ist nichts Festes. Ein Atom ist also fast vollständig leer.</p>
+          <p>In Schulbüchern kreisen die Elektronen oft wie Planeten auf Bahnen um den Kern. <strong>So ist es nicht.</strong> Ein Elektron hat keinen festen Weg. Man kann nur sagen, wo man es wie wahrscheinlich antrifft. Darum zeichnet man eine <strong>Elektronenwolke</strong>: Wo sie dicht ist, findet man das Elektron oft (vereinfacht). Zoom unten selbst bis zum Kern.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Mindblow</span>
+        <p>Mehr als 99,9 Prozent der Masse eines Atoms steckt im winzigen Kern. Könnte man alle Leere aus den Atomen aller Menschen auf der Erde pressen, wäre der Rest etwa so gross wie ein Zuckerwürfel. Er würde aber so viel wiegen wie alle Menschen zusammen (vereinfacht).</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="zoomCv" style="height:380px" aria-label="Ein Wasserstoff-Atom als Elektronenwolke. Mit dem Regler zoomst du bis zum winzigen Kern in der Mitte"></canvas>
+        <div class="locked" id="zoomLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="zIn">Zoom</label><input type="range" id="zIn" min="0" max="1000" step="1" value="0" disabled><output id="zOut">×1</output></div>
+        <div class="row">
+          <button class="btn" id="zPlay" disabled>Zum Kern fliegen</button>
+          <button class="btn ghost" id="planetBtn" disabled>Planetenmodell zeigen</button>
+        </div>
+        <span class="status" id="zoomStatus">Ein Wasserstoff-Atom: ein Proton als Kern und ein Elektron. Jeder Punkt zeigt, wo das Elektron gerade angetroffen werden könnte.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Bildbreite</span><span class="val" id="zW">320 pm</span><span class="formula">so breit ist der Ausschnitt</span></div>
+        <div><span class="lbl">Kern im Bild</span><span class="val" id="zK" style="font-size:15px">unsichtbar</span><span class="formula">Proton, rund 1,7 fm breit</span></div>
+        <div><span class="lbl">Ganzes Atom wäre</span><span class="val" id="zA">3 cm</span><span class="formula">breit auf deinem Bildschirm</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: Wie viele Atome -->
+  <section class="step" data-q="q3">
+    <div class="text">
+      <span class="eyebrow">Teil 3 · Unvorstellbar viele <span class="chip solved-chip">gelöst</span></span>
+      <h2>Atome in einem Tropfen</h2>
+      <p>Ein Wassertropfen aus einer Pipette hat etwa <strong>0,05 Milliliter</strong>. Er besteht aus Wassermolekülen. Jedes davon hat drei Atome: zwei Wasserstoff und ein Sauerstoff, H₂O. Welche Atome es sonst noch gibt, siehst du im <a href="https://periodensystem.thinklabs.workers.dev">Periodensystem</a>.</p>
+      <div class="quiz" data-q="q3" data-correct="c" data-unlock="dropLock">
+        <span class="eyebrow q-label">Deine Vermutung</span>
+        <p class="q">Wie viele Atome stecken in einem einzigen Wassertropfen?</p>
+        <div class="opts">
+          <button data-v="a"><span class="k">a</span><span>Rund 8 Milliarden, etwa so viele wie Menschen auf der Erde</span></button>
+          <button data-v="b"><span class="k">b</span><span>Rund 5 Billionen, eine 5 mit 12 Nullen</span></button>
+          <button data-v="c"><span class="k">c</span><span>Rund 5 Trilliarden, eine 5 mit 21 Nullen</span></button>
+        </div>
+        <div class="reveal" hidden>
+          <p class="verdict"></p>
+          <p>Rund <strong>5 Trilliarden</strong>: 5'000'000'000'000'000'000'000 Atome. So rechnet man: 0,05 ml Wasser wiegen 0,05 g. Ein Mol Wasser wiegt 18 g und enthält rund 6 × 10²³ Moleküle. Das ergibt 0,05 ÷ 18 × 6 × 10²³ ≈ 1,7 × 10²¹ Moleküle. Mal 3 Atome pro Molekül sind das etwa <strong>5 × 10²¹ Atome</strong>.</p>
+          <p>Zum Vergleich: Seit dem Urknall sind erst rund 4 × 10¹⁷ Sekunden vergangen. Ein Tropfen hat über 10'000 Mal mehr Atome. Versuch unten, sie zu zählen.</p>
+        </div>
+      </div>
+      <div class="factbox">
+        <span class="eyebrow">Kurios</span>
+        <p>In jedem Glas Wasser, das du trinkst, sind sehr wahrscheinlich einige Wassermoleküle, die schon durch einen Dinosaurier geflossen sind. Es gibt einfach so viele Moleküle, dass sie sich in Millionen Jahren über die ganze Erde verteilen (vereinfacht).</p>
+      </div>
+    </div>
+    <div class="lab">
+      <div class="stage">
+        <canvas id="dropCv" style="height:340px" aria-label="Ein Wassertropfen mit Zähler. Darunter eine Skala von 1 bis 10 hoch 22, auf der markiert ist, wie weit du schon gezählt hast"></canvas>
+        <div class="locked" id="dropLock">Wähle oben eine Antwort, um zu starten</div>
+      </div>
+      <div class="controls">
+        <div class="ctrl"><label for="vIn">Tropfen</label><input type="range" id="vIn" min="0" max="1000" step="1" value="259" disabled><output id="vOut">0,05 ml</output></div>
+        <div class="ctrl"><label for="sIn">Zähltempo</label><input type="range" id="sIn" min="0" max="9" step="1" value="0" disabled><output id="sOut">1 / s</output></div>
+        <div class="row">
+          <button class="btn ghost" id="allBtn" disabled>Alle Menschen zählen mit</button>
+          <button class="btn ghost" id="dropReset" disabled>Neu zählen</button>
+        </div>
+        <span class="status" id="dropStatus">Du zählst ein Atom pro Sekunde. Schau, wie weit du kommst.</span>
+      </div>
+      <div class="readout">
+        <div><span class="lbl">Atome im Tropfen</span><span class="val" id="dN">5,0 × 10²¹</span><span class="formula">ml ÷ 18 × 6,02 × 10²³ × 3</span></div>
+        <div><span class="lbl">Zählen dauert</span><span class="val" id="dT" style="font-size:15px">–</span><span class="formula">ohne Pause, Tag und Nacht</span></div>
+        <div><span class="lbl">Im Vergleich</span><span class="val" id="dU" style="font-size:15px">–</span><span class="formula">Universum: rund 13,8 Mrd. Jahre</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: Zum Nachdenken -->
+  <section class="step" data-q="q4">
+    <div class="text">
+      <span class="eyebrow">Teil 4 · Zum Nachdenken <span class="chip solved-chip">gelöst</span></span>
+      <h2>Warum fällst du nicht durch den Stuhl?</h2>
+      <p>Deine Atome sind fast leer. Die Atome des Stuhls auch. Trotzdem sitzt du darauf, als wäre er ganz massiv. Eigentlich müssten die winzigen Kerne doch aneinander vorbeirutschen.</p>
+      <p><strong>Tipp:</strong> Denk an Teil 2. Was sitzt ganz aussen an jedem Atom, und welche Ladung hat es?</p>
+    </div>
+    <div class="lab">
+      <div class="think">
+        <span class="eyebrow">Frage zum Schluss</span>
+        <p class="think-q">Überleg kurz selbst. Dann schau dir die Antwort an.</p>
+        <button class="btn" id="ansBtn" data-q="q4">Antwort zeigen</button>
+        <div class="answer" id="answer" hidden>
+          <span class="eyebrow">Auflösung</span>
+          <p>Aussen an jedem Atom sitzt die <strong>Elektronenwolke</strong>, und Elektronen sind <strong>negativ geladen</strong>. Gleiche Ladungen stossen sich ab. Kommen sich die Atome deiner Hose und die Atome des Stuhls sehr nahe, drücken sich ihre Elektronenwolken gegenseitig weg. Diese elektrische Kraft ist viel stärker als dein Gewicht, das dich nach unten zieht.</p>
+          <p>Du berührst den Stuhl also nie wirklich. Du schwebst auf einem winzigen Polster aus Abstossung (vereinfacht). Genau genommen hilft noch eine Regel der Quantenphysik mit: Elektronen lassen sich nicht beliebig eng zusammenpressen. Das Ergebnis ist dasselbe: Leere Atome fühlen sich fest an.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrapup">
+    <span class="eyebrow">Was du jetzt weisst</span>
+    <h2>Winzig, leer und <em>unzählbar</em>.</h2>
+    <ul class="learned">
+      <li><b>30 Mal halbieren</b><span>Ein Atom ist rund 0,3 Nanometer breit. Von 10 cm bis dorthin reichen etwa 30 Schnitte.</span></li>
+      <li><b>Fast nur Leere</b><span>Der Kern ist zehntausende Male kleiner als das Atom. Die Elektronen bilden eine Wolke, keine Planetenbahnen.</span></li>
+      <li><b>Unvorstellbar viele</b><span>Ein Wassertropfen hat rund 5 × 10²¹ Atome. Zählen würde viel länger dauern, als es das Universum gibt.</span></li>
+    </ul>
+    <div class="row">
+      <a class="btn" href="index.html">Zu allen Themen</a>
+      <button class="btn ghost" id="resetBtn">Lektion zurücksetzen</button>
+    </div>
+  </section>
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>mindblow — wie die Welt funktioniert</span>
+    <a href="index.html">Alle Themen</a>
+  </footer>
+</div>
+
+<script src="js/themen.js"></script>
+<script src="js/common.js"></script>
+<script src="js/atome.js"></script>
+</body>
+</html>
