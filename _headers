@@ -1,3 +1,6 @@
 /lexikon.json
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=600
+/design/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=300
