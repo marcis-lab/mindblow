@@ -788,3 +788,15 @@ footer { font-family: var(--f-sans); }
 .top .lx-btn { background: none; border: 0; box-shadow: none; padding: 7px 12px 7px 8px; font-size: 15px; color: var(--ink-2); -webkit-backdrop-filter: none; backdrop-filter: none; }
 .top .lx-btn:hover { background: var(--sunk); color: var(--fg); }
 @media (max-width: 640px) { .top .lx-btn { font-size: 0; gap: 0; padding: 8px; } }
+
+/* Handy-Tempo: Auf dem Handy stehen die Farbwolken still und werden ohne Live-Weichzeichner gezeichnet (weicher Rand per Maske).
+   Sonst muss das Handy Wolken und Glas in jedem Bild neu berechnen: Seite lädt langsam und ruckelt. */
+@media (pointer: coarse) {
+  .ambient i {
+    filter: none !important; animation: none !important; transform: scale(1.35) !important;
+    -webkit-mask-image: radial-gradient(closest-side, #000 0%, rgba(0,0,0,.6) 45%, transparent 100%);
+    mask-image: radial-gradient(closest-side, #000 0%, rgba(0,0,0,.6) 45%, transparent 100%);
+  }
+  .grain { animation: none !important; }
+  .glass, .top { -webkit-backdrop-filter: blur(12px) saturate(160%) !important; backdrop-filter: blur(12px) saturate(160%) !important; }
+}
